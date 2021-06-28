@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body></body>
+    <script>
+        function getPropertiesFromURL() {
+            var props = {};
+
+            var propertyString = window.location.hash || window.location.search;
+
+            if( propertyString ) {
+
+                propertyString = ( typeof propertyString === 'string' ) && propertyString.slice(1);
+
+                if( propertyString ) {
+
+                    propertyString
+                        .split('&')
+                        .forEach(function(prop) {
+
+                            var key = prop.split('=')[0], value = prop.split('=')[1];
+
+                            props[key] = value;
+                        });
+                }
+            }
+
+            return props;
+        }
+
+        function setAccessToken() {
+
+            var hashProps = getPropertiesFromURL();
+
+            if(hashProps) {
+
+                for( var key in hashProps) {
+
+                    if( hashProps.hasOwnProperty(key)) {
+
+                        var value = ( key === 'api_domain' ) ? decodeURIComponent(hashProps[key]) : hashProps[key];
+
+                        localStorage.setItem(key, value);
+                    }
+                }
+            }
+
+            setTimeout(function() { window.close(); }, 0);
+        }
+        setAccessToken();
+    </script>
+</html>
