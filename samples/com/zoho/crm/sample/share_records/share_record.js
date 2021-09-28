@@ -1,13 +1,11 @@
-class ShareRecord{
-
+class ShareRecord {
     /**
      * <h3> Get Shared Record Details </h3>
-	 * This method is used to get the details of a shared record and print the response.
+     * This method is used to get the details of a shared record and print the response.
      * @param {String} moduleAPIName The API Name of the module to get shared record details.
      * @param {BigInt} recordId The ID of the record to be obtain shared information
      */
     static async getSharedRecordDetails(moduleAPIName, recordId) {
-
         //example
         //let moduleAPIName = "Contacts";
         //let recordId = 34096432112011n;
@@ -26,13 +24,12 @@ class ShareRecord{
         //Call getSharedRecordDetails method that takes ParameterMap instance as parameter
         let response = await sharedRecordsOperations.getSharedRecordDetails(paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -40,125 +37,122 @@ class ShareRecord{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-                //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.ShareRecord.Model.ResponseWrapper){
-
+            if (responseObject != null) {
+                //Check if expected ResponseWrapper instance is received 
+                if (responseObject instanceof ZCRM.ShareRecord.Model.ResponseWrapper) {
                     //Get the array of obtained ShareRecord instances
                     let shareRecords = responseObject.getShare();
 
                     shareRecords.forEach(shareRecord => {
-						//Get the ShareRelatedRecords of each ShareRecord
-						console.log("ShareRecord ShareRelatedRecords: " + shareRecord.getShareRelatedRecords().toString());
+                        //Get the ShareRelatedRecords of each ShareRecord
+                        console.log("ShareRecord ShareRelatedRecords: " + shareRecord.getShareRelatedRecords().toString());
 
-						//Get the SharedThrough instance of each ShareRecord
-						let sharedThrough = shareRecord.getSharedThrough();
+                        //Get the SharedThrough instance of each ShareRecord
+                        let sharedThrough = shareRecord.getSharedThrough();
 
-						//Check if sharedThrough is not null
-						if(sharedThrough != null){
+                        //Check if sharedThrough is not null
+                        if (sharedThrough != null) {
                             //Get the EntityName of the SharedThrough
                             console.log("ShareRecord SharedThrough EntityName: " + sharedThrough.getEntityName());
 
-							let module = sharedThrough.getModule();
+                            let module = sharedThrough.getModule();
 
-							if(module != null){
-								//Get the ID of the Module
-								console.log("ShareRecord SharedThrough Module ID: " + module.getId().toString());
+                            if (module != null) {
+                                //Get the ID of the Module
+                                console.log("ShareRecord SharedThrough Module ID: " + module.getId().toString());
 
-								//Get the name of the Module
-								console.log("ShareRecord SharedThrough Module Name: " + module.getName());
-							}
+                                //Get the name of the Module
+                                console.log("ShareRecord SharedThrough Module Name: " + module.getName());
+                            }
 
-							//Get the ID of the SharedThrough
-							console.log("ShareRecord SharedThrough ID: " + sharedThrough.getId());
+                            //Get the ID of the SharedThrough
+                            console.log("ShareRecord SharedThrough ID: " + sharedThrough.getId());
                         }
 
                         //Get the SharedTime of each ShareRecord
                         console.log("ShareRecord SharedTime: " + shareRecord.getSharedTime().toString());
 
-						//Get the Permission of each ShareRecord
+                        //Get the Permission of each ShareRecord
                         console.log("ShareRecord Permission: " + shareRecord.getPermission().toString());
 
                         //Get the sharedBy of each ShareRecord
                         let sharedBy = shareRecord.getSharedBy();
 
-                        if(sharedBy != null) {
+                        if (sharedBy != null) {
                             //Get the ID of the  User
-							console.log("ShareRecord SharedBy-ID: " + sharedBy.getId());
+                            console.log("ShareRecord SharedBy-ID: " + sharedBy.getId());
 
-							//Get the FullName of the  User
-							console.log("ShareRecord SharedBy-FullName: " + sharedBy.getFullName());
+                            //Get the FullName of the  User
+                            console.log("ShareRecord SharedBy-FullName: " + sharedBy.getFullName());
 
-							//Get the Zuid of the  User
-							console.log("ShareRecord SharedBy-Zuid: " + sharedBy.getZuid());
+                            //Get the Zuid of the  User
+                            console.log("ShareRecord SharedBy-Zuid: " + sharedBy.getZuid());
                         }
 
-						//Get the shared User instance of each ShareRecord
-						let user = shareRecord.getUser();
+                        //Get the shared User instance of each ShareRecord
+                        let user = shareRecord.getUser();
 
-						//Check if user is not null
-						if(user != null){
-							//Get the ID of the shared User
-							console.log("ShareRecord User-ID: " + user.getId());
+                        //Check if user is not null
+                        if (user != null) {
+                            //Get the ID of the shared User
+                            console.log("ShareRecord User-ID: " + user.getId());
 
-							//Get the FullName of the shared User
-							console.log("ShareRecord User-FullName: " + user.getFullName());
+                            //Get the FullName of the shared User
+                            console.log("ShareRecord User-FullName: " + user.getFullName());
 
-							//Get the Zuid of the shared User
-							console.log("ShareRecord User-Zuid: " + user.getZuid());
-						}
+                            //Get the Zuid of the shared User
+                            console.log("ShareRecord User-Zuid: " + user.getZuid());
+                        }
                     });
 
                     let shareableUsers = responseObject.getShareableUser();
 
-                    if(shareableUsers != null){
+                    if (shareableUsers != null) {
                         shareableUsers.forEach(shareableUser => {
-							//Get the ID of the shareable User
-							console.log("Shareable User User-ID: " + shareableUser.getId());
+                            //Get the ID of the shareable User
+                            console.log("Shareable User User-ID: " + shareableUser.getId());
 
-							//Get the FullName of the shareable User
-							console.log("Shareable User User-FullName: " + shareableUser.getFullName());
+                            //Get the FullName of the shareable User
+                            console.log("Shareable User User-FullName: " + shareableUser.getFullName());
 
-							//Get the Zuid of the shareable User
-							console.log("Shareable User User-Zuid: " + shareableUser.getZuid());
+                            //Get the Zuid of the shareable User
+                            console.log("Shareable User User-Zuid: " + shareableUser.getZuid());
                         });
                     }
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.ShareRecord.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.ShareRecord.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
      * <h3> Share Record </h3>
-	 * This method is used to share the record and print the response.
+     * This method is used to share the record and print the response.
      * @param {String} moduleAPIName The API Name of the module to share record.
      * @param {BigInt} recordId The ID of the record to be shared
      */
-    static async shareRecord(moduleAPIName, recordId){
-
+    static async shareRecord(moduleAPIName, recordId) {
         //example
         //let moduleAPIName = "Contacts";
         // let recordId = 34096432112011n;
@@ -172,8 +166,7 @@ class ShareRecord{
         //Array to hold ShareRecord instances
         let shareRecordArray = [];
 
-        for(let i = 0; i < 10; i++)
-		{
+        for (let i = 0; i < 10; i++) {
             //Get instance of ShareRecord Class
             let shareRecord = new ZCRM.ShareRecord.Model.ShareRecord();
 
@@ -187,14 +180,14 @@ class ShareRecord{
             let user = new ZCRM.User.Model.User();
 
             //Set User ID
-            user.setId(34770615791024n);
+            user.setId(3477061000005791024n);
 
             //Set the User instance to user
             shareRecord.setUser(user);
 
             //Add the instance to array
             shareRecordArray.push(shareRecord);
-		}
+        }
 
         //Set the array to share of BodyWrapper instance
         request.setShare(shareRecordArray);
@@ -202,27 +195,22 @@ class ShareRecord{
         //Call shareRecord method that takes BodyWrapper instance as parameter
         let response = await sharedRecordsOperations.shareRecord(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-                //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.ShareRecord.Model.ActionWrapper){
-
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received 
+                if (responseObject instanceof ZCRM.ShareRecord.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getShare();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -234,7 +222,7 @@ class ShareRecord{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -243,8 +231,7 @@ class ShareRecord{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.ShareRecord.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.ShareRecord.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -256,7 +243,7 @@ class ShareRecord{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -268,8 +255,7 @@ class ShareRecord{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.ShareRecord.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.ShareRecord.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -281,7 +267,7 @@ class ShareRecord{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -296,12 +282,11 @@ class ShareRecord{
 
     /**
      * <h3> Update Share Permissions </h3>
-	 * This method is used to update the sharing permissions of a record granted to users as Read-Write, Read-only, or grant full access.
+     * This method is used to update the sharing permissions of a record granted to users as Read-Write, Read-only, or grant full access.
      * @param {String} moduleAPIName The API Name of the module to update share permissions.
      * @param {BigInt} recordId The ID of the record
      */
-    static async updateSharePermissions(moduleAPIName, recordId){
-
+    static async updateSharePermissions(moduleAPIName, recordId) {
         //example
         //let moduleAPIName = "Contacts";
         // let recordId = 34096432112011n;
@@ -342,27 +327,22 @@ class ShareRecord{
         //Call updateSharePermissions method that takes BodyWrapper instance as parameter
         let response = await sharedRecordsOperations.updateSharePermissions(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-                //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.ShareRecord.Model.ActionWrapper){
-
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received 
+                if (responseObject instanceof ZCRM.ShareRecord.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getShare();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -374,7 +354,7 @@ class ShareRecord{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -383,8 +363,7 @@ class ShareRecord{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.ShareRecord.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.ShareRecord.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -396,7 +375,7 @@ class ShareRecord{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -408,8 +387,7 @@ class ShareRecord{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.ShareRecord.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.ShareRecord.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -421,7 +399,7 @@ class ShareRecord{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -436,12 +414,11 @@ class ShareRecord{
 
     /**
      * <h3> Revoke Shared Record </h3>
-	 * This method is used to revoke access to a shared record that was shared to users and print the response.
+     * This method is used to revoke access to a shared record that was shared to users and print the response.
      * @param {String} moduleAPIName The API Name of the module to revoke shared record.
      * @param {BigInt} recordId The ID of the record
      */
-    static async revokeSharedRecord(moduleAPIName, recordId){
-
+    static async revokeSharedRecord(moduleAPIName, recordId) {
         //example
         //let moduleAPIName = "Contacts";
         // let recordId = 34096432112011n;
@@ -452,22 +429,19 @@ class ShareRecord{
         //Call revokeSharedRecord method
         let response = await shareRecordsOperations.revokeSharedRecord();
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-                //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.ShareRecord.Model.DeleteActionWrapper){
-
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received 
+                if (responseObject instanceof ZCRM.ShareRecord.Model.DeleteActionWrapper) {
                     let deleteActionResponse = responseObject.getShare();
 
-                    if(deleteActionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse){
+                    if (deleteActionResponse instanceof ZCRM.ShareRecord.Model.SuccessResponse) {
                         console.log("Status: " + deleteActionResponse.getStatus().getValue());
 
                         console.log("Code: " + deleteActionResponse.getCode().getValue());
@@ -476,7 +450,7 @@ class ShareRecord{
 
                         let details = deleteActionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -484,7 +458,7 @@ class ShareRecord{
 
                         console.log("Message: " + deleteActionResponse.getMessage().getValue());
                     }
-                    else if(actionResponse instanceof ZCRM.ShareRecord.Model.APIException){
+                    else if (actionResponse instanceof ZCRM.ShareRecord.Model.APIException) {
                         console.log("Status: " + deleteActionResponse.getStatus().getValue());
 
                         console.log("Code: " + deleteActionResponse.getCode().getValue());
@@ -493,7 +467,7 @@ class ShareRecord{
 
                         let details = deleteActionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -503,8 +477,7 @@ class ShareRecord{
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.ShareRecord.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.ShareRecord.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -516,7 +489,7 @@ class ShareRecord{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });

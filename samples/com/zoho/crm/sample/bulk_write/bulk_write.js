@@ -1,13 +1,11 @@
-class BulkWrite{
-
+class BulkWrite {
     /**
      * <h3> Upload File</h3>
      * This method is used to upload a CSV file in ZIP format for bulk write API. The response contains the file_id.
      * Use this ID while making the bulk write request.
      * @param {String} orgID The unique ID (zgid) of your organization obtained through the Organization API.
      */
-    static async uploadFile(orgID){
-
+    static async uploadFile(orgID) {
         //example
         //let orgID = "xxxxxx";
 
@@ -19,7 +17,7 @@ class BulkWrite{
 
         /** StreamWrapper can be initialized in any of the following ways */
 
-        var filesToLoad  = document.getElementById("bulk_write").files;
+        var filesToLoad = document.getElementById("bulk_write").files;
 
         var file = filesToLoad[0];
 
@@ -43,19 +41,16 @@ class BulkWrite{
         //Call uploadFile method that takes FileBodyWrapper instance and headerInstance as parameter
         let response = await bulkWriteOperations.uploadFile(fileBodyWrapper, headerInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if the request is successful
-                if(responseObject instanceof ZCRM.BulkWrite.Model.SuccessResponse){
-
+                if (responseObject instanceof ZCRM.BulkWrite.Model.SuccessResponse) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -67,7 +62,7 @@ class BulkWrite{
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -77,56 +72,55 @@ class BulkWrite{
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.BulkWrite.Model.APIException){
-
-                    if(responseObject.getStatus() != null) {
+                else if (responseObject instanceof ZCRM.BulkWrite.Model.APIException) {
+                    if (responseObject.getStatus() != null) {
                         //Get the Status
                         console.log("Status: " + responseObject.getStatus().getValue());
                     }
 
-                    if(responseObject.getCode() != null) {
+                    if (responseObject.getCode() != null) {
                         //Get the Code
                         console.log("Code: " + responseObject.getCode().getValue());
                     }
 
                     console.log("Details");
 
-                    if(responseObject.getDetails() != null) {
+                    if (responseObject.getDetails() != null) {
                         //Get the details map
                         let details = responseObject.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
                         }
                     }
 
-                    if(responseObject.getErrorMessage() != null) {
+                    if (responseObject.getErrorMessage() != null) {
                         //Get the Error Message
                         console.log("Error Message: " + responseObject.getErrorMessage().getValue());
                     }
 
                     //Get the ErrorCode
-					console.log("ErrorCode: " + responseObject.getErrorCode());
+                    console.log("ErrorCode: " + responseObject.getErrorCode());
 
-					if(responseObject.getXError() != null) {
-						//Get the XError
-						console.log("XError: " + responseObject.getXError().getValue());
-					}
+                    if (responseObject.getXError() != null) {
+                        //Get the XError
+                        console.log("XError: " + responseObject.getXError().getValue());
+                    }
 
-					if(responseObject.getInfo() != null) {
-						//Get the Info
-						console.log("Info: " + responseObject.getInfo().getValue());
-					}
+                    if (responseObject.getInfo() != null) {
+                        //Get the Info
+                        console.log("Info: " + responseObject.getInfo().getValue());
+                    }
 
-					if(responseObject.getXInfo() != null) {
-						//Get the XInfo
-						console.log("XInfo: " + responseObject.getXInfo().getValue());
-					}
+                    if (responseObject.getXInfo() != null) {
+                        //Get the XInfo
+                        console.log("XInfo: " + responseObject.getXInfo().getValue());
+                    }
 
-					//Get the HttpStatus
-					console.log("HttpStatus: " + responseObject.getHttpStatus());
+                    //Get the HttpStatus
+                    console.log("HttpStatus: " + responseObject.getHttpStatus());
 
                 }
             }
@@ -139,11 +133,10 @@ class BulkWrite{
      * @param {String} moduleAPIName The API Name of the module.
      * @param {String} fileId The ID of the uploaded file to create BulkWrite Job.
      */
-    static async createBulkWriteJob(moduleAPIName, fileId){
-
+    static async createBulkWriteJob(moduleAPIName, fileId) {
         //example
-		//let moduleAPIName = "Leads";
-        //let fileId  = "34770616121001";
+        //let moduleAPIName = "Leads";
+        //let fileId  = "3477061000006121001";
 
         //Get instance of BulkWriteOperations Class
         let bulkWriteOperations = new ZCRM.BulkWrite.Operations();
@@ -249,19 +242,16 @@ class BulkWrite{
         //Call createBulkWriteJob method that takes RequestWrapper instance as parameter
         let response = await bulkWriteOperations.createBulkWriteJob(requestWrapper);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if the request is successful
-                if(responseObject instanceof ZCRM.BulkWrite.Model.SuccessResponse){
-
+                if (responseObject instanceof ZCRM.BulkWrite.Model.SuccessResponse) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -273,11 +263,9 @@ class BulkWrite{
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
-
-                            if(details.get(key) instanceof ZCRM.User.Model.User) {
-
+                            if (details.get(key) instanceof ZCRM.User.Model.User) {
                                 console.log(key + ": ");
 
                                 console.log("User ID : " + details.get(key).getId());
@@ -294,8 +282,7 @@ class BulkWrite{
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.BulkWrite.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.BulkWrite.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -307,7 +294,7 @@ class BulkWrite{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -325,8 +312,7 @@ class BulkWrite{
      * This method is used to get the details of a bulk write job performed previously.
      * @param {BigInt} jobId The unique ID of the bulk write job.
      */
-    static async getBulkWriteJobDetails(jobId){
-
+    static async getBulkWriteJobDetails(jobId) {
         //example
         //let jobId = 34770615615003n;
 
@@ -336,13 +322,12 @@ class BulkWrite{
         //Call getBulkWriteJobDetails method that takes jobId as parameter
         let response = await bulkWriteOperations.getBulkWriteJobDetails(jobId);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -350,124 +335,122 @@ class BulkWrite{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected BulkWriteResponse instance is received.
-                if(responseObject instanceof ZCRM.BulkWrite.Model.BulkWriteResponse){
-					//Get the Job Status of each bulkWriteResponse
-					console.log("Bulk write Job Status: " + responseObject.getStatus());
+                if (responseObject instanceof ZCRM.BulkWrite.Model.BulkWriteResponse) {
+                    //Get the Job Status of each bulkWriteResponse
+                    console.log("Bulk write Job Status: " + responseObject.getStatus());
 
-					//Get the CharacterEncoding of each bulkWriteResponse
-					console.log(responseObject.getCharacterEncoding());
+                    //Get the CharacterEncoding of each bulkWriteResponse
+                    console.log(responseObject.getCharacterEncoding());
 
-					let resources = responseObject.getResource();
+                    let resources = responseObject.getResource();
 
-					if(resources != null){
+                    if (resources != null) {
                         resources.forEach(resource => {
-							//Get the Status of each Resource
-							console.log("Bulk write Resource Status: " + resource.getStatus().getValue());
+                            //Get the Status of each Resource
+                            console.log("Bulk write Resource Status: " + resource.getStatus().getValue());
 
-							//Get the Type of each Resource
-							console.log("Bulk write Resource Type: " + resource.getType().getValue());
+                            //Get the Type of each Resource
+                            console.log("Bulk write Resource Type: " + resource.getType().getValue());
 
-							//Get the Module of each Resource
-							console.log("Bulk write Resource Module: " + resource.getModule());
+                            //Get the Module of each Resource
+                            console.log("Bulk write Resource Module: " + resource.getModule());
 
-							let fieldMappings = resource.getFieldMappings();
+                            let fieldMappings = resource.getFieldMappings();
 
-							if(fieldMappings != null){
+                            if (fieldMappings != null) {
                                 fieldMappings.forEach(fieldMapping => {
-									//Get the APIName of each FieldMapping
-									console.log("Bulk write Resource FieldMapping Module: " + fieldMapping.getAPIName());
+                                    //Get the APIName of each FieldMapping
+                                    console.log("Bulk write Resource FieldMapping Module: " + fieldMapping.getAPIName());
 
-									if(fieldMapping.getIndex() != null){
-										//Get the Index of each FieldMapping
-										console.log("Bulk write Resource FieldMapping Inded: " +fieldMapping.getIndex().toString());
-									}
+                                    if (fieldMapping.getIndex() != null) {
+                                        //Get the Index of each FieldMapping
+                                        console.log("Bulk write Resource FieldMapping Inded: " + fieldMapping.getIndex().toString());
+                                    }
 
-									if(fieldMapping.getFormat() != null){
-										//Get the Format of each FieldMapping
-										console.log("Bulk write Resource FieldMapping Format: " + fieldMapping.getFormat());
-									}
+                                    if (fieldMapping.getFormat() != null) {
+                                        //Get the Format of each FieldMapping
+                                        console.log("Bulk write Resource FieldMapping Format: " + fieldMapping.getFormat());
+                                    }
 
-									if(fieldMapping.getFindBy() != null){
-										//Get the FindBy of each FieldMapping
-										console.log("Bulk write Resource FieldMapping FindBy: " + fieldMapping.getFindBy());
-									}
+                                    if (fieldMapping.getFindBy() != null) {
+                                        //Get the FindBy of each FieldMapping
+                                        console.log("Bulk write Resource FieldMapping FindBy: " + fieldMapping.getFindBy());
+                                    }
 
-									if(fieldMapping.getDefaultValue() != null){
+                                    if (fieldMapping.getDefaultValue() != null) {
                                         Array.from(fieldMapping.getDefaultValue().keys()).forEach(key => {
                                             console.log(key + ": " + fieldMapping.getDefaultValue().get(key));
                                         });
-									}
+                                    }
                                 });
-							}
+                            }
 
-							let file = resource.getFile();
+                            let file = resource.getFile();
 
-							if(file != null){
-								//Get the Status of the File
-								console.log("Bulk write Resource File Status: " + file.getStatus().getValue());
+                            if (file != null) {
+                                //Get the Status of the File
+                                console.log("Bulk write Resource File Status: " + file.getStatus().getValue());
 
-								//Get the Name of the File
-								console.log("Bulk write Resource File Name: " + file.getName());
+                                //Get the Name of the File
+                                console.log("Bulk write Resource File Name: " + file.getName());
 
-								//Get the AddedCount of the File
-								console.log("Bulk write Resource File AddedCount: " + file.getAddedCount().toString());
+                                //Get the AddedCount of the File
+                                console.log("Bulk write Resource File AddedCount: " + file.getAddedCount().toString());
 
-								//Get the SkippedCount of the File
-								console.log("Bulk write Resource File SkippedCount: " + file.getSkippedCount().toString());
+                                //Get the SkippedCount of the File
+                                console.log("Bulk write Resource File SkippedCount: " + file.getSkippedCount().toString());
 
-								//Get the UpdatedCount of the File
-								console.log("Bulk write Resource File UpdatedCount: " + file.getUpdatedCount().toString());
+                                //Get the UpdatedCount of the File
+                                console.log("Bulk write Resource File UpdatedCount: " + file.getUpdatedCount().toString());
 
-								//Get the TotalCount of the File
-								console.log("Bulk write Resource File TotalCount: " + file.getTotalCount().toString());
-							}
+                                //Get the TotalCount of the File
+                                console.log("Bulk write Resource File TotalCount: " + file.getTotalCount().toString());
+                            }
                         });
                     }
 
                     let callback = responseObject.getCallback();
 
-					if(callback != null) {
-						//Get the CallBack Url
-						console.log("Bulk write CallBack Url: " + callback.getUrl());
+                    if (callback != null) {
+                        //Get the CallBack Url
+                        console.log("Bulk write CallBack Url: " + callback.getUrl());
 
-						//Get the CallBack Method
-						console.log("Bulk write CallBack Method: " + callback.getMethod().getValue());
-					}
-
-					//Get the ID of each BulkWriteResponse
-					console.log("Bulk write ID: " + responseObject.getId().toString());
-
-					let result = responseObject.getResult();
-
-					if(result != null){
-						//Get the DownloadUrl of the Result
-						console.log("Bulk write DownloadUrl: " + result.getDownloadUrl());
+                        //Get the CallBack Method
+                        console.log("Bulk write CallBack Method: " + callback.getMethod().getValue());
                     }
 
-					//Get the CreatedBy User instance of each BulkWriteResponse
-					let createdBy = responseObject.getCreatedBy();
+                    //Get the ID of each BulkWriteResponse
+                    console.log("Bulk write ID: " + responseObject.getId().toString());
 
-					//Check if createdBy is not null
-					if(createdBy != null){
-						//Get the ID of the CreatedBy User
-						console.log("Bulkwrite Created By User-ID: " + createdBy.getId());
+                    let result = responseObject.getResult();
 
-						//Get the Name of the CreatedBy User
-						console.log("Bulkwrite Created By user-Name: " + createdBy.getName());
-					}
+                    if (result != null) {
+                        //Get the DownloadUrl of the Result
+                        console.log("Bulk write DownloadUrl: " + result.getDownloadUrl());
+                    }
 
-					//Get the Operation of each BulkWriteResponse
-					console.log("Bulk write Operation: " + responseObject.getOperation());
+                    //Get the CreatedBy User instance of each BulkWriteResponse
+                    let createdBy = responseObject.getCreatedBy();
 
-					//Get the CreatedTime of each BulkWriteResponse
-					console.log("Bulk write File CreatedTime: " + responseObject.getCreatedTime().toString());
+                    //Check if createdBy is not null
+                    if (createdBy != null) {
+                        //Get the ID of the CreatedBy User
+                        console.log("Bulkwrite Created By User-ID: " + createdBy.getId());
+
+                        //Get the Name of the CreatedBy User
+                        console.log("Bulkwrite Created By user-Name: " + createdBy.getName());
+                    }
+
+                    //Get the Operation of each BulkWriteResponse
+                    console.log("Bulk write Operation: " + responseObject.getOperation());
+
+                    //Get the CreatedTime of each BulkWriteResponse
+                    console.log("Bulk write File CreatedTime: " + responseObject.getCreatedTime().toString());
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.BulkWrite.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.BulkWrite.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -479,7 +462,7 @@ class BulkWrite{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -497,10 +480,9 @@ class BulkWrite{
      * This method is used to download the result of bulk write job.
      * @param {String} downloadUrl The URL present in the download_url key in the response of Get Bulk Write Job Details.
      */
-    static async downloadBulkWriteResult(downloadUrl){
-
+    static async downloadBulkWriteResult(downloadUrl) {
         //example
-		//let downloadUrl = "https://download-accl.zoho.com/v2/crm/xxxx/bulk-write/347706122009/347706122009.zip";
+        //let downloadUrl = "https://download-accl.zoho.com/v2/crm/xxxx/bulk-write/347706122009/347706122009.zip";
 
         //Get instance of BulkWriteOperations Class
         let bulkWriteOperations = new ZCRM.BulkWrite.Operations();
@@ -508,13 +490,12 @@ class BulkWrite{
         //Call downloadBulkWriteResult method that takes downloadUrl as parameter
         let response = await bulkWriteOperations.downloadBulkWriteResult(downloadUrl);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -522,11 +503,9 @@ class BulkWrite{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected FileBodyWrapper instance is received
-                if(responseObject instanceof ZCRM.BulkWrite.Model.FileBodyWrapper){
-
+                if (responseObject instanceof ZCRM.BulkWrite.Model.FileBodyWrapper) {
                     //Get StreamWrapper instance from the returned FileBodyWrapper instance
                     let streamWrapper = responseObject.getFile();
 
@@ -547,12 +526,11 @@ class BulkWrite{
                     ttt.click();
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.BulkWrite.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.BulkWrite.Model.APIException) {
                     //Get the ErrorMessage
                     console.log("ErrorMessage: " + responseObject.getErrorMessage().getValue());
 
-                     //Get the ErrorCode
+                    //Get the ErrorCode
                     console.log("ErrorCode: " + responseObject.getErrorCode());
                 }
             }

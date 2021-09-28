@@ -1,12 +1,10 @@
-class File{
-
+class File {
     /**
      * <h3> Upload Files</h3>
-	 * This method is used to upload a file and print the response.
+     * This method is used to upload a file and print the response.
      * @param {String} absoluteFilePath The absolute file path of the file to be attached
      */
-    static async uploadFiles(){
-
+    static async uploadFiles() {
         //example
         //let absoluteFilePath = "/Users/user_name/Desktop/download.png";
 
@@ -22,12 +20,11 @@ class File{
 
         /** StreamWrapper can be initialized in any of the following ways */
 
-        var filesToLoad  = document.getElementById("file_api").files;
+        var filesToLoad = document.getElementById("file_api").files;
 
         var files = [];
 
-        for(var fileData of filesToLoad) {
-
+        for (var fileData of filesToLoad) {
             /**
              * param 1 -> fileName
              * param 2 -> Read Stream.
@@ -42,24 +39,22 @@ class File{
         //Call uploadFile method that takes BodyWrapper instance as parameter.
         let response = await fileOperations.uploadFiles(request, paramInstance);
 
-        if(response != null){
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received.
-                if(responseObject instanceof ZCRM.File.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.File.Model.ActionWrapper) {
                     //Get the array of obtained action responses
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.File.Model.SuccessResponse){
+                        if (actionResponse instanceof ZCRM.File.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -71,7 +66,7 @@ class File{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -81,7 +76,7 @@ class File{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.File.Model.APIException){
+                        else if (actionResponse instanceof ZCRM.File.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -93,7 +88,7 @@ class File{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -105,7 +100,7 @@ class File{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.File.Model.APIException){
+                else if (responseObject instanceof ZCRM.File.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -117,7 +112,7 @@ class File{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -132,13 +127,12 @@ class File{
 
     /**
      * <h3> Get File</h3>
-     * This method is used to download the file with ID and write in the destinationFolder
+     * This method is used to download the file with ID
      * @param {String} id The ID of the uploaded File.
      */
-    static async getFile(id){
-
+    static async getFile(id) {
         //example
-		//let id = "ae9c7cefd5e00a54b7563c0dd42b";
+        //let id = "ae9c7cefd5e00a54b7563c0dd42b";
 
         //Get instance of FileOperations Class
         let fileOperations = new ZCRM.File.Operations();
@@ -152,13 +146,12 @@ class File{
         //Call getFile method that takes ParameterMap instance as parameter
         let response = await fileOperations.getFile(paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -166,11 +159,9 @@ class File{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected FileBodyWrapper instance is received
-                if(responseObject instanceof ZCRM.File.Model.FileBodyWrapper){
-
+                if (responseObject instanceof ZCRM.File.Model.FileBodyWrapper) {
                     //Get StreamWrapper instance from the returned FileBodyWrapper instance
                     let streamWrapper = responseObject.getFile();
 
@@ -191,7 +182,7 @@ class File{
                     ttt.click();
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.File.Model.APIException){
+                else if (responseObject instanceof ZCRM.File.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -203,7 +194,7 @@ class File{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });

@@ -1,41 +1,35 @@
-class Territory{
-
+class Territory {
 	/**
 	 * <h3> Get Territories </h3>
 	 * This method is used to get the list of territories enabled for your organization and print the response.
 	 */
-    static async getTerritories(){
-
+	static async getTerritories() {
 		//Get instance of TerritoriesOperations Class
-        let territoriesOperations = new ZCRM.Territory.Operations();
+		let territoriesOperations = new ZCRM.Territory.Operations();
 
 		//Call getTerritories method
-        let response = await territoriesOperations.getTerritories();
+		let response = await territoriesOperations.getTerritories();
 
-        if(response != null){
-
+		if (response != null) {
 			//Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+			if ([204, 304].includes(response.getStatusCode())) {
+				console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
-                return;
-            }
+				return;
+			}
 
 			//Get object from response
-            let responseObject = response.getObject();
+			let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-				//Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Territory.Model.ResponseWrapper){
-
+			if (responseObject != null) {
+				//Check if expected ResponseWrapper instance is received 
+				if (responseObject instanceof ZCRM.Territory.Model.ResponseWrapper) {
 					//Get the array of obtained Territory instances
-                    let territories = responseObject.getTerritories();
+					let territories = responseObject.getTerritories();
 
-                    territories.forEach(territory => {
-
+					territories.forEach(territory => {
 						//Get the CreatedTime of each Territory
 						console.log("Territory CreatedTime: " + territory.getCreatedTime());
 
@@ -46,7 +40,7 @@ class Territory{
 						let manager = territory.getManager();
 
 						//Check if manager is not null
-						if(manager != null){
+						if (manager != null) {
 							//Get the Name of the Manager
 							console.log("Territory Manager User-Name: " + manager.getName());
 
@@ -61,7 +55,7 @@ class Territory{
 						let criteria = territory.getCriteria();
 
 						//Check if criteria is not null
-						if(criteria != null){
+						if (criteria != null) {
 							this.printCriteria(criteria);
 						}
 
@@ -72,7 +66,7 @@ class Territory{
 						let modifiedBy = territory.getModifiedBy();
 
 						//Check if modifiedBy is not null
-						if(modifiedBy != null){
+						if (modifiedBy != null) {
 							//Get the Name of the modifiedBy User
 							console.log("Territory Modified By User-Name: " + modifiedBy.getName());
 
@@ -90,17 +84,17 @@ class Territory{
 						let createdBy = territory.getCreatedBy();
 
 						//Check if createdBy is not null
-						if(createdBy != null){
+						if (createdBy != null) {
 							//Get the Name of the createdBy User
 							console.log("Territory Created By User-Name: " + createdBy.getName());
 
 							//Get the ID of the createdBy User
 							console.log("Territory Created By User-ID: " + createdBy.getId());
 						}
-                    });
-                }
-                //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Territory.Model.APIException){
+					});
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Territory.Model.APIException) {
 					//Get the Status
 					console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -112,7 +106,7 @@ class Territory{
 					//Get the details map
 					let details = responseObject.getDetails();
 
-					if(details != null){
+					if (details != null) {
 						Array.from(details.keys()).forEach(key => {
 							console.log(key + ": " + details.get(key));
 						});
@@ -121,8 +115,8 @@ class Territory{
 					//Get the Message
 					console.log("Message: " + responseObject.getMessage().getValue());
 				}
-            }
-        }
+			}
+		}
 	}
 
 	/**
@@ -130,41 +124,36 @@ class Territory{
 	 * This method is used to get the single territory and print the response.
 	 * @param {BigInt} territoryId The ID of the Territory to be obtainted
 	 */
-    static async getTerritory(territoryId){
-
+	static async getTerritory(territoryId) {
 		//example
 		//let territoryId = 34096430505351n;
 
 		//Get instance of TerritoriesOperations Class
-        let territoriesOperations = new ZCRM.Territory.Operations();
+		let territoriesOperations = new ZCRM.Territory.Operations();
 
 		//Call getTerritory method that takes territoryId as parameter
-        let response = await territoriesOperations.getTerritory(territoryId);
+		let response = await territoriesOperations.getTerritory(territoryId);
 
-        if(response != null){
-
+		if (response != null) {
 			//Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+			if ([204, 304].includes(response.getStatusCode())) {
+				console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
-                return;
-            }
+				return;
+			}
 
 			//Get object from response
-            let responseObject = response.getObject();
+			let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-				//Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Territory.Model.ResponseWrapper){
-
+			if (responseObject != null) {
+				//Check if expected ResponseWrapper instance is received 
+				if (responseObject instanceof ZCRM.Territory.Model.ResponseWrapper) {
 					//Get the array of obtained Territory instances
-                    let territories = responseObject.getTerritories();
+					let territories = responseObject.getTerritories();
 
-                    territories.forEach(territory => {
-
+					territories.forEach(territory => {
 						//Get the CreatedTime of each Territory
 						console.log("Territory CreatedTime: " + territory.getCreatedTime());
 
@@ -175,7 +164,7 @@ class Territory{
 						let manager = territory.getManager();
 
 						//Check if manager is not null
-						if(manager != null){
+						if (manager != null) {
 							//Get the Name of the Manager
 							console.log("Territory Manager User-Name: " + manager.getName());
 
@@ -190,7 +179,7 @@ class Territory{
 						let criteria = territory.getCriteria();
 
 						//Check if criteria is not null
-						if(criteria != null){
+						if (criteria != null) {
 							this.printCriteria(criteria);
 						}
 
@@ -201,7 +190,7 @@ class Territory{
 						let modifiedBy = territory.getModifiedBy();
 
 						//Check if modifiedBy is not null
-						if(modifiedBy != null){
+						if (modifiedBy != null) {
 							//Get the Name of the modifiedBy User
 							console.log("Territory Modified By User-Name: " + modifiedBy.getName());
 
@@ -219,17 +208,17 @@ class Territory{
 						let createdBy = territory.getCreatedBy();
 
 						//Check if createdBy is not null
-						if(createdBy != null){
+						if (createdBy != null) {
 							//Get the Name of the createdBy User
 							console.log("Territory Created By User-Name: " + createdBy.getName());
 
 							//Get the ID of the createdBy User
 							console.log("Territory Created By User-ID: " + createdBy.getId());
 						}
-                    });
-                }
-                //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Territory.Model.APIException){
+					});
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Territory.Model.APIException) {
 					//Get the Status
 					console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -241,7 +230,7 @@ class Territory{
 					//Get the details map
 					let details = responseObject.getDetails();
 
-					if(details != null){
+					if (details != null) {
 						Array.from(details.keys()).forEach(key => {
 							console.log(key + ": " + details.get(key));
 						});
@@ -250,33 +239,33 @@ class Territory{
 					//Get the Message
 					console.log("Message: " + responseObject.getMessage().getValue());
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 
-    static async printCriteria(criteria){
-        if(criteria.getComparator() != null){
-            console.log("Territory Criteria Comparator: " + criteria.getComparator().getValue());
-        }
+	static async printCriteria(criteria) {
+		if (criteria.getComparator() != null) {
+			console.log("Territory Criteria Comparator: " + criteria.getComparator().getValue());
+		}
 
-        if(criteria.getField() != null){
-            console.log("Territory Criteria Field: " + criteria.getField());
-        }
+		if (criteria.getField() != null) {
+			console.log("Territory Criteria Field: " + criteria.getField());
+		}
 
-        if(criteria.getValue() != null){
-            console.log("Territory Criteria Value: " + criteria.getValue().toString());
-        }
+		if (criteria.getValue() != null) {
+			console.log("Territory Criteria Value: " + criteria.getValue().toString());
+		}
 
-        let criteriaGroup = criteria.getGroup();
+		let criteriaGroup = criteria.getGroup();
 
-        if(criteriaGroup != null){
-            criteriaGroup.forEach(eachCriteria => {
-                this.printCriteria(eachCriteria);
-            });
-        }
+		if (criteriaGroup != null) {
+			criteriaGroup.forEach(eachCriteria => {
+				this.printCriteria(eachCriteria);
+			});
+		}
 
-        if(criteria.getGroupOperator() != null){
-            console.log("Territory Criteria Group Operator: " + criteria.getGroupOperator().getValue());
-        }
-    }
+		if (criteria.getGroupOperator() != null) {
+			console.log("Territory Criteria Group Operator: " + criteria.getGroupOperator().getValue());
+		}
+	}
 }

@@ -1,50 +1,46 @@
-class Profile{
-
+class Profile {
 	/**
 	 * <h3> Get Profiles </h3>
 	 * This method is used to retrieve the profiles data through an API request and print the response.
 	 */
-    static async getProfiles(){
-
+	static async getProfiles() {
 		//Get instance of ProfilesOperations Class that takes If-Modified-Since header as parameter.
 		//To include If-Modified-Since header in the request, get the instance as follows
-		let profilesOperations = new ZCRM.Profile.Operations(new Date(2017,9,1,12,12,12));
+		let profilesOperations = new ZCRM.Profile.Operations(new Date(2017, 9, 1, 12, 12, 12));
 
 		//To not include If-Modified-Since header to the request, get the instance as follows
 		// let profilesOperations = new ZCRM.Profile.Operations(null);
 
 		//Call getProfiles method
-        let response = await profilesOperations.getProfiles();
+		let response = await profilesOperations.getProfiles();
 
-        if(response != null){
-
+		if (response != null) {
 			//Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+			if ([204, 304].includes(response.getStatusCode())) {
+				console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
-                return;
-            }
+				return;
+			}
 
 			//Get object from response
-            let responseObject = response.getObject();
+			let responseObject = response.getObject();
 
-            if(responseObject != null) {
-                if(responseObject instanceof ZCRM.Profile.Model.ResponseWrapper) {
-                    let profiles = responseObject.getProfiles();
+			if (responseObject != null) {
+				if (responseObject instanceof ZCRM.Profile.Model.ResponseWrapper) {
+					let profiles = responseObject.getProfiles();
 
-                    profiles.forEach(profile => {
-
+					profiles.forEach(profile => {
 						//Get the DisplayLabel of the each Profile
 						console.log("Profile DisplayLabel: " + profile.getDisplayLabel());
 
-						if(profile.getCreatedTime() != null){
+						if (profile.getCreatedTime() != null) {
 							//Get the CreatedTime of each Profile
 							console.log("Profile CreatedTime: " + profile.getCreatedTime());
 						}
 
-						if(profile.getModifiedTime() != null){
+						if (profile.getModifiedTime() != null) {
 							//Get the ModifiedTime of each Profile
 							console.log("Profile ModifiedTime: " + profile.getModifiedTime());
 						}
@@ -56,7 +52,7 @@ class Profile{
 						let modifiedBy = profile.getModifiedBy();
 
 						//Check if modifiedBy is not null
-						if(modifiedBy != null){
+						if (modifiedBy != null) {
 							//Get the ID of the modifiedBy User
 							console.log("Profile Modified By User-ID: " + modifiedBy.getId());
 
@@ -80,7 +76,7 @@ class Profile{
 						let createdBy = profile.getCreatedBy();
 
 						//Check if createdBy is not null
-						if(createdBy != null){
+						if (createdBy != null) {
 							//Get the ID of the createdBy User
 							console.log("Profile Created By User-ID: " + createdBy.getId());
 
@@ -90,10 +86,10 @@ class Profile{
 							//Get the Email of the createdBy User
 							console.log("Profile Created By User-Email: " + createdBy.getEmail());
 						}
-                    });
-                }
-                //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Profile.Model.APIException){
+					});
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Profile.Model.APIException) {
 					//Get the Status
 					console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -105,7 +101,7 @@ class Profile{
 					//Get the details map
 					let details = responseObject.getDetails();
 
-					if(details != null){
+					if (details != null) {
 						Array.from(details.keys()).forEach(key => {
 							console.log(key + ": " + details.get(key));
 						});
@@ -114,59 +110,54 @@ class Profile{
 					//Get the Message
 					console.log("Message: " + responseObject.getMessage().getValue());
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 
 	/**
 	 * <h3> Get Profile </h3>
 	 * This method is used to get the details of any specific profile with ID.
 	 * @param {BigInt} profileId The ID of the Profile to be obtained
 	 */
-    static async getProfile(profileId){
-
+	static async getProfile(profileId) {
 		//example
 		// let profileId = 34096430026014n;
 
 		//Get instance of ProfilesOperations Class
-        let profilesOperations = new ZCRM.Profile.Operations(null);
+		let profilesOperations = new ZCRM.Profile.Operations(null);
 
 		//Call getProfile method that takes profileId as parameter
-        let response = await profilesOperations.getProfile(profileId);
+		let response = await profilesOperations.getProfile(profileId);
 
-        if(response != null){
-
+		if (response != null) {
 			//Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+			if ([204, 304].includes(response.getStatusCode())) {
+				console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
-                return;
-            }
+				return;
+			}
 
 			//Get object from response
-            let responseObject = response.getObject();
+			let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+			if (responseObject != null) {
 				//Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Profile.Model.ResponseWrapper){
-
+				if (responseObject instanceof ZCRM.Profile.Model.ResponseWrapper) {
 					//Get the array of obtained Profile instances
-                    let profiles = responseObject.getProfiles();
+					let profiles = responseObject.getProfiles();
 
-                    profiles.forEach(profile => {
-
+					profiles.forEach(profile => {
 						//Get the DisplayLabel of the each Profile
 						console.log("Profile DisplayLabel: " + profile.getDisplayLabel());
 
-						if(profile.getCreatedTime() != null){
+						if (profile.getCreatedTime() != null) {
 							//Get the CreatedTime of each Profile
 							console.log("Profile CreatedTime: " + profile.getCreatedTime());
 						}
 
-						if(profile.getModifiedTime() != null){
+						if (profile.getModifiedTime() != null) {
 							//Get the ModifiedTime of each Profile
 							console.log("Profile ModifiedTime: " + profile.getModifiedTime());
 						}
@@ -175,10 +166,9 @@ class Profile{
 						let permissionsDetails = profile.getPermissionsDetails();
 
 						//Check if permissionsDetails is not null
-						if(permissionsDetails != null){
-
-                            permissionsDetails.forEach(permissionsDetail => {
-                                //Get the DisplayLabel of the each PermissionDetail
+						if (permissionsDetails != null) {
+							permissionsDetails.forEach(permissionsDetail => {
+								//Get the DisplayLabel of the each PermissionDetail
 								console.log("Profile PermissionDetail DisplayLabel: " + permissionsDetail.getDisplayLabel());
 
 								//Get the Module of the each PermissionDetail
@@ -193,7 +183,7 @@ class Profile{
 								//Get the Enabled of the each PermissionDetail
 								console.log("Profile PermissionDetail Enabled: " + permissionsDetail.getEnabled());
 
-                            });
+							});
 						}
 
 						//Get the Name of the each Profile
@@ -203,7 +193,7 @@ class Profile{
 						let modifiedBy = profile.getModifiedBy();
 
 						//Check if modifiedBy is not null
-						if(modifiedBy != null){
+						if (modifiedBy != null) {
 							//Get the ID of the modifiedBy User
 							console.log("Profile Modified By User-ID: " + modifiedBy.getId());
 
@@ -227,7 +217,7 @@ class Profile{
 						let createdBy = profile.getCreatedBy();
 
 						//Check if createdBy is not null
-						if(createdBy != null){
+						if (createdBy != null) {
 							//Get the ID of the createdBy User
 							console.log("Profile Created By User-ID: " + createdBy.getId());
 
@@ -242,53 +232,51 @@ class Profile{
 						let sections = profile.getSections();
 
 						//Check if sections is not null
-						if(sections != null){
-                            for (let index = 0; index < sections.length; index++) {
-                                let section = sections[index];
+						if (sections != null) {
+							for (let index = 0; index < sections.length; index++) {
+								let section = sections[index];
 
-                                //Get the Name of the each Section
+								//Get the Name of the each Section
 								console.log("Profile Section Name: " + section.getName());
 
 								//Get the categories of each Section
-                                let categories = section.getCategories();
+								let categories = section.getCategories();
 
-                                categories.forEach(category => {
-
-                                    //Get the DisplayLabel of the each Category
+								categories.forEach(category => {
+									//Get the DisplayLabel of the each Category
 									console.log("Profile Section Category DisplayLabel: " + category.getDisplayLabel());
 
 									//Get the permissionsDetails List of each Category
 									let categoryPermissionsDetails = category.getPermissionsDetails();
 
 									//Check if categoryPermissionsDetails is not null
-									if(categoryPermissionsDetails != null)
-									{
-                                        categoryPermissionsDetails.forEach(permissionsDetailID => {
-                                            //Get the permissionsDetailID of the Category
+									if (categoryPermissionsDetails != null) {
+										categoryPermissionsDetails.forEach(permissionsDetailID => {
+											//Get the permissionsDetailID of the Category
 											console.log("Profile Section Category permissionsDetailID: " + permissionsDetailID);
-                                        });
+										});
 									}
 
 									//Get the Name of the each Category
 									console.log("Profile Section Category Name: " + category.getName());
 
-                                });
-                            }
+								});
+							}
 						}
 
-						if(profile.getDelete() != null){
+						if (profile.getDelete() != null) {
 							//Get the Delete of the each Profile
 							console.log("Profile Delete: " + profile.getDelete().toString());
 						}
 
-						if(profile.getDefault() != null){
+						if (profile.getDefault() != null) {
 							//Get the Default of the each Profile
 							console.log("Profile Default: " + profile.getDefault().toString());
 						}
-                    });
-                }
-                //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Profile.Model.APIException){
+					});
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Profile.Model.APIException) {
 					//Get the Status
 					console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -300,7 +288,7 @@ class Profile{
 					//Get the details map
 					let details = responseObject.getDetails();
 
-					if(details != null){
+					if (details != null) {
 						Array.from(details.keys()).forEach(key => {
 							console.log(key + ": " + details.get(key));
 						});
@@ -309,7 +297,7 @@ class Profile{
 					//Get the Message
 					console.log("Message: " + responseObject.getMessage().getValue());
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 }

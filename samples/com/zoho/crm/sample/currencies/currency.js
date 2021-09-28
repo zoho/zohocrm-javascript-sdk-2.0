@@ -5,20 +5,18 @@ class Currency {
      * This method is used to get all the available currencies in your organization.
      */
     static async getCurrencies() {
-
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
 
         //Call getCurrencies method
         let response = await currenciesOperations.getCurrencies();
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -26,16 +24,13 @@ class Currency {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.ResponseWrapper) {
                     //Get the array of obtained Currency instances
                     let currencies = responseObject.getCurrencies();
 
                     currencies.forEach(currency => {
-
                         //Get the Id of each currency
                         console.log("Currency Id: " + currency.getId());
 
@@ -57,8 +52,7 @@ class Currency {
                         //Get the format instance of each currency
                         let format = currency.getFormat();
 
-                        if(format != null){
-
+                        if (format != null) {
                             //Get the DecimalSeparator of the Format
                             console.log("Currency Format DecimalSeparator: " + format.getDecimalSeparator().getValue());
 
@@ -73,8 +67,7 @@ class Currency {
                         let createdBy = currency.getCreatedBy();
 
                         //Check if createdBy is not null
-                        if(createdBy != null){
-
+                        if (createdBy != null) {
                             //Get the Name of the createdBy User
                             console.log("Currency CreatedBy User-Name: " + createdBy.getName());
 
@@ -98,8 +91,7 @@ class Currency {
                         let modifiedBy = currency.getModifiedBy();
 
                         //Check if modifiedBy is not null
-                        if(modifiedBy != null){
-
+                        if (modifiedBy != null) {
                             //Get the Name of the modifiedBy User
                             console.log("Currency ModifiedBy User-Name: " + modifiedBy.getName());
 
@@ -109,8 +101,7 @@ class Currency {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException) {
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -122,7 +113,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -139,8 +130,7 @@ class Currency {
      * <h3> Add Currencies </h3>
      * This method is used to add new currencies to your organization.
      */
-    static async addCurrencies(){
-
+    static async addCurrencies() {
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
 
@@ -154,8 +144,8 @@ class Currency {
         let currency = new ZCRM.Currency.Model.Currency();
 
         //To set the position of the ISO code in the currency.
-		//true: Display ISO code before the currency value.
-		//false: Display ISO code after the currency value.
+        //true: Display ISO code before the currency value.
+        //false: Display ISO code after the currency value.
         currency.setPrefixSymbol(true);
 
         //To set the name of the currency.
@@ -168,11 +158,11 @@ class Currency {
         currency.setSymbol("Kz");
 
         //To set the rate at which the currency has to be exchanged for home currency.
-        currency.setExchangeRate("20.0000");
+        currency.setExchangeRate("20.000000000");
 
         //To set the status of the currency.
-		//true: The currency is active.
-		//false: The currency is inactive.
+        //true: The currency is active.
+        //false: The currency is inactive.
         currency.setIsActive(true);
 
         let format = new ZCRM.Currency.Model.Format();
@@ -197,27 +187,22 @@ class Currency {
         //Call addCurrencies method that takes BodyWrapper instance as parameter
         let response = await currenciesOperations.addCurrencies(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.ActionWrapper) {
-
+                if (responseObject instanceof ZCRM.Currency.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getCurrencies();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Currency.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Currency.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -229,7 +214,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -238,8 +223,7 @@ class Currency {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Currency.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Currency.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -251,7 +235,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -263,8 +247,7 @@ class Currency {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -276,7 +259,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -291,10 +274,9 @@ class Currency {
 
     /**
      * <h3> Update Currencies </h3>
-	 * This method is used to update currency details.
+     * This method is used to update currency details.
      */
-    static async updateCurrencies(){
-
+    static async updateCurrencies() {
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
 
@@ -308,19 +290,19 @@ class Currency {
         let currency = new ZCRM.Currency.Model.Currency();
 
         //To set currency Id
-        currency.setId(34770616008002n);
+        currency.setId(3477061000006008002n);
 
         //To set the position of the ISO code in the currency.
-		//true: Display ISO code before the currency value.
-		//false: Display ISO code after the currency value.
+        //true: Display ISO code before the currency value.
+        //false: Display ISO code after the currency value.
         currency.setPrefixSymbol(true);
 
         //To set the rate at which the currency has to be exchanged for home currency.
-        currency.setExchangeRate("10.0000");
+        currency.setExchangeRate("10.000000000");
 
         //To set the status of the currency.
-		//true: The currency is active.
-		//false: The currency is inactive.
+        //true: The currency is active.
+        //false: The currency is inactive.
         currency.setIsActive(true);
 
         let format = new ZCRM.Currency.Model.Format();
@@ -346,27 +328,22 @@ class Currency {
         //Call updateCurrencies method that takes BodyWrapper instance as parameter
         let response = await currenciesOperations.updateCurrencies(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getCurrencies();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Currency.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Currency.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -378,7 +355,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -387,8 +364,7 @@ class Currency {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Currency.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Currency.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -400,7 +376,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -412,8 +388,7 @@ class Currency {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -425,7 +400,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -440,10 +415,9 @@ class Currency {
 
     /**
      * <h3> Enable Multiple Currencies </h3>
-	 * This method is used to enable multiple currencies for your organization.
+     * This method is used to enable multiple currencies for your organization.
      */
-    static async enableMultipleCurrencies(){
-
+    static async enableMultipleCurrencies() {
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
 
@@ -454,39 +428,39 @@ class Currency {
         let currency = new ZCRM.Currency.Model.Currency();
 
         //To set the position of the ISO code in the base currency.
-		//true: Display ISO code before the currency value.
-		//false: Display ISO code after the currency value.
-		currency.setPrefixSymbol(true);
+        //true: Display ISO code before the currency value.
+        //false: Display ISO code after the currency value.
+        currency.setPrefixSymbol(true);
 
-		//To set the name of the base currency.
-		currency.setName("Algerian Dinar-ADN");
+        //To set the name of the base currency.
+        currency.setName("Algerian Dinar-ADN");
 
-		//To set the ISO code of the base currency.
-		currency.setIsoCode("DZD");
+        //To set the ISO code of the base currency.
+        currency.setIsoCode("DZD");
 
-		//To set the symbol of the base currency.
-		currency.setSymbol("Af");
+        //To set the symbol of the base currency.
+        currency.setSymbol("Af");
 
-		//To set the rate at which the currency has to be exchanged for home base currency.
-		currency.setExchangeRate("1.00");
+        //To set the rate at which the currency has to be exchanged for home base currency.
+        currency.setExchangeRate("1.0000000");
 
-		//To set the status of the base currency.
-		//true: The currency is active.
-		//false: The currency is inactive.
-		currency.setIsActive(true);
+        //To set the status of the base currency.
+        //true: The currency is active.
+        //false: The currency is inactive.
+        currency.setIsActive(true);
 
-		let format = new ZCRM.Currency.Model.Format();
+        let format = new ZCRM.Currency.Model.Format();
 
-		//It can be a Period or Comma, depending on the base currency.
-		format.setDecimalSeparator(new Choice("Period"));
+        //It can be a Period or Comma, depending on the base currency.
+        format.setDecimalSeparator(new Choice("Period"));
 
-		//It can be a Period, Comma, or Space, depending on the base currency.
-		format.setThousandSeparator(new Choice("Comma"));
+        //It can be a Period, Comma, or Space, depending on the base currency.
+        format.setThousandSeparator(new Choice("Comma"));
 
-		//To set the number of decimal places allowed for the base currency. It can be 0, 2, or 3.
-		format.setDecimalPlaces(new Choice("2"));
+        //To set the number of decimal places allowed for the base currency. It can be 0, 2, or 3.
+        format.setDecimalPlaces(new Choice("2"));
 
-		//To set the format of the base currency
+        //To set the format of the base currency
         currency.setFormat(format);
 
         //Set the Currency in BodyWrapper instance
@@ -495,25 +469,21 @@ class Currency {
         //Call enableMultipleCurrencies method that takes BodyWrapper instance as parameter
         let response = await currenciesOperations.enableMultipleCurrencies(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected BaseCurrencyActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.BaseCurrencyActionWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.BaseCurrencyActionWrapper) {
                     //Get the received obtained ActionResponse instances
                     let actionResponse = responseObject.getBaseCurrency();
 
                     //Check if the request is successful
-                    if(actionResponse instanceof ZCRM.Currency.Model.SuccessResponse){
-
+                    if (actionResponse instanceof ZCRM.Currency.Model.SuccessResponse) {
                         //Get the Status
                         console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -525,7 +495,7 @@ class Currency {
                         //Get the details map
                         let details = actionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -534,8 +504,7 @@ class Currency {
                         console.log("Message: " + actionResponse.getMessage().getValue());
                     }
                     //Check if the request returned an exception
-                    else if(actionResponse instanceof ZCRM.Currency.Model.APIException){
-
+                    else if (actionResponse instanceof ZCRM.Currency.Model.APIException) {
                         //Get the Status
                         console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -547,7 +516,7 @@ class Currency {
                         //Get the details map
                         let details = actionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -558,8 +527,7 @@ class Currency {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -571,7 +539,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -587,10 +555,9 @@ class Currency {
 
     /**
      * <h3> Update Currency </h3>
-	 * This method is used to update base currency details.
+     * This method is used to update base currency details.
      */
-    static async updateBaseCurrency(){
-
+    static async updateBaseCurrency() {
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
 
@@ -601,58 +568,54 @@ class Currency {
         let currency = new ZCRM.Currency.Model.Currency();
 
         //To set the position of the ISO code in the base currency.
-		//true: Display ISO code before the currency value.
-		//false: Display ISO code after the currency value.
-		currency.setPrefixSymbol(true);
+        //true: Display ISO code before the currency value.
+        //false: Display ISO code after the currency value.
+        currency.setPrefixSymbol(true);
 
-		//To set the symbol of the base currency.
-		currency.setSymbol("Af");
+        //To set the symbol of the base currency.
+        currency.setSymbol("Af");
 
-		//To set the rate at which the currency has to be exchanged for home base currency.
-		currency.setExchangeRate("1.00");
+        //To set the rate at which the currency has to be exchanged for home base currency.
+        currency.setExchangeRate("1.0000000");
 
-		//To set currency Id
-		currency.setId(34770616008002n);
+        //To set currency Id
+        currency.setId(3477061000006008002n);
 
-		let format = new ZCRM.Currency.Model.Format();
+        let format = new ZCRM.Currency.Model.Format();
 
-		//It can be a Period or Comma, depending on the base currency.
-		format.setDecimalSeparator(new Choice("Period"));
+        //It can be a Period or Comma, depending on the base currency.
+        format.setDecimalSeparator(new Choice("Period"));
 
-		//It can be a Period, Comma, or Space, depending on the base currency.
-		format.setThousandSeparator(new Choice("Comma"));
+        //It can be a Period, Comma, or Space, depending on the base currency.
+        format.setThousandSeparator(new Choice("Comma"));
 
-		//To set the number of decimal places allowed for the base currency. It can be 0, 2, or 3.
-		format.setDecimalPlaces(new Choice("2"));
+        //To set the number of decimal places allowed for the base currency. It can be 0, 2, or 3.
+        format.setDecimalPlaces(new Choice("2"));
 
-		//To set the format of the base currency
-		currency.setFormat(format);
+        //To set the format of the base currency
+        currency.setFormat(format);
 
-		//Set the Currency in BodyWrapper instance
+        //Set the Currency in BodyWrapper instance
         request.setBaseCurrency(currency);
 
         //Call updateBaseCurrency method that takes BodyWrapper instance as parameter
         let response = await currenciesOperations.updateBaseCurrency(request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected BaseCurrencyActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.BaseCurrencyActionWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.BaseCurrencyActionWrapper) {
                     //Get the received obtained ActionResponse instances
                     let actionResponse = responseObject.getBaseCurrency();
 
                     //Check if the request is successful
-                    if(actionResponse instanceof ZCRM.Currency.Model.SuccessResponse){
-
+                    if (actionResponse instanceof ZCRM.Currency.Model.SuccessResponse) {
                         //Get the Status
                         console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -664,7 +627,7 @@ class Currency {
                         //Get the details map
                         let details = actionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -673,8 +636,7 @@ class Currency {
                         console.log("Message: " + actionResponse.getMessage().getValue());
                     }
                     //Check if the request returned an exception
-                    else if(actionResponse instanceof ZCRM.Currency.Model.APIException){
-
+                    else if (actionResponse instanceof ZCRM.Currency.Model.APIException) {
                         //Get the Status
                         console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -686,7 +648,7 @@ class Currency {
                         //Get the details map
                         let details = actionResponse.getDetails();
 
-                        if(details != null){
+                        if (details != null) {
                             Array.from(details.keys()).forEach(key => {
                                 console.log(key + ": " + details.get(key));
                             });
@@ -697,8 +659,7 @@ class Currency {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -710,7 +671,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -720,19 +681,17 @@ class Currency {
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
             }
-
         }
     }
 
     /**
      * <h3> Get Currency </h3>
-	 * This method is used to get the details of a specific currency.
+     * This method is used to get the details of a specific currency.
      * @param {BigInt} currencyId Specify the unique ID of the currency.
      */
-    static async getCurrency(currencyId){
-
+    static async getCurrency(currencyId) {
         //example
-        //let currencyId = 34770616011001n;
+        //let currencyId = 3477061000006011001n;
 
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
@@ -740,13 +699,12 @@ class Currency {
         //Call getCurrency method that takes currencyId as parameter
         let response = await currenciesOperations.getCurrency(currencyId);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -754,16 +712,13 @@ class Currency {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.ResponseWrapper) {
                     //Get the array of obtained Currency instances
                     let currencies = responseObject.getCurrencies();
 
                     currencies.forEach(currency => {
-
                         //Get the Id of each currency
                         console.log("Currency Id: " + currency.getId());
 
@@ -785,8 +740,7 @@ class Currency {
                         //Get the format instance of each currency
                         let format = currency.getFormat();
 
-                        if(format != null){
-
+                        if (format != null) {
                             //Get the DecimalSeparator of the Format
                             console.log("Currency Format DecimalSeparator: " + format.getDecimalSeparator().getValue());
 
@@ -801,8 +755,7 @@ class Currency {
                         let createdBy = currency.getCreatedBy();
 
                         //Check if createdBy is not null
-                        if(createdBy != null){
-
+                        if (createdBy != null) {
                             //Get the Name of the createdBy User
                             console.log("Currency CreatedBy User-Name: " + createdBy.getName());
 
@@ -826,8 +779,7 @@ class Currency {
                         let modifiedBy = currency.getModifiedBy();
 
                         //Check if modifiedBy is not null
-                        if(modifiedBy != null){
-
+                        if (modifiedBy != null) {
                             //Get the Name of the modifiedBy User
                             console.log("Currency ModifiedBy User-Name: " + modifiedBy.getName());
 
@@ -837,8 +789,7 @@ class Currency {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -850,7 +801,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -865,13 +816,12 @@ class Currency {
 
     /**
      * <h3> Update Currency </h3>
-	 * This method is used to update currency details.
+     * This method is used to update currency details.
      * @param {BigInt} currencyId Specify the unique ID of the currency.
      */
-    static async updateCurrency(currencyId){
-
+    static async updateCurrency(currencyId) {
         //example
-        //let currencyId = 34770616011001n;
+        //let currencyId = 3477061000006011001n;
 
         //Get instance of CurrenciesOperations Class
         let currenciesOperations = new ZCRM.Currency.Operations();
@@ -886,30 +836,30 @@ class Currency {
         let currency = new ZCRM.Currency.Model.Currency();
 
         //To set the position of the ISO code in the currency.
-		//true: Display ISO code before the currency value.
-		//false: Display ISO code after the currency value.
-		currency.setPrefixSymbol(true);
+        //true: Display ISO code before the currency value.
+        //false: Display ISO code after the currency value.
+        currency.setPrefixSymbol(true);
 
-		//To set the rate at which the currency has to be exchanged for home currency.
-		currency.setExchangeRate("5.00");
+        //To set the rate at which the currency has to be exchanged for home currency.
+        currency.setExchangeRate("5.0000000");
 
-		//To set the status of the currency.
-		//true: The currency is active.
-		//false: The currency is inactive.
-		currency.setIsActive(true);
+        //To set the status of the currency.
+        //true: The currency is active.
+        //false: The currency is inactive.
+        currency.setIsActive(true);
 
-		let format = new ZCRM.Currency.Model.Format();
+        let format = new ZCRM.Currency.Model.Format();
 
-		//It can be a Period or Comma, depending on the currency.
-		format.setDecimalSeparator(new Choice("Period"));
+        //It can be a Period or Comma, depending on the currency.
+        format.setDecimalSeparator(new Choice("Period"));
 
-		//It can be a Period, Comma, or Space, depending on the currency.
-		format.setThousandSeparator(new Choice("Comma"));
+        //It can be a Period, Comma, or Space, depending on the currency.
+        format.setThousandSeparator(new Choice("Comma"));
 
-		//To set the number of decimal places allowed for the currency. It can be 0, 2, or 3.
-		format.setDecimalPlaces(new Choice("2"));
+        //To set the number of decimal places allowed for the currency. It can be 0, 2, or 3.
+        format.setDecimalPlaces(new Choice("2"));
 
-		//To set the format of the currency
+        //To set the format of the currency
         currency.setFormat(format);
 
         //Add the Currency instance to the array
@@ -921,27 +871,22 @@ class Currency {
         //Call updateCurrency method that takes BodyWrapper instance and currencyId as parameters
         let response = await currenciesOperations.updateCurrency(currencyId, request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Currency.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Currency.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getCurrencies();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Currency.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Currency.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -953,7 +898,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -962,8 +907,7 @@ class Currency {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Currency.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Currency.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -975,7 +919,7 @@ class Currency {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -987,8 +931,7 @@ class Currency {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Currency.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Currency.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -1000,7 +943,7 @@ class Currency {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });

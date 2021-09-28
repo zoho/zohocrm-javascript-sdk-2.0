@@ -1,4 +1,4 @@
-# ZOHO CRM JAVASCRIPT SDK
+# ZOHO CRM JAVASCRIPT SDK - 2.0
 
 Zoho CRM API version 2.
 
@@ -48,7 +48,11 @@ You can install any browser as per your preference. JavaScript works on any web 
 
 ### CDN URL
 
-- https://static.zohocdn.com/zohocrm/v2.0/sdk/1.0.0/sdk.js
+- https://static.zohocdn.com/zohocrm/v2.0/sdk/2.0.0/sdk.js
+
+### Download SDK Zip File
+
+- [Download SDK](https://www.zoho.com/sites/default/files/crm/v2.0/zohocrmsdk_2_0_0.zip)
 
 JavaScript SDK can be incorporated in two ways:
 
@@ -93,7 +97,7 @@ JavaScript SDK can be incorporated in two ways:
 
 Before you get started with creating your JavaScript application, you need to register your client and authenticate the app with Zoho.
 
-- Create an instance of **[Logger](resources/logger/logger.md#logger)** Class to log exception and API information.
+- Create an instance of **Logger** Class to log exception and API information.
 
     ```js
     /*
@@ -115,16 +119,20 @@ Before you get started with creating your JavaScript application, you need to re
     let environment = DataCenter.US.PRODUCTION();
     ```
 
-- Create an instance of **[OAuthToken](resources/token/oauth_token.md#oauthtoken)** with the information that you get after registering your Zoho client.
+- Create an instance of **OAuthToken** with the information that you get after registering your Zoho client.
 
     ```js
     /*
-     * Create a Token instance
-     * 1 -> OAuth client id.
-     * 2 -> OAuth redirect URL.
-     * 3 -> OAuth scope.
+    * Create a Token instance
+    * clientId -> OAuth client id.
+    * scope -> OAuth client scope.
+    * redirectURL -> OAuth Redirect URL.
     */
-    let token = new OAuthToken("clientId", "redirectURL", "scope");
+    let token = new OAuthBuilder()
+      .clientId("clientId")
+      .scope("scope")
+      .redirectURL("redirectURL")
+      .build();
     ```
 
 - Create an instance of **SDKConfig** containing the SDK configuration.
@@ -148,7 +156,7 @@ Before you get started with creating your JavaScript application, you need to re
       * timeout
       * representing the number of milliseconds a request can take before automatically being terminated.
     */
-    let sdkConfig = new SDKConfigBuilder().setAutoRefreshFields(true).setPickListValidation(false).setCacheStore(true).timeout(1000).build();
+    let sdkConfig = new SDKConfigBuilder().autoRefreshFields(true).pickListValidation(false).cacheStore(true).timeout(1000).build();
     ```
 
 ## Initializing the Application
@@ -156,10 +164,8 @@ Before you get started with creating your JavaScript application, you need to re
 Initialize the SDK using the following code.
 
 ```js
-class SDKInitializer{
-
-    static async initializeSDK(){
-
+class SDKInitializer {
+    static async initializeSDK() {
         /*
          * Create an instance of Logger Class that takes parameter
          * 1 -> Level of the log messages to be logged. Can be configured by typing Levels "." and choose any level from the list displayed.
@@ -176,11 +182,15 @@ class SDKInitializer{
 
         /*
          * Create a Token instance
-         * 1 -> OAuth client id.
-         * 2 -> OAuth redirect URL.
-         * 3 -> OAuth scope.
-        */
-        let token = new OAuthToken("clientId", "redirectURL", "scope");
+         * clientId -> OAuth client id.
+         * scope -> OAuth client scope.
+         * redirectURL -> OAuth Redirect URL.
+         */
+        let token = new OAuthBuilder()
+          .clientId("clientId")
+          .scope("scope")
+          .redirectURL("redirectURL")
+          .build();
 
         /*
           * autoRefreshFields
@@ -200,16 +210,21 @@ class SDKInitializer{
           * timeout
           * representing the number of milliseconds a request can take before automatically being terminated.
         */
-        let sdkConfig = new SDKConfigBuilder().setAutoRefreshFields(true).setPickListValidation(false).setCacheStore(true).build();
+        let sdkConfig = new SDKConfigBuilder().autoRefreshFields(true).pickListValidation(false).cacheStore(true).build();
 
         /*
          * Call the static initialize method of Initializer class that takes the following arguments
-         * 1 -> Environment instance
-         * 2 -> SDKConfig instance
-         * 3 -> Token instance
-         * 4 -> Logger instance
-        */
-        await initializeSDK(environment, sdkConfig, token, logger);
+         * environment -> Environment instance
+         * SDKConfig -> SDKConfig instance
+         * token -> Token instance
+         * logger -> Logger instance
+         */
+        (await new InitializeBuilder())
+            .environment(environment)
+            .token(token)
+            .SDKConfig(sdkConfig)
+            .logger(logger)
+            .initialize();
     }
 }
 ```
@@ -222,7 +237,7 @@ class SDKInitializer{
 
 ## Responses and Exceptions
 
-All SDK method calls return an instance of **[APIResponse](resources/util/api_response.md#apiresponse)**.
+All SDK method calls return an instance of **APIResponse**.
 
 After a successful API request, the **getObject()** method returns an instance of the ResponseWrapper (for **GET**) or the ActionWrapper (for **POST, PUT, DELETE**).
 
@@ -285,15 +300,13 @@ However, some specific operations have different expected objects, such as the f
 
 For example, when you insert two records, and one of them was inserted successfully while the other one failed, the ActionWrapper will contain one instance each of the SuccessResponse and APIException classes.
 
-All other exceptions such as SDK anomalies and other unexpected behaviours are thrown under the **[SDKException](resources/exception/sdk_exception.md#sdkexception)** class.
+All other exceptions such as SDK anomalies and other unexpected behaviours are thrown under the **SDKException** class.
 
 ## SDK Sample code
 
 ```js
-class Record{
-
-    static async call(){
-
+class Record {
+    static async call() {
         /*
          * Create an instance of Logger Class that takes parameter
          * 1 -> Level of the log messages to be logged. Can be configured by typing Levels "." and choose any level from the list displayed.
@@ -310,11 +323,15 @@ class Record{
 
         /*
          * Create a Token instance
-         * 1 -> OAuth client id.
-         * 2 -> OAuth redirect URL.
-         * 3 -> Oauth scope.
-        */
-        let token = new OAuthToken("clientId", "redirectURL", "scope");
+         * clientId -> OAuth client id.
+         * scope -> OAuth client scope.
+         * redirectURL -> OAuth Redirect URL.
+         */
+        let token = new OAuthBuilder()
+            .clientId("clientId")
+            .scope("scope")
+            .redirectURL("redirectURL")
+            .build();
 
         /*
           * autoRefreshFields
@@ -334,22 +351,26 @@ class Record{
           * timeout
           * representing the number of milliseconds a request can take before automatically being terminated.
         */
-        let sdkConfig = new SDKConfigBuilder().setAutoRefreshFields(true).setPickListValidation(false).setCacheStore(true).build();
+        let sdkConfig = new SDKConfigBuilder().autoRefreshFields(true).pickListValidation(false).cacheStore(true).build();
 
         /*
          * Call the static initialize method of Initializer class that takes the following arguments
-         * 1 -> Environment instance
-         * 2 -> SDKConfig instance
-         * 3 -> Token instance
-         * 4 -> Logger instance
+         * environment -> Environment instance
+         * SDKConfig -> SDKConfig instance
+         * token -> Token instance
+         * logger -> Logger instance
          */
-        await initializeSDK(environment, sdkConfig, token, logger);
+        (await new InitializeBuilder())
+            .environment(environment)
+            .token(token)
+            .SDKConfig(sdkConfig)
+            .logger(logger)
+            .initialize();
 
         await Record.getRecords();
     }
 
     static async getRecords() {
-
         //Get instance of RecordOperations Class
         let recordOperations = new ZCRM.Record.Operations();
 
@@ -374,22 +395,21 @@ class Record{
         //Call getRecords method that takes paramInstance, headerInstance and moduleAPIName as parameters
         let response = await recordOperations.getRecords("Leads");
 
-        if(response != null) {
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() == 204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
 
             //Get the object from response
             let responseObject = response.getObject();
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ResponseWrapper){
+                if (responseObject instanceof ZCRM.Record.Model.ResponseWrapper) {
                     //Get the array of obtained Record instances
                     let records = responseObject.getData();
                     for (let index = 0; index < records.length; index++) {
@@ -399,8 +419,7 @@ class Record{
                         //Get the createdBy User instance of each Record
                         let createdBy = record.getCreatedBy();
                         //Check if createdBy is not null
-                        if(createdBy != null)
-                        {
+                        if (createdBy != null) {
                             //Get the ID of the createdBy User
                             console.log("Record Created By User-ID: " + createdBy.getId());
                             //Get the name of the createdBy User
@@ -413,7 +432,7 @@ class Record{
                         //Get the modifiedBy User instance of each Record
                         let modifiedBy = record.getModifiedBy();
                         //Check if modifiedBy is not null
-                        if(modifiedBy != null){
+                        if (modifiedBy != null) {
                             //Get the ID of the modifiedBy User
                             console.log("Record Modified By User-ID: " + modifiedBy.getId());
                             //Get the name of the modifiedBy User
@@ -426,7 +445,7 @@ class Record{
                         //Get the list of Tag instance each Record
                         let tags = record.getTag();
                         //Check if tags is not null
-                        if(tags != null){
+                        if (tags != null) {
                             tags.forEach(tag => {
                                 //Get the Name of each Tag
                                 console.log("Record Tag Name: " + tag.getName());

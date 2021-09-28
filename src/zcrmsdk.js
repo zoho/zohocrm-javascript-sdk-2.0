@@ -1,504 +1,571 @@
-var classDetailMap = {"Profile.Model.Section":{"name":{"name":"name","type":"String"},"categories":{"structure_name":"Profile.Model.Category","name":"categories","type":"List"}},"BluePrint.Model.BluePrint":{"processInfo":{"lookup":true,"structure_name":"BluePrint.Model.ProcessInfo","name":"process_info","type":"BluePrint.Model.ProcessInfo"},"data":{"structure_name":"Record.Model.Record","required_in_update":true,"name":"data","type":"Record.Model.Record","skip_mandatory":true},"transitionId":{"required_in_update":true,"name":"transition_id","type":"Long"},"transitions":{"lookup":true,"structure_name":"BluePrint.Model.Transition","name":"transitions","type":"List"}},"Record.Model.Comment":{"commentedTime":{"name":"commented_time","type":"DateTime"},"commentContent":{"name":"comment_content","type":"String"},"id":{"name":"id","type":"Long"},"commentedBy":{"name":"commented_by","type":"String"}},"Tag.Model.Info":{"count":{"name":"count","type":"Integer"},"allowedCount":{"name":"allowed_count","type":"Integer"}},"Notification.Model.GetNotificationDetailsParam":{"perPage":{"name":"per_page","type":"Integer"},"module":{"name":"module","type":"String"},"page":{"name":"page","type":"Integer"},"channelId":{"name":"channel_id","type":"Long"}},"Tag.Model.ResponseWrapper":{"tags":{"structure_name":"Tag.Model.Tag","name":"tags","type":"List"},"info":{"structure_name":"Tag.Model.Info","name":"info","type":"Tag.Model.Info"}},"Record.Model.UpsertRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Territory.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","CURRENCIES_NOT_ENABLED","FEATURE_NOT_SUPPORTED"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.Criteria":{"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"apiName":{"name":"api_name","type":"String"},"value":{"name":"value","type":"Object"},"group":{"structure_name":"BulkRead.Model.Criteria","name":"group","type":"List"}},"File.Model.APIException":{"code":{"values":["VIRUS_DETECTED","failure_in_attachment_handling","INTERNAL_ERROR","INVALID_TOKEN","INVALID_DATA","MANDATORY_NOT_FOUND","NO_PERMISSION","INVALID_MODULE","NOT_SUPPORTED","PATTERN_NOT_MATCHED","OAUTH_SCOPE_MISMATCH","DUPLICATE_DATA","INVALID_QUERY","MAPPING_MISMATCH","ID_ALREADY_CONVERTED","FILE_SIZE_MORE_THAN_ALLOWED_SIZE","RECORD_IN_BLUEPRINT","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","Not Modified","AUTHENTICATION_FAILURE","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"String"}],"name":"details","type":"Map"},"message":{"values":["Unable to process your request. Virus has been detected.","Problem in uploading attachment. kindly upload the file properly","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","invalid data","permission denied","Internal server error occurred.","duplicate data","required field not found","record not deleted","record not deletable","Authentication failed","One of the expected parameter is missing","mandatory param missing","unable to process your request. please verify whether you have entered proper method name"," parameter and parameter values."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.PricingDetails":{"discount":{"name":"discount","type":"Double","required":true},"toRange":{"name":"to_range","type":"Double","required":true},"fromRange":{"name":"from_range","type":"Double","required":true}},"Notification.Model.BodyWrapper":{"watch":{"structure_name":"Notification.Model.Notification","name":"watch","max-length":100,"type":"List","required":true,"min-length":1}},"User.Model.APIException":{"code":{"values":["ID_ALREADY_DELETED","CANNOT_UPDATE_DELETED_USER","AUTHORIZATION_FAILED","PATTERN_NOT_MATCHED","INVALID_REQUEST","LICENSE_LIMIT_EXCEEDED","DUPLICATE_DATA","INVALID_DATA","UNAPPROVABLE","MANDATORY_NOT_FOUND","INTERNAL_ERROR","EMAIL_UPDATE_NOT_ALLOWED","ID_ALREADY_DEACTIVATED","ID_ALREADY_ACTIVE","FEATURE_PERMISSION","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred.","Cannot add user under CRM Plus account. Kindly use CRMPlus URL to add user","Request exceeds your license limit. Need to upgrade in order to add","Failed to add user since same email id is already present","Email Id should not contain @skydesk.jp. Please choose a different email id","Invalid Email Id. Please choose a different email id","Cannot add user for CRMPlus account from CRM. Kindly add user through CRMPlus","Company Name is required","Error occurred in resending the invitation of CRMPLUS user in CRM account","Cannot update the time_zone of another User","Either trial has expired or user does not have sufficient privilege to perform this action","Error occurred while updating CRMPlus User in CRM Account","invalid_data","Deleted user cannot be updated","Re-invite is not allowed for a confirmed user","Cannot update email of a confirmed CRM User","User with same email id is already in CRM Plus","User is already deactivated","Primary Contact cannot be deactivated","User is already active","Share among Subordinates Feature is not available","Profile and Role cannot be Updated by the user.","the_id_given_seems_to_be_invalid","Primary contact cannot be deleted","User is already deleted","User does not have sufficient privilege to delete users"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.Record":{"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"tag":{"structure_name":"Tag.Model.Tag","name":"Tag","type":"List","skip_mandatory":true}},"Currency.Model.BodyWrapper":{"currencies":{"structure_name":"Currency.Model.Currency","name":"currencies","max-length":10,"type":"List","required":true,"min-length":1}},"Record.Model.InventoryLineItems":{"unitPrice":{"name":"unit_price","type":"Double"},"quantityInStock":{"name":"quantity_in_stock","type":"Double"},"product":{"lookup":true,"structure_name":"Record.Model.LineItemProduct","name":"product","type":"Record.Model.LineItemProduct","required":true},"quantity":{"name":"quantity","type":"Double","required":true},"book":{"name":"book","type":"Double"},"discount":{"name":"Discount","type":"String"},"tax":{"name":"Tax","type":"Double"},"totalAfterDiscount":{"name":"total_after_discount","type":"Double"},"total":{"name":"total","type":"Double"},"netTotal":{"name":"net_total","type":"Double"},"lineTax":{"lookup":true,"structure_name":"Record.Model.LineTax","name":"line_tax","type":"List"},"listPrice":{"name":"list_price","type":"Double"},"productDescription":{"name":"product_description","type":"String"}},"Record.Model.GetMassUpdateStatusParam":{"jobId":{"name":"job_id","type":"String"}},"Layout.Model.Properties":{"maximumRows":{"name":"maximum_rows","type":"Integer"},"tooltip":{"structure_name":"Field.Model.ToolTip","name":"tooltip","type":"Field.Model.ToolTip"},"reorderRows":{"name":"reorder_rows","type":"Boolean"}},"Notification.Model.Notification":{"resourceId":{"name":"resource_id","type":"String"},"deleteevents":{"name":"_delete_events","type":"Boolean"},"notifyOnRelatedAction":{"name":"notify_on_related_action","type":"Boolean"},"notifyUrl":{"name":"notify_url","type":"String","required":true},"resourceName":{"name":"resource_name","type":"String"},"resourceUri":{"name":"resource_uri","type":"String"},"channelExpiry":{"name":"channel_expiry","type":"DateTime"},"fields":{"name":"fields","type":"Map"},"channelId":{"name":"channel_id","type":"Long","required":true,"primary":true},"events":{"required_in_update":true,"name":"events","type":"List","required":true},"token":{"name":"token","max-length":50,"type":"String","min-length":1}},"Profile.Model.PermissionDetail":{"displayLabel":{"name":"display_label","type":"String"},"module":{"name":"module","type":"String"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"enabled":{"name":"enabled","type":"Boolean"}},"Note.Model.ActionResponse":{"classes":["Note.Model.SuccessResponse","Note.Model.APIException"],"interface":true},"Note.Model.ResponseHandler":{"classes":["Note.Model.APIException","Note.Model.ResponseWrapper"],"interface":true},"RelatedList.Model.ResponseHandler":{"classes":["RelatedList.Model.ResponseWrapper","RelatedList.Model.APIException"],"interface":true},"File.Model.ResponseHandler":{"classes":["File.Model.APIException","File.Model.FileBodyWrapper"],"interface":true},"BulkRead.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_SERVICE_NAME","INVALID_BULK_OPERATION","RESOURCE_NOT_FOUND","MEDIA_TYPE_NOT_SUPPORTED","REQUEST_BODY_NOT_READABLE","REQUEST_BODY_IS_EMPTY","MODULE_NOT_AVAILABLE","NOT_SUPPORTED_FEATURE","NO_PERMISSION","MODULE_NOT_SUPPORTED","JOB_NOT_SUPPORTED","QUERY_NOT_SUPPORTED","INVALID_CALLBACK_URL","INVALID_CALLBACK_METHOD","JOIN_LIMIT_EXCEEDED","CRITERIA_NOT_SUPPORTED","INVALID_CRITERIA","AMBIGUOUS_CRITERIA","AMBIGUOUS_GROUP_IN_CRITERIA","CRITERIA_LIMIT_EXCEEDED","FIELD_IN_CRITERIA_NOT_SUPPORTED","FIELD_AND_COMPARATOR_IN_CRITERIA_NOT_COMPATIBLE","FIELD_IN_CRITERIA_NOT_AVAILABLE","FIELD_COMPARATOR_IN_CRITERIA_NOT_SUPPORTED","VALUE_IN_CRITERIA_NOT_SUPPORTED","FIELD_AND_VALUE_IN_CRITERIA_NOT_COMPATIBLE","COMPARATOR_AND_VALUE_IN_CRITERIA_NOT_COMPATIBLE","COMPARATOR_AND_ENCRYPTED_VALUE_IN_CRITERIA_NOT_COMPATIBLE","GROUP_OPERATOR_NOT_SUPPORTED","FIELD_NOT_AVAILABLE","FIELD_NOT_SUPPORTED","VALUE_LIMIT_EXCEEDED_IN_CRITERIA","PAGE_NOT_SUPPORTED","PAGE_RANGE_EXCEEDED","TOO_MANY_REQUESTS","CALLBACK_FAILURE","INTERNAL_SERVER_ERROR","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"resource","type":"String"},{"name":"message","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"info_message","type":"String"},{"name":"parent_api_name","type":"String"},{"name":"comparator","type":"String"},{"name":"value","type":"String"},{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Provided service name %s is not valid/not supported","Requested operation is an invalid bulk operation","record not in process","The requested resource doesn't exist.","Media type is not supported.","Unable to parse the request body.","Request body is empty.","Requested module '%s' is not available.","Feature is not supported"," permission denied","Invalid module for the query. Module '%s' is not supported.","Invalid bulk %s job.","Invalid query for bulk %s job. Query '%s' is not supported.","Invalid URL '%s' for callback.","Invalid request method %s for callback.","Join limit exceeded for the query. Maximum number of joins supported in a query is %d","Invalid criteria for the query. Criteria %s is not supported.","Invalid criteria %s for the query.","Ambiguous criteria %s. Criteria can have either {group"," group_operator} or {api_name"," comparator"," value}.","Ambiguous group in criteria %s. Group should be used only when there are more than one criteria","Number of criteria exceeded the maximum limit of %d","Field api name '%s' for criteria %s is not supported.","Field api name '%s' is not supported with comparator '%s' for criteria %s.","Field api name '%s' is not available for criteria %s. Check visibility and permission for the field","Field api name '%s' doesn't support this comparator '%s' for criteria %s.","Value '%s' is not supported for criteria %s.","Field '%s' is not supported with value '%s' for criteria %s.","Comparator '%s' is not supported with value '%s' for criteria %s.","Comparator '%s' is not supported with value '%s' for criteria %s as the value is encrypted.","Criteria %s doesn't support this logical group operator '%s'. Supported operators are 'and'"," 'or'.","Requested field api name '%s' is not available for the module '%s'. Check permission or visibility for the field.","Invalid field for the module provided in fields. Field api name '%s' is not supported for this module '%s'.","Value exceeded limit %d","Invalid page number for query. Page %s is not supported for the query.","Invalid page number for query. Page %s is not supported for the query. Page range is from %d to %d.","Many requests fired in concurrent than the allowed limit","Callback failed after %d attempts.","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"User.Model.CustomizeInfo":{"bcView":{"name":"bc_view","type":"String"},"showDetailView":{"name":"show_detail_view","type":"Boolean"},"showHome":{"name":"show_home","type":"Boolean"},"showRightPanel":{"name":"show_right_panel","type":"String"},"notesDesc":{"name":"notes_desc","type":"Boolean"},"unpinRecentItem":{"name":"unpin_recent_item","type":"String"}},"Note.Model.Note":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"noteTitle":{"name":"Note_Title","type":"String"},"noteContent":{"name":"Note_Content","type":"String","required":true},"attachments":{"lookup":true,"structure_name":"Attachment.Model.Attachment","name":"$attachments","type":"List"},"voiceNote":{"name":"$voice_note","type":"Boolean"},"editable":{"name":"$editable","type":"Boolean"},"isSharedToClient":{"name":"$is_shared_to_client","type":"Boolean"},"parentId":{"lookup":true,"structure_name":"Record.Model.Record","name":"Parent_Id","type":"Record.Model.Record","required":true},"seModule":{"name":"$se_module","type":"String","required":true},"size":{"name":"$size","type":"String"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"state":{"name":"$state","type":"String"},"id":{"name":"id","type":"Long","primary":true}},"Layout.Model.GetLayoutsParam":{"module":{"name":"module","type":"String"}},"Record.Model.GetRecordsHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Record.Model.BodyWrapper":{"process":{"name":"process","type":"List"},"data":{"structure_name":"Record.Model.Record","name":"data","max-length":100,"type":"List","required":true,"min-length":1},"larId":{"name":"lar_id","type":"String"},"wfTrigger":{"name":"wf_trigger","type":"String"},"trigger":{"name":"trigger","type":"List"},"duplicateCheckFields":{"name":"duplicate_check_fields","type":"List"}},"Org.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the request does not contain any file","invalid file type","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Tag.Model.GetRecordCountForTagParam":{"module":{"name":"module","type":"String","required":true}},"Tax.Model.ResponseWrapper":{"preference":{"structure_name":"Tax.Model.Preference","name":"preference","type":"Tax.Model.Preference"},"taxes":{"structure_name":"Tax.Model.Tax","name":"taxes","type":"List"}},"BluePrint.Model.ActionResponse":{"classes":["BluePrint.Model.SuccessResponse","BluePrint.Model.APIException"],"interface":true},"Currency.Model.ActionHandler":{"classes":["Currency.Model.ActionWrapper","Currency.Model.APIException"],"interface":true},"Record.Model.GetRecordsParam":{"cvid":{"name":"cvid","type":"String"},"endDateTime":{"name":"endDateTime","type":"DateTime"},"includeChild":{"name":"include_child","type":"String"},"uid":{"name":"uid","type":"String"},"approved":{"name":"approved","type":"String"},"perPage":{"name":"per_page","type":"Integer"},"startDateTime":{"name":"startDateTime","type":"DateTime"},"converted":{"name":"converted","type":"String"},"sortOrder":{"name":"sort_order","type":"String"},"ids":{"name":"ids","type":"Long","required":true},"territoryId":{"name":"territory_id","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"BluePrint.Model.BodyWrapper":{"blueprint":{"structure_name":"BluePrint.Model.BluePrint","name":"blueprint","max-length":1,"type":"List","required":true,"min-length":1}},"Territory.Model.ResponseWrapper":{"territories":{"structure_name":"Territory.Model.Territory","name":"territories","type":"List"}},"Role.Model.ResponseWrapper":{"roles":{"structure_name":"Role.Model.Role","name":"roles","type":"List"}},"Layout.Model.GetLayoutParam":{"module":{"name":"module","type":"String"}},"Tag.Model.CreateTagsParam":{"module":{"name":"module","type":"String","required":true}},"Tag.Model.AddTagsToRecordParam":{"tagNames":{"name":"tag_names","type":"String","required":true},"overWrite":{"name":"over_write","type":"String"}},"Query.Model.BodyWrapper":{"selectQuery":{"name":"select_query","type":"String","required":true}},"ContactRole.Model.DeleteContactRolesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Tag.Model.ConflictWrapper":{"conflictId":{"name":"conflict_id","type":"String","required":true}},"CustomView.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","REQUIRED_PARAM_MISSING","INVALID_MODULE","INTERNAL_ERROR","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"expected_data_type","type":"String"},{"name":"api_name","type":"String"},{"structure_name":"CustomView.Model.Range","name":"range","type":"CustomView.Model.Range"},{"name":"json_path","type":"String"},{"name":"resource_path_index","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","The given module is not supported in API","invalid data","Invalid ID","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordsHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Org.Model.LicenseDetails":{"paidType":{"name":"paid_type","type":"String"},"trialType":{"name":"trial_type","type":"String"},"paidExpiry":{"name":"paid_expiry","type":"DateTime"},"paid":{"name":"paid","type":"Boolean"},"usersLicensePurchased":{"name":"users_license_purchased","type":"Long"},"trialExpiry":{"name":"trial_expiry","type":"String"}},"Module.Model.ResponseWrapper":{"modules":{"structure_name":"Module.Model.Module","name":"modules","type":"List"}},"Role.Model.ResponseHandler":{"classes":["Role.Model.APIException","Role.Model.ResponseWrapper"],"interface":true},"Notification.Model.ResponseWrapper":{"watch":{"structure_name":"Notification.Model.Notification","name":"watch","type":"List"},"info":{"structure_name":"Notification.Model.Info","name":"info","type":"Notification.Model.Info"}},"Record.Model.Criteria":{"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"field":{"name":"field","type":"String"},"value":{"name":"value","type":"Object"},"group":{"lookup":true,"structure_name":"Record.Model.Criteria","name":"group","type":"List"}},"Module.Model.Module":{"relatedListProperties":{"structure_name":"Module.Model.RelatedListProperties","name":"related_list_properties","type":"Module.Model.RelatedListProperties"},"modifiedTime":{"name":"modified_time","type":"DateTime"},"apiName":{"name":"api_name","type":"String","primary":true},"generatedType":{"values":["default","web","custom","linking"],"name":"generated_type","type":"util.Model.Choice"},"webLink":{"name":"web_link","type":"String"},"deletable":{"name":"deletable","type":"Boolean"},"moduleName":{"name":"module_name","type":"String"},"description":{"name":"description","type":"String"},"scoringSupported":{"name":"scoring_supported","type":"Boolean"},"filterSupported":{"name":"filter_supported","type":"Boolean"},"feedsRequired":{"name":"feeds_required","type":"Boolean"},"creatable":{"name":"creatable","type":"Boolean"},"customView":{"lookup":true,"structure_name":"CustomView.Model.CustomView","name":"custom_view","type":"CustomView.Model.CustomView"},"webformSupported":{"name":"webform_supported","type":"Boolean"},"kanbanViewSupported":{"name":"kanban_view_supported","type":"Boolean"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"showAsTab":{"name":"show_as_tab","type":"Boolean"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"globalSearchSupported":{"name":"global_search_supported","type":"Boolean"},"visibility":{"name":"visibility","type":"Integer"},"convertable":{"name":"convertable","type":"Boolean"},"editable":{"name":"editable","type":"Boolean"},"quickCreate":{"name":"quick_create","type":"Boolean"},"profiles":{"lookup":true,"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"},"filterStatus":{"name":"filter_status","type":"Boolean"},"presenceSubMenu":{"name":"presence_sub_menu","type":"Boolean"},"pluralLabel":{"name":"plural_label","type":"String"},"singularLabel":{"name":"singular_label","type":"String"},"parentModule":{"lookup":true,"structure_name":"Module.Model.Module","name":"parent_module","type":"Module.Model.Module"},"businessCardFieldLimit":{"name":"business_card_field_limit","type":"Integer"},"perPage":{"name":"per_page","type":"Integer"},"viewable":{"name":"viewable","type":"Boolean"},"apiSupported":{"name":"api_supported","type":"Boolean"},"name":{"name":"name","type":"String"},"displayField":{"name":"display_field","type":"String"},"arguments1":{"structure_name":"Module.Model.Argument","name":"arguments","type":"List"},"emailtemplateSupport":{"name":"emailTemplate_support","type":"Boolean"},"triggersSupported":{"name":"triggers_supported","type":"Boolean"},"kanbanView":{"name":"kanban_view","type":"Boolean"},"inventoryTemplateSupported":{"name":"inventory_template_supported","type":"Boolean"},"properties":{"name":"$properties","type":"List"},"searchLayoutFields":{"name":"search_layout_fields","type":"List"},"territory":{"lookup":true,"structure_name":"Module.Model.Territory","name":"territory","type":"Module.Model.Territory"}},"BulkWrite.Model.File":{"updatedCount":{"name":"updated_count","type":"Integer"},"name":{"name":"name","type":"String"},"skippedCount":{"name":"skipped_count","type":"Integer"},"addedCount":{"name":"added_count","type":"Integer"},"totalCount":{"name":"total_count","type":"Integer"},"status":{"values":["ADDED","IN PROGRESS","COMPLETED","SKIPPED","FAILED"],"name":"status","type":"util.Model.Choice"}},"User.Model.ActionHandler":{"classes":["User.Model.ActionWrapper","User.Model.APIException"],"interface":true},"CustomView.Model.CustomView":{"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"displayValue":{"name":"display_value","type":"String"},"offline":{"name":"offline","type":"Boolean"},"systemName":{"name":"system_name","type":"String"},"default1":{"name":"default","type":"Boolean"},"sortOrder":{"name":"sort_order","type":"String"},"sharedDetails":{"structure_name":"CustomView.Model.SharedDetails","name":"shared_details","type":"List"},"name":{"name":"name","type":"String"},"sharedType":{"name":"shared_type","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"String"},"systemDefined":{"name":"system_defined","type":"Boolean"},"fields":{"name":"fields","type":"List"},"favorite":{"name":"favorite","type":"Integer"}},"Notification.Model.ActionHandler":{"classes":["Notification.Model.APIException","Notification.Model.ActionWrapper"],"interface":true},"Record.Model.MassUpdateResponseWrapper":{"data":{"structure_name":"Record.Model.MassUpdateResponse","name":"data","type":"List"}},"Tax.Model.ActionWrapper":{"taxes":{"structure_name":"Tax.Model.ActionResponse","name":"taxes","type":"List"}},"ShareRecord.Model.ActionResponse":{"classes":["ShareRecord.Model.SuccessResponse","ShareRecord.Model.APIException"],"interface":true},"Tag.Model.RecordActionWrapper":{"lockedCount":{"name":"locked_count","type":"Integer"},"data":{"structure_name":"Tag.Model.RecordActionResponse","name":"data","type":"List"},"successCount":{"name":"success_count","type":"String"},"wfScheduler":{"name":"wf_scheduler","type":"Boolean"}},"VariableGroup.Model.ResponseWrapper":{"variableGroups":{"structure_name":"VariableGroup.Model.VariableGroup","name":"variable_groups","type":"List"}},"ShareRecord.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["record will be shared successfully","Sharing Revoked"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.GetUsersParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"type":{"name":"type","type":"String","required":true}},"BulkRead.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Record.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Record.Model.MassUpdate":{"failedCount":{"name":"Failed_Count","type":"Integer"},"updatedCount":{"name":"Updated_Count","type":"Integer"},"notUpdatedCount":{"name":"Not_Updated_Count","type":"Integer"},"totalCount":{"name":"Total_Count","type":"Integer"},"status":{"values":["COMPLETED","SCHEDULED","RUNNING","FAILED"],"name":"Status","type":"util.Model.Choice"}},"Profile.Model.ResponseWrapper":{"profiles":{"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"}},"Field.Model.ResponseWrapper":{"fields":{"structure_name":"Field.Model.Field","name":"fields","type":"List"}},"User.Model.Theme":{"newBackground":{"name":"new_background","type":"String"},"normalTab":{"lookup":true,"structure_name":"User.Model.TabTheme","name":"normal_tab","type":"User.Model.TabTheme"},"background":{"name":"background","type":"String"},"screen":{"name":"screen","type":"String"},"type":{"name":"type","type":"String"},"selectedTab":{"lookup":true,"structure_name":"User.Model.TabTheme","name":"selected_tab","type":"User.Model.TabTheme"}},"ContactRole.Model.ContactRole":{"sequenceNumber":{"name":"sequence_number","type":"Integer"},"name":{"unique":true,"name":"name","type":"String","required":true},"id":{"name":"id","type":"Long","primary":true}},"BulkRead.Model.JobDetail":{"result":{"structure_name":"BulkRead.Model.Result","name":"result","type":"BulkRead.Model.Result"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"query":{"structure_name":"BulkRead.Model.Query","name":"query","type":"BulkRead.Model.Query"},"createdTime":{"name":"created_time","type":"DateTime"},"id":{"name":"id","type":"Long","primary":true},"state":{"values":["COMPLETED","IN PROGRESS","ADDED","FAILURE"],"name":"state","type":"util.Model.Choice"},"operation":{"name":"operation","type":"String"},"fileType":{"name":"file_type","type":"String"}},"Variable.Model.BodyWrapper":{"variables":{"structure_name":"Variable.Model.Variable","name":"variables","max-length":100,"type":"List","required":true,"min-length":1}},"CustomView.Model.ResponseWrapper":{"customViews":{"structure_name":"CustomView.Model.CustomView","name":"custom_views","type":"List"},"info":{"structure_name":"CustomView.Model.Info","name":"info","type":"CustomView.Model.Info"}},"Note.Model.ActionHandler":{"classes":["Note.Model.ActionWrapper","Note.Model.APIException"],"interface":true},"Module.Model.ActionWrapper":{"modules":{"structure_name":"Module.Model.ActionResponse","name":"modules","type":"List"}},"User.Model.Territory":{"manager":{"name":"manager","type":"Boolean"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Tax.Model.DeleteTaxesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Tag.Model.RecordActionHandler":{"classes":["Tag.Model.APIException","Tag.Model.RecordActionWrapper"],"interface":true},"Record.Model.MassUpdateResponseHandler":{"classes":["Record.Model.APIException","Record.Model.MassUpdateResponseWrapper"],"interface":true},"ShareRecord.Model.DeleteActionResponse":{"classes":["ShareRecord.Model.SuccessResponse","ShareRecord.Model.APIException"],"interface":true},"VariableGroup.Model.ResponseHandler":{"classes":["VariableGroup.Model.ResponseWrapper","VariableGroup.Model.APIException"],"interface":true},"Module.Model.ResponseHandler":{"classes":["Module.Model.APIException","Module.Model.ResponseWrapper"],"interface":true},"Field.Model.GetFieldsParam":{"module":{"name":"module","type":"String"},"type":{"name":"type","type":"String"}},"BulkWrite.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","FILE_TOO_LARGE","INVALID_FILE_FORMAT","MANDATORY_FIELDS_NOT_MAPPED","MANDATORY_NOT_FOUND","INVALID_FIELD","INVALID_FORMAT","INVALID_FILE_ID","HEADER_LIMIT_EXCEEDED","COLUMN_INDEX_NOT_FOUND","MODULE_NOT_AVAILABLE","INVALID_DATA","DUPLICATE_DATA","NOT_APPROVED","BLOCKED_RECORD","CANNOT_PROCESS","LIMIT_EXCEEDED","RESOURCE_NOT_FOUND","MISSING_REQUIRED_KEY","INVALID_FIELD_NAME","FILE_NOT_SUPPORTED","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"xError":{"values":["check if headers [feature:X-CRM-ORG] are present and valid"],"name":"x-error","type":"util.Model.Choice"},"httpStatus":{"name":"http_status","type":"String"},"errorMessage":{"values":["Bad Request"],"name":"ERROR_MESSAGE","type":"util.Model.Choice"},"errorCode":{"name":"ERROR_CODE","type":"Integer"},"details":{"name":"details","type":"Map"},"xInfo":{"values":["Link not valid"],"name":"x-info","type":"util.Model.Choice"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","invalid file format. only zip format is supported","File size too large to process","The requested resource doesn't exist.","required key operation is not found in request body.","improper file id","required key index for field Company is not found in request body.","All mandatory fields are not mapped for the layout","Requested module 'asdf' is not available.","invalid mapping. invalid api_name ast_Name.","File not supported for bulk write","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"},"info":{"values":["Forbidden"],"name":"info","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"}},"User.Model.User":{"country":{"name":"country","type":"String"},"lastName":{"name":"last_name","type":"String","required":true},"role":{"lookup":true,"structure_name":"Role.Model.Role","name":"role","type":"Role.Model.Role","required":true},"decimalSeparator":{"name":"decimal_separator","type":"String"},"signature":{"name":"signature","type":"String"},"city":{"name":"city","type":"String"},"dateFormat":{"name":"date_format","type":"String"},"language":{"name":"language","type":"String"},"countryLocale":{"name":"country_locale","type":"String"},"locale":{"name":"locale","type":"String"},"microsoft":{"name":"microsoft","type":"Boolean"},"isonline":{"name":"Isonline","type":"Boolean"},"nameFormat":{"name":"name_format","type":"String"},"street":{"name":"street","type":"String"},"alias":{"name":"alias","type":"String"},"currency":{"name":"Currency","type":"String"},"theme":{"lookup":true,"structure_name":"User.Model.Theme","name":"theme","type":"User.Model.Theme"},"personalAccount":{"name":"personal_account","type":"Boolean"},"state":{"name":"state","type":"String"},"fax":{"name":"fax","type":"String"},"email":{"name":"email","type":"String","required":true},"reportingTo":{"lookup":true,"structure_name":"User.Model.User","name":"Reporting_To","type":"User.Model.User"},"zip":{"name":"zip","type":"String"},"website":{"name":"website","type":"String"},"offset":{"name":"offset","type":"Long"},"profile":{"lookup":true,"structure_name":"Profile.Model.Profile","name":"profile","type":"Profile.Model.Profile","required":true},"mobile":{"name":"mobile","type":"String"},"timeZone":{"name":"time_zone","type":"String"},"fullName":{"name":"full_name","type":"String"},"customizeInfo":{"lookup":true,"structure_name":"User.Model.CustomizeInfo","name":"customize_info","type":"User.Model.CustomizeInfo"},"zuid":{"name":"zuid","type":"String"},"confirm":{"name":"confirm","type":"Boolean"},"firstName":{"name":"first_name","type":"String"},"territories":{"lookup":true,"structure_name":"User.Model.Territory","name":"territories","type":"List"},"phone":{"name":"phone","type":"String"},"dob":{"name":"dob","type":"String"},"timeFormat":{"name":"time_format","type":"String"},"name":{"name":"name","type":"String"},"defaultTabGroup":{"name":"default_tab_group","type":"String"},"status":{"name":"status","type":"String"}},"Record.Model.DownloadHandler":{"classes":["Record.Model.APIException","Record.Model.FileBodyWrapper"],"interface":true},"RelatedList.Model.GetRelatedListsParam":{"module":{"name":"module","type":"String"}},"Record.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Record.Model.FileDetails":{"extn":{"name":"extn","type":"String"},"fileName":{"name":"file_Name","type":"String"},"previewUrl":{"name":"preview_Url","type":"String"},"isPreviewAvailable":{"name":"is_Preview_Available","type":"Boolean"},"downloadUrl":{"name":"download_Url","type":"String"},"creatorId":{"name":"creator_Id","type":"String"},"entityId":{"name":"entity_Id","type":"String"},"delete1":{"name":"_delete","type":"String"},"mode":{"name":"mode","type":"String"},"linkDocs":{"name":"link_Docs","type":"Integer"},"fileSize":{"name":"file_Size","type":"String"},"deleteUrl":{"name":"delete_Url","type":"String"},"attachmentId":{"name":"attachment_Id","type":"String"},"originalSizeByte":{"name":"original_Size_Byte","type":"String"},"fileId":{"name":"file_Id","type":"String","required":true}},"util.Model.Model":{"classes":["Attachment.Model.SuccessResponse","Attachment.Model.APIException","Attachment.Model.Attachment","Attachment.Model.ActionWrapper","Attachment.Model.ResponseWrapper","Attachment.Model.FileBodyWrapper","Note.Model.ActionWrapper","Note.Model.SuccessResponse","Note.Model.BodyWrapper","Note.Model.APIException","Note.Model.Info","Note.Model.ResponseWrapper","Note.Model.Note","Role.Model.Role","Role.Model.APIException","Role.Model.ResponseWrapper","RelatedList.Model.ResponseWrapper","RelatedList.Model.RelatedList","RelatedList.Model.APIException","Tax.Model.Preference","Tax.Model.ActionWrapper","Tax.Model.SuccessResponse","Tax.Model.APIException","Tax.Model.ResponseWrapper","Tax.Model.BodyWrapper","Tax.Model.Tax","Layout.Model.ResponseWrapper","Layout.Model.Section","Layout.Model.APIException","Layout.Model.Layout","Layout.Model.Properties","BulkWrite.Model.CallBack","BulkWrite.Model.SuccessResponse","BulkWrite.Model.RequestWrapper","BulkWrite.Model.APIException","BulkWrite.Model.BulkWriteResponse","BulkWrite.Model.File","BulkWrite.Model.Resource","BulkWrite.Model.FieldMapping","BulkWrite.Model.FileBodyWrapper","BulkWrite.Model.Result","CustomView.Model.SharedDetails","CustomView.Model.Translation","CustomView.Model.ResponseWrapper","CustomView.Model.Info","CustomView.Model.CustomView","CustomView.Model.Criteria","CustomView.Model.Range","CustomView.Model.APIException","Notification.Model.SuccessResponse","Notification.Model.Info","Notification.Model.BodyWrapper","Notification.Model.APIException","Notification.Model.ActionWrapper","Notification.Model.ResponseWrapper","Notification.Model.Notification","BluePrint.Model.Transition","BluePrint.Model.BluePrint","BluePrint.Model.SuccessResponse","BluePrint.Model.BodyWrapper","BluePrint.Model.NextTransition","BluePrint.Model.ProcessInfo","BluePrint.Model.ResponseWrapper","BluePrint.Model.APIException","BluePrint.Model.ValidationError","File.Model.BodyWrapper","File.Model.SuccessResponse","File.Model.ActionWrapper","File.Model.APIException","File.Model.FileBodyWrapper","Record.Model.ResponseWrapper","Record.Model.Consent","Record.Model.SuccessResponse","Record.Model.ConvertActionWrapper","Record.Model.MassUpdateBodyWrapper","Record.Model.APIException","Record.Model.Territory","Record.Model.SuccessfulConvert","Record.Model.LeadConverter","Record.Model.BodyWrapper","Record.Model.Criteria","Record.Model.MassUpdateActionWrapper","Record.Model.Info","Record.Model.FileBodyWrapper","Record.Model.InventoryLineItems","Record.Model.MassUpdate","Record.Model.ActionWrapper","Record.Model.Record","Record.Model.RemindAt","Record.Model.Participants","Record.Model.ConvertBodyWrapper","Record.Model.MassUpdateResponseWrapper","Record.Model.FileDetails","Record.Model.Reminder","Record.Model.DeletedRecordsWrapper","Record.Model.DeletedRecord","Record.Model.LineTax","Record.Model.RecurringActivity","Record.Model.LineItemProduct","Record.Model.Comment","Record.Model.CarryOverTags","Record.Model.MassUpdateSuccessResponse","Record.Model.PricingDetails","RelatedRecord.Model.APIException","RelatedRecord.Model.SuccessResponse","RelatedRecord.Model.ActionWrapper","RelatedRecord.Model.ResponseWrapper","RelatedRecord.Model.FileBodyWrapper","RelatedRecord.Model.BodyWrapper","ShareRecord.Model.SuccessResponse","ShareRecord.Model.SharedThrough","ShareRecord.Model.APIException","ShareRecord.Model.ResponseWrapper","ShareRecord.Model.ShareRecord","ShareRecord.Model.DeleteActionWrapper","ShareRecord.Model.BodyWrapper","ShareRecord.Model.ActionWrapper","BulkRead.Model.Criteria","BulkRead.Model.Query","BulkRead.Model.RequestWrapper","BulkRead.Model.SuccessResponse","BulkRead.Model.JobDetail","BulkRead.Model.Result","BulkRead.Model.CallBack","BulkRead.Model.ResponseWrapper","BulkRead.Model.APIException","BulkRead.Model.ActionWrapper","BulkRead.Model.FileBodyWrapper","Variable.Model.ResponseWrapper","Variable.Model.BodyWrapper","Variable.Model.APIException","Variable.Model.Variable","Variable.Model.SuccessResponse","Variable.Model.ActionWrapper","Org.Model.SuccessResponse","Org.Model.ResponseWrapper","Org.Model.Org","Org.Model.LicenseDetails","Org.Model.APIException","Org.Model.FileBodyWrapper","Query.Model.ResponseWrapper","Query.Model.BodyWrapper","Query.Model.APIException","Profile.Model.APIException","Profile.Model.Category","Profile.Model.Profile","Profile.Model.PermissionDetail","Profile.Model.Section","Profile.Model.ResponseWrapper","User.Model.ActionWrapper","User.Model.SuccessResponse","User.Model.ResponseWrapper","User.Model.Territory","User.Model.CustomizeInfo","User.Model.Theme","User.Model.BodyWrapper","User.Model.Info","User.Model.Shift","User.Model.RequestWrapper","User.Model.User","User.Model.APIException","User.Model.TabTheme","Module.Model.Module","Module.Model.Territory","Module.Model.APIException","Module.Model.SuccessResponse","Module.Model.ActionWrapper","Module.Model.ResponseWrapper","Module.Model.Argument","Module.Model.RelatedListProperties","Module.Model.BodyWrapper","Tag.Model.MergeWrapper","Tag.Model.ActionWrapper","Tag.Model.BodyWrapper","Tag.Model.ResponseWrapper","Tag.Model.Tag","Tag.Model.Info","Tag.Model.SuccessResponse","Tag.Model.APIException","Tag.Model.RecordActionWrapper","Tag.Model.CountWrapper","Tag.Model.ConflictWrapper","Territory.Model.Territory","Territory.Model.APIException","Territory.Model.ResponseWrapper","ContactRole.Model.ResponseWrapper","ContactRole.Model.SuccessResponse","ContactRole.Model.BodyWrapper","ContactRole.Model.APIException","ContactRole.Model.ActionWrapper","ContactRole.Model.ContactRole","Field.Model.RelatedDetails","Field.Model.Field","Field.Model.Unique","Field.Model.Crypt","Field.Model.ViewType","Field.Model.AutoNumber","Field.Model.MultiSelectLookup","Field.Model.PickListValue","Field.Model.ResponseWrapper","Field.Model.ToolTip","Field.Model.Currency","Field.Model.Formula","Field.Model.Private","Field.Model.LookupField","Field.Model.APIException","Field.Model.Module","Field.Model.AssociationDetails","VariableGroup.Model.ResponseWrapper","VariableGroup.Model.VariableGroup","VariableGroup.Model.APIException","Currency.Model.Currency","Currency.Model.ResponseWrapper","Currency.Model.SuccessResponse","Currency.Model.BaseCurrencyWrapper","Currency.Model.ActionWrapper","Currency.Model.APIException","Currency.Model.BodyWrapper","Currency.Model.Format","Currency.Model.BaseCurrencyActionWrapper"],"interface":true},"Record.Model.ConvertBodyWrapper":{"data":{"structure_name":"Record.Model.LeadConverter","name":"data","max-length":1,"type":"List","required":true,"min-length":1}},"BulkRead.Model.CallBack":{"method":{"values":["post"],"name":"method","type":"util.Model.Choice","required":true},"url":{"name":"url","type":"String","required":true}},"Tag.Model.UpdateTagsParam":{"module":{"name":"module","type":"String","required":true}},"Record.Model.APIException":{"code":{"values":["FEATURE_NOT_SUPPORTED","CONVERTED_RECORD","NOT_FOUND","NO_RECORDS_FOUND","NOT_APPROVED","LIMIT_EXCEEDED","ALREADY_SCHEDULED","CANNOT_PERFORM_ACTION","CANNOT_PROCESS","INTERNAL_ERROR","INVALID_TOKEN","INVALID_DATA","MANDATORY_NOT_FOUND","NO_PERMISSION","INVALID_MODULE","NOT_SUPPORTED","PATTERN_NOT_MATCHED","OAUTH_SCOPE_MISMATCH","DUPLICATE_DATA","INVALID_QUERY","MAPPING_MISMATCH","ID_ALREADY_CONVERTED","FILE_SIZE_MORE_THAN_ALLOWED_SIZE","RECORD_IN_BLUEPRINT","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","Not Modified","AUTHENTICATION_FAILURE","CANNOT_DELETE","REQUIRED_PARAM_MISSING","DATA_MISMATCH","RECORD_LOCKED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"param_name","type":"String"},{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"module","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"index","type":"Integer"},{"name":"maximum_length","type":"String"},{"name":"mapped_field","type":"String"},{"name":"reason","type":"String"},{"name":"operator","type":"String"},{"name":"allowed_count","type":"Integer"},{"name":"limit","type":"Integer"},{"name":"json_path","type":"String"},{"name":"parent_api_name","type":"String"},{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["the id given seems to be invalid.","Already an Mass Action scheduler is runing for the given cvid","Scheduled Mass Operation feature is not available in your edition","can't update the converted record","Field cannot be updated in Scheduled Mass Update","Field is not visible","Field cannot be updated as it is associated with a validation rule.","Field cannot be updated as it is associated with a layout rule.This field cannot be updated in the Mass Update","Max field limit exceeded","Maximum lookup field limit in criteria exceeded","No field found","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","Territory is not supported for the given module","Please check whether the input values are correct","invalid data","permission denied","Internal server error occurred.","duplicate data","required field not found","Layout doesn't contain the Pipeline","Pipeline doesn't contain the Stage","the id given seems to be invalid","record not deleted","record not deletable","Authentication failed","One of the expected parameter is missing","mandatory param missing","invalid query formed","id already converted","body","given id is invalid","Already a Mass Action scheduler is running for the given cvid","The record is in stop processing","The record is in blue print","no permission to perform an action on this record","Record count exceeded","record not approved","no record found to update","Field Edit Permission not given","Customview not accessible","Empty response","give contact id is mismatched with the data","give account id is mismatched with the data"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"ContactRole.Model.ActionWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ActionResponse","name":"contact_roles","type":"List"}},"Record.Model.MassUpdateBodyWrapper":{"cvid":{"name":"cvid","type":"String"},"data":{"structure_name":"Record.Model.Record","name":"data","type":"List","skip_mandatory":true,"required":true},"criteria":{"structure_name":"Record.Model.Criteria","name":"criteria","type":"List"},"ids":{"name":"ids","type":"List"},"territory":{"structure_name":"Record.Model.Territory","name":"territory","type":"Record.Model.Territory"},"overWrite":{"name":"over_write","type":"Boolean"}},"Record.Model.GetDeletedRecordsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"type":{"name":"type","type":"String"}},"RelatedRecord.Model.ActionHandler":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.ActionWrapper"],"interface":true},"File.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"name","type":"String"},{"name":"id","type":"String"}],"name":"details","type":"Map"},"message":{"values":["uploaded Succeessfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"BluePrint.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["transition updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Note.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"Modified_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"name":"Created_Time","type":"DateTime"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["record added","record updated","record deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Territory.Model.ResponseHandler":{"classes":["Territory.Model.APIException","Territory.Model.ResponseWrapper"],"interface":true},"BluePrint.Model.Transition":{"executionTime":{"name":"execution_time","type":"DateTime"},"criteriaMatched":{"name":"criteria_matched","type":"Boolean"},"percentPartialSave":{"name":"percent_partial_save","type":"Double"},"data":{"structure_name":"Record.Model.Record","name":"data","type":"Record.Model.Record","skip_mandatory":true},"nextTransitions":{"lookup":true,"structure_name":"BluePrint.Model.NextTransition","name":"next_transitions","type":"List"},"name":{"name":"name","type":"String"},"criteriaMessage":{"name":"criteria_message","type":"String"},"nextFieldValue":{"name":"next_field_value","type":"String"},"id":{"name":"id","type":"Long"},"fields":{"lookup":true,"structure_name":"Field.Model.Field","name":"fields","type":"List"},"type":{"name":"type","type":"String"}},"RelatedRecord.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["relation added","relation removed"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.GetUsersHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Attachment.Model.ActionResponse":{"classes":["Attachment.Model.SuccessResponse","Attachment.Model.APIException"],"interface":true},"Record.Model.Reminder":{"period":{"name":"period","type":"String","required":true},"unit":{"name":"unit","type":"String","required":true}},"Field.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","INTERNAL_ERROR","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the given module is not supported for this api","Internal server error occurred.","the module name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Profile.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ContactRole.Model.BodyWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ContactRole","name":"contact_roles","max-length":100,"type":"List","required":true,"min-length":1}},"Territory.Model.Territory":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"manager":{"structure_name":"User.Model.User","name":"manager","type":"User.Model.User"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"name":{"name":"name","type":"String"},"createdTime":{"name":"created_time","type":"DateTime"},"description":{"name":"description","type":"String"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"parentId":{"name":"parent_id","type":"String"}},"Org.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"RelatedRecord.Model.UpdateRelatedRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Attachment.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"id","type":"Long"},{"name":"resource_path_index","type":"Integer"},{"name":"related_status","type":"String"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["As it is a linked attachment"," you can not download it","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Attachment link already exists","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Attachment.Model.GetAttachmentsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"BluePrint.Model.ValidationError":{"apiName":{"name":"api_name","type":"String"},"message":{"name":"message","type":"String"}},"Profile.Model.Profile":{"displayLabel":{"name":"display_label","type":"String"},"modifiedTime":{"name":"modified_time","type":"DateTime"},"permissionsDetails":{"structure_name":"Profile.Model.PermissionDetail","name":"permissions_details","type":"List"},"description":{"name":"description","type":"String"},"delete1":{"name":"_delete","type":"Boolean"},"sections":{"structure_name":"Profile.Model.Section","name":"sections","type":"List"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"default1":{"name":"default","type":"Boolean"},"name":{"name":"name","type":"String"},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"Boolean"}},"BluePrint.Model.ResponseWrapper":{"blueprint":{"structure_name":"BluePrint.Model.BluePrint","name":"blueprint","type":"BluePrint.Model.BluePrint"}},"Tax.Model.ActionResponse":{"classes":["Tax.Model.SuccessResponse","Tax.Model.APIException"],"interface":true},"Note.Model.ResponseWrapper":{"data":{"structure_name":"Note.Model.Note","name":"data","type":"List"},"info":{"structure_name":"Note.Model.Info","name":"info","type":"Note.Model.Info"}},"BulkWrite.Model.ResponseHandler":{"classes":["BulkWrite.Model.APIException","BulkWrite.Model.FileBodyWrapper"],"interface":true},"File.Model.UploadFilesParam":{"type":{"name":"type","type":"String","required":true}},"Tax.Model.ResponseHandler":{"classes":["Tax.Model.APIException","Tax.Model.ResponseWrapper"],"interface":true},"Tag.Model.RemoveTagsFromRecordParam":{"tagNames":{"name":"tag_names","type":"String","required":true}},"BulkWrite.Model.Resource":{"file":{"structure_name":"BulkWrite.Model.File","name":"file","type":"BulkWrite.Model.File"},"module":{"name":"module","type":"String","required":true},"ignoreEmpty":{"name":"ignore_empty","type":"Boolean"},"findBy":{"name":"find_by","type":"String"},"fieldMappings":{"structure_name":"BulkWrite.Model.FieldMapping","name":"field_mappings","type":"List"},"type":{"values":["data"],"name":"type","type":"util.Model.Choice","required":true},"status":{"values":["ADDED","IN PROGRESS","COMPLETED","SKIPPED","FAILED"],"name":"status","type":"util.Model.Choice"},"fileId":{"name":"file_id","type":"String","required":true}},"Field.Model.GetFieldParam":{"module":{"name":"module","type":"String"}},"Variable.Model.ActionResponse":{"classes":["Variable.Model.APIException","Variable.Model.SuccessResponse"],"interface":true},"Tax.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"name","type":"String"},{"name":"value","type":"String"},{"name":"maximum_length","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","required field not found","Sequence number out of range","Sequence number cannot be repeated in same request","Given ID does not exist","tax not deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ShareRecord.Model.ResponseHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.ResponseWrapper"],"interface":true},"Note.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","MANDATORY_NOT_FOUND","INVALID_DATA","NOT_SUPPORTED","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"api_name","type":"String"},{"name":"param","type":"String"},{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the id given seems to be invalid","One of the expected parameter is missing","record not deleted","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Role.Model.Role":{"displayLabel":{"name":"display_label","type":"String"},"forecastManager":{"structure_name":"User.Model.User","name":"forecast_manager","type":"User.Model.User"},"adminUser":{"name":"admin_user","type":"Boolean"},"shareWithPeers":{"name":"share_with_peers","type":"Boolean"},"name":{"name":"name","type":"String"},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true},"reportingTo":{"structure_name":"User.Model.User","name":"reporting_to","type":"User.Model.User"}},"Field.Model.Field":{"apiName":{"name":"api_name","type":"String"},"webhook":{"name":"webhook","type":"Boolean"},"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"crypt":{"structure_name":"Field.Model.Crypt","name":"crypt","type":"Field.Model.Crypt"},"defaultValue":{"name":"default_value","type":"String"},"validationRule":{"name":"validation_rule","type":"Map"},"tooltip":{"structure_name":"Field.Model.ToolTip","name":"tooltip","type":"Field.Model.ToolTip"},"quickSequenceNumber":{"name":"quick_sequence_number","type":"Integer"},"relatedDetails":{"structure_name":"Field.Model.RelatedDetails","name":"related_details","type":"Field.Model.RelatedDetails"},"jsonType":{"name":"json_type","type":"String"},"type":{"name":"_type","type":"String"},"layouts":{"structure_name":"Layout.Model.Layout","name":"layouts","type":"Layout.Model.Layout"},"mandatory":{"name":"mandatory","type":"Boolean"},"content":{"name":"content","type":"String"},"blueprintSupported":{"name":"blueprint_supported","type":"Boolean"},"associationDetails":{"structure_name":"Field.Model.AssociationDetails","name":"association_details","type":"Field.Model.AssociationDetails"},"pickListValues":{"structure_name":"Field.Model.PickListValue","name":"pick_list_values","type":"List"},"fieldLabel":{"name":"field_label","type":"String"},"fieldReadOnly":{"name":"field_read_only","type":"Boolean"},"businesscardSupported":{"name":"businesscard_supported","type":"Boolean"},"currency":{"structure_name":"Field.Model.Currency","name":"currency","type":"Field.Model.Currency"},"id":{"name":"id","type":"Long","read-only":true,"primary":true},"displayLabel":{"name":"display_label","type":"String"},"personalityName":{"name":"personality_name","type":"String"},"lookup":{"structure_name":"Field.Model.Module","name":"lookup","type":"Field.Model.Module"},"visible":{"name":"visible","type":"Boolean"},"dataType":{"name":"data_type","type":"String","read-only":true},"length":{"name":"length","type":"Integer"},"readOnly":{"name":"read_only","type":"Boolean"},"historyTracking":{"name":"history_tracking","type":"Boolean"},"sectionId":{"name":"section_id","type":"Integer"},"systemMandatory":{"name":"system_mandatory","type":"Boolean"},"message":{"name":"message","type":"String"},"subform":{"structure_name":"Field.Model.Module","name":"subform","type":"Field.Model.Module"},"autoNumber":{"structure_name":"Field.Model.AutoNumber","name":"auto_number","type":"Field.Model.AutoNumber"},"private1":{"structure_name":"Field.Model.Private","name":"private","type":"Field.Model.Private"},"customField":{"name":"custom_field","type":"Boolean"},"decimalPlace":{"name":"decimal_place","type":"Integer"},"convertMapping":{"name":"convert_mapping","type":"Map"},"createdSource":{"name":"created_source","type":"String"},"multiModuleLookup":{"name":"multi_module_lookup","type":"Map"},"massUpdate":{"name":"mass_update","type":"Boolean"},"transitionSequence":{"name":"transition_sequence","type":"Integer"},"unique":{"structure_name":"Field.Model.Unique","name":"unique","type":"Field.Model.Unique"},"viewType":{"structure_name":"Field.Model.ViewType","name":"view_type","type":"Field.Model.ViewType"},"formula":{"structure_name":"Field.Model.Formula","name":"formula","type":"Field.Model.Formula"},"multiselectlookup":{"structure_name":"Field.Model.MultiSelectLookup","name":"multiselectlookup","type":"Field.Model.MultiSelectLookup"},"columnName":{"name":"column_name","type":"String"}},"ContactRole.Model.ResponseWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ContactRole","name":"contact_roles","type":"List"}},"Field.Model.Unique":{"casesensitive":{"name":"casesensitive","type":"String"}},"Record.Model.MassUpdateResponse":{"classes":["Record.Model.APIException","Record.Model.MassUpdate"],"interface":true},"Profile.Model.GetProfilesHeader":{"ifModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Variable.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["variable added","variable updated","variable deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Record.Model.MassUpdateActionHandler":{"classes":["Record.Model.APIException","Record.Model.MassUpdateActionWrapper"],"interface":true},"ShareRecord.Model.DeleteActionHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.DeleteActionWrapper"],"interface":true},"BulkWrite.Model.ActionResponse":{"classes":["BulkWrite.Model.SuccessResponse","BulkWrite.Model.APIException"],"interface":true},"RelatedList.Model.GetRelatedListParam":{"module":{"name":"module","type":"String"}},"Note.Model.GetNoteParam":{"fields":{"name":"fields","type":"String"}},"Tag.Model.GetTagsParam":{"myTags":{"values":["true","false"],"name":"my_tags","type":"String"},"module":{"name":"module","type":"String","required":true}},"Currency.Model.BaseCurrencyWrapper":{"baseCurrency":{"structure_name":"Currency.Model.Currency","name":"base_currency","type":"Currency.Model.Currency","required":true}},"Variable.Model.ActionWrapper":{"variables":{"structure_name":"Variable.Model.ActionResponse","name":"variables","type":"List","required":true}},"Record.Model.CarryOverTags":{"deals":{"name":"Deals","type":"List"},"accounts":{"name":"Accounts","type":"List"},"contacts":{"name":"Contacts","type":"List"}},"Query.Model.APIException":{"code":{"values":["INVALID_QUERY","OAUTH_SCOPE_MISMATCH","SYNTAX_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"near","type":"String"},{"name":"column","type":"Integer"},{"name":"line","type":"Integer"},{"name":"clause","type":"String"},{"name":"by","type":"String"},{"name":"limit","type":"Integer"},{"name":"column_name","type":"String"},{"name":"reason","type":"String"},{"name":"module","type":"String"},{"name":"data_type","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"operator","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid query formed","value given seems to be invalid for the column","data type not supported","column given seems to be invalid","invalid oauth scope to access this URL","limit exceeded","given coql query not supported","select columns limit exceeded","join limit exceeded","missing clause","error occured while parsing the query","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","required field not found","invalid data","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ContactRole.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["contact role added","contact role updated","contact role deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"ShareRecord.Model.APIException":{"code":{"values":["NO_PERMISSION","BAD_REQUEST","INVALID_MODULE","SHARE_LIMIT_EXCEEDED","OAUTH_SCOPE_MISMATCH","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","ENTITY_ID_INVALID"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"}],"name":"details","type":"Map"},"message":{"values":["Scheduler is running","cannot share to the user","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid.","invalid oauth scope to access this URL","Please check if the URL trying to access is a correct one.","Permission is invalid","record is already visible to the user.","Cannot share a record to more than 10 users.","No sharing through this record is available to revoke.","ENTITY_ID_INVALID"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Layout.Model.ResponseHandler":{"classes":["Layout.Model.ResponseWrapper","Layout.Model.APIException"],"interface":true},"RelatedList.Model.ResponseWrapper":{"relatedLists":{"structure_name":"RelatedList.Model.RelatedList","name":"related_lists","type":"List"}},"RelatedRecord.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"User.Model.Shift":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Record.Model.DeleteRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Variable.Model.ResponseWrapper":{"variables":{"structure_name":"Variable.Model.Variable","name":"variables","type":"List"}},"Field.Model.AutoNumber":{"startNumber":{"name":"start_number","type":"Integer"},"prefix":{"name":"prefix","type":"String"},"suffix":{"name":"suffix","type":"String"}},"BluePrint.Model.NextTransition":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Variable.Model.APIException":{"code":{"values":["UNABLE_TO_PARSE_DATA_TYPE","REQUIRED_PARAM_MISSING","DUPLICATE_DATA","INVALID_DATA","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INTERNAL_ERROR","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"},{"name":"api_name","type":"String"},{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["either the request body or parameters is in wrong format","One of the expected parameter is missing","duplicate data","variable not deleted","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.Result":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"downloadUrl":{"name":"download_url","type":"String"},"page":{"name":"page","type":"Integer"}},"File.Model.ActionResponse":{"classes":["File.Model.SuccessResponse","File.Model.APIException"],"interface":true},"User.Model.ResponseHandler":{"classes":["User.Model.ResponseWrapper","User.Model.APIException"],"interface":true},"Tag.Model.RemoveTagsFromMultipleRecordsParam":{"ids":{"name":"ids","type":"Long","required":true},"tagNames":{"name":"tag_names","type":"String","required":true}},"Note.Model.BodyWrapper":{"data":{"structure_name":"Note.Model.Note","name":"data","max-length":100,"type":"List","required":true,"min-length":1}},"Notification.Model.ActionResponse":{"classes":["Notification.Model.SuccessResponse","Notification.Model.APIException"],"interface":true},"Record.Model.Consent":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"mailSentTime":{"name":"Mail_Sent_Time","type":"DateTime"},"consentThrough":{"name":"Consent_Through","type":"String"},"contactThroughSocial":{"name":"Contact_Through_Social","type":"Boolean"},"contactThroughPhone":{"name":"Contact_Through_Phone","type":"Boolean"},"contactThroughSurvey":{"name":"Contact_Through_Survey","type":"Boolean"},"consentDate":{"name":"Consent_Date","type":"LocalDate"},"dataProcessingBasis":{"name":"Data_Processing_Basis","type":"String"},"contactThroughEmail":{"name":"Contact_Through_Email","type":"Boolean"},"consentRemarks":{"name":"Consent_Remarks","type":"String"}},"Layout.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","REQUIRED_PARAM_MISSING","INTERNAL_ERROR","NO_PERMISSION","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","User does not have permission to access this layout.","Layout does not belongs to the given module","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"VariableGroup.Model.VariableGroup":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"name":{"name":"name","type":"String"},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true}},"Org.Model.ResponseHandler":{"classes":["Org.Model.ResponseWrapper","Org.Model.APIException"],"interface":true},"Record.Model.DeleteRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Module.Model.BodyWrapper":{"modules":{"structure_name":"Module.Model.Module","name":"modules","max-length":1,"type":"List","min-length":1}},"Note.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Tag.Model.CountHandler":{"classes":["Tag.Model.APIException","Tag.Model.CountWrapper"],"interface":true},"RelatedRecord.Model.DelinkRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Record.Model.RemindAt":{"alarm":{"name":"ALARM","type":"String","required":true}},"Record.Model.GetDeletedRecordsHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"BulkWrite.Model.Result":{"downloadUrl":{"name":"download_url","type":"String"}},"File.Model.ActionWrapper":{"data":{"structure_name":"File.Model.ActionResponse","name":"data","type":"List"}},"Currency.Model.Currency":{"symbol":{"name":"symbol","type":"String","required":true},"modifiedTime":{"name":"modified_time","type":"DateTime"},"format":{"structure_name":"Currency.Model.Format","name":"format","type":"Currency.Model.Format","required":true},"isActive":{"name":"is_active","type":"Boolean"},"exchangeRate":{"name":"exchange_rate","type":"String","required":true},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"isoCode":{"name":"iso_code","type":"String","required":true},"name":{"name":"name","type":"String","required":true},"createdTime":{"name":"created_time","type":"DateTime"},"prefixSymbol":{"name":"prefix_symbol","type":"Boolean"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"isBase":{"name":"is_base","type":"Boolean"},"id":{"name":"id","type":"Long","primary":true}},"Tag.Model.ActionResponse":{"classes":["Tag.Model.SuccessResponse","Tag.Model.APIException"],"interface":true},"Variable.Model.DeleteVariablesParam":{"ids":{"name":"ids","type":"Long","required":true}},"RelatedRecord.Model.ActionWrapper":{"data":{"structure_name":"RelatedRecord.Model.ActionResponse","name":"data","type":"List"}},"Currency.Model.ResponseHandler":{"classes":["Currency.Model.ResponseWrapper","Currency.Model.APIException"],"interface":true},"Record.Model.Participants":{"name":{"name":"name","type":"String"},"invited":{"name":"invited","type":"Boolean"},"type":{"name":"type","type":"String","required":true},"email":{"name":"Email","type":"String"},"participant":{"name":"participant","type":"String","required":true},"status":{"name":"status","type":"String"}},"BulkWrite.Model.CallBack":{"method":{"values":["post"],"name":"method","type":"util.Model.Choice","required":true},"url":{"name":"url","type":"String","required":true}},"CustomView.Model.SharedDetails":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"type":{"name":"type","type":"String"},"subordinates":{"name":"subordinates","type":"Boolean"}},"Query.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Record.Model.SuccessfulConvert":{"deals":{"name":"Deals","type":"String"},"accounts":{"name":"Accounts","type":"String"},"contacts":{"name":"Contacts","type":"String"}},"Currency.Model.Format":{"thousandSeparator":{"values":["Period","Comma","Space"],"name":"thousand_separator","type":"util.Model.Choice","required":true},"decimalPlaces":{"required_in_update":true,"values":["0","2","3"],"name":"decimal_places","type":"util.Model.Choice","required":true},"decimalSeparator":{"values":["Period","Comma"],"name":"decimal_separator","type":"util.Model.Choice","required":true}},"Record.Model.ConvertActionHandler":{"classes":["Record.Model.ConvertActionWrapper","Record.Model.APIException"],"interface":true},"Record.Model.DeletedRecordsWrapper":{"data":{"structure_name":"Record.Model.DeletedRecord","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Tag.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"created_time","type":"DateTime"},{"name":"modified_time","type":"DateTime"},{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},{"name":"tags","type":"List"}],"name":"details","type":"Map"},"message":{"values":["tags created successfully","tags updated successfully","tags deleted successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Note.Model.ActionWrapper":{"data":{"structure_name":"Note.Model.ActionResponse","name":"data","type":"List"}},"Record.Model.DeleteRecordsParam":{"ids":{"name":"ids","type":"Long","required":true},"wfTrigger":{"name":"wf_trigger","type":"String"}},"Record.Model.GetRecordHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Tag.Model.ActionWrapper":{"tags":{"structure_name":"Tag.Model.ActionResponse","name":"tags","type":"List"}},"BulkRead.Model.ResponseHandler":{"classes":["BulkRead.Model.ResponseWrapper","BulkRead.Model.APIException","BulkRead.Model.FileBodyWrapper"],"interface":true},"Record.Model.LineTax":{"percentage":{"name":"percentage","type":"Double"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"value":{"name":"value","type":"Double"}},"Module.Model.Territory":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"subordinates":{"name":"subordinates","type":"Boolean"}},"Field.Model.ViewType":{"view":{"name":"view","type":"Boolean"},"edit":{"name":"edit","type":"Boolean"},"quickCreate":{"name":"quick_create","type":"Boolean"},"create":{"name":"create","type":"Boolean"}},"Field.Model.ToolTip":{"name":{"name":"name","type":"String"},"value":{"name":"value","type":"String"}},"Tag.Model.APIException":{"code":{"values":["REQUIRED_PARAM_MISSING","MANDATORY_NOT_FOUND","INVALID_MODULE","DUPLICATE_DATA","TAG_ID_NOT_FOUND","FAILURE","INTERNAL_ERROR","NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","LICENSE_LIMIT_EXCEEDED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"param","type":"String"},{"name":"permissions","type":"List"},{"name":"maximum_length","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["tags not found","special characters found in the given name","One of the expected parameter is missing","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid","duplicate data","tag edition limit exceeded","invalid data","tags not updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Field.Model.Crypt":{"mode":{"name":"mode","type":"String"},"column":{"name":"column","type":"String"},"encfldids":{"name":"encFldIds","type":"List"},"notify":{"name":"notify","type":"String"},"table":{"name":"table","type":"String"},"status":{"name":"status","type":"Integer"}},"Profile.Model.ResponseHandler":{"classes":["Profile.Model.APIException","Profile.Model.ResponseWrapper"],"interface":true},"BluePrint.Model.ResponseHandler":{"classes":["BluePrint.Model.ResponseWrapper","BluePrint.Model.APIException"],"interface":true},"RelatedRecord.Model.BodyWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","max-length":100,"type":"List","required":true,"min-length":1}},"BulkRead.Model.ActionHandler":{"classes":["BulkRead.Model.APIException","BulkRead.Model.ActionWrapper"],"interface":true},"File.Model.BodyWrapper":{"file":{"name":"file","max-length":10,"type":"List","required":true,"min-length":1}},"BulkWrite.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Notification.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"structure_name":"Notification.Model.Notification","name":"events","type":"List"},{"name":"resource_uri","type":"String"},{"name":"resource_id","type":"String"},{"name":"channel_id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["Successfully subscribed for actions-watch of the given module","Successfully un-subscribed from actions-watch","Successfully updated the subscribe details","Successfully removed the subscribe details"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Record.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"duplicateField":{"name":"duplicate_field","type":"String"},"action":{"values":["insert","update"],"name":"action","type":"util.Model.Choice"},"details":{"keys":[{"name":"Modified_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"name":"Created_Time","type":"DateTime"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["record updated","record deleted","record added","photo uploaded successfully","Photo deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"ShareRecord.Model.SharedThrough":{"entityName":{"name":"entity_name","type":"String"},"module":{"lookup":true,"structure_name":"Module.Model.Module","name":"module","type":"Module.Model.Module"},"id":{"name":"id","type":"Long"}},"Tax.Model.ActionHandler":{"classes":["Tax.Model.ActionWrapper","Tax.Model.APIException"],"interface":true},"BulkWrite.Model.ResponseWrapper":{"classes":["BulkWrite.Model.APIException","BulkWrite.Model.BulkWriteResponse"],"interface":true},"Field.Model.Formula":{"expression":{"name":"expression","type":"String"},"returnType":{"name":"return_type","type":"String"}},"BulkWrite.Model.RequestWrapper":{"resource":{"structure_name":"BulkWrite.Model.Resource","name":"resource","type":"List","required":true},"callback":{"structure_name":"BulkWrite.Model.CallBack","name":"callback","type":"BulkWrite.Model.CallBack"},"characterEncoding":{"name":"character_encoding","type":"String"},"operation":{"values":["insert","update","upsert"],"name":"operation","type":"util.Model.Choice","required":true}},"Tag.Model.AddTagsToMultipleRecordsParam":{"ids":{"name":"ids","type":"Long","required":true},"tagNames":{"name":"tag_names","type":"String","required":true},"overWrite":{"name":"over_write","type":"String"}},"Currency.Model.BaseCurrencyActionHandler":{"classes":["Currency.Model.APIException","Currency.Model.BaseCurrencyActionWrapper"],"interface":true},"Attachment.Model.ResponseHandler":{"classes":["Attachment.Model.APIException","Attachment.Model.ResponseWrapper","Attachment.Model.FileBodyWrapper"],"interface":true},"Profile.Model.GetProfileHeader":{"ifModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"ContactRole.Model.ActionHandler":{"classes":["ContactRole.Model.APIException","ContactRole.Model.ActionWrapper"],"interface":true},"Currency.Model.BaseCurrencyActionWrapper":{"baseCurrency":{"structure_name":"Currency.Model.ActionResponse","name":"base_currency","interface":true,"type":"Currency.Model.ActionResponse"}},"Attachment.Model.ResponseWrapper":{"data":{"structure_name":"Attachment.Model.Attachment","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Record.Model.ActionWrapper":{"data":{"structure_name":"Record.Model.ActionResponse","name":"data","type":"List"}},"Tag.Model.UpdateTagParam":{"module":{"name":"module","type":"String","required":true}},"CustomView.Model.GetCustomViewsParam":{"perPage":{"name":"per_page","type":"Integer"},"module":{"name":"module","type":"String"},"page":{"name":"page","type":"Integer"}},"Notification.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR","NOT_SUBSCRIBED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"maximum_length","type":"Integer"},{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","Not subscribed for actions-watch of the given module/channel","required field not found","invalid data","Not subscribed for actions-watch of the given channel","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.DeletedRecord":{"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"displayName":{"name":"display_name","type":"String"},"id":{"name":"id","type":"Long","primary":true},"type":{"name":"type","type":"String"},"deletedTime":{"name":"deleted_time","type":"DateTime"},"deletedBy":{"structure_name":"User.Model.User","name":"deleted_by","type":"User.Model.User"}},"Record.Model.UpdateRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Currency.Model.ActionResponse":{"classes":["Currency.Model.SuccessResponse","Currency.Model.APIException"],"interface":true},"Record.Model.DeleteRecordParam":{"wfTrigger":{"name":"wf_trigger","type":"String"}},"Record.Model.MassUpdateSuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"job_id","type":"String"},{"name":"id","type":"Long"},{"name":"Modified_Time","type":"DateTime"},{"name":"Created_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["record updated","mass update scheduled successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Module.Model.Argument":{"name":{"name":"name","type":"String"},"value":{"name":"value","type":"String"}},"Field.Model.MultiSelectLookup":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"connectedlookupApiname":{"name":"connectedlookup_apiname","type":"String"},"lookupApiname":{"name":"lookup_apiname","type":"String"},"linkingModule":{"name":"linking_module","type":"String"},"id":{"name":"id","type":"Long"}},"CustomView.Model.GetCustomViewParam":{"module":{"name":"module","type":"String"}},"Record.Model.ActionHandler":{"classes":["Record.Model.APIException","Record.Model.ActionWrapper"],"interface":true},"Record.Model.ConvertActionResponse":{"classes":["Record.Model.APIException","Record.Model.SuccessfulConvert"],"interface":true},"User.Model.RequestWrapper":{"users":{"structure_name":"User.Model.User","name":"users","max-length":1,"type":"List","required":true,"min-length":1}},"Record.Model.MassUpdateActionResponse":{"classes":["Record.Model.APIException","Record.Model.MassUpdateSuccessResponse"],"interface":true},"Record.Model.ResponseHandler":{"classes":["Record.Model.ResponseWrapper","Record.Model.APIException","Record.Model.FileBodyWrapper"],"interface":true},"Org.Model.ActionResponse":{"classes":["Org.Model.SuccessResponse","Org.Model.APIException"],"interface":true},"ShareRecord.Model.ActionWrapper":{"share":{"structure_name":"ShareRecord.Model.ActionResponse","name":"share","type":"List"}},"CustomView.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"default1":{"name":"default","type":"String"},"count":{"name":"count","type":"Integer"},"translation":{"structure_name":"CustomView.Model.Translation","name":"translation","type":"CustomView.Model.Translation"},"page":{"name":"page","type":"Integer"}},"RelatedRecord.Model.DelinkRecordsParam":{"ids":{"name":"ids","type":"Long","required":true}},"Field.Model.Currency":{"roundingOption":{"name":"rounding_option","type":"String"},"precision":{"name":"precision","type":"Integer"}},"BulkRead.Model.ResponseWrapper":{"data":{"structure_name":"BulkRead.Model.JobDetail","name":"data","type":"List"}},"CustomView.Model.Translation":{"createdByMe":{"name":"created_by_me","type":"String"},"otherUsersViews":{"name":"other_users_views","type":"String"},"publicViews":{"name":"public_views","type":"String"},"sharedWithMe":{"name":"shared_with_me","type":"String"}},"BulkWrite.Model.UploadFileHeader":{"feature":{"values":["bulk-write"],"name":"feature","type":"String"},"XCRMORG":{"name":"X-CRM-ORG","type":"String"}},"CustomView.Model.ResponseHandler":{"classes":["CustomView.Model.ResponseWrapper","CustomView.Model.APIException"],"interface":true},"BluePrint.Model.ProcessInfo":{"apiName":{"name":"api_name","type":"String"},"fieldName":{"name":"field_name","type":"String"},"escalation":{"name":"escalation","type":"String"},"continuous":{"name":"continuous","type":"Boolean"},"fieldLabel":{"name":"field_label","type":"String"},"name":{"name":"name","type":"String"},"isContinuous":{"name":"is_continuous","type":"Boolean"},"id":{"name":"id","type":"Long"},"fieldValue":{"name":"field_value","type":"String"},"fieldId":{"name":"field_id","type":"String"},"columnName":{"name":"column_name","type":"String"}},"Module.Model.ActionHandler":{"classes":["Module.Model.APIException","Module.Model.ActionWrapper"],"interface":true},"Currency.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["The multi-currency feature is enabled and given currency is created as the base currency.","The currency created successfully.","The currency updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"ShareRecord.Model.ActionHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.ActionWrapper"],"interface":true},"Currency.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","ALREADY_ENABLED","FEATURE_NOT_ENABLED","NOT_ALLOWED","ACTIVE_STATE_LIMIT_EXCEEDED","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","CURRENCIES_NOT_ENABLED","FEATURE_NOT_SUPPORTED","No Content"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"json_path","type":"String"},{"name":"expected_data_type","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one.","The http request method type is not a valid one","The module name given seems to be invalid","The multi-currency is already enabled","Currency name is invalid.","ISO code is invalid.","Currency symbol is invalid.","The multi-currency feature is not available except the Enterprise and higher editions.","Required field not found.","unable to process your request. please verify whether you have entered proper method name"," parameter and parameter values.","Currency symbol  is invalid.","Multi currency is not enabled","No Content","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.Query":{"cvid":{"name":"cvid","type":"String"},"criteria":{"structure_name":"BulkRead.Model.Criteria","name":"criteria","type":"BulkRead.Model.Criteria"},"module":{"name":"module","type":"String","required":true},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"List"}},"RelatedRecord.Model.ActionResponse":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.SuccessResponse"],"interface":true},"RelatedList.Model.APIException":{"code":{"values":["INVALID_MODULE","REQUIRED_PARAM_MISSING","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["the module name given seems to be invalid","the given module is not supported in api","One of the expected parameter is missing","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Layout.Model.Layout":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"createdFor":{"structure_name":"User.Model.User","name":"created_for","type":"User.Model.User"},"visible":{"name":"visible","type":"Boolean"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"name":{"name":"name","type":"String"},"profiles":{"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"sections":{"structure_name":"Layout.Model.Section","name":"sections","type":"List"},"convertMapping":{"name":"convert_mapping","type":"Map"},"status":{"name":"status","type":"Integer"}},"Variable.Model.GetVariableByIDParam":{"group":{"name":"group","type":"String","required":true}},"Field.Model.LookupField":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Attachment.Model.ActionHandler":{"classes":["Attachment.Model.APIException","Attachment.Model.ActionWrapper"],"interface":true},"Field.Model.ResponseHandler":{"classes":["Field.Model.ResponseWrapper","Field.Model.APIException"],"interface":true},"Field.Model.Private":{"export1":{"name":"export","type":"Boolean"},"restricted":{"name":"restricted","type":"Boolean"},"type":{"name":"type","type":"String"}},"Notification.Model.ResponseHandler":{"classes":["Notification.Model.APIException","Notification.Model.ResponseWrapper"],"interface":true},"Notification.Model.ActionWrapper":{"watch":{"structure_name":"Notification.Model.ActionResponse","name":"watch","type":"List"}},"Tax.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"name","type":"String"},{"name":"value","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["tax added","record updated","tax deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Note.Model.DeleteNotesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Tag.Model.ActionHandler":{"classes":["Tag.Model.ActionWrapper","Tag.Model.APIException"],"interface":true},"Query.Model.ResponseHandler":{"classes":["Query.Model.ResponseWrapper","Query.Model.APIException"],"interface":true},"Module.Model.GetModulesHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Record.Model.Territory":{"id":{"name":"id","type":"Long"},"includeChild":{"name":"include_child","type":"Boolean"}},"Field.Model.RelatedDetails":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"structure_name":"Field.Model.Module","name":"module","type":"Field.Model.Module"},"id":{"name":"id","type":"Long"},"type":{"name":"_type","type":"String"}},"ContactRole.Model.ActionResponse":{"classes":["ContactRole.Model.SuccessResponse","ContactRole.Model.APIException"],"interface":true},"File.Model.ActionHandler":{"classes":["File.Model.ActionWrapper","File.Model.APIException"],"interface":true},"RelatedRecord.Model.APIException":{"code":{"values":["NO_PERMISSION","CANNOT_BE_UPDATED","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"id","type":"Long"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid data","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Attachment.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"BulkWrite.Model.FieldMapping":{"apiName":{"name":"api_name","type":"String","required":true},"defaultValue":{"name":"default_value","type":"Map"},"module":{"name":"module","type":"String"},"format":{"name":"format","type":"String"},"index":{"name":"index","type":"Integer"},"findBy":{"name":"find_by","type":"String"}},"Record.Model.LeadConverter":{"notifyLeadOwner":{"name":"notify_lead_owner","type":"Boolean"},"notifyNewEntityOwner":{"name":"notify_new_entity_owner","type":"Boolean"},"deals":{"structure_name":"Record.Model.Record","module":"Deals","name":"Deals","type":"Record.Model.Record"},"accounts":{"name":"Accounts","type":"String"},"carryOverTags":{"structure_name":"Record.Model.CarryOverTags","name":"carry_over_tags","type":"Record.Model.CarryOverTags"},"overwrite":{"name":"overwrite","type":"Boolean"},"contacts":{"name":"Contacts","type":"String"},"assignTo":{"name":"assign_to","type":"String"}},"Currency.Model.ResponseWrapper":{"currencies":{"structure_name":"Currency.Model.Currency","name":"currencies","type":"List"}},"BulkRead.Model.SuccessResponse":{"code":{"values":["ADDED_SUCCESSFULLY"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"operation","type":"String"},{"values":["COMPLETED","IN PROGRESS","ADDED","FAILURE"],"name":"state","type":"util.Model.Choice"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},{"name":"created_time","type":"DateTime"}],"name":"details","type":"Map"},"message":{"values":["Added successfully."],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Variable.Model.GetVariablesParam":{"group":{"name":"group","type":"String","required":true}},"Attachment.Model.ActionWrapper":{"data":{"structure_name":"Attachment.Model.ActionResponse","name":"data","type":"List"}},"Note.Model.GetNoteHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime","required":true}},"Org.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["photo uploaded successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Tag.Model.ResponseHandler":{"classes":["Tag.Model.ResponseWrapper","Tag.Model.APIException"],"interface":true},"VariableGroup.Model.APIException":{"code":{"values":["INTERNAL_ERROR","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Field.Model.Module":{"layout":{"structure_name":"Layout.Model.Layout","name":"layout","type":"Layout.Model.Layout"},"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"name":"module","type":"String"},"moduleName":{"name":"module_name","type":"String"},"id":{"name":"id","type":"Long"}},"Attachment.Model.Attachment":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"fileName":{"name":"File_Name","type":"String"},"editable":{"name":"$editable","type":"Boolean"},"description":{"name":"description","type":"String"},"type":{"name":"$type","type":"String"},"parentId":{"lookup":true,"structure_name":"Record.Model.Record","name":"Parent_Id","type":"Record.Model.Record"},"seModule":{"name":"$se_module","type":"String"},"size":{"name":"Size","type":"Long"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"linkUrl":{"name":"$link_url","type":"String"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"state":{"name":"$state","type":"String"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"String"},"fileId":{"name":"$file_id","type":"String"}},"BulkRead.Model.ActionWrapper":{"data":{"structure_name":"BulkRead.Model.ActionResponse","name":"data","type":"List"},"info":{"name":"info","type":"Map"}},"BulkWrite.Model.BulkWriteResponse":{"result":{"structure_name":"BulkWrite.Model.Result","name":"result","type":"BulkWrite.Model.Result"},"resource":{"structure_name":"BulkWrite.Model.Resource","name":"resource","type":"List"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"callback":{"structure_name":"BulkWrite.Model.CallBack","name":"callback","type":"BulkWrite.Model.CallBack"},"createdTime":{"name":"created_time","type":"DateTime"},"id":{"name":"id","type":"Long"},"characterEncoding":{"name":"character_encoding","type":"String"},"operation":{"name":"operation","type":"String"},"status":{"name":"status","type":"String"}},"Field.Model.PickListValue":{"displayValue":{"name":"display_value","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"maps":{"name":"maps","type":"List"},"actualValue":{"name":"actual_value","type":"String"},"sysRefName":{"name":"sys_ref_name","type":"String"},"expectedDataType":{"name":"expected_data_type","type":"String"},"type":{"name":"type","type":"String"}},"Currency.Model.ActionWrapper":{"currencies":{"structure_name":"Currency.Model.ActionResponse","name":"currencies","type":"List"}},"Attachment.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["attachment uploaded successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Layout.Model.ResponseWrapper":{"layouts":{"structure_name":"Layout.Model.Layout","name":"layouts","type":"List"}},"Record.Model.GetRecordParam":{"cvid":{"name":"cvid","type":"String"},"uid":{"name":"uid","type":"String"},"approved":{"name":"approved","type":"String"},"startDateTime":{"name":"startDateTime","type":"DateTime"},"converted":{"name":"converted","type":"String"},"territoryId":{"name":"territory_id","type":"String"},"fields":{"name":"fields","type":"String"},"endDateTime":{"name":"endDateTime","type":"DateTime"},"includeChild":{"name":"include_child","type":"String"}},"ShareRecord.Model.GetSharedRecordDetailsParam":{"view":{"name":"view","type":"String"},"sharedTo":{"name":"sharedTo","type":"Long"}},"Module.Model.ActionResponse":{"classes":["Module.Model.APIException","Module.Model.SuccessResponse"],"interface":true},"User.Model.ActionResponse":{"classes":["User.Model.SuccessResponse","User.Model.APIException"],"interface":true},"Attachment.Model.DeleteAttachmentsParam":{"ids":{"name":"ids","type":"Long","required":true}},"Record.Model.ConvertActionWrapper":{"data":{"structure_name":"Record.Model.ConvertActionResponse","name":"data","type":"List"}},"Tag.Model.Tag":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"name":{"required_in_update":true,"name":"name","type":"String","required":true},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true}},"Record.Model.DeletedRecordsHandler":{"classes":["Record.Model.APIException","Record.Model.DeletedRecordsWrapper"],"interface":true},"Record.Model.SearchRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"BluePrint.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","RECORD_NOT_IN_PROCESS","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"message","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"info_message","type":"String"},{"name":"parent_api_name","type":"String"},{"structure_name":"BluePrint.Model.ValidationError","name":"validation_error","type":"List"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","invalid transition","invalid data","record not in process","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"File.Model.GetFileParam":{"id":{"name":"id","type":"String","required":true}},"Module.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["module updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"CustomView.Model.Criteria":{"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"field":{"name":"field","type":"String"},"value":{"name":"value","type":"Object"},"group":{"structure_name":"CustomView.Model.Criteria","name":"group","type":"List"}},"User.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"email","type":"String"}],"name":"details","type":"Map"},"message":{"values":["User added","User updated","User deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.ActionWrapper":{"users":{"structure_name":"User.Model.ActionResponse","name":"users","type":"List"}},"Note.Model.GetNotesParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"Tax.Model.Tax":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"name":{"name":"name","type":"String","required":true},"id":{"name":"id","type":"Long","primary":true},"value":{"name":"value","type":"Double","required":true}},"Record.Model.UpdateRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Role.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Tag.Model.RecordActionResponse":{"classes":["Tag.Model.SuccessResponse","Tag.Model.APIException"],"interface":true},"Note.Model.GetNotesHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime","required":true}},"Tax.Model.Preference":{"modifyTaxRates":{"name":"modify_tax_rates","type":"Boolean"},"autoPopulateTax":{"name":"auto_populate_tax","type":"Boolean"}},"Tag.Model.MergeWrapper":{"tags":{"structure_name":"Tag.Model.ConflictWrapper","name":"tags","max-length":1,"type":"List","required":true,"min-length":1}},"Notification.Model.DisableNotificationsParam":{"channelIds":{"name":"channel_ids","type":"Long"}},"Tag.Model.BodyWrapper":{"tags":{"structure_name":"Tag.Model.Tag","name":"tags","type":"List","required":true}},"Tax.Model.BodyWrapper":{"taxes":{"structure_name":"Tax.Model.Tax","name":"taxes","max-length":100,"type":"List","required":true,"min-length":1}},"Notification.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Record.Model.RecurringActivity":{"rrule":{"name":"RRULE","type":"String","required":true}},"ShareRecord.Model.ShareRecord":{"shareRelatedRecords":{"name":"share_related_records","type":"Boolean"},"sharedThrough":{"lookup":true,"structure_name":"ShareRecord.Model.SharedThrough","name":"shared_through","type":"ShareRecord.Model.SharedThrough"},"sharedTime":{"name":"shared_time","type":"DateTime"},"sharedBy":{"lookup":true,"structure_name":"User.Model.User","name":"shared_by","type":"User.Model.User"},"permission":{"required_in_update":true,"name":"permission","type":"String","required":true},"user":{"lookup":true,"structure_name":"User.Model.User","required_in_update":true,"name":"user","type":"User.Model.User","required":true}},"ContactRole.Model.ResponseHandler":{"classes":["ContactRole.Model.ResponseWrapper","ContactRole.Model.APIException"],"interface":true},"Profile.Model.Category":{"displayLabel":{"name":"display_label","type":"String"},"permissionsDetails":{"name":"permissions_details","type":"List"},"name":{"name":"name","type":"String"}},"Record.Model.LineItemProduct":{"productCode":{"name":"Product_Code","type":"String"},"name":{"name":"name","type":"String"},"currency":{"name":"Currency","type":"String"}},"ShareRecord.Model.DeleteActionWrapper":{"share":{"structure_name":"ShareRecord.Model.DeleteActionResponse","name":"share","interface":true,"type":"ShareRecord.Model.DeleteActionResponse"}},"ShareRecord.Model.BodyWrapper":{"share":{"structure_name":"ShareRecord.Model.ShareRecord","name":"share","max-length":10,"type":"List","required":true,"min-length":1}},"Org.Model.ResponseWrapper":{"org":{"structure_name":"Org.Model.Org","name":"org","type":"List"}},"File.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Variable.Model.Variable":{"apiName":{"required_in_update":false,"name":"api_name","type":"String","primary":true},"variableGroup":{"structure_name":"VariableGroup.Model.VariableGroup","name":"variable_group","type":"VariableGroup.Model.VariableGroup","skip_mandatory":true,"required":true},"name":{"name":"name","type":"String","required":true},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true},"type":{"name":"type","type":"String","required":true},"value":{"name":"value","type":"Object"}},"ShareRecord.Model.ResponseWrapper":{"share":{"structure_name":"ShareRecord.Model.ShareRecord","name":"share","type":"List"},"shareableUser":{"structure_name":"User.Model.User","name":"shareable_user","type":"List"}},"CustomView.Model.Range":{"from":{"name":"from","type":"Integer"},"to":{"name":"to","type":"Integer"}},"Variable.Model.GetVariableForAPINameParam":{"group":{"name":"group","type":"String","required":true}},"Layout.Model.Section":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"issubformsection":{"name":"isSubformSection","type":"Boolean"},"tabTraversal":{"name":"tab_traversal","type":"Integer"},"apiName":{"name":"api_name","type":"String"},"generatedType":{"name":"generated_type","type":"String"},"name":{"name":"name","type":"String"},"columnCount":{"name":"column_count","type":"Integer"},"fields":{"structure_name":"Field.Model.Field","name":"fields","type":"List"},"properties":{"structure_name":"Layout.Model.Properties","name":"properties","type":"Layout.Model.Properties"}},"User.Model.GetUserHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"User.Model.BodyWrapper":{"users":{"structure_name":"User.Model.User","name":"users","max-length":100,"type":"List","required":true,"min-length":1}},"BulkRead.Model.ActionResponse":{"classes":["BulkRead.Model.SuccessResponse","BulkRead.Model.APIException"],"interface":true},"ContactRole.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"limit","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","Contact Role feature limit exceeded","required field not found","invalid data","contact role not deleted","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Record.Model.ActionResponse":{"classes":["Record.Model.SuccessResponse","Record.Model.APIException"],"interface":true},"User.Model.TabTheme":{"background":{"name":"background","type":"String"},"fontColor":{"name":"font_color","type":"String"}},"Tag.Model.CountWrapper":{"count":{"name":"count","type":"String"}},"Record.Model.SearchRecordsParam":{"approved":{"name":"approved","type":"String"},"perPage":{"name":"per_page","type":"Integer"},"phone":{"name":"phone","type":"String"},"converted":{"name":"converted","type":"String"},"criteria":{"name":"criteria","type":"String"},"page":{"name":"page","type":"Integer"},"word":{"name":"word","type":"String"},"email":{"name":"email","type":"String"}},"BulkRead.Model.RequestWrapper":{"query":{"structure_name":"BulkRead.Model.Query","name":"query","type":"BulkRead.Model.Query","required":true},"callback":{"structure_name":"BulkRead.Model.CallBack","name":"callback","type":"BulkRead.Model.CallBack"},"fileType":{"values":["ics","csv"],"name":"file_type","type":"util.Model.Choice"}},"User.Model.ResponseWrapper":{"users":{"structure_name":"User.Model.User","name":"users","type":"List"},"info":{"structure_name":"User.Model.Info","name":"info","type":"User.Model.Info"}},"Attachment.Model.UploadLinkAttachmentParam":{"attachmentUrl":{"name":"attachmentUrl","type":"String"}},"Record.Model.MassUpdateActionWrapper":{"data":{"structure_name":"Record.Model.MassUpdateActionResponse","name":"data","type":"List"}},"Variable.Model.ActionHandler":{"classes":["Variable.Model.APIException","Variable.Model.ActionWrapper"],"interface":true},"Variable.Model.ResponseHandler":{"classes":["Variable.Model.ResponseWrapper","Variable.Model.APIException"],"interface":true},"Module.Model.RelatedListProperties":{"sortOrder":{"name":"sort_order","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"fields":{"name":"fields","type":"List"}},"RelatedList.Model.RelatedList":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"name":"module","type":"String"},"name":{"name":"name","type":"String"},"action":{"name":"action","type":"String"},"id":{"name":"id","type":"Long","primary":true},"href":{"name":"href","type":"String"},"type":{"name":"type","type":"String"},"connectedmodule":{"name":"connectedmodule","type":"String"},"linkingmodule":{"name":"linkingmodule","type":"String"}},"Field.Model.AssociationDetails":{"lookupField":{"structure_name":"Field.Model.LookupField","name":"lookup_field","type":"Field.Model.LookupField"},"relatedField":{"structure_name":"Field.Model.LookupField","name":"related_field","type":"Field.Model.LookupField"}},"Module.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","INVALID_MODULE","INVALID_DATA","LIMIT_EXCEEDED","DUPLICATE_DATA","NOT_ALLOWED","NO_PERMISSION"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"json_path","type":"String"},{"name":"limit","type":"Integer"},{"name":"maximum_length","type":"Integer"},{"name":"permissions","type":"List"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the given module is not supported in api","invalid data","Api name duplicate","Api name is not valid","System keyword not allowed in api name","Api name update not allowed","No permission to update API name","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkWrite.Model.SuccessResponse":{"code":{"values":["FILE_UPLOAD_SUCCESS","SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"file_id","type":"Long"},{"name":"created_time","type":"DateTime"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["file uploaded.","success"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Org.Model.Org":{"country":{"name":"country","type":"String"},"city":{"name":"city","type":"String"},"companyName":{"name":"company_name","type":"String"},"description":{"name":"description","type":"String"},"gappsEnabled":{"name":"gapps_enabled","type":"Boolean"},"ziaPortalId":{"name":"zia_portal_id","type":"String"},"employeeCount":{"name":"employee_count","type":"String"},"street":{"name":"street","type":"String"},"countryCode":{"name":"country_code","type":"String"},"currencyLocale":{"name":"currency_locale","type":"String"},"alias":{"name":"alias","type":"String"},"currency":{"name":"currency","type":"String"},"id":{"name":"id","type":"Long","primary":true},"state":{"name":"state","type":"String"},"fax":{"name":"fax","type":"String"},"primaryEmail":{"name":"primary_email","type":"String"},"zip":{"name":"zip","type":"String"},"website":{"name":"website","type":"String"},"mobile":{"name":"mobile","type":"String"},"photoId":{"name":"photo_id","type":"String"},"translationEnabled":{"name":"translation_enabled","type":"Boolean"},"currencySymbol":{"name":"currency_symbol","type":"String"},"timeZone":{"name":"time_zone","type":"String"},"privacySettings":{"name":"privacy_settings","type":"Boolean"},"zgid":{"name":"zgid","type":"String"},"licenseDetails":{"structure_name":"Org.Model.LicenseDetails","name":"license_details","type":"Org.Model.LicenseDetails"},"mcStatus":{"name":"mc_status","type":"Boolean"},"primaryZuid":{"name":"primary_zuid","type":"String"},"phone":{"name":"phone","type":"String"},"isoCode":{"name":"iso_code","type":"String"},"domainName":{"name":"domain_name","type":"String"}},"Record.Model.FileHandler":{"classes":["Record.Model.SuccessResponse","Record.Model.APIException"],"interface":true},"RelatedRecord.Model.ResponseHandler":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.ResponseWrapper","RelatedRecord.Model.FileBodyWrapper"],"interface":true}}
+var classDetailMap = {"BluePrint.Model.BluePrint":{"processInfo":{"lookup":true,"structure_name":"BluePrint.Model.ProcessInfo","name":"process_info","type":"BluePrint.Model.ProcessInfo"},"data":{"structure_name":"Record.Model.Record","required_in_update":true,"name":"data","type":"Record.Model.Record","skip_mandatory":true},"transitionId":{"required_in_update":true,"name":"transition_id","type":"Long"},"transitions":{"lookup":true,"structure_name":"BluePrint.Model.Transition","name":"transitions","type":"List"}},"Tag.Model.Info":{"count":{"name":"count","type":"Integer"},"allowedCount":{"name":"allowed_count","type":"Integer"}},"Notification.Model.GetNotificationDetailsParam":{"perPage":{"name":"per_page","type":"Integer"},"module":{"name":"module","type":"String"},"page":{"name":"page","type":"Integer"},"channelId":{"name":"channel_id","type":"Long"}},"Record.Model.UpsertRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Territory.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","CURRENCIES_NOT_ENABLED","FEATURE_NOT_SUPPORTED"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.PricingDetails":{"discount":{"name":"discount","type":"Double","required":true},"toRange":{"name":"to_range","type":"Double","required":true},"fromRange":{"name":"from_range","type":"Double","required":true}},"Notification.Model.BodyWrapper":{"watch":{"structure_name":"Notification.Model.Notification","name":"watch","max-length":100,"type":"List","required":true,"min-length":1}},"Record.Model.Record":{"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"tag":{"structure_name":"Tag.Model.Tag","name":"Tag","type":"List","skip_mandatory":true}},"Record.Model.GetMassUpdateStatusParam":{"jobId":{"name":"job_id","type":"String"}},"Notification.Model.Notification":{"resourceId":{"name":"resource_id","type":"String"},"deleteevents":{"name":"_delete_events","type":"Boolean"},"notifyOnRelatedAction":{"name":"notify_on_related_action","type":"Boolean"},"notifyUrl":{"name":"notify_url","type":"String","required":true},"resourceName":{"name":"resource_name","type":"String"},"resourceUri":{"name":"resource_uri","type":"String"},"channelExpiry":{"name":"channel_expiry","type":"DateTime"},"fields":{"name":"fields","type":"Map"},"channelId":{"name":"channel_id","type":"Long","required":true,"primary":true},"events":{"required_in_update":true,"name":"events","type":"List","required":true},"token":{"name":"token","max-length":50,"type":"String","min-length":1}},"Note.Model.ResponseHandler":{"classes":["Note.Model.APIException","Note.Model.ResponseWrapper"],"interface":true},"RelatedList.Model.ResponseHandler":{"classes":["RelatedList.Model.ResponseWrapper","RelatedList.Model.APIException"],"interface":true},"BulkRead.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_SERVICE_NAME","INVALID_BULK_OPERATION","RESOURCE_NOT_FOUND","MEDIA_TYPE_NOT_SUPPORTED","REQUEST_BODY_NOT_READABLE","REQUEST_BODY_IS_EMPTY","MODULE_NOT_AVAILABLE","NOT_SUPPORTED_FEATURE","NO_PERMISSION","MODULE_NOT_SUPPORTED","JOB_NOT_SUPPORTED","QUERY_NOT_SUPPORTED","INVALID_CALLBACK_URL","INVALID_CALLBACK_METHOD","JOIN_LIMIT_EXCEEDED","CRITERIA_NOT_SUPPORTED","INVALID_CRITERIA","AMBIGUOUS_CRITERIA","AMBIGUOUS_GROUP_IN_CRITERIA","CRITERIA_LIMIT_EXCEEDED","FIELD_IN_CRITERIA_NOT_SUPPORTED","FIELD_AND_COMPARATOR_IN_CRITERIA_NOT_COMPATIBLE","FIELD_IN_CRITERIA_NOT_AVAILABLE","FIELD_COMPARATOR_IN_CRITERIA_NOT_SUPPORTED","VALUE_IN_CRITERIA_NOT_SUPPORTED","FIELD_AND_VALUE_IN_CRITERIA_NOT_COMPATIBLE","COMPARATOR_AND_VALUE_IN_CRITERIA_NOT_COMPATIBLE","COMPARATOR_AND_ENCRYPTED_VALUE_IN_CRITERIA_NOT_COMPATIBLE","GROUP_OPERATOR_NOT_SUPPORTED","FIELD_NOT_AVAILABLE","FIELD_NOT_SUPPORTED","VALUE_LIMIT_EXCEEDED_IN_CRITERIA","PAGE_NOT_SUPPORTED","PAGE_RANGE_EXCEEDED","TOO_MANY_REQUESTS","CALLBACK_FAILURE","INTERNAL_SERVER_ERROR","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"resource","type":"String"},{"name":"message","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"info_message","type":"String"},{"name":"parent_api_name","type":"String"},{"name":"comparator","type":"String"},{"name":"value","type":"String"},{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Provided service name %s is not valid/not supported","Requested operation is an invalid bulk operation","record not in process","The requested resource doesn't exist.","Media type is not supported.","Unable to parse the request body.","Request body is empty.","Requested module '%s' is not available.","Feature is not supported"," permission denied","Invalid module for the query. Module '%s' is not supported.","Invalid bulk %s job.","Invalid query for bulk %s job. Query '%s' is not supported.","Invalid URL '%s' for callback.","Invalid request method %s for callback.","Join limit exceeded for the query. Maximum number of joins supported in a query is %d","Invalid criteria for the query. Criteria %s is not supported.","Invalid criteria %s for the query.","Ambiguous criteria %s. Criteria can have either {group"," group_operator} or {api_name"," comparator"," value}.","Ambiguous group in criteria %s. Group should be used only when there are more than one criteria","Number of criteria exceeded the maximum limit of %d","Field api name '%s' for criteria %s is not supported.","Field api name '%s' is not supported with comparator '%s' for criteria %s.","Field api name '%s' is not available for criteria %s. Check visibility and permission for the field","Field api name '%s' doesn't support this comparator '%s' for criteria %s.","Value '%s' is not supported for criteria %s.","Field '%s' is not supported with value '%s' for criteria %s.","Comparator '%s' is not supported with value '%s' for criteria %s.","Comparator '%s' is not supported with value '%s' for criteria %s as the value is encrypted.","Criteria %s doesn't support this logical group operator '%s'. Supported operators are 'and'"," 'or'.","Requested field api name '%s' is not available for the module '%s'. Check permission or visibility for the field.","Invalid field for the module provided in fields. Field api name '%s' is not supported for this module '%s'.","Value exceeded limit %d","Invalid page number for query. Page %s is not supported for the query.","Invalid page number for query. Page %s is not supported for the query. Page range is from %d to %d.","Many requests fired in concurrent than the allowed limit","Callback failed after %d attempts.","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"User.Model.CustomizeInfo":{"bcView":{"name":"bc_view","type":"String"},"showDetailView":{"name":"show_detail_view","type":"Boolean"},"showHome":{"name":"show_home","type":"Boolean"},"showRightPanel":{"name":"show_right_panel","type":"String"},"notesDesc":{"name":"notes_desc","type":"Boolean"},"unpinRecentItem":{"name":"unpin_recent_item","type":"String"}},"Note.Model.Note":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"noteTitle":{"name":"Note_Title","type":"String"},"noteContent":{"name":"Note_Content","type":"String","required":true},"attachments":{"lookup":true,"structure_name":"Attachment.Model.Attachment","name":"$attachments","type":"List"},"voiceNote":{"name":"$voice_note","type":"Boolean"},"editable":{"name":"$editable","type":"Boolean"},"isSharedToClient":{"name":"$is_shared_to_client","type":"Boolean"},"parentId":{"lookup":true,"structure_name":"Record.Model.Record","name":"Parent_Id","type":"Record.Model.Record","required":true},"seModule":{"name":"$se_module","type":"String","required":true},"size":{"name":"$size","type":"String"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"state":{"name":"$state","type":"String"},"id":{"name":"id","type":"Long","primary":true}},"Layout.Model.GetLayoutsParam":{"module":{"name":"module","type":"String"}},"Record.Model.GetRecordsHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"RelatedRecord.Model.GetRelatedRecordsUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"},"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Org.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the request does not contain any file","invalid file type","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Tag.Model.GetRecordCountForTagParam":{"module":{"name":"module","type":"String","required":true}},"BluePrint.Model.ActionResponse":{"classes":["BluePrint.Model.SuccessResponse","BluePrint.Model.APIException"],"interface":true},"Layout.Model.GetLayoutParam":{"module":{"name":"module","type":"String"}},"Tag.Model.CreateTagsParam":{"module":{"name":"module","type":"String","required":true}},"Query.Model.BodyWrapper":{"selectQuery":{"name":"select_query","type":"String","required":true}},"ContactRole.Model.DeleteContactRolesParam":{"ids":{"name":"ids","type":"String"}},"CustomView.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","REQUIRED_PARAM_MISSING","INVALID_MODULE","INTERNAL_ERROR","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"expected_data_type","type":"String"},{"name":"api_name","type":"String"},{"structure_name":"CustomView.Model.Range","name":"range","type":"CustomView.Model.Range"},{"name":"json_path","type":"String"},{"name":"resource_path_index","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","The given module is not supported in API","invalid data","Invalid ID","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordsHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"},"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Org.Model.LicenseDetails":{"paidType":{"name":"paid_type","type":"String"},"trialType":{"name":"trial_type","type":"String"},"paidExpiry":{"name":"paid_expiry","type":"DateTime"},"paid":{"name":"paid","type":"Boolean"},"usersLicensePurchased":{"name":"users_license_purchased","type":"Long"},"trialExpiry":{"name":"trial_expiry","type":"String"}},"Module.Model.ResponseWrapper":{"modules":{"structure_name":"Module.Model.Module","name":"modules","type":"List"}},"Record.Model.Criteria":{"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"field":{"name":"field","type":"String"},"value":{"name":"value","type":"Object"},"group":{"lookup":true,"structure_name":"Record.Model.Criteria","name":"group","type":"List"}},"Notification.Model.ActionHandler":{"classes":["Notification.Model.APIException","Notification.Model.ActionWrapper"],"interface":true},"Tax.Model.ActionWrapper":{"taxes":{"structure_name":"Tax.Model.ActionResponse","name":"taxes","type":"List"}},"ShareRecord.Model.ActionResponse":{"classes":["ShareRecord.Model.SuccessResponse","ShareRecord.Model.APIException"],"interface":true},"Tag.Model.RecordActionWrapper":{"lockedCount":{"name":"locked_count","type":"Integer"},"data":{"structure_name":"Tag.Model.RecordActionResponse","name":"data","type":"List"},"successCount":{"name":"success_count","type":"String"},"wfScheduler":{"name":"wf_scheduler","type":"Boolean"}},"VariableGroup.Model.ResponseWrapper":{"variableGroups":{"structure_name":"VariableGroup.Model.VariableGroup","name":"variable_groups","type":"List"}},"User.Model.GetUsersParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"type":{"name":"type","type":"String","required":true}},"Record.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Field.Model.ResponseWrapper":{"fields":{"structure_name":"Field.Model.Field","name":"fields","type":"List"}},"ContactRole.Model.ContactRole":{"sequenceNumber":{"name":"sequence_number","type":"Integer"},"name":{"unique":true,"name":"name","type":"String","required":true},"id":{"name":"id","type":"Long","primary":true}},"BulkRead.Model.JobDetail":{"result":{"structure_name":"BulkRead.Model.Result","name":"result","type":"BulkRead.Model.Result"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"query":{"structure_name":"BulkRead.Model.Query","name":"query","type":"BulkRead.Model.Query"},"createdTime":{"name":"created_time","type":"DateTime"},"id":{"name":"id","type":"Long","primary":true},"state":{"values":["COMPLETED","IN PROGRESS","ADDED","FAILURE"],"name":"state","type":"util.Model.Choice"},"operation":{"name":"operation","type":"String"},"fileType":{"name":"file_type","type":"String"}},"Note.Model.ActionHandler":{"classes":["Note.Model.ActionWrapper","Note.Model.APIException"],"interface":true},"Module.Model.ActionWrapper":{"modules":{"structure_name":"Module.Model.ActionResponse","name":"modules","type":"List"}},"User.Model.Territory":{"manager":{"name":"manager","type":"Boolean"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Tag.Model.RecordActionHandler":{"classes":["Tag.Model.APIException","Tag.Model.RecordActionWrapper"],"interface":true},"ContactRole.Model.ContactRoleWrapper":{"contactRole":{"required_in_update":true,"name":"Contact_Role","type":"String"}},"VariableGroup.Model.ResponseHandler":{"classes":["VariableGroup.Model.ResponseWrapper","VariableGroup.Model.APIException"],"interface":true},"Module.Model.ResponseHandler":{"classes":["Module.Model.APIException","Module.Model.ResponseWrapper"],"interface":true},"Field.Model.GetFieldsParam":{"module":{"name":"module","type":"String"},"type":{"name":"type","type":"String"}},"BulkWrite.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","FILE_TOO_LARGE","INVALID_FILE_FORMAT","MANDATORY_FIELDS_NOT_MAPPED","MANDATORY_NOT_FOUND","INVALID_FIELD","INVALID_FORMAT","INVALID_FILE_ID","HEADER_LIMIT_EXCEEDED","COLUMN_INDEX_NOT_FOUND","MODULE_NOT_AVAILABLE","INVALID_DATA","DUPLICATE_DATA","NOT_APPROVED","BLOCKED_RECORD","CANNOT_PROCESS","LIMIT_EXCEEDED","RESOURCE_NOT_FOUND","MISSING_REQUIRED_KEY","INVALID_FIELD_NAME","FILE_NOT_SUPPORTED","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"xError":{"values":["check if headers [feature:X-CRM-ORG] are present and valid"],"name":"x-error","type":"util.Model.Choice"},"httpStatus":{"name":"http_status","type":"String"},"errorMessage":{"values":["Bad Request"],"name":"ERROR_MESSAGE","type":"util.Model.Choice"},"errorCode":{"name":"ERROR_CODE","type":"Integer"},"details":{"name":"details","type":"Map"},"xInfo":{"values":["Link not valid"],"name":"x-info","type":"util.Model.Choice"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","invalid file format. only zip format is supported","File size too large to process","The requested resource doesn't exist.","required key operation is not found in request body.","improper file id","required key index for field Company is not found in request body.","All mandatory fields are not mapped for the layout","Requested module 'asdf' is not available.","invalid mapping. invalid api_name ast_Name.","File not supported for bulk write","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"},"info":{"values":["Forbidden"],"name":"info","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"}},"User.Model.User":{"country":{"name":"country","type":"String"},"lastName":{"name":"last_name","type":"String","required":true},"role":{"lookup":true,"structure_name":"Role.Model.Role","name":"role","type":"Role.Model.Role","required":true},"decimalSeparator":{"name":"decimal_separator","type":"String"},"signature":{"name":"signature","type":"String"},"city":{"name":"city","type":"String"},"dateFormat":{"name":"date_format","type":"String"},"language":{"name":"language","type":"String"},"countryLocale":{"name":"country_locale","type":"String"},"locale":{"name":"locale","type":"String"},"microsoft":{"name":"microsoft","type":"Boolean"},"isonline":{"name":"Isonline","type":"Boolean"},"nameFormat":{"name":"name_format","type":"String"},"street":{"name":"street","type":"String"},"alias":{"name":"alias","type":"String"},"currency":{"name":"Currency","type":"String"},"theme":{"lookup":true,"structure_name":"User.Model.Theme","name":"theme","type":"User.Model.Theme"},"personalAccount":{"name":"personal_account","type":"Boolean"},"state":{"name":"state","type":"String"},"fax":{"name":"fax","type":"String"},"email":{"name":"email","type":"String","required":true},"reportingTo":{"lookup":true,"structure_name":"User.Model.User","name":"Reporting_To","type":"User.Model.User"},"zip":{"name":"zip","type":"String"},"website":{"name":"website","type":"String"},"offset":{"name":"offset","type":"Long"},"profile":{"lookup":true,"structure_name":"Profile.Model.Profile","name":"profile","type":"Profile.Model.Profile","required":true},"mobile":{"name":"mobile","type":"String"},"timeZone":{"name":"time_zone","type":"String"},"fullName":{"name":"full_name","type":"String"},"customizeInfo":{"lookup":true,"structure_name":"User.Model.CustomizeInfo","name":"customize_info","type":"User.Model.CustomizeInfo"},"zuid":{"name":"zuid","type":"String"},"confirm":{"name":"confirm","type":"Boolean"},"firstName":{"name":"first_name","type":"String"},"territories":{"lookup":true,"structure_name":"User.Model.Territory","name":"territories","type":"List"},"phone":{"name":"phone","type":"String"},"dob":{"name":"dob","type":"String"},"timeFormat":{"name":"time_format","type":"String"},"name":{"name":"name","type":"String"},"defaultTabGroup":{"name":"default_tab_group","type":"String"},"status":{"name":"status","type":"String"}},"Record.Model.DownloadHandler":{"classes":["Record.Model.APIException","Record.Model.FileBodyWrapper"],"interface":true},"util.Model.Model":{"classes":["Attachment.Model.SuccessResponse","Attachment.Model.APIException","Attachment.Model.Attachment","Attachment.Model.ActionWrapper","Attachment.Model.ResponseWrapper","Attachment.Model.FileBodyWrapper","Note.Model.ActionWrapper","Note.Model.SuccessResponse","Note.Model.BodyWrapper","Note.Model.APIException","Note.Model.Info","Note.Model.ResponseWrapper","Note.Model.Note","Role.Model.Role","Role.Model.APIException","Role.Model.ResponseWrapper","RelatedList.Model.ResponseWrapper","RelatedList.Model.RelatedList","RelatedList.Model.APIException","Tax.Model.Preference","Tax.Model.ActionWrapper","Tax.Model.SuccessResponse","Tax.Model.APIException","Tax.Model.ResponseWrapper","Tax.Model.BodyWrapper","Tax.Model.Tax","Layout.Model.ResponseWrapper","Layout.Model.Section","Layout.Model.APIException","Layout.Model.Layout","Layout.Model.Properties","BulkWrite.Model.CallBack","BulkWrite.Model.SuccessResponse","BulkWrite.Model.RequestWrapper","BulkWrite.Model.APIException","BulkWrite.Model.BulkWriteResponse","BulkWrite.Model.File","BulkWrite.Model.Resource","BulkWrite.Model.FieldMapping","BulkWrite.Model.FileBodyWrapper","BulkWrite.Model.Result","CustomView.Model.SharedDetails","CustomView.Model.Translation","CustomView.Model.ResponseWrapper","CustomView.Model.Info","CustomView.Model.CustomView","CustomView.Model.Criteria","CustomView.Model.Range","CustomView.Model.APIException","Notification.Model.SuccessResponse","Notification.Model.Info","Notification.Model.BodyWrapper","Notification.Model.APIException","Notification.Model.ActionWrapper","Notification.Model.ResponseWrapper","Notification.Model.Notification","BluePrint.Model.Transition","BluePrint.Model.BluePrint","BluePrint.Model.SuccessResponse","BluePrint.Model.BodyWrapper","BluePrint.Model.NextTransition","BluePrint.Model.ProcessInfo","BluePrint.Model.ResponseWrapper","BluePrint.Model.APIException","BluePrint.Model.ValidationError","File.Model.BodyWrapper","File.Model.SuccessResponse","File.Model.ActionWrapper","File.Model.APIException","File.Model.FileBodyWrapper","Record.Model.ResponseWrapper","Record.Model.Consent","Record.Model.SuccessResponse","Record.Model.ConvertActionWrapper","Record.Model.MassUpdateBodyWrapper","Record.Model.APIException","Record.Model.Territory","Record.Model.SuccessfulConvert","Record.Model.LeadConverter","Record.Model.BodyWrapper","Record.Model.Criteria","Record.Model.MassUpdateActionWrapper","Record.Model.Info","Record.Model.FileBodyWrapper","Record.Model.InventoryLineItems","Record.Model.MassUpdate","Record.Model.ActionWrapper","Record.Model.Record","Record.Model.RemindAt","Record.Model.Participants","Record.Model.ConvertBodyWrapper","Record.Model.MassUpdateResponseWrapper","Record.Model.FileDetails","Record.Model.Reminder","Record.Model.DeletedRecordsWrapper","Record.Model.DeletedRecord","Record.Model.LineTax","Record.Model.RecurringActivity","Record.Model.LineItemProduct","Record.Model.Comment","Record.Model.CarryOverTags","Record.Model.MassUpdateSuccessResponse","Record.Model.PricingDetails","RelatedRecord.Model.APIException","RelatedRecord.Model.SuccessResponse","RelatedRecord.Model.BodyWrapper","RelatedRecord.Model.ActionWrapper","RelatedRecord.Model.ResponseWrapper","RelatedRecord.Model.FileBodyWrapper","ShareRecord.Model.SuccessResponse","ShareRecord.Model.SharedThrough","ShareRecord.Model.APIException","ShareRecord.Model.ResponseWrapper","ShareRecord.Model.ShareRecord","ShareRecord.Model.DeleteActionWrapper","ShareRecord.Model.BodyWrapper","ShareRecord.Model.ActionWrapper","BulkRead.Model.Criteria","BulkRead.Model.Query","BulkRead.Model.RequestWrapper","BulkRead.Model.SuccessResponse","BulkRead.Model.JobDetail","BulkRead.Model.Result","BulkRead.Model.CallBack","BulkRead.Model.ResponseWrapper","BulkRead.Model.APIException","BulkRead.Model.ActionWrapper","BulkRead.Model.FileBodyWrapper","Variable.Model.ResponseWrapper","Variable.Model.BodyWrapper","Variable.Model.APIException","Variable.Model.Variable","Variable.Model.SuccessResponse","Variable.Model.ActionWrapper","Org.Model.SuccessResponse","Org.Model.ResponseWrapper","Org.Model.Org","Org.Model.LicenseDetails","Org.Model.APIException","Org.Model.FileBodyWrapper","Query.Model.ResponseWrapper","Query.Model.BodyWrapper","Query.Model.APIException","Profile.Model.APIException","Profile.Model.Category","Profile.Model.Profile","Profile.Model.PermissionDetail","Profile.Model.Section","Profile.Model.ResponseWrapper","User.Model.ActionWrapper","User.Model.SuccessResponse","User.Model.ResponseWrapper","User.Model.Territory","User.Model.CustomizeInfo","User.Model.Theme","User.Model.BodyWrapper","User.Model.Info","User.Model.Shift","User.Model.RequestWrapper","User.Model.User","User.Model.APIException","User.Model.TabTheme","Module.Model.Module","Module.Model.Territory","Module.Model.APIException","Module.Model.SuccessResponse","Module.Model.ActionWrapper","Module.Model.ResponseWrapper","Module.Model.Argument","Module.Model.RelatedListProperties","Module.Model.BodyWrapper","Tag.Model.MergeWrapper","Tag.Model.ActionWrapper","Tag.Model.BodyWrapper","Tag.Model.ResponseWrapper","Tag.Model.Tag","Tag.Model.Info","Tag.Model.SuccessResponse","Tag.Model.APIException","Tag.Model.RecordActionWrapper","Tag.Model.CountWrapper","Tag.Model.ConflictWrapper","Territory.Model.Territory","Territory.Model.APIException","Territory.Model.ResponseWrapper","ContactRole.Model.ResponseWrapper","ContactRole.Model.SuccessResponse","ContactRole.Model.RecordBodyWrapper","ContactRole.Model.BodyWrapper","ContactRole.Model.RecordActionWrapper","ContactRole.Model.ContactRoleWrapper","ContactRole.Model.RecordResponseWrapper","ContactRole.Model.APIException","ContactRole.Model.ActionWrapper","ContactRole.Model.ContactRole","Field.Model.RelatedDetails","Field.Model.Field","Field.Model.Unique","Field.Model.Crypt","Field.Model.ViewType","Field.Model.AutoNumber","Field.Model.MultiSelectLookup","Field.Model.PickListValue","Field.Model.ResponseWrapper","Field.Model.ToolTip","Field.Model.Currency","Field.Model.Formula","Field.Model.Private","Field.Model.LookupField","Field.Model.APIException","Field.Model.Module","Field.Model.AssociationDetails","VariableGroup.Model.ResponseWrapper","VariableGroup.Model.VariableGroup","VariableGroup.Model.APIException","Currency.Model.Currency","Currency.Model.ResponseWrapper","Currency.Model.SuccessResponse","Currency.Model.BaseCurrencyWrapper","Currency.Model.ActionWrapper","Currency.Model.APIException","Currency.Model.BodyWrapper","Currency.Model.Format","Currency.Model.BaseCurrencyActionWrapper"],"interface":true},"Tag.Model.UpdateTagsParam":{"module":{"name":"module","type":"String","required":true}},"Record.Model.MassUpdateBodyWrapper":{"cvid":{"name":"cvid","type":"String"},"data":{"structure_name":"Record.Model.Record","name":"data","type":"List","skip_mandatory":true,"required":true},"criteria":{"structure_name":"Record.Model.Criteria","name":"criteria","type":"List"},"ids":{"name":"ids","type":"List"},"territory":{"structure_name":"Record.Model.Territory","name":"territory","type":"Record.Model.Territory"},"overWrite":{"name":"over_write","type":"Boolean"}},"File.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"name","type":"String"},{"name":"id","type":"String"}],"name":"details","type":"Map"},"message":{"values":["uploaded Succeessfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"BluePrint.Model.Transition":{"executionTime":{"name":"execution_time","type":"DateTime"},"criteriaMatched":{"name":"criteria_matched","type":"Boolean"},"percentPartialSave":{"name":"percent_partial_save","type":"Double"},"data":{"structure_name":"Record.Model.Record","name":"data","type":"Record.Model.Record","skip_mandatory":true},"nextTransitions":{"lookup":true,"structure_name":"BluePrint.Model.NextTransition","name":"next_transitions","type":"List"},"name":{"name":"name","type":"String"},"criteriaMessage":{"name":"criteria_message","type":"String"},"nextFieldValue":{"name":"next_field_value","type":"String"},"id":{"name":"id","type":"Long"},"fields":{"lookup":true,"structure_name":"Field.Model.Field","name":"fields","type":"List"},"type":{"name":"type","type":"String"}},"User.Model.GetUsersHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Attachment.Model.ActionResponse":{"classes":["Attachment.Model.SuccessResponse","Attachment.Model.APIException"],"interface":true},"Record.Model.Reminder":{"period":{"name":"period","type":"String","required":true},"unit":{"name":"unit","type":"String","required":true}},"Profile.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ContactRole.Model.BodyWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ContactRole","name":"contact_roles","max-length":100,"type":"List","required":true,"min-length":1}},"Territory.Model.Territory":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"manager":{"structure_name":"User.Model.User","name":"manager","type":"User.Model.User"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"name":{"name":"name","type":"String"},"createdTime":{"name":"created_time","type":"DateTime"},"description":{"name":"description","type":"String"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"parentId":{"name":"parent_id","type":"String"}},"RelatedRecord.Model.UpdateRelatedRecordHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Attachment.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"id","type":"Long"},{"name":"resource_path_index","type":"Integer"},{"name":"related_status","type":"String"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["As it is a linked attachment"," you can not download it","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Attachment link already exists","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Attachment.Model.GetAttachmentsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"Profile.Model.Profile":{"displayLabel":{"name":"display_label","type":"String"},"modifiedTime":{"name":"modified_time","type":"DateTime"},"permissionsDetails":{"structure_name":"Profile.Model.PermissionDetail","name":"permissions_details","type":"List"},"description":{"name":"description","type":"String"},"delete1":{"name":"_delete","type":"Boolean"},"sections":{"structure_name":"Profile.Model.Section","name":"sections","type":"List"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"default1":{"name":"default","type":"Boolean"},"name":{"name":"name","type":"String"},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"Boolean"}},"Tax.Model.ActionResponse":{"classes":["Tax.Model.SuccessResponse","Tax.Model.APIException"],"interface":true},"Note.Model.ResponseWrapper":{"data":{"structure_name":"Note.Model.Note","name":"data","type":"List"},"info":{"structure_name":"Note.Model.Info","name":"info","type":"Note.Model.Info"}},"BulkWrite.Model.ResponseHandler":{"classes":["BulkWrite.Model.APIException","BulkWrite.Model.FileBodyWrapper"],"interface":true},"Tag.Model.RemoveTagsFromRecordParam":{"tagNames":{"name":"tag_names","type":"String","required":true}},"Variable.Model.ActionResponse":{"classes":["Variable.Model.APIException","Variable.Model.SuccessResponse"],"interface":true},"Tax.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"name","type":"String"},{"name":"value","type":"String"},{"name":"maximum_length","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","required field not found","Sequence number out of range","Sequence number cannot be repeated in same request","Given ID does not exist","tax not deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ShareRecord.Model.ResponseHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.ResponseWrapper"],"interface":true},"RelatedRecord.Model.UpdateRelatedRecordsHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Record.Model.MassUpdateResponse":{"classes":["Record.Model.APIException","Record.Model.MassUpdate"],"interface":true},"Profile.Model.GetProfilesHeader":{"ifModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Variable.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["variable added","variable updated","variable deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Record.Model.MassUpdateActionHandler":{"classes":["Record.Model.APIException","Record.Model.MassUpdateActionWrapper"],"interface":true},"ShareRecord.Model.DeleteActionHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.DeleteActionWrapper"],"interface":true},"BulkWrite.Model.ActionResponse":{"classes":["BulkWrite.Model.SuccessResponse","BulkWrite.Model.APIException"],"interface":true},"RelatedList.Model.GetRelatedListParam":{"module":{"name":"module","type":"String"}},"Variable.Model.ActionWrapper":{"variables":{"structure_name":"Variable.Model.ActionResponse","name":"variables","type":"List","required":true}},"Layout.Model.ResponseHandler":{"classes":["Layout.Model.ResponseWrapper","Layout.Model.APIException"],"interface":true},"RelatedList.Model.ResponseWrapper":{"relatedLists":{"structure_name":"RelatedList.Model.RelatedList","name":"related_lists","type":"List"}},"User.Model.Shift":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Record.Model.DeleteRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Field.Model.AutoNumber":{"startNumber":{"name":"start_number","type":"Integer"},"prefix":{"name":"prefix","type":"String"},"suffix":{"name":"suffix","type":"String"}},"BluePrint.Model.NextTransition":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Variable.Model.APIException":{"code":{"values":["UNABLE_TO_PARSE_DATA_TYPE","REQUIRED_PARAM_MISSING","DUPLICATE_DATA","INVALID_DATA","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INTERNAL_ERROR","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"},{"name":"api_name","type":"String"},{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["either the request body or parameters is in wrong format","One of the expected parameter is missing","duplicate data","variable not deleted","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.Result":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"downloadUrl":{"name":"download_url","type":"String"},"page":{"name":"page","type":"Integer"}},"Tag.Model.RemoveTagsFromMultipleRecordsParam":{"ids":{"name":"ids","type":"Long","required":true},"tagNames":{"name":"tag_names","type":"String","required":true}},"Record.Model.Consent":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"mailSentTime":{"name":"Mail_Sent_Time","type":"DateTime"},"consentThrough":{"name":"Consent_Through","type":"String"},"contactThroughSocial":{"name":"Contact_Through_Social","type":"Boolean"},"contactThroughPhone":{"name":"Contact_Through_Phone","type":"Boolean"},"contactThroughSurvey":{"name":"Contact_Through_Survey","type":"Boolean"},"consentDate":{"name":"Consent_Date","type":"LocalDate"},"dataProcessingBasis":{"name":"Data_Processing_Basis","type":"String"},"contactThroughEmail":{"name":"Contact_Through_Email","type":"Boolean"},"consentRemarks":{"name":"Consent_Remarks","type":"String"}},"Layout.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","REQUIRED_PARAM_MISSING","INTERNAL_ERROR","NO_PERMISSION","INVALID_DATA"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","User does not have permission to access this layout.","Layout does not belongs to the given module","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Org.Model.ResponseHandler":{"classes":["Org.Model.ResponseWrapper","Org.Model.APIException"],"interface":true},"Record.Model.DeleteRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Module.Model.BodyWrapper":{"modules":{"structure_name":"Module.Model.Module","name":"modules","max-length":1,"type":"List","min-length":1}},"Note.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Record.Model.RemindAt":{"alarm":{"name":"ALARM","type":"String","required":true}},"Record.Model.GetDeletedRecordsHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"BulkWrite.Model.Result":{"downloadUrl":{"name":"download_url","type":"String"}},"File.Model.ActionWrapper":{"data":{"structure_name":"File.Model.ActionResponse","name":"data","type":"List"}},"Tag.Model.ActionResponse":{"classes":["Tag.Model.SuccessResponse","Tag.Model.APIException"],"interface":true},"Variable.Model.DeleteVariablesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Currency.Model.ResponseHandler":{"classes":["Currency.Model.ResponseWrapper","Currency.Model.APIException"],"interface":true},"Record.Model.SuccessfulConvert":{"deals":{"name":"Deals","type":"String"},"accounts":{"name":"Accounts","type":"String"},"contacts":{"name":"Contacts","type":"String"}},"Record.Model.ConvertActionHandler":{"classes":["Record.Model.ConvertActionWrapper","Record.Model.APIException"],"interface":true},"Record.Model.GetRecordHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Field.Model.ViewType":{"view":{"name":"view","type":"Boolean"},"edit":{"name":"edit","type":"Boolean"},"quickCreate":{"name":"quick_create","type":"Boolean"},"create":{"name":"create","type":"Boolean"}},"Tag.Model.APIException":{"code":{"values":["REQUIRED_PARAM_MISSING","MANDATORY_NOT_FOUND","INVALID_MODULE","DUPLICATE_DATA","TAG_ID_NOT_FOUND","FAILURE","INTERNAL_ERROR","NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","LICENSE_LIMIT_EXCEEDED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"param","type":"String"},{"name":"permissions","type":"List"},{"name":"maximum_length","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["tags not found","special characters found in the given name","One of the expected parameter is missing","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid","duplicate data","tag edition limit exceeded","invalid data","tags not updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Profile.Model.ResponseHandler":{"classes":["Profile.Model.APIException","Profile.Model.ResponseWrapper"],"interface":true},"RelatedRecord.Model.UpdateRelatedRecordUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"File.Model.BodyWrapper":{"file":{"name":"file","max-length":10,"type":"List","required":true,"min-length":1}},"Notification.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"structure_name":"Notification.Model.Notification","name":"events","type":"List"},{"name":"resource_uri","type":"String"},{"name":"resource_id","type":"String"},{"name":"channel_id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["Successfully subscribed for actions-watch of the given module","Successfully un-subscribed from actions-watch","Successfully updated the subscribe details","Successfully removed the subscribe details"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Tax.Model.ActionHandler":{"classes":["Tax.Model.ActionWrapper","Tax.Model.APIException"],"interface":true},"BulkWrite.Model.ResponseWrapper":{"classes":["BulkWrite.Model.APIException","BulkWrite.Model.BulkWriteResponse"],"interface":true},"Field.Model.Formula":{"expression":{"name":"expression","type":"String"},"returnType":{"name":"return_type","type":"String"}},"BulkWrite.Model.RequestWrapper":{"resource":{"structure_name":"BulkWrite.Model.Resource","name":"resource","type":"List","required":true},"callback":{"structure_name":"BulkWrite.Model.CallBack","name":"callback","type":"BulkWrite.Model.CallBack"},"characterEncoding":{"name":"character_encoding","type":"String"},"operation":{"values":["insert","update","upsert"],"name":"operation","type":"util.Model.Choice","required":true}},"Tag.Model.AddTagsToMultipleRecordsParam":{"ids":{"name":"ids","type":"Long","required":true},"tagNames":{"name":"tag_names","type":"String","required":true},"overWrite":{"name":"over_write","type":"String"}},"Currency.Model.BaseCurrencyActionHandler":{"classes":["Currency.Model.APIException","Currency.Model.BaseCurrencyActionWrapper"],"interface":true},"Profile.Model.GetProfileHeader":{"ifModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"ContactRole.Model.ActionHandler":{"classes":["ContactRole.Model.APIException","ContactRole.Model.ActionWrapper"],"interface":true},"Currency.Model.BaseCurrencyActionWrapper":{"baseCurrency":{"structure_name":"Currency.Model.ActionResponse","name":"base_currency","interface":true,"type":"Currency.Model.ActionResponse"}},"Attachment.Model.ResponseWrapper":{"data":{"structure_name":"Attachment.Model.Attachment","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Tag.Model.UpdateTagParam":{"module":{"name":"module","type":"String","required":true}},"CustomView.Model.GetCustomViewsParam":{"perPage":{"name":"per_page","type":"Integer"},"module":{"name":"module","type":"String"},"page":{"name":"page","type":"Integer"}},"Record.Model.DeletedRecord":{"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"displayName":{"name":"display_name","type":"String"},"id":{"name":"id","type":"Long","primary":true},"type":{"name":"type","type":"String"},"deletedTime":{"name":"deleted_time","type":"DateTime"},"deletedBy":{"structure_name":"User.Model.User","name":"deleted_by","type":"User.Model.User"}},"Currency.Model.ActionResponse":{"classes":["Currency.Model.SuccessResponse","Currency.Model.APIException"],"interface":true},"Record.Model.DeleteRecordParam":{"wfTrigger":{"name":"wf_trigger","type":"Boolean"}},"Field.Model.MultiSelectLookup":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"connectedlookupApiname":{"name":"connectedlookup_apiname","type":"String"},"lookupApiname":{"name":"lookup_apiname","type":"String"},"linkingModule":{"name":"linking_module","type":"String"},"id":{"name":"id","type":"Long"}},"Record.Model.ConvertActionResponse":{"classes":["Record.Model.APIException","Record.Model.SuccessfulConvert"],"interface":true},"Record.Model.MassUpdateActionResponse":{"classes":["Record.Model.APIException","Record.Model.MassUpdateSuccessResponse"],"interface":true},"Org.Model.ActionResponse":{"classes":["Org.Model.SuccessResponse","Org.Model.APIException"],"interface":true},"ShareRecord.Model.ActionWrapper":{"share":{"structure_name":"ShareRecord.Model.ActionResponse","name":"share","type":"List"}},"CustomView.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"default1":{"name":"default","type":"String"},"count":{"name":"count","type":"Integer"},"translation":{"structure_name":"CustomView.Model.Translation","name":"translation","type":"CustomView.Model.Translation"},"page":{"name":"page","type":"Integer"}},"Field.Model.Currency":{"roundingOption":{"name":"rounding_option","type":"String"},"precision":{"name":"precision","type":"Integer"}},"BulkRead.Model.ResponseWrapper":{"data":{"structure_name":"BulkRead.Model.JobDetail","name":"data","type":"List"}},"CustomView.Model.Translation":{"createdByMe":{"name":"created_by_me","type":"String"},"otherUsersViews":{"name":"other_users_views","type":"String"},"publicViews":{"name":"public_views","type":"String"},"sharedWithMe":{"name":"shared_with_me","type":"String"}},"CustomView.Model.ResponseHandler":{"classes":["CustomView.Model.ResponseWrapper","CustomView.Model.APIException"],"interface":true},"Module.Model.ActionHandler":{"classes":["Module.Model.APIException","Module.Model.ActionWrapper"],"interface":true},"ShareRecord.Model.ActionHandler":{"classes":["ShareRecord.Model.APIException","ShareRecord.Model.ActionWrapper"],"interface":true},"Layout.Model.Layout":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"createdFor":{"structure_name":"User.Model.User","name":"created_for","type":"User.Model.User"},"visible":{"name":"visible","type":"Boolean"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"name":{"name":"name","type":"String"},"profiles":{"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"sections":{"structure_name":"Layout.Model.Section","name":"sections","type":"List"},"convertMapping":{"name":"convert_mapping","type":"Map"},"status":{"name":"status","type":"Integer"}},"Variable.Model.GetVariableByIDParam":{"group":{"name":"group","type":"String","required":true}},"Field.Model.LookupField":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"}},"Notification.Model.ResponseHandler":{"classes":["Notification.Model.APIException","Notification.Model.ResponseWrapper"],"interface":true},"Note.Model.DeleteNotesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Tag.Model.ActionHandler":{"classes":["Tag.Model.ActionWrapper","Tag.Model.APIException"],"interface":true},"Record.Model.DeleteRecordUsingExternalIDParam":{"wfTrigger":{"name":"wf_trigger","type":"Boolean"}},"RelatedRecord.Model.APIException":{"code":{"values":["NO_PERMISSION","CANNOT_BE_UPDATED","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"id","type":"Long"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid data","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkWrite.Model.FieldMapping":{"apiName":{"name":"api_name","type":"String","required":true},"defaultValue":{"name":"default_value","type":"Map"},"module":{"name":"module","type":"String"},"format":{"name":"format","type":"String"},"index":{"name":"index","type":"Integer"},"findBy":{"name":"find_by","type":"String"}},"Currency.Model.ResponseWrapper":{"currencies":{"structure_name":"Currency.Model.Currency","name":"currencies","type":"List"}},"Variable.Model.GetVariablesParam":{"group":{"name":"group","type":"String","required":true}},"Note.Model.GetNoteHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime","required":true}},"VariableGroup.Model.APIException":{"code":{"values":["INTERNAL_ERROR","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Field.Model.Module":{"layout":{"structure_name":"Layout.Model.Layout","name":"layout","type":"Layout.Model.Layout"},"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"name":"module","type":"String"},"moduleName":{"name":"module_name","type":"String"},"id":{"name":"id","type":"Long"}},"Attachment.Model.Attachment":{"owner":{"lookup":true,"structure_name":"User.Model.User","name":"Owner","type":"User.Model.User"},"modifiedTime":{"name":"Modified_Time","type":"DateTime"},"fileName":{"name":"File_Name","type":"String"},"editable":{"name":"$editable","type":"Boolean"},"description":{"name":"description","type":"String"},"type":{"name":"$type","type":"String"},"parentId":{"lookup":true,"structure_name":"Record.Model.Record","name":"Parent_Id","type":"Record.Model.Record"},"seModule":{"name":"$se_module","type":"String"},"size":{"name":"Size","type":"Long"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},"linkUrl":{"name":"$link_url","type":"String"},"createdTime":{"name":"Created_Time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},"state":{"name":"$state","type":"String"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"String"},"fileId":{"name":"$file_id","type":"String"}},"Field.Model.PickListValue":{"displayValue":{"name":"display_value","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"maps":{"name":"maps","type":"List"},"actualValue":{"name":"actual_value","type":"String"},"sysRefName":{"name":"sys_ref_name","type":"String"},"expectedDataType":{"name":"expected_data_type","type":"String"},"type":{"name":"type","type":"String"}},"Currency.Model.ActionWrapper":{"currencies":{"structure_name":"Currency.Model.ActionResponse","name":"currencies","type":"List"}},"Layout.Model.ResponseWrapper":{"layouts":{"structure_name":"Layout.Model.Layout","name":"layouts","type":"List"}},"ShareRecord.Model.GetSharedRecordDetailsParam":{"view":{"name":"view","type":"String"},"sharedTo":{"name":"sharedTo","type":"Long"}},"Module.Model.ActionResponse":{"classes":["Module.Model.APIException","Module.Model.SuccessResponse"],"interface":true},"User.Model.ActionResponse":{"classes":["User.Model.SuccessResponse","User.Model.APIException"],"interface":true},"Attachment.Model.DeleteAttachmentsParam":{"ids":{"name":"ids","type":"Long","required":true}},"Record.Model.ConvertActionWrapper":{"data":{"structure_name":"Record.Model.ConvertActionResponse","name":"data","type":"List"}},"Record.Model.SearchRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"File.Model.GetFileParam":{"id":{"name":"id","type":"String","required":true}},"Module.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["module updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"email","type":"String"}],"name":"details","type":"Map"},"message":{"values":["User added","User updated","User deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Tax.Model.Tax":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"name":{"name":"name","type":"String","required":true},"id":{"name":"id","type":"Long","primary":true},"value":{"name":"value","type":"Double","required":true}},"Record.Model.UpdateRecordHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Role.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Tax.Model.Preference":{"modifyTaxRates":{"name":"modify_tax_rates","type":"Boolean"},"autoPopulateTax":{"name":"auto_populate_tax","type":"Boolean"}},"Notification.Model.DisableNotificationsParam":{"channelIds":{"name":"channel_ids","type":"Long"}},"Tag.Model.BodyWrapper":{"tags":{"structure_name":"Tag.Model.Tag","name":"tags","type":"List","required":true}},"Notification.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Record.Model.RecurringActivity":{"rrule":{"name":"RRULE","type":"String","required":true}},"ShareRecord.Model.ShareRecord":{"shareRelatedRecords":{"name":"share_related_records","type":"Boolean"},"sharedThrough":{"lookup":true,"structure_name":"ShareRecord.Model.SharedThrough","name":"shared_through","type":"ShareRecord.Model.SharedThrough"},"sharedTime":{"name":"shared_time","type":"DateTime"},"sharedBy":{"lookup":true,"structure_name":"User.Model.User","name":"shared_by","type":"User.Model.User"},"permission":{"required_in_update":true,"name":"permission","type":"String","required":true},"user":{"lookup":true,"structure_name":"User.Model.User","required_in_update":true,"name":"user","type":"User.Model.User","required":true}},"ShareRecord.Model.BodyWrapper":{"share":{"structure_name":"ShareRecord.Model.ShareRecord","name":"share","max-length":10,"type":"List","required":true,"min-length":1}},"Org.Model.ResponseWrapper":{"org":{"structure_name":"Org.Model.Org","name":"org","type":"List"}},"File.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"CustomView.Model.Range":{"from":{"name":"from","type":"Integer"},"to":{"name":"to","type":"Integer"}},"User.Model.BodyWrapper":{"users":{"structure_name":"User.Model.User","name":"users","max-length":100,"type":"List","required":true,"min-length":1}},"BulkRead.Model.ActionResponse":{"classes":["BulkRead.Model.SuccessResponse","BulkRead.Model.APIException"],"interface":true},"ContactRole.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"limit","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","Contact Role feature limit exceeded","required field not found","invalid data","contact role not deleted","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"User.Model.TabTheme":{"background":{"name":"background","type":"String"},"fontColor":{"name":"font_color","type":"String"}},"Record.Model.DeleteRecordUsingExternalIDHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Attachment.Model.UploadLinkAttachmentParam":{"attachmentUrl":{"name":"attachmentUrl","type":"String"}},"Record.Model.MassUpdateActionWrapper":{"data":{"structure_name":"Record.Model.MassUpdateActionResponse","name":"data","type":"List"}},"Variable.Model.ActionHandler":{"classes":["Variable.Model.APIException","Variable.Model.ActionWrapper"],"interface":true},"Field.Model.AssociationDetails":{"lookupField":{"structure_name":"Field.Model.LookupField","name":"lookup_field","type":"Field.Model.LookupField"},"relatedField":{"structure_name":"Field.Model.LookupField","name":"related_field","type":"Field.Model.LookupField"}},"Module.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","INVALID_MODULE","INVALID_DATA","LIMIT_EXCEEDED","DUPLICATE_DATA","NOT_ALLOWED","NO_PERMISSION"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"json_path","type":"String"},{"name":"limit","type":"Integer"},{"name":"maximum_length","type":"Integer"},{"name":"permissions","type":"List"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the given module is not supported in api","invalid data","Api name duplicate","Api name is not valid","System keyword not allowed in api name","Api name update not allowed","No permission to update API name","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.FileHandler":{"classes":["Record.Model.SuccessResponse","Record.Model.APIException"],"interface":true},"RelatedRecord.Model.ResponseHandler":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.ResponseWrapper","RelatedRecord.Model.FileBodyWrapper"],"interface":true},"Profile.Model.Section":{"name":{"name":"name","type":"String"},"categories":{"structure_name":"Profile.Model.Category","name":"categories","type":"List"}},"Record.Model.Comment":{"commentedTime":{"name":"commented_time","type":"DateTime"},"commentContent":{"name":"comment_content","type":"String"},"id":{"name":"id","type":"Long"},"commentedBy":{"name":"commented_by","type":"String"}},"Tag.Model.ResponseWrapper":{"tags":{"structure_name":"Tag.Model.Tag","name":"tags","type":"List"},"info":{"structure_name":"Tag.Model.Info","name":"info","type":"Tag.Model.Info"}},"BulkRead.Model.Criteria":{"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"apiName":{"name":"api_name","type":"String"},"value":{"name":"value","type":"Object"},"group":{"structure_name":"BulkRead.Model.Criteria","name":"group","type":"List"}},"ContactRole.Model.RecordResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"File.Model.APIException":{"code":{"values":["VIRUS_DETECTED","failure_in_attachment_handling","INTERNAL_ERROR","INVALID_TOKEN","INVALID_DATA","MANDATORY_NOT_FOUND","NO_PERMISSION","INVALID_MODULE","NOT_SUPPORTED","PATTERN_NOT_MATCHED","OAUTH_SCOPE_MISMATCH","DUPLICATE_DATA","INVALID_QUERY","MAPPING_MISMATCH","ID_ALREADY_CONVERTED","FILE_SIZE_MORE_THAN_ALLOWED_SIZE","RECORD_IN_BLUEPRINT","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","Not Modified","AUTHENTICATION_FAILURE","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"String"}],"name":"details","type":"Map"},"message":{"values":["Unable to process your request. Virus has been detected.","Problem in uploading attachment. kindly upload the file properly","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","invalid data","permission denied","Internal server error occurred.","duplicate data","required field not found","record not deleted","record not deletable","Authentication failed","One of the expected parameter is missing","mandatory param missing","unable to process your request. please verify whether you have entered proper method name"," parameter and parameter values."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"User.Model.APIException":{"code":{"values":["ID_ALREADY_DELETED","CANNOT_UPDATE_DELETED_USER","AUTHORIZATION_FAILED","PATTERN_NOT_MATCHED","INVALID_REQUEST","LICENSE_LIMIT_EXCEEDED","DUPLICATE_DATA","INVALID_DATA","UNAPPROVABLE","MANDATORY_NOT_FOUND","INTERNAL_ERROR","EMAIL_UPDATE_NOT_ALLOWED","ID_ALREADY_DEACTIVATED","ID_ALREADY_ACTIVE","FEATURE_PERMISSION","OAUTH_SCOPE_MISMATCH","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","Internal server error occurred.","Cannot add user under CRM Plus account. Kindly use CRMPlus URL to add user","Request exceeds your license limit. Need to upgrade in order to add","Failed to add user since same email id is already present","Email Id should not contain @skydesk.jp. Please choose a different email id","Invalid Email Id. Please choose a different email id","Cannot add user for CRMPlus account from CRM. Kindly add user through CRMPlus","Company Name is required","Error occurred in resending the invitation of CRMPLUS user in CRM account","Cannot update the time_zone of another User","Either trial has expired or user does not have sufficient privilege to perform this action","Error occurred while updating CRMPlus User in CRM Account","invalid_data","Deleted user cannot be updated","Re-invite is not allowed for a confirmed user","Cannot update email of a confirmed CRM User","User with same email id is already in CRM Plus","User is already deactivated","Primary Contact cannot be deactivated","User is already active","Share among Subordinates Feature is not available","Profile and Role cannot be Updated by the user.","the_id_given_seems_to_be_invalid","Primary contact cannot be deleted","User is already deleted","User does not have sufficient privilege to delete users"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.CreateRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Currency.Model.BodyWrapper":{"currencies":{"structure_name":"Currency.Model.Currency","name":"currencies","max-length":10,"type":"List","required":true,"min-length":1}},"Record.Model.InventoryLineItems":{"unitPrice":{"name":"unit_price","type":"Double"},"quantityInStock":{"name":"quantity_in_stock","type":"Double"},"product":{"lookup":true,"structure_name":"Record.Model.LineItemProduct","name":"product","type":"Record.Model.LineItemProduct","required":true},"quantity":{"name":"quantity","type":"Double","required":true},"book":{"name":"book","type":"Double"},"discount":{"name":"Discount","type":"String"},"tax":{"name":"Tax","type":"Double"},"totalAfterDiscount":{"name":"total_after_discount","type":"Double"},"total":{"name":"total","type":"Double"},"netTotal":{"name":"net_total","type":"Double"},"lineTax":{"lookup":true,"structure_name":"Record.Model.LineTax","name":"line_tax","type":"List"},"listPrice":{"name":"list_price","type":"Double"},"productDescription":{"name":"product_description","type":"String"}},"Layout.Model.Properties":{"maximumRows":{"name":"maximum_rows","type":"Integer"},"tooltip":{"structure_name":"Field.Model.ToolTip","name":"tooltip","type":"Field.Model.ToolTip"},"reorderRows":{"name":"reorder_rows","type":"Boolean"}},"Profile.Model.PermissionDetail":{"displayLabel":{"name":"display_label","type":"String"},"module":{"name":"module","type":"String"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"enabled":{"name":"enabled","type":"Boolean"}},"Note.Model.ActionResponse":{"classes":["Note.Model.SuccessResponse","Note.Model.APIException"],"interface":true},"File.Model.ResponseHandler":{"classes":["File.Model.APIException","File.Model.FileBodyWrapper"],"interface":true},"Record.Model.BodyWrapper":{"process":{"name":"process","type":"List"},"data":{"structure_name":"Record.Model.Record","name":"data","max-length":100,"type":"List","required":true,"min-length":1},"larId":{"name":"lar_id","type":"String"},"wfTrigger":{"name":"wf_trigger","type":"String"},"trigger":{"name":"trigger","type":"List"},"duplicateCheckFields":{"name":"duplicate_check_fields","type":"List"}},"Tax.Model.ResponseWrapper":{"preference":{"structure_name":"Tax.Model.Preference","name":"preference","type":"Tax.Model.Preference"},"taxes":{"structure_name":"Tax.Model.Tax","name":"taxes","type":"List"}},"Currency.Model.ActionHandler":{"classes":["Currency.Model.ActionWrapper","Currency.Model.APIException"],"interface":true},"Record.Model.GetRecordsParam":{"cvid":{"name":"cvid","type":"String"},"endDateTime":{"name":"endDateTime","type":"DateTime"},"includeChild":{"name":"include_child","type":"String"},"uid":{"name":"uid","type":"String"},"approved":{"name":"approved","type":"String"},"perPage":{"name":"per_page","type":"Integer"},"startDateTime":{"name":"startDateTime","type":"DateTime"},"converted":{"name":"converted","type":"String"},"sortOrder":{"name":"sort_order","type":"String"},"ids":{"name":"ids","type":"String","required":true},"territoryId":{"name":"territory_id","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"BluePrint.Model.BodyWrapper":{"blueprint":{"structure_name":"BluePrint.Model.BluePrint","name":"blueprint","max-length":1,"type":"List","required":true,"min-length":1}},"Territory.Model.ResponseWrapper":{"territories":{"structure_name":"Territory.Model.Territory","name":"territories","type":"List"}},"Role.Model.ResponseWrapper":{"roles":{"structure_name":"Role.Model.Role","name":"roles","type":"List"}},"Tag.Model.AddTagsToRecordParam":{"tagNames":{"name":"tag_names","type":"String","required":true},"overWrite":{"name":"over_write","type":"String"}},"Tag.Model.ConflictWrapper":{"conflictId":{"name":"conflict_id","type":"String","required":true}},"Role.Model.ResponseHandler":{"classes":["Role.Model.APIException","Role.Model.ResponseWrapper"],"interface":true},"Notification.Model.ResponseWrapper":{"watch":{"structure_name":"Notification.Model.Notification","name":"watch","type":"List"},"info":{"structure_name":"Notification.Model.Info","name":"info","type":"Notification.Model.Info"}},"Module.Model.Module":{"relatedListProperties":{"structure_name":"Module.Model.RelatedListProperties","name":"related_list_properties","type":"Module.Model.RelatedListProperties"},"modifiedTime":{"name":"modified_time","type":"DateTime"},"apiName":{"name":"api_name","type":"String","primary":true},"generatedType":{"values":["default","web","custom","linking"],"name":"generated_type","type":"util.Model.Choice"},"webLink":{"name":"web_link","type":"String"},"deletable":{"name":"deletable","type":"Boolean"},"moduleName":{"name":"module_name","type":"String"},"description":{"name":"description","type":"String"},"scoringSupported":{"name":"scoring_supported","type":"Boolean"},"filterSupported":{"name":"filter_supported","type":"Boolean"},"feedsRequired":{"name":"feeds_required","type":"Boolean"},"creatable":{"name":"creatable","type":"Boolean"},"customView":{"lookup":true,"structure_name":"CustomView.Model.CustomView","name":"custom_view","type":"CustomView.Model.CustomView"},"webformSupported":{"name":"webform_supported","type":"Boolean"},"kanbanViewSupported":{"name":"kanban_view_supported","type":"Boolean"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true},"showAsTab":{"name":"show_as_tab","type":"Boolean"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"globalSearchSupported":{"name":"global_search_supported","type":"Boolean"},"visibility":{"name":"visibility","type":"Integer"},"convertable":{"name":"convertable","type":"Boolean"},"editable":{"name":"editable","type":"Boolean"},"quickCreate":{"name":"quick_create","type":"Boolean"},"profiles":{"lookup":true,"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"},"filterStatus":{"name":"filter_status","type":"Boolean"},"presenceSubMenu":{"name":"presence_sub_menu","type":"Boolean"},"pluralLabel":{"name":"plural_label","type":"String"},"singularLabel":{"name":"singular_label","type":"String"},"parentModule":{"lookup":true,"structure_name":"Module.Model.Module","name":"parent_module","type":"Module.Model.Module"},"businessCardFieldLimit":{"name":"business_card_field_limit","type":"Integer"},"perPage":{"name":"per_page","type":"Integer"},"viewable":{"name":"viewable","type":"Boolean"},"apiSupported":{"name":"api_supported","type":"Boolean"},"name":{"name":"name","type":"String"},"displayField":{"name":"display_field","type":"String"},"arguments1":{"structure_name":"Module.Model.Argument","name":"arguments","type":"List"},"emailtemplateSupport":{"name":"emailTemplate_support","type":"Boolean"},"triggersSupported":{"name":"triggers_supported","type":"Boolean"},"kanbanView":{"name":"kanban_view","type":"Boolean"},"inventoryTemplateSupported":{"name":"inventory_template_supported","type":"Boolean"},"properties":{"name":"$properties","type":"List"},"searchLayoutFields":{"name":"search_layout_fields","type":"List"},"territory":{"lookup":true,"structure_name":"Module.Model.Territory","name":"territory","type":"Module.Model.Territory"}},"BulkWrite.Model.File":{"updatedCount":{"name":"updated_count","type":"Integer"},"name":{"name":"name","type":"String"},"skippedCount":{"name":"skipped_count","type":"Integer"},"addedCount":{"name":"added_count","type":"Integer"},"totalCount":{"name":"total_count","type":"Integer"},"status":{"values":["ADDED","IN PROGRESS","COMPLETED","SKIPPED","FAILED"],"name":"status","type":"util.Model.Choice"}},"User.Model.ActionHandler":{"classes":["User.Model.ActionWrapper","User.Model.APIException"],"interface":true},"CustomView.Model.CustomView":{"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"displayValue":{"name":"display_value","type":"String"},"offline":{"name":"offline","type":"Boolean"},"systemName":{"name":"system_name","type":"String"},"default1":{"name":"default","type":"Boolean"},"sortOrder":{"name":"sort_order","type":"String"},"sharedDetails":{"structure_name":"CustomView.Model.SharedDetails","name":"shared_details","type":"List"},"name":{"name":"name","type":"String"},"sharedType":{"name":"shared_type","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"id":{"name":"id","type":"Long","primary":true},"category":{"name":"category","type":"String"},"systemDefined":{"name":"system_defined","type":"Boolean"},"fields":{"name":"fields","type":"List"},"favorite":{"name":"favorite","type":"Integer"}},"Record.Model.MassUpdateResponseWrapper":{"data":{"structure_name":"Record.Model.MassUpdateResponse","name":"data","type":"List"}},"Record.Model.GetRecordUsingExternalIDHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"},"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"ShareRecord.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["record will be shared successfully","Sharing Revoked"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Record.Model.MassUpdate":{"failedCount":{"name":"Failed_Count","type":"Integer"},"updatedCount":{"name":"Updated_Count","type":"Integer"},"notUpdatedCount":{"name":"Not_Updated_Count","type":"Integer"},"totalCount":{"name":"Total_Count","type":"Integer"},"status":{"values":["COMPLETED","SCHEDULED","RUNNING","FAILED"],"name":"Status","type":"util.Model.Choice"}},"Profile.Model.ResponseWrapper":{"profiles":{"structure_name":"Profile.Model.Profile","name":"profiles","type":"List"}},"User.Model.Theme":{"newBackground":{"name":"new_background","type":"String"},"normalTab":{"lookup":true,"structure_name":"User.Model.TabTheme","name":"normal_tab","type":"User.Model.TabTheme"},"background":{"name":"background","type":"String"},"screen":{"name":"screen","type":"String"},"type":{"name":"type","type":"String"},"selectedTab":{"lookup":true,"structure_name":"User.Model.TabTheme","name":"selected_tab","type":"User.Model.TabTheme"}},"Variable.Model.BodyWrapper":{"variables":{"structure_name":"Variable.Model.Variable","name":"variables","max-length":100,"type":"List","required":true,"min-length":1}},"CustomView.Model.ResponseWrapper":{"customViews":{"structure_name":"CustomView.Model.CustomView","name":"custom_views","type":"List"},"info":{"structure_name":"CustomView.Model.Info","name":"info","type":"CustomView.Model.Info"}},"Tax.Model.DeleteTaxesParam":{"ids":{"name":"ids","type":"Long","required":true}},"Record.Model.MassUpdateResponseHandler":{"classes":["Record.Model.APIException","Record.Model.MassUpdateResponseWrapper"],"interface":true},"ShareRecord.Model.DeleteActionResponse":{"classes":["ShareRecord.Model.SuccessResponse","ShareRecord.Model.APIException"],"interface":true},"ContactRole.Model.RecordActionWrapper":{"data":{"structure_name":"ContactRole.Model.ActionResponse","name":"data","max-length":100,"type":"List"}},"RelatedList.Model.GetRelatedListsParam":{"module":{"name":"module","type":"String"}},"Record.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Record.Model.FileDetails":{"extn":{"name":"extn","type":"String"},"fileName":{"name":"file_Name","type":"String"},"previewUrl":{"name":"preview_Url","type":"String"},"isPreviewAvailable":{"name":"is_Preview_Available","type":"Boolean"},"downloadUrl":{"name":"download_Url","type":"String"},"creatorId":{"name":"creator_Id","type":"String"},"entityId":{"name":"entity_Id","type":"String"},"delete1":{"name":"_delete","type":"String"},"mode":{"name":"mode","type":"String"},"linkDocs":{"name":"link_Docs","type":"Integer"},"fileSize":{"name":"file_Size","type":"String"},"deleteUrl":{"name":"delete_Url","type":"String"},"attachmentId":{"name":"attachment_Id","type":"String"},"originalSizeByte":{"name":"original_Size_Byte","type":"String"},"fileId":{"name":"file_Id","type":"String","required":true}},"Record.Model.ConvertBodyWrapper":{"data":{"structure_name":"Record.Model.LeadConverter","name":"data","max-length":1,"type":"List","required":true,"min-length":1}},"BulkRead.Model.CallBack":{"method":{"values":["post"],"name":"method","type":"util.Model.Choice","required":true},"url":{"name":"url","type":"String","required":true}},"Record.Model.APIException":{"code":{"values":["FEATURE_NOT_SUPPORTED","CONVERTED_RECORD","NOT_FOUND","NO_RECORDS_FOUND","NOT_APPROVED","LIMIT_EXCEEDED","ALREADY_SCHEDULED","CANNOT_PERFORM_ACTION","CANNOT_PROCESS","INTERNAL_ERROR","INVALID_TOKEN","INVALID_DATA","MANDATORY_NOT_FOUND","NO_PERMISSION","INVALID_MODULE","NOT_SUPPORTED","PATTERN_NOT_MATCHED","OAUTH_SCOPE_MISMATCH","DUPLICATE_DATA","INVALID_QUERY","MAPPING_MISMATCH","ID_ALREADY_CONVERTED","FILE_SIZE_MORE_THAN_ALLOWED_SIZE","RECORD_IN_BLUEPRINT","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","Not Modified","AUTHENTICATION_FAILURE","CANNOT_DELETE","REQUIRED_PARAM_MISSING","DATA_MISMATCH","RECORD_LOCKED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"param_name","type":"String"},{"name":"api_name","type":"String"},{"name":"id","type":"Long"},{"name":"module","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"index","type":"Integer"},{"name":"maximum_length","type":"String"},{"name":"mapped_field","type":"String"},{"name":"reason","type":"String"},{"name":"operator","type":"String"},{"name":"allowed_count","type":"Integer"},{"name":"limit","type":"Integer"},{"name":"json_path","type":"String"},{"name":"parent_api_name","type":"String"},{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["The value of the external field is invalid.","There is no data for the ID specified or there is no matching record in the given module.","The external field contains duplicate data.","The external ID of the lookup field or the Price Book is incorrect","the id given seems to be invalid.","Already an Mass Action scheduler is runing for the given cvid","Scheduled Mass Operation feature is not available in your edition","can't update the converted record","Field cannot be updated in Scheduled Mass Update","Field is not visible","Field cannot be updated as it is associated with a validation rule.","Field cannot be updated as it is associated with a layout rule.This field cannot be updated in the Mass Update","Max field limit exceeded","Maximum lookup field limit in criteria exceeded","No field found","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","Territory is not supported for the given module","Please check whether the input values are correct","invalid data","permission denied","Internal server error occurred.","duplicate data","required field not found","Layout doesn't contain the Pipeline","Pipeline doesn't contain the Stage","the id given seems to be invalid","record not deleted","record not deletable","Authentication failed","One of the expected parameter is missing","mandatory param missing","invalid query formed","id already converted","body","given id is invalid","Already a Mass Action scheduler is running for the given cvid","The record is in stop processing","The record is in blue print","no permission to perform an action on this record","Record count exceeded","record not approved","no record found to update","Field Edit Permission not given","Customview not accessible","Empty response","give contact id is mismatched with the data","give account id is mismatched with the data"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"ContactRole.Model.ActionWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ActionResponse","name":"contact_roles","type":"List"}},"Record.Model.GetDeletedRecordsParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"type":{"name":"type","type":"String"}},"RelatedRecord.Model.ActionHandler":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.ActionWrapper"],"interface":true},"BluePrint.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["transition updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Note.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"Modified_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"name":"Created_Time","type":"DateTime"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["record added","record updated","record deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Territory.Model.ResponseHandler":{"classes":["Territory.Model.APIException","Territory.Model.ResponseWrapper"],"interface":true},"RelatedRecord.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"External_Deal_ID","type":"String"}],"name":"details","type":"Map"},"message":{"values":["relation added","relation removed"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Field.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","INTERNAL_ERROR","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the given module is not supported for this api","Internal server error occurred.","the module name given seems to be invalid"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.UpdateRelatedRecordsUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Org.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"BluePrint.Model.ValidationError":{"apiName":{"name":"api_name","type":"String"},"message":{"name":"message","type":"String"}},"BluePrint.Model.ResponseWrapper":{"blueprint":{"structure_name":"BluePrint.Model.BluePrint","name":"blueprint","type":"BluePrint.Model.BluePrint"}},"RelatedRecord.Model.DeleteRelatedRecordsUsingExternalIDParam":{"ids":{"name":"ids","type":"String","required":true}},"File.Model.UploadFilesParam":{"type":{"name":"type","type":"String","required":true}},"Tax.Model.ResponseHandler":{"classes":["Tax.Model.APIException","Tax.Model.ResponseWrapper"],"interface":true},"BulkWrite.Model.Resource":{"file":{"structure_name":"BulkWrite.Model.File","name":"file","type":"BulkWrite.Model.File"},"module":{"name":"module","type":"String","required":true},"ignoreEmpty":{"name":"ignore_empty","type":"Boolean"},"findBy":{"name":"find_by","type":"String"},"fieldMappings":{"structure_name":"BulkWrite.Model.FieldMapping","name":"field_mappings","type":"List"},"type":{"values":["data"],"name":"type","type":"util.Model.Choice","required":true},"status":{"values":["ADDED","IN PROGRESS","COMPLETED","SKIPPED","FAILED"],"name":"status","type":"util.Model.Choice"},"fileId":{"name":"file_id","type":"String","required":true}},"Field.Model.GetFieldParam":{"module":{"name":"module","type":"String"}},"ContactRole.Model.RecordResponseHandler":{"classes":["ContactRole.Model.RecordResponseWrapper","ContactRole.Model.APIException"],"interface":true},"Note.Model.APIException":{"code":{"values":["NO_PERMISSION","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INTERNAL_ERROR","MANDATORY_NOT_FOUND","INVALID_DATA","NOT_SUPPORTED","REQUIRED_PARAM_MISSING"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"},{"name":"api_name","type":"String"},{"name":"param","type":"String"},{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","The module name given seems to be invalid","the id given seems to be invalid","One of the expected parameter is missing","record not deleted","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Role.Model.Role":{"displayLabel":{"name":"display_label","type":"String"},"forecastManager":{"structure_name":"User.Model.User","name":"forecast_manager","type":"User.Model.User"},"adminUser":{"name":"admin_user","type":"Boolean"},"shareWithPeers":{"name":"share_with_peers","type":"Boolean"},"name":{"name":"name","type":"String"},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true},"reportingTo":{"structure_name":"User.Model.User","name":"reporting_to","type":"User.Model.User"}},"Field.Model.Field":{"apiName":{"name":"api_name","type":"String"},"webhook":{"name":"webhook","type":"Boolean"},"criteria":{"structure_name":"CustomView.Model.Criteria","name":"criteria","type":"CustomView.Model.Criteria"},"crypt":{"structure_name":"Field.Model.Crypt","name":"crypt","type":"Field.Model.Crypt"},"defaultValue":{"name":"default_value","type":"String"},"validationRule":{"name":"validation_rule","type":"Map"},"tooltip":{"structure_name":"Field.Model.ToolTip","name":"tooltip","type":"Field.Model.ToolTip"},"quickSequenceNumber":{"name":"quick_sequence_number","type":"Integer"},"relatedDetails":{"structure_name":"Field.Model.RelatedDetails","name":"related_details","type":"Field.Model.RelatedDetails"},"jsonType":{"name":"json_type","type":"String"},"type":{"name":"_type","type":"String"},"layouts":{"structure_name":"Layout.Model.Layout","name":"layouts","type":"Layout.Model.Layout"},"mandatory":{"name":"mandatory","type":"Boolean"},"content":{"name":"content","type":"String"},"blueprintSupported":{"name":"blueprint_supported","type":"Boolean"},"associationDetails":{"structure_name":"Field.Model.AssociationDetails","name":"association_details","type":"Field.Model.AssociationDetails"},"pickListValues":{"structure_name":"Field.Model.PickListValue","name":"pick_list_values","type":"List"},"fieldLabel":{"name":"field_label","type":"String"},"fieldReadOnly":{"name":"field_read_only","type":"Boolean"},"businesscardSupported":{"name":"businesscard_supported","type":"Boolean"},"currency":{"structure_name":"Field.Model.Currency","name":"currency","type":"Field.Model.Currency"},"id":{"name":"id","type":"Long","read-only":true,"primary":true},"displayLabel":{"name":"display_label","type":"String"},"personalityName":{"name":"personality_name","type":"String"},"lookup":{"structure_name":"Field.Model.Module","name":"lookup","type":"Field.Model.Module"},"visible":{"name":"visible","type":"Boolean"},"dataType":{"name":"data_type","type":"String","read-only":true},"length":{"name":"length","type":"Integer"},"readOnly":{"name":"read_only","type":"Boolean"},"historyTracking":{"name":"history_tracking","type":"Boolean"},"sectionId":{"name":"section_id","type":"Integer"},"systemMandatory":{"name":"system_mandatory","type":"Boolean"},"message":{"name":"message","type":"String"},"subform":{"structure_name":"Field.Model.Module","name":"subform","type":"Field.Model.Module"},"autoNumber":{"structure_name":"Field.Model.AutoNumber","name":"auto_number","type":"Field.Model.AutoNumber"},"private1":{"structure_name":"Field.Model.Private","name":"private","type":"Field.Model.Private"},"customField":{"name":"custom_field","type":"Boolean"},"decimalPlace":{"name":"decimal_place","type":"Integer"},"convertMapping":{"name":"convert_mapping","type":"Map"},"createdSource":{"name":"created_source","type":"String"},"multiModuleLookup":{"name":"multi_module_lookup","type":"Map"},"massUpdate":{"name":"mass_update","type":"Boolean"},"transitionSequence":{"name":"transition_sequence","type":"Integer"},"unique":{"structure_name":"Field.Model.Unique","name":"unique","type":"Field.Model.Unique"},"viewType":{"structure_name":"Field.Model.ViewType","name":"view_type","type":"Field.Model.ViewType"},"formula":{"structure_name":"Field.Model.Formula","name":"formula","type":"Field.Model.Formula"},"multiselectlookup":{"structure_name":"Field.Model.MultiSelectLookup","name":"multiselectlookup","type":"Field.Model.MultiSelectLookup"},"columnName":{"name":"column_name","type":"String"}},"ContactRole.Model.ResponseWrapper":{"contactRoles":{"structure_name":"ContactRole.Model.ContactRole","name":"contact_roles","type":"List"}},"Field.Model.Unique":{"casesensitive":{"name":"casesensitive","type":"String"}},"ContactRole.Model.GetAllContactRolesOfDealParam":{"ids":{"name":"ids","type":"String"}},"Note.Model.GetNoteParam":{"fields":{"name":"fields","type":"String"}},"Tag.Model.GetTagsParam":{"myTags":{"values":["true","false"],"name":"my_tags","type":"String"},"module":{"name":"module","type":"String","required":true}},"Currency.Model.BaseCurrencyWrapper":{"baseCurrency":{"structure_name":"Currency.Model.Currency","name":"base_currency","type":"Currency.Model.Currency","required":true}},"Record.Model.CarryOverTags":{"deals":{"name":"Deals","type":"List"},"accounts":{"name":"Accounts","type":"List"},"contacts":{"name":"Contacts","type":"List"}},"Query.Model.APIException":{"code":{"values":["INVALID_QUERY","OAUTH_SCOPE_MISMATCH","SYNTAX_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"near","type":"String"},{"name":"column","type":"Integer"},{"name":"line","type":"Integer"},{"name":"clause","type":"String"},{"name":"by","type":"String"},{"name":"limit","type":"Integer"},{"name":"column_name","type":"String"},{"name":"reason","type":"String"},{"name":"module","type":"String"},{"name":"data_type","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"operator","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid query formed","value given seems to be invalid for the column","data type not supported","column given seems to be invalid","invalid oauth scope to access this URL","limit exceeded","given coql query not supported","select columns limit exceeded","join limit exceeded","missing clause","error occured while parsing the query","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","required field not found","invalid data","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"ContactRole.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["contact role added","contact role updated","contact role deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.GetRelatedRecordHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"},"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"ShareRecord.Model.APIException":{"code":{"values":["NO_PERMISSION","BAD_REQUEST","INVALID_MODULE","SHARE_LIMIT_EXCEEDED","OAUTH_SCOPE_MISMATCH","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","ENTITY_ID_INVALID"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"permissions","type":"List"}],"name":"details","type":"Map"},"message":{"values":["Scheduler is running","cannot share to the user","invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","record not deleted","the related id given seems to be invalid","Internal server error occurred.","The relation name given seems to be invalid.","invalid oauth scope to access this URL","Please check if the URL trying to access is a correct one.","Permission is invalid","record is already visible to the user.","Cannot share a record to more than 10 users.","No sharing through this record is available to revoke.","ENTITY_ID_INVALID"],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"RelatedRecord.Model.DeleteRelatedRecordsUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"RelatedRecord.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Variable.Model.ResponseWrapper":{"variables":{"structure_name":"Variable.Model.Variable","name":"variables","type":"List"}},"File.Model.ActionResponse":{"classes":["File.Model.SuccessResponse","File.Model.APIException"],"interface":true},"User.Model.ResponseHandler":{"classes":["User.Model.ResponseWrapper","User.Model.APIException"],"interface":true},"Note.Model.BodyWrapper":{"data":{"structure_name":"Note.Model.Note","name":"data","max-length":100,"type":"List","required":true,"min-length":1}},"Notification.Model.ActionResponse":{"classes":["Notification.Model.SuccessResponse","Notification.Model.APIException"],"interface":true},"RelatedRecord.Model.GetRelatedRecordsUsingExternalIDParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"}},"VariableGroup.Model.VariableGroup":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"name":{"name":"name","type":"String"},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true}},"Tag.Model.CountHandler":{"classes":["Tag.Model.APIException","Tag.Model.CountWrapper"],"interface":true},"RelatedRecord.Model.DelinkRecordHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Currency.Model.Currency":{"symbol":{"name":"symbol","type":"String","required":true},"modifiedTime":{"name":"modified_time","type":"DateTime"},"format":{"structure_name":"Currency.Model.Format","name":"format","type":"Currency.Model.Format","required":true},"isActive":{"name":"is_active","type":"Boolean"},"exchangeRate":{"name":"exchange_rate","type":"String","required":true},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"isoCode":{"name":"iso_code","type":"String","required":true},"name":{"name":"name","type":"String","required":true},"createdTime":{"name":"created_time","type":"DateTime"},"prefixSymbol":{"name":"prefix_symbol","type":"Boolean"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"isBase":{"name":"is_base","type":"Boolean"},"id":{"name":"id","type":"Long","primary":true}},"RelatedRecord.Model.ActionWrapper":{"data":{"structure_name":"RelatedRecord.Model.ActionResponse","name":"data","type":"List"}},"Record.Model.Participants":{"name":{"name":"name","type":"String"},"invited":{"name":"invited","type":"Boolean"},"type":{"name":"type","type":"String","required":true},"email":{"name":"Email","type":"String"},"participant":{"name":"participant","type":"String","required":true},"status":{"name":"status","type":"String"}},"BulkWrite.Model.CallBack":{"method":{"values":["post"],"name":"method","type":"util.Model.Choice","required":true},"url":{"name":"url","type":"String","required":true}},"CustomView.Model.SharedDetails":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"type":{"name":"type","type":"String"},"subordinates":{"name":"subordinates","type":"Boolean"}},"Query.Model.ResponseWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Currency.Model.Format":{"thousandSeparator":{"values":["Period","Comma","Space"],"name":"thousand_separator","type":"util.Model.Choice","required":true},"decimalPlaces":{"required_in_update":true,"values":["0","2","3"],"name":"decimal_places","type":"util.Model.Choice","required":true},"decimalSeparator":{"values":["Period","Comma"],"name":"decimal_separator","type":"util.Model.Choice","required":true}},"Record.Model.DeletedRecordsWrapper":{"data":{"structure_name":"Record.Model.DeletedRecord","name":"data","type":"List"},"info":{"structure_name":"Record.Model.Info","name":"info","type":"Record.Model.Info"}},"Tag.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"created_time","type":"DateTime"},{"name":"modified_time","type":"DateTime"},{"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},{"name":"tags","type":"List"}],"name":"details","type":"Map"},"message":{"values":["tags created successfully","tags updated successfully","tags deleted successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Note.Model.ActionWrapper":{"data":{"structure_name":"Note.Model.ActionResponse","name":"data","type":"List"}},"Record.Model.DeleteRecordsParam":{"ids":{"name":"ids","type":"String","required":true},"wfTrigger":{"name":"wf_trigger","type":"Boolean"}},"Tag.Model.ActionWrapper":{"tags":{"structure_name":"Tag.Model.ActionResponse","name":"tags","type":"List"}},"BulkRead.Model.ResponseHandler":{"classes":["BulkRead.Model.ResponseWrapper","BulkRead.Model.APIException","BulkRead.Model.FileBodyWrapper"],"interface":true},"Record.Model.LineTax":{"percentage":{"name":"percentage","type":"Double"},"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"value":{"name":"value","type":"Double"}},"Module.Model.Territory":{"name":{"name":"name","type":"String"},"id":{"name":"id","type":"Long"},"subordinates":{"name":"subordinates","type":"Boolean"}},"Field.Model.ToolTip":{"name":{"name":"name","type":"String"},"value":{"name":"value","type":"String"}},"Field.Model.Crypt":{"mode":{"name":"mode","type":"String"},"column":{"name":"column","type":"String"},"encfldids":{"name":"encFldIds","type":"List"},"notify":{"name":"notify","type":"String"},"table":{"name":"table","type":"String"},"status":{"name":"status","type":"Integer"}},"BluePrint.Model.ResponseHandler":{"classes":["BluePrint.Model.ResponseWrapper","BluePrint.Model.APIException"],"interface":true},"RelatedRecord.Model.BodyWrapper":{"data":{"structure_name":"Record.Model.Record","name":"data","max-length":100,"type":"List","required":true,"min-length":1}},"BulkRead.Model.ActionHandler":{"classes":["BulkRead.Model.APIException","BulkRead.Model.ActionWrapper"],"interface":true},"BulkWrite.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Record.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"duplicateField":{"name":"duplicate_field","type":"String"},"action":{"values":["insert","update"],"name":"action","type":"util.Model.Choice"},"details":{"keys":[{"name":"Modified_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"name":"Created_Time","type":"DateTime"},{"name":"id","type":"String"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"},{"name":"External_Contact_ID","type":"String"}],"name":"details","type":"Map"},"message":{"values":["record updated","record deleted","record added","photo uploaded successfully","Photo deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"ShareRecord.Model.SharedThrough":{"entityName":{"name":"entity_name","type":"String"},"module":{"lookup":true,"structure_name":"Module.Model.Module","name":"module","type":"Module.Model.Module"},"id":{"name":"id","type":"Long"}},"Attachment.Model.ResponseHandler":{"classes":["Attachment.Model.APIException","Attachment.Model.ResponseWrapper","Attachment.Model.FileBodyWrapper"],"interface":true},"RelatedRecord.Model.DelinkRecordsHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Record.Model.ActionWrapper":{"data":{"structure_name":"Record.Model.ActionResponse","name":"data","type":"List"}},"Notification.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_MODULE","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","INTERNAL_ERROR","NOT_SUBSCRIBED"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"maximum_length","type":"Integer"},{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","the module name given seems to be invalid","duplicate data","Not subscribed for actions-watch of the given module/channel","required field not found","invalid data","Not subscribed for actions-watch of the given channel","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Record.Model.UpdateRecordsHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"Record.Model.MassUpdateSuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"job_id","type":"String"},{"name":"id","type":"Long"},{"name":"Modified_Time","type":"DateTime"},{"name":"Created_Time","type":"DateTime"},{"structure_name":"User.Model.User","name":"Modified_By","type":"User.Model.User"},{"structure_name":"User.Model.User","name":"Created_By","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["record updated","mass update scheduled successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Module.Model.Argument":{"name":{"name":"name","type":"String"},"value":{"name":"value","type":"String"}},"CustomView.Model.GetCustomViewParam":{"module":{"name":"module","type":"String"}},"Record.Model.ActionHandler":{"classes":["Record.Model.APIException","Record.Model.ActionWrapper"],"interface":true},"User.Model.RequestWrapper":{"users":{"structure_name":"User.Model.User","name":"users","max-length":1,"type":"List","required":true,"min-length":1}},"Record.Model.ResponseHandler":{"classes":["Record.Model.ResponseWrapper","Record.Model.APIException","Record.Model.FileBodyWrapper"],"interface":true},"RelatedRecord.Model.DelinkRecordsParam":{"ids":{"name":"ids","type":"String","required":true}},"BulkWrite.Model.UploadFileHeader":{"feature":{"values":["bulk-write"],"name":"feature","type":"String"},"XCRMORG":{"name":"X-CRM-ORG","type":"String"}},"Record.Model.UpdateRecordUsingExternalIDHeader":{"XEXTERNAL":{"name":"X-EXTERNAL","type":"String"}},"BluePrint.Model.ProcessInfo":{"apiName":{"name":"api_name","type":"String"},"fieldName":{"name":"field_name","type":"String"},"escalation":{"name":"escalation","type":"String"},"continuous":{"name":"continuous","type":"Boolean"},"fieldLabel":{"name":"field_label","type":"String"},"name":{"name":"name","type":"String"},"isContinuous":{"name":"is_continuous","type":"Boolean"},"id":{"name":"id","type":"Long"},"fieldValue":{"name":"field_value","type":"String"},"fieldId":{"name":"field_id","type":"String"},"columnName":{"name":"column_name","type":"String"}},"Currency.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["The multi-currency feature is enabled and given currency is created as the base currency.","The currency created successfully.","The currency updated successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"ContactRole.Model.RecordActionHandler":{"classes":["ContactRole.Model.RecordActionWrapper","ContactRole.Model.APIException"],"interface":true},"Currency.Model.APIException":{"code":{"values":["OAUTH_SCOPE_MISMATCH","ALREADY_ENABLED","FEATURE_NOT_ENABLED","NOT_ALLOWED","ACTIVE_STATE_LIMIT_EXCEEDED","INTERNAL_ERROR","INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","DUPLICATE_DATA","LIMIT_EXCEEDED","MANDATORY_NOT_FOUND","INVALID_DATA","CURRENCIES_NOT_ENABLED","FEATURE_NOT_SUPPORTED","No Content"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"json_path","type":"String"},{"name":"expected_data_type","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one.","The http request method type is not a valid one","The module name given seems to be invalid","The multi-currency is already enabled","Currency name is invalid.","ISO code is invalid.","Currency symbol is invalid.","The multi-currency feature is not available except the Enterprise and higher editions.","Required field not found.","unable to process your request. please verify whether you have entered proper method name"," parameter and parameter values.","Currency symbol  is invalid.","Multi currency is not enabled","No Content","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"BulkRead.Model.Query":{"cvid":{"name":"cvid","type":"String"},"criteria":{"structure_name":"BulkRead.Model.Criteria","name":"criteria","type":"BulkRead.Model.Criteria"},"module":{"name":"module","type":"String","required":true},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"List"}},"RelatedRecord.Model.ActionResponse":{"classes":["RelatedRecord.Model.APIException","RelatedRecord.Model.SuccessResponse"],"interface":true},"RelatedList.Model.APIException":{"code":{"values":["INVALID_MODULE","REQUIRED_PARAM_MISSING","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"param","type":"String"}],"name":"details","type":"Map"},"message":{"values":["the module name given seems to be invalid","the given module is not supported in api","One of the expected parameter is missing","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"Attachment.Model.ActionHandler":{"classes":["Attachment.Model.APIException","Attachment.Model.ActionWrapper"],"interface":true},"Field.Model.ResponseHandler":{"classes":["Field.Model.ResponseWrapper","Field.Model.APIException"],"interface":true},"Field.Model.Private":{"export1":{"name":"export","type":"Boolean"},"restricted":{"name":"restricted","type":"Boolean"},"type":{"name":"type","type":"String"}},"Notification.Model.ActionWrapper":{"watch":{"structure_name":"Notification.Model.ActionResponse","name":"watch","type":"List"}},"Tax.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"name","type":"String"},{"name":"value","type":"Integer"}],"name":"details","type":"Map"},"message":{"values":["tax added","record updated","tax deleted"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Query.Model.ResponseHandler":{"classes":["Query.Model.ResponseWrapper","Query.Model.APIException"],"interface":true},"Module.Model.GetModulesHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Record.Model.Territory":{"id":{"name":"id","type":"Long"},"includeChild":{"name":"include_child","type":"Boolean"}},"Field.Model.RelatedDetails":{"displayLabel":{"name":"display_label","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"structure_name":"Field.Model.Module","name":"module","type":"Field.Model.Module"},"id":{"name":"id","type":"Long"},"type":{"name":"_type","type":"String"}},"ContactRole.Model.ActionResponse":{"classes":["ContactRole.Model.SuccessResponse","ContactRole.Model.APIException"],"interface":true},"File.Model.ActionHandler":{"classes":["File.Model.ActionWrapper","File.Model.APIException"],"interface":true},"Attachment.Model.FileBodyWrapper":{"file":{"name":"file","type":"StreamWrapper.Model.StreamWrapper","required":true}},"Record.Model.LeadConverter":{"notifyLeadOwner":{"name":"notify_lead_owner","type":"Boolean"},"notifyNewEntityOwner":{"name":"notify_new_entity_owner","type":"Boolean"},"deals":{"structure_name":"Record.Model.Record","module":"Deals","name":"Deals","type":"Record.Model.Record"},"accounts":{"name":"Accounts","type":"String"},"carryOverTags":{"structure_name":"Record.Model.CarryOverTags","name":"carry_over_tags","type":"Record.Model.CarryOverTags"},"overwrite":{"name":"overwrite","type":"Boolean"},"contacts":{"name":"Contacts","type":"String"},"assignTo":{"name":"assign_to","type":"String"}},"BulkRead.Model.SuccessResponse":{"code":{"values":["ADDED_SUCCESSFULLY"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"},{"name":"operation","type":"String"},{"values":["COMPLETED","IN PROGRESS","ADDED","FAILURE"],"name":"state","type":"util.Model.Choice"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},{"name":"created_time","type":"DateTime"}],"name":"details","type":"Map"},"message":{"values":["Added successfully."],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Attachment.Model.ActionWrapper":{"data":{"structure_name":"Attachment.Model.ActionResponse","name":"data","type":"List"}},"Org.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"name":"details","type":"Map"},"message":{"values":["photo uploaded successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"User.Model.Info":{"perPage":{"name":"per_page","type":"Integer"},"moreRecords":{"name":"more_records","type":"Boolean"},"count":{"name":"count","type":"Integer"},"page":{"name":"page","type":"Integer"}},"Tag.Model.ResponseHandler":{"classes":["Tag.Model.ResponseWrapper","Tag.Model.APIException"],"interface":true},"ContactRole.Model.RecordBodyWrapper":{"data":{"structure_name":"ContactRole.Model.ContactRoleWrapper","name":"data","max-length":1,"type":"List","required":true,"min-length":1}},"BulkRead.Model.ActionWrapper":{"data":{"structure_name":"BulkRead.Model.ActionResponse","name":"data","type":"List"},"info":{"name":"info","type":"Map"}},"BulkWrite.Model.BulkWriteResponse":{"result":{"structure_name":"BulkWrite.Model.Result","name":"result","type":"BulkWrite.Model.Result"},"resource":{"structure_name":"BulkWrite.Model.Resource","name":"resource","type":"List"},"createdBy":{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"callback":{"structure_name":"BulkWrite.Model.CallBack","name":"callback","type":"BulkWrite.Model.CallBack"},"createdTime":{"name":"created_time","type":"DateTime"},"id":{"name":"id","type":"Long"},"characterEncoding":{"name":"character_encoding","type":"String"},"operation":{"name":"operation","type":"String"},"status":{"name":"status","type":"String"}},"Attachment.Model.SuccessResponse":{"code":{"values":["SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"id","type":"Long"}],"name":"details","type":"Map"},"message":{"values":["attachment uploaded successfully"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Record.Model.GetRecordParam":{"cvid":{"name":"cvid","type":"String"},"uid":{"name":"uid","type":"String"},"approved":{"name":"approved","type":"String"},"startDateTime":{"name":"startDateTime","type":"DateTime"},"converted":{"name":"converted","type":"String"},"territoryId":{"name":"territory_id","type":"String"},"fields":{"name":"fields","type":"String"},"endDateTime":{"name":"endDateTime","type":"DateTime"},"includeChild":{"name":"include_child","type":"String"}},"RelatedRecord.Model.DeleteRelatedRecordUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"}},"Tag.Model.Tag":{"modifiedTime":{"name":"modified_time","type":"DateTime"},"createdBy":{"lookup":true,"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"},"name":{"required_in_update":true,"name":"name","type":"String","required":true},"createdTime":{"name":"created_time","type":"DateTime"},"modifiedBy":{"lookup":true,"structure_name":"User.Model.User","name":"modified_by","type":"User.Model.User"},"id":{"name":"id","type":"Long","primary":true}},"Record.Model.DeletedRecordsHandler":{"classes":["Record.Model.APIException","Record.Model.DeletedRecordsWrapper"],"interface":true},"BluePrint.Model.APIException":{"code":{"values":["INVALID_TOKEN","INVALID_URL_PATTERN","INVALID_REQUEST_METHOD","INVALID_DATA","RECORD_NOT_IN_PROCESS","INTERNAL_ERROR"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"api_name","type":"String"},{"name":"message","type":"String"},{"name":"expected_data_type","type":"String"},{"name":"info_message","type":"String"},{"name":"parent_api_name","type":"String"},{"structure_name":"BluePrint.Model.ValidationError","name":"validation_error","type":"List"},{"name":"param_name","type":"String"}],"name":"details","type":"Map"},"message":{"values":["invalid oauth token","Please check if the URL trying to access is a correct one","The http request method type is not a valid one","invalid transition","invalid data","record not in process","Internal server error occurred."],"name":"message","type":"util.Model.Choice"},"status":{"values":["error"],"name":"status","type":"util.Model.Choice"}},"CustomView.Model.Criteria":{"comparator":{"values":["equal","not_equal","in","not_in","less_than","less_equal","greater_than","greater_equal","contains","not_contains","starts_with","ends_with","between","not_between"],"name":"comparator","type":"util.Model.Choice"},"groupOperator":{"values":["and","or"],"name":"group_operator","type":"util.Model.Choice"},"field":{"name":"field","type":"String"},"value":{"name":"value","type":"Object"},"group":{"structure_name":"CustomView.Model.Criteria","name":"group","type":"List"}},"Record.Model.GetRecordUsingExternalIDParam":{"cvid":{"name":"cvid","type":"String"},"uid":{"name":"uid","type":"String"},"approved":{"name":"approved","type":"String"},"startDateTime":{"name":"startDateTime","type":"DateTime"},"converted":{"name":"converted","type":"String"},"territoryId":{"name":"territory_id","type":"String"},"fields":{"name":"fields","type":"String"},"endDateTime":{"name":"endDateTime","type":"DateTime"},"includeChild":{"name":"include_child","type":"String"}},"User.Model.ActionWrapper":{"users":{"structure_name":"User.Model.ActionResponse","name":"users","type":"List"}},"Note.Model.GetNotesParam":{"perPage":{"name":"per_page","type":"Integer"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"}},"Tag.Model.RecordActionResponse":{"classes":["Tag.Model.SuccessResponse","Tag.Model.APIException"],"interface":true},"Note.Model.GetNotesHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime","required":true}},"Tag.Model.MergeWrapper":{"tags":{"structure_name":"Tag.Model.ConflictWrapper","name":"tags","max-length":1,"type":"List","required":true,"min-length":1}},"Tax.Model.BodyWrapper":{"taxes":{"structure_name":"Tax.Model.Tax","name":"taxes","max-length":100,"type":"List","required":true,"min-length":1}},"ContactRole.Model.ResponseHandler":{"classes":["ContactRole.Model.ResponseWrapper","ContactRole.Model.APIException"],"interface":true},"Profile.Model.Category":{"displayLabel":{"name":"display_label","type":"String"},"permissionsDetails":{"name":"permissions_details","type":"List"},"name":{"name":"name","type":"String"}},"Record.Model.LineItemProduct":{"productCode":{"name":"Product_Code","type":"String"},"name":{"name":"name","type":"String"},"currency":{"name":"Currency","type":"String"}},"ShareRecord.Model.DeleteActionWrapper":{"share":{"structure_name":"ShareRecord.Model.DeleteActionResponse","name":"share","interface":true,"type":"ShareRecord.Model.DeleteActionResponse"}},"Variable.Model.Variable":{"apiName":{"required_in_update":false,"name":"api_name","type":"String","primary":true},"variableGroup":{"structure_name":"VariableGroup.Model.VariableGroup","name":"variable_group","type":"VariableGroup.Model.VariableGroup","skip_mandatory":true,"required":true},"name":{"name":"name","type":"String","required":true},"description":{"name":"description","type":"String"},"id":{"name":"id","type":"Long","primary":true},"type":{"name":"type","type":"String","required":true},"value":{"name":"value","type":"Object"}},"ShareRecord.Model.ResponseWrapper":{"share":{"structure_name":"ShareRecord.Model.ShareRecord","name":"share","type":"List"},"shareableUser":{"structure_name":"User.Model.User","name":"shareable_user","type":"List"}},"Variable.Model.GetVariableForAPINameParam":{"group":{"name":"group","type":"String","required":true}},"Layout.Model.Section":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"Integer"},"issubformsection":{"name":"isSubformSection","type":"Boolean"},"tabTraversal":{"name":"tab_traversal","type":"Integer"},"apiName":{"name":"api_name","type":"String"},"generatedType":{"name":"generated_type","type":"String"},"name":{"name":"name","type":"String"},"columnCount":{"name":"column_count","type":"Integer"},"fields":{"structure_name":"Field.Model.Field","name":"fields","type":"List"},"properties":{"structure_name":"Layout.Model.Properties","name":"properties","type":"Layout.Model.Properties"}},"User.Model.GetUserHeader":{"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Record.Model.ActionResponse":{"classes":["Record.Model.SuccessResponse","Record.Model.APIException"],"interface":true},"Tag.Model.CountWrapper":{"count":{"name":"count","type":"String"}},"Record.Model.SearchRecordsParam":{"approved":{"name":"approved","type":"String"},"perPage":{"name":"per_page","type":"Integer"},"phone":{"name":"phone","type":"String"},"converted":{"name":"converted","type":"String"},"criteria":{"name":"criteria","type":"String"},"page":{"name":"page","type":"Integer"},"fields":{"name":"fields","type":"String"},"word":{"name":"word","type":"String"},"email":{"name":"email","type":"String"}},"BulkRead.Model.RequestWrapper":{"query":{"structure_name":"BulkRead.Model.Query","name":"query","type":"BulkRead.Model.Query","required":true},"callback":{"structure_name":"BulkRead.Model.CallBack","name":"callback","type":"BulkRead.Model.CallBack"},"fileType":{"values":["ics","csv"],"name":"file_type","type":"util.Model.Choice"}},"User.Model.ResponseWrapper":{"users":{"structure_name":"User.Model.User","name":"users","type":"List"},"info":{"structure_name":"User.Model.Info","name":"info","type":"User.Model.Info"}},"RelatedRecord.Model.GetRelatedRecordUsingExternalIDHeader":{"xExternal":{"name":"X-EXTERNAL","type":"String"},"IfModifiedSince":{"name":"If-Modified-Since","type":"DateTime"}},"Variable.Model.ResponseHandler":{"classes":["Variable.Model.ResponseWrapper","Variable.Model.APIException"],"interface":true},"Module.Model.RelatedListProperties":{"sortOrder":{"name":"sort_order","type":"String"},"sortBy":{"name":"sort_by","type":"String"},"fields":{"name":"fields","type":"List"}},"RelatedList.Model.RelatedList":{"displayLabel":{"name":"display_label","type":"String"},"sequenceNumber":{"name":"sequence_number","type":"String"},"apiName":{"name":"api_name","type":"String"},"module":{"name":"module","type":"String"},"name":{"name":"name","type":"String"},"action":{"name":"action","type":"String"},"id":{"name":"id","type":"Long","primary":true},"href":{"name":"href","type":"String"},"type":{"name":"type","type":"String"},"connectedmodule":{"name":"connectedmodule","type":"String"},"linkingmodule":{"name":"linkingmodule","type":"String"}},"BulkWrite.Model.SuccessResponse":{"code":{"values":["FILE_UPLOAD_SUCCESS","SUCCESS"],"name":"code","type":"util.Model.Choice"},"details":{"keys":[{"name":"file_id","type":"Long"},{"name":"created_time","type":"DateTime"},{"name":"id","type":"Long"},{"structure_name":"User.Model.User","name":"created_by","type":"User.Model.User"}],"name":"details","type":"Map"},"message":{"values":["file uploaded.","success"],"name":"message","type":"util.Model.Choice"},"status":{"values":["success"],"name":"status","type":"util.Model.Choice"}},"Org.Model.Org":{"country":{"name":"country","type":"String"},"city":{"name":"city","type":"String"},"companyName":{"name":"company_name","type":"String"},"description":{"name":"description","type":"String"},"gappsEnabled":{"name":"gapps_enabled","type":"Boolean"},"ziaPortalId":{"name":"zia_portal_id","type":"String"},"employeeCount":{"name":"employee_count","type":"String"},"street":{"name":"street","type":"String"},"countryCode":{"name":"country_code","type":"String"},"currencyLocale":{"name":"currency_locale","type":"String"},"alias":{"name":"alias","type":"String"},"currency":{"name":"currency","type":"String"},"id":{"name":"id","type":"Long","primary":true},"state":{"name":"state","type":"String"},"fax":{"name":"fax","type":"String"},"primaryEmail":{"name":"primary_email","type":"String"},"zip":{"name":"zip","type":"String"},"website":{"name":"website","type":"String"},"mobile":{"name":"mobile","type":"String"},"photoId":{"name":"photo_id","type":"String"},"translationEnabled":{"name":"translation_enabled","type":"Boolean"},"currencySymbol":{"name":"currency_symbol","type":"String"},"timeZone":{"name":"time_zone","type":"String"},"privacySettings":{"name":"privacy_settings","type":"Boolean"},"zgid":{"name":"zgid","type":"String"},"licenseDetails":{"structure_name":"Org.Model.LicenseDetails","name":"license_details","type":"Org.Model.LicenseDetails"},"mcStatus":{"name":"mc_status","type":"Boolean"},"primaryZuid":{"name":"primary_zuid","type":"String"},"phone":{"name":"phone","type":"String"},"isoCode":{"name":"iso_code","type":"String"},"domainName":{"name":"domain_name","type":"String"}}}
 
 /**
  * This class uses the SDK constants name reference.
  */
-var Constants = {
-
- TYPE_VS_DATATYPE : new Map([
-    ["map","[object Map]"],
-    ["hashmap", "[object Map]"],
-    ["string", "[object String]"],
-    ["list", "[object Array]"],
-    ["long", "[object BigInt]"],
-    ["integer", "[object Number]"],
-    ["float", "[object Number]"],
-    ["double", "[object Number]"],
-    ["boolean", "[object Boolean]"],
-    ["datetime", "[object Date]"],
-    ["date", "[object Date]"]
-]),
-
- SPECIAL_TYPES : new Map([
-    ["DateTime", "Date"],
-    ["Date", "Date"],
-    ["Long", "BigInt"]
- ]),
-
- OAUTH_HEADER_PREFIX : "Zoho-oauthtoken ",
-
- AUTHORIZATION : "Authorization",
-
- ZOHO_SDK : "X-ZOHO-SDK",
-
- SDK_VERSION : "1.0.0",
-
- GRANT_TYPE : "grant_type",
-
- GRANT_TYPE_AUTH_CODE : "authorization_code",
-
- ACCESS_TOKEN : "access_token",
-
- EXPIRES_IN : "expires_in",
-
- EXPIRES_IN_SEC : "expires_in_sec",
-
- REFRESH_TOKEN : "refresh_token",
-
- REFRESH_TOKEN_PARAMETER : "refreshToken",
-
- CLIENT_ID : "client_id",
-
- CLIENT_SECRET : "client_secret",
-
- REDIRECT_URL : "redirect_uri",
-
- CODE : "code",
-
- REQUEST_METHOD_PUT : "PUT",
-
- REQUEST_METHOD_DELETE : "DELETE",
-
- REQUEST_METHOD_GET : "GET",
-
- REQUEST_METHOD_PATCH : "PATCH",
-
- REQUEST_METHOD_POST : "POST",
-
- REQUEST_CATEGORY_READ : "READ",
-
- REQUEST_CATEGORY_ACTION : "ACTION",
-
- REQUEST_CATEGORY_UPDATE : "UPDATE",
-
- REQUEST_CATEGORY_CREATE : "CREATE",
-
- STORAGE : 'storage',
-
- AUTH_PROCESS : "__auth_process",
-
- TOKEN_INIT : "__token_init",
-
- ZES_CLIENT_SCOPE : "zes_client_scope",
-
- DATA_ACCOUNTS_URL : "data-accounts-url",
-
- DATA_CLIENT_ID : "data-clientid",
-
- DATA_SCOPE : "data-scope",
-
- FULL_GRANT : "full_grant",
-
- TRUE : 'true',
-
- GRANTED_FOR_SESSION : "granted_for_session",
-
- REFRESH_URL : '/refresh',
-
- REDIRECT_FILE : "redirect.html",
-
- ACCOUNTS_URL : "&response_type=token&state=zohocrmclient&redirect_uri=",
-
- TOKEN_STORE_ERROR : "TOKEN STORE ERROR",
-
- GET_TOKEN_ERROR_MISSING_PARAMS : "missing auth params[clientId, redirectUri, scope]",
-
- CRM_ACCESS_TOKEN : "crm_access_token",
-
- GRANT : 'GRANT',
-
- REFRESH : 'REFRESH',
-
- STRING : "string",
-
- FIELD : "field",
-
- EXPECTED_TYPE : 'expected-type',
-
- CLASS : "class",
-
- TOKEN_ERROR : "TOKEN ERROR",
-
- STRING_NAMESPACE : "String",
-
- SCOPE : "scope",
-
- GET_TOKEN_ERROR : "Exception in getting tokens - OAuthToken ",
-
- INVALID_CLIENT_ERROR : "INVALID CLIENT ERROR",
-
- ALL : "all",
-
- INFO : 'info',
-
- DEBUG : 'debug',
-
- WARN : 'warn',
-
- ERROR : 'error',
-
- OFF : 'off',
-
- ENCODING : "utf8",
-
- NAME : "name",
-
- TYPE : "type",
-
- TYPE_ERROR : "TYPE ERROR",
-
- VALUES : "values",
-
- ACCEPTED_VALUES : "accepted-values",
-
- GIVEN_VALUE : "given-value",
-
- UNACCEPTED_VALUES_ERROR : "UNACCEPTED VALUES ERROR",
-
- UNIQUE : "unique",
-
- UNIQUE_KEY_ERROR : "UNIQUE KEY ERROR",
-
- MIN_LENGTH: "min-length",
-
- MAX_LENGTH: "max-length",
-
- MAXIMUM_LENGTH : "maximum-length",
-
- MINIMUM_LENGTH : "minimum-length",
-
- MINIMUM_LENGTH_ERROR : "MINIMUM LENGTH ERROR",
-
- REGEX : "regex",
-
- INSTANCE_NUMBER : "instance-number",
-
- REGEX_MISMATCH_ERROR : "REGEX MISMATCH ERROR",
-
- ACCEPTED_TYPE : "accepted_type",
-
- MAXIMUM_LENGTH_ERROR : "MAXIMUM LENGTH ERROR",
-
- INTERFACE : "interface",
-
- CLASSES : "classes",
-
- READ_ONLY : "read-only",
-
- REQUIRED : "required",
-
- MANDATORY_VALUE_MISSING_ERROR : "MANDATORY VALUE MISSING ERROR",
-
- MANDATORY_KEY_MISSING_ERROR : "Value missing for mandatory key: ",
-
- EXCEPTION_SET_KEY_MODIFIED : "Exception in calling setKeyModified",
-
- LIST_NAMESPACE : "list",
-
- MAP_NAMESPACE : "map",
-
- STRUCTURE_NAME : "structure_name",
-
- RECORD_NAMESPACE : "Record.Model.Record",
-
- REMINDAT_NAMESPACE : "Record.Model.RemindAt",
-
- FIELD_FILE_NAMESPACE : "Record.Model.FileDetails",
-
- USER_NAMESPACE : "User.Model.User",
-
- MODULE_NAMESPACE : "Module.Model.Module",
-
- LAYOUT_NAMESPACE : "Layout.Model.Layout",
-
- PARTICIPANTS : "Record.Model.Participants",
-
- KEY_VALUES : "keyValues",
-
- KEY_MODIFIED : "keyModified",
-
- KEYS : "keys",
-
- ARRAY_KEY : "[object Array]",
-
- MAP_KEY : "[object Map]",
-
- FUNCTION : "function",
-
- CLASS_NOT_FOUND : "CLASS NOT FOUND",
-
- OBJECT_TYPE : "[object Object]",
-
- OBJECT_KEY : "object",
-
- STRING_OBJECT_NAME : "[object String]",
-
- INTEGER_KEY : "[object Integer]",
-
- INTEGER_NAMESPACE : "Integer",
-
- CONTENT_DISPOSITION : 'content-disposition',
-
- LONG_NAMESPACE : "Long",
-
- BOOLEAN_NAMESPACE : "Boolean",
-
- DATE_NAMESPACE : "Date",
-
- DATETIME_NAMESPACE : "DateTime",
-
- FILE_NAMESPACE : "util.StreamWrapper",
-
- DOUBLE_NAMESPACE : "Double",
-
- FLOAT_NAMESPACE : "Float",
-
- OBJECT_NAMESPACE : "Object",
-
- USER : "user",
-
- ENVIRONMENT : "environment",
-
- TOKEN : "token",
-
- STORE : "store",
-
- EMAIL_PATTERN : /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
-
- EMAIL : "email",
-
- CHOICE_NAMESPACE : "util.Model.Choice",
-
- MODULE : "Module",
-
- MODULEPACKAGENAME : "modulePackageName",
-
- MODULEDETAILS : "moduleDetails",
-
- PRODUCT_DETAILS : "Product_Details",
-
- PRICING_DETAILS : "Pricing_Details",
-
- PARTICIPANT_API_NAME : "Participants",
-
- INVENTORY_MODULES : ["invoices", "sales_orders","purchase_orders","quotes"],
-
- PRICE_BOOKS : "Price_Books",
-
- EVENTS : "Events",
-
- LAYOUT : "Layout",
-
- SUBFORM : "subform",
-
- LOOKUP : "lookup",
-
- SE_MODULE : "se_module",
-
- INVENTORY_LINE_ITEMS : "Record.Model.InventoryLineItems",
-
- KEYS_TO_SKIP : ["Created_Time", "Modified_Time", "Created_By", "Modified_By", "Tag"],
-
- STATE : "state",
-
- LOCATION : "location",
-
- API_DOMAIN : "api_domain",
-
- TOKEN_KEYS : ["granted_for_session", "access_token","expires_in","expires_in_sec","location","api_domain","state","__token_init","__auth_process"],
-
- INITIALIZATION_ERROR : "Exception in initialization : ",
-
- CONTENT_TYPE : "Content-Type",
-
- SET_TO_CONTENT_TYPE : ["/crm/bulk/v2/read", "/crm/bulk/v2/write"],
-
- SET_API_URL_EXCEPTION : "Exception in setting API URL : ",
-
- AUTHENTICATION_EXCEPTION : "Exception in authenticating current request : ",
-
- FORM_REQUEST_EXCEPTION : "Exception in forming request body : ",
-
- API_CALL_EXCEPTION : "Exception in current API call execution : ",
-
- HTTP : "http",
-
- CONTENT_API_URL : "content.zohoapis.com",
-
- INVALID_URL_ERROR : "Invalid URL Error",
-
- ARRAY_NAME : "Array",
-
- NO_CONTENT_STATUS_CODE : 204,
-
- NOT_MODIFIED_STATUS_CODE : 304,
-
- LINE_TAX : "$line_tax",
-
- LINE_TAX_NAMESPACE : "Record.Model.LineTax",
-
- UNDERSCORE : "_",
-
- RELATED_LISTS : "Related_Lists",
-
- API_NAME : "api_name",
-
- HREF : "href",
-
- CALLS : "Calls",
-
- CALL_DURATION : "Call_Duration",
-
- ACTIVITIES : "Activities",
-
- COMMENT_NAMESPACE : "Record.Model.Comment",
-
- SKIP_MANDATORY : "skip_mandatory",
-
- CANT_DISCLOSE : " ## can't disclose ## ",
-
- URL_NAME : "URL",
-
- HEADERS : "HEADERS",
-
- PARAMS : "PARAMS",
-
- PROXY_SETTINGS : "Proxy settings - ",
-
- PROXY_HOST : "Host: ",
-
- PROXY_PORT : "Port: ",
-
- PROXY_USER : "User: ",
-
- SDK_UNINITIALIZATION_MESSAGE : "SDK is UnInitialized",
-
- SDK_UNINITIALIZATION_ERROR : "SDK UNINITIALIZED ERROR",
-
- REQUIRED_IN_UPDATE : "required_in_update",
-
- PRIMARY : "primary",
-
- FILEBODYWRAPPER : "FileBodyWrapper",
-
- EXCEPTION_IS_KEY_MODIFIED : "Exception in calling isKeyModified : ",
-
- FILE_ERROR : "file_error",
-
- FILE_DOES_NOT_EXISTS : "file does not exists",
-
- UNSUPPORTED_IN_API : "API UNSUPPORTED OPERATION",
-
- UNSUPPORTED_IN_API_MESSAGE : " Operation is not supported by API",
-
- NULL_VALUE : "null",
-
- NOTES : "Notes",
-
- ATTACHMENTS : "$attachments",
-
- ATTACHMENTS_NAMESPACE : "Attachment.Model.Attachment",
-
- PICKLIST : "picklist",
-
- CONSENT_NAMESPACE : "Record.Model.Consent",
-
- HEADER_NULL_ERROR : "NULL HEADER ERROR",
-
- HEADER_INSTANCE_NULL_ERROR : "Header Instance MUST NOT be null",
-
- HEADER_NAME_NULL_ERROR : "NULL HEADER NAME ERROR",
-
- HEADER_NAME_NULL_ERROR_MESSAGE : "Header Name MUST NOT be null",
-
- NULL_VALUE_ERROR_MESSAGE : " MUST NOT be null",
-
- SDK_CONFIG_ERROR_MESSAGE : "sdkConfig MUST NOT be null.",
-
- HEADER_OR_PARAM_NAME : "HEADER OR PARAM",
-
- CLASS_KEY : "class",
-
- OBJECT : "Object",
-
- INITIALIZATION_SUCCESSFUL : "Initialization successful ",
-
- PACKAGE_NAMESPACE : "Record.Model.",
-
- COMMENTS : "Comments",
-
- SOLUTIONS : "Solutions",
-
- CASES : "Cases",
-
- FORMULA : "formula",
-
- ACCOUNTS : "Accounts",
-
- CRMSDK : "ZohoCRMJSSDK",
-
- FIELDS_LAST_MODIFIED_TIME : "FIELDS-LAST-MODIFIED-TIME",
-
- API_EXCEPTION : "API_EXCEPTION",
-
- DELETE_FIELD_FILE_ERROR : "Exception in deleting Current User Fields file : ",
-
- REFRESH_SINGLE_MODULE_FIELDS_ERROR : "Exception in refreshing fields of module : ",
-
- REFRESH_ALL_MODULE_FIELDS_ERROR : "Exception in refreshing fields of all modules : ",
-
- STREAM_WRAPPER_CLASS : "StreamWrapper.Model.StreamWrapper",
-
- API_ERROR_RESPONSE : "Error response : ",
-
- CONTENT_TYPE_HEADER : "content-type",
-
- FILE_BODY_WRAPPER : "FileBodyWrapper",
-
- MANDATORY_KEY_ERROR : "Value missing or null for mandatory key(s) :",
-
- MANDATORY_VALUE_ERROR : "MANDATORY VALUE ERROR",
-
- PRIMARY_KEY_ERROR : "Value missing or null for required key(s) : ",
-
- RECURRING_ACTIVITY_NAMESPACE : "Record.Model.RecurringActivity",
-
- CONSENT_LOOKUP : "consent_lookup",
-
- PRICINGDETAILS : "Record.Model.PricingDetails",
-
- HOSTADDRESS : "127.0.0.1",
-
- LOCALHOST : "localhost",
-
- APP : "app",
-
- CONTENT_API : "content.zohoapis",
-
- ARRAY_BUFFER : "arraybuffer",
-
- ZIP : "zip",
-
- EXCEPTION : "EXCEPTION : ",
-
- IS_GENERATE_REQUEST_BODY : ["PATCH", "POST", "PUT"],
-
- PHOTO : "photo",
-
- CRM : "crm",
-
- API_VERSION : "v2",
-
- PHOTO_SUPPORTED_MODULES : ["leads", "contacts", "accounts", "products", "vendors"],
-
- PHOTO_UPLOAD_ERROR_MESSAGE  : "The given module is not supported in API.",
-
- INVALID_MODULE  : "INVALID_MODULE",
-
- TIME_OUT : "Timed out!!!",
-
- USER_PROXY : "proxy"
-};
+ var Constants = {
+   TYPE_VS_DATATYPE : new Map([
+      ["map","[object Map]"],
+      ["hashmap", "[object Map]"],
+      ["string", "[object String]"],
+      ["list", "[object Array]"],
+      ["long", "[object BigInt]"],
+      ["integer", "[object Number]"],
+      ["float", "[object Number]"],
+      ["double", "[object Number]"],
+      ["boolean", "[object Boolean]"],
+      ["datetime", "[object Date]"],
+      ["date", "[object Date]"]
+  ]),
+  
+   SPECIAL_TYPES : new Map([
+      ["DateTime", "Date"],
+      ["Date", "Date"],
+      ["Long", "BigInt"]
+   ]),
+
+   DEFAULT_MODULENAME_VS_APINAME : new Map([
+      ["leads", "Leads"],
+      ["contacts", "Contacts"],
+      ["accounts", "Accounts"],
+      ["deals", "Deals"],
+      ["tasks", "Tasks"],
+      ["events", "Events"],
+      ["activities", "Activities"],
+      ["calls", "Calls"],
+      ["products", "Products"],
+      ["quotes", "Quotes"],
+      ["sales_orders", "Sales_Orders"],
+      ["purchase_orders", "Purchase_Orders"],
+      ["invoices", "Invoices"],
+      ["campaigns", "Campaigns"],
+      ["vendors", "Vendors"],
+      ["price_books", "Price_Books"],
+      ["cases", "Cases"],
+      ["solutions", "Solutions"],
+      ["visits", "Visits"],
+      ["approvals", "Approvals"],
+      ["notes", "Notes"],
+      ["attachments", "Attachments"],
+      ["actions_performed", "Actions_Performed"]
+   ]),
+  
+   OAUTH_HEADER_PREFIX : "Zoho-oauthtoken ",
+  
+   AUTHORIZATION : "Authorization",
+  
+   ZOHO_SDK : "X-ZOHO-SDK",
+  
+   SDK_VERSION : "2.0.0",
+  
+   GRANT_TYPE : "grant_type",
+  
+   GRANT_TYPE_AUTH_CODE : "authorization_code",
+  
+   ACCESS_TOKEN : "access_token",
+  
+   EXPIRES_IN : "expires_in",
+  
+   EXPIRES_IN_SEC : "expires_in_sec",
+  
+   REFRESH_TOKEN : "refresh_token",
+  
+   REFRESH_TOKEN_PARAMETER : "refreshToken",
+  
+   CLIENT_ID : "client_id",
+  
+   CLIENT_SECRET : "client_secret",
+  
+   REDIRECT_URL : "redirect_uri",
+  
+   CODE : "code",
+  
+   REQUEST_METHOD_PUT : "PUT",
+  
+   REQUEST_METHOD_DELETE : "DELETE",
+  
+   REQUEST_METHOD_GET : "GET",
+  
+   REQUEST_METHOD_PATCH : "PATCH",
+  
+   REQUEST_METHOD_POST : "POST",
+  
+   REQUEST_CATEGORY_READ : "READ",
+  
+   REQUEST_CATEGORY_ACTION : "ACTION",
+  
+   REQUEST_CATEGORY_UPDATE : "UPDATE",
+  
+   REQUEST_CATEGORY_CREATE : "CREATE",
+  
+   STORAGE : 'storage',
+  
+   AUTH_PROCESS : "__auth_process",
+  
+   TOKEN_INIT : "__token_init",
+  
+   ZES_CLIENT_SCOPE : "zes_client_scope",
+  
+   DATA_ACCOUNTS_URL : "data-accounts-url",
+  
+   DATA_CLIENT_ID : "data-clientid",
+  
+   DATA_SCOPE : "data-scope",
+  
+   FULL_GRANT : "full_grant",
+  
+   TRUE : 'true',
+  
+   GRANTED_FOR_SESSION : "granted_for_session",
+  
+   REFRESH_URL : '/refresh',
+  
+   REDIRECT_FILE : "redirect.html",
+  
+   ACCOUNTS_URL : "&response_type=token&state=zohocrmclient&redirect_uri=",
+  
+   TOKEN_STORE_ERROR : "TOKEN STORE ERROR",
+  
+   GET_TOKEN_ERROR_MISSING_PARAMS : "missing auth params[clientId, redirectUri, scope]",
+  
+   CRM_ACCESS_TOKEN : "crm_access_token",
+  
+   GRANT : 'GRANT',
+  
+   REFRESH : 'REFRESH',
+  
+   STRING : "string",
+  
+   FIELD : "field",
+  
+   EXPECTED_TYPE : 'expected-type',
+  
+   CLASS : "class",
+  
+   TOKEN_ERROR : "TOKEN ERROR",
+  
+   STRING_NAMESPACE : "String",
+  
+   SCOPE : "scope",
+  
+   GET_TOKEN_ERROR : "Exception in getting tokens - OAuthToken ",
+  
+   INVALID_CLIENT_ERROR : "INVALID CLIENT ERROR",
+  
+   ALL : "all",
+  
+   INFO : 'info',
+  
+   DEBUG : 'debug',
+  
+   WARN : 'warn',
+  
+   ERROR : 'error',
+  
+   OFF : 'off',
+  
+   ENCODING : "utf8",
+  
+   NAME : "name",
+  
+   TYPE : "type",
+  
+   TYPE_ERROR : "TYPE ERROR",
+  
+   VALUES : "values",
+  
+   ACCEPTED_VALUES : "accepted-values",
+  
+   GIVEN_VALUE : "given-value",
+  
+   UNACCEPTED_VALUES_ERROR : "UNACCEPTED VALUES ERROR",
+  
+   UNIQUE : "unique",
+  
+   UNIQUE_KEY_ERROR : "UNIQUE KEY ERROR",
+  
+   MIN_LENGTH: "min-length",
+  
+   MAX_LENGTH: "max-length",
+  
+   MAXIMUM_LENGTH : "maximum-length",
+  
+   MINIMUM_LENGTH : "minimum-length",
+  
+   MINIMUM_LENGTH_ERROR : "MINIMUM LENGTH ERROR",
+  
+   REGEX : "regex",
+  
+   INSTANCE_NUMBER : "instance-number",
+  
+   REGEX_MISMATCH_ERROR : "REGEX MISMATCH ERROR",
+  
+   ACCEPTED_TYPE : "accepted_type",
+  
+   MAXIMUM_LENGTH_ERROR : "MAXIMUM LENGTH ERROR",
+  
+   INTERFACE : "interface",
+  
+   CLASSES : "classes",
+  
+   READ_ONLY : "read-only",
+  
+   REQUIRED : "required",
+  
+   MANDATORY_VALUE_MISSING_ERROR : "MANDATORY VALUE MISSING ERROR",
+  
+   MANDATORY_KEY_MISSING_ERROR : "Value missing for mandatory key: ",
+  
+   EXCEPTION_SET_KEY_MODIFIED : "Exception in calling setKeyModified",
+  
+   LIST_NAMESPACE : "list",
+  
+   MAP_NAMESPACE : "map",
+  
+   STRUCTURE_NAME : "structure_name",
+  
+   RECORD_NAMESPACE : "Record.Model.Record",
+  
+   REMINDAT_NAMESPACE : "Record.Model.RemindAt",
+  
+   FIELD_FILE_NAMESPACE : "Record.Model.FileDetails",
+  
+   USER_NAMESPACE : "User.Model.User",
+  
+   MODULE_NAMESPACE : "Module.Model.Module",
+  
+   LAYOUT_NAMESPACE : "Layout.Model.Layout",
+  
+   PARTICIPANTS : "Record.Model.Participants",
+  
+   KEY_VALUES : "keyValues",
+  
+   KEY_MODIFIED : "keyModified",
+  
+   KEYS : "keys",
+  
+   ARRAY_KEY : "[object Array]",
+  
+   MAP_KEY : "[object Map]",
+  
+   FUNCTION : "function",
+  
+   CLASS_NOT_FOUND : "CLASS NOT FOUND",
+  
+   OBJECT_TYPE : "[object Object]",
+  
+   OBJECT_KEY : "object",
+  
+   STRING_OBJECT_NAME : "[object String]",
+  
+   INTEGER_KEY : "[object Integer]",
+  
+   INTEGER_NAMESPACE : "Integer",
+  
+   CONTENT_DISPOSITION : 'content-disposition',
+  
+   LONG_NAMESPACE : "Long",
+  
+   BOOLEAN_NAMESPACE : "Boolean",
+  
+   DATE_NAMESPACE : "Date",
+  
+   DATETIME_NAMESPACE : "DateTime",
+  
+   FILE_NAMESPACE : "util.StreamWrapper",
+  
+   DOUBLE_NAMESPACE : "Double",
+  
+   FLOAT_NAMESPACE : "Float",
+  
+   OBJECT_NAMESPACE : "Object",
+  
+   USER : "user",
+  
+   ENVIRONMENT : "environment",
+  
+   TOKEN : "token",
+  
+   STORE : "store",
+  
+   EMAIL_PATTERN : /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+  
+   EMAIL : "email",
+  
+   CHOICE_NAMESPACE : "util.Model.Choice",
+  
+   MODULE : "module",
+  
+   MODULEPACKAGENAME : "modulePackageName",
+  
+   MODULEDETAILS : "moduleDetails",
+  
+   PRODUCT_DETAILS : "Product_Details",
+  
+   PRICING_DETAILS : "Pricing_Details",
+  
+   PARTICIPANT_API_NAME : "Participants",
+  
+   INVENTORY_MODULES : ["invoices", "sales_orders","purchase_orders","quotes"],
+  
+   PRICE_BOOKS : "Price_Books",
+  
+   EVENTS : "Events",
+  
+   LAYOUT : "Layout",
+  
+   SUBFORM : "subform",
+  
+   LOOKUP : "lookup",
+  
+   SE_MODULE : "se_module",
+  
+   INVENTORY_LINE_ITEMS : "Record.Model.InventoryLineItems",
+  
+   KEYS_TO_SKIP : ["Created_Time", "Modified_Time", "Created_By", "Modified_By", "Tag"],
+  
+   STATE : "state",
+  
+   LOCATION : "location",
+  
+   API_DOMAIN : "api_domain",
+  
+   TOKEN_KEYS : ["granted_for_session", "access_token","expires_in","expires_in_sec","location","api_domain","state","__token_init","__auth_process","externals","visibility","inherited"],
+  
+   INITIALIZATION_ERROR : "Exception in initialization : ",
+  
+   CONTENT_TYPE : "Content-Type",
+  
+   SET_TO_CONTENT_TYPE : ["/crm/bulk/v2/read", "/crm/bulk/v2/write"],
+  
+   SET_API_URL_EXCEPTION : "Exception in setting API URL : ",
+  
+   AUTHENTICATION_EXCEPTION : "Exception in authenticating current request : ",
+  
+   FORM_REQUEST_EXCEPTION : "Exception in forming request body : ",
+  
+   API_CALL_EXCEPTION : "Exception in current API call execution : ",
+  
+   HTTP : "http",
+  
+   CONTENT_API_URL : "content.zohoapis.com",
+  
+   INVALID_URL_ERROR : "Invalid URL Error",
+  
+   ARRAY_NAME : "Array",
+  
+   NO_CONTENT_STATUS_CODE : 204,
+  
+   NOT_MODIFIED_STATUS_CODE : 304,
+  
+   LINE_TAX : "$line_tax",
+  
+   LINE_TAX_NAMESPACE : "Record.Model.LineTax",
+  
+   UNDERSCORE : "_",
+  
+   RELATED_LISTS : "Related_Lists",
+  
+   API_NAME : "api_name",
+  
+   HREF : "href",
+  
+   CALLS : "calls",
+  
+   CALL_DURATION : "call_duration",
+  
+   ACTIVITIES : "Activities",
+  
+   COMMENT_NAMESPACE : "Record.Model.Comment",
+  
+   SKIP_MANDATORY : "skip_mandatory",
+  
+   CANT_DISCLOSE : " ## can't disclose ## ",
+  
+   URL_NAME : "URL",
+  
+   HEADERS : "HEADERS",
+  
+   PARAMS : "PARAMS",
+  
+   PROXY_SETTINGS : "Proxy settings - ",
+  
+   PROXY_HOST : "Host: ",
+  
+   PROXY_PORT : "Port: ",
+  
+   PROXY_USER : "User: ",
+  
+   SDK_UNINITIALIZATION_MESSAGE : "SDK is UnInitialized",
+  
+   SDK_UNINITIALIZATION_ERROR : "SDK UNINITIALIZED ERROR",
+  
+   REQUIRED_IN_UPDATE : "required_in_update",
+  
+   PRIMARY : "primary",
+  
+   FILEBODYWRAPPER : "FileBodyWrapper",
+  
+   EXCEPTION_IS_KEY_MODIFIED : "Exception in calling isKeyModified : ",
+  
+   FILE_ERROR : "file_error",
+  
+   FILE_DOES_NOT_EXISTS : "file does not exists",
+  
+   UNSUPPORTED_IN_API : "API UNSUPPORTED OPERATION",
+  
+   UNSUPPORTED_IN_API_MESSAGE : " Operation is not supported by API",
+  
+   NULL_VALUE : "null",
+  
+   NOTES : "Notes",
+  
+   ATTACHMENTS : "$attachments",
+  
+   ATTACHMENTS_NAMESPACE : "Attachment.Model.Attachment",
+  
+   PICKLIST : "picklist",
+  
+   CONSENT_NAMESPACE : "Record.Model.Consent",
+  
+   HEADER_NULL_ERROR : "NULL HEADER ERROR",
+  
+   HEADER_INSTANCE_NULL_ERROR : "Header Instance MUST NOT be null",
+  
+   HEADER_NAME_NULL_ERROR : "NULL HEADER NAME ERROR",
+  
+   HEADER_NAME_NULL_ERROR_MESSAGE : "Header Name MUST NOT be null",
+  
+   NULL_VALUE_ERROR_MESSAGE : " MUST NOT be null",
+  
+   SDK_CONFIG_ERROR_MESSAGE : "sdkConfig MUST NOT be null.",
+  
+   HEADER_OR_PARAM_NAME : "HEADER OR PARAM",
+  
+   CLASS_KEY : "class",
+  
+   OBJECT : "Object",
+  
+   INITIALIZATION_SUCCESSFUL : "Initialization successful ",
+  
+   PACKAGE_NAMESPACE : "Record.Model.",
+  
+   COMMENTS : "Comments",
+  
+   SOLUTIONS : "Solutions",
+  
+   CASES : "Cases",
+  
+   FORMULA : "formula",
+  
+   ACCOUNTS : "Accounts",
+  
+   CRMSDK : "ZohoCRMJSSDK",
+  
+   FIELDS_LAST_MODIFIED_TIME : "FIELDS-LAST-MODIFIED-TIME",
+  
+   API_EXCEPTION : "API_EXCEPTION",
+  
+   DELETE_FIELD_FILE_ERROR : "Exception in deleting Current User Fields file : ",
+  
+   REFRESH_SINGLE_MODULE_FIELDS_ERROR : "Exception in refreshing fields of module : ",
+  
+   REFRESH_ALL_MODULE_FIELDS_ERROR : "Exception in refreshing fields of all modules : ",
+  
+   STREAM_WRAPPER_CLASS : "StreamWrapper.Model.StreamWrapper",
+  
+   API_ERROR_RESPONSE : "Error response : ",
+  
+   CONTENT_TYPE_HEADER : "content-type",
+  
+   FILE_BODY_WRAPPER : "FileBodyWrapper",
+  
+   MANDATORY_KEY_ERROR : "Value missing or null for mandatory key(s) :",
+  
+   MANDATORY_VALUE_ERROR : "MANDATORY VALUE ERROR",
+  
+   PRIMARY_KEY_ERROR : "Value missing or null for required key(s) : ",
+  
+   RECURRING_ACTIVITY_NAMESPACE : "Record.Model.RecurringActivity",
+  
+   CONSENT_LOOKUP : "consent_lookup",
+  
+   PRICINGDETAILS : "Record.Model.PricingDetails",
+  
+   HOSTADDRESS : "127.0.0.1",
+  
+   LOCALHOST : "localhost",
+  
+   APP : "app",
+  
+   CONTENT_API : "content.zohoapis",
+  
+   ARRAY_BUFFER : "arraybuffer",
+  
+   ZIP : "zip",
+  
+   EXCEPTION : "EXCEPTION : ",
+  
+   IS_GENERATE_REQUEST_BODY : ["PATCH", "POST", "PUT"],
+  
+   PHOTO : "photo",
+  
+   CRM : "crm",
+  
+   API_VERSION : "v2",
+  
+   PHOTO_SUPPORTED_MODULES : ["leads", "contacts", "accounts", "products", "vendors"],
+  
+   PHOTO_UPLOAD_ERROR_MESSAGE  : "The given module is not supported in API.",
+  
+   INVALID_MODULE  : "INVALID_MODULE",
+  
+   TIME_OUT : "Timed out!!!",
+  
+   USER_PROXY : "proxy",
+   
+   SDK_MODULE_METADATA : "SDK-MODULE-METADATA",
+   
+   REMINDER_NAMESPACE : "Record.Model.Reminder",
+
+   CLIENT_ID_NULL_ERROR_MESSAGE : "ClientID MUST NOT be null",
+
+   REDIRECT_URL_NULL_ERROR_MESSAGE : "Redirect URL MUST NOT be null",
+
+   SCOPE_NULL_ERROR_MESSAGE : "Scope MUST NOT be null",
+
+   OAUTH_MANDATORY_KEYS : ["clientId", "redirectURL", "scope", "accessToken"],
+
+   SKIP_MODULES : ["deals"],
+
+   GENERATED_TYPE : "generated_type",
+
+   GENERATED_TYPE_CUSTOM : "custom",
+
+   UPLOAD_PHOTO_UNSUPPORTED_ERROR : "UPLOAD PHOTO UNSUPPORTED MODULE",
+
+   UPLOAD_PHOTO_UNSUPPORTED_MESSAGE :"Photo Upload Operation is not supported by the module: ",
+
+   SWITCH_USER_ERROR : "SWITCH USER ERROR",
+
+   ENVIRONMENT_ERROR_MESSAGE : "Environment MUST NOT be null.",
+
+   TOKEN_ERROR_MESSAGE : "Token MUST NOT be null.",
+
+   SDK_CONFIG : "sdkConfig",
+
+   INITIALIZATION_EXCEPTION : "Exception in initialization : ",
+
+   USER_PROXY_ERROR : "USERPROXY ERROR",
+
+   HOST_ERROR_MESSAGE : "Host MUST NOT be null.",
+
+   PORT_ERROR_MESSAGE : "Port MUST NOT be null.",
+
+   REQUEST_PROXY_ERROR : "REQUEST_PROXY ERROR",
+
+   DATA_TYPE_ERROR : "DATA_TYPE_ERROR"
+  };
 
 var ZCRM = {};
 
@@ -515,53 +582,11 @@ var Initializer = {};
  * @param {Logger} logger A Logger class instance containing the log file path and Logger type.
  * @param {RequestProxy} proxy - A RequestProxy class instance containing the proxy properties of the user.
  */
-async function initializeSDK(environment, sdkConfig, token = null, logger = null, proxy=null) {
-
-    var detailsJO = {};
-
+async function initializeSDK(environment, sdkConfig, token = null, logger = null, proxy = null) {
     let store = new TokenStore();
 
     try {
-
-        if (!(environment instanceof Environment)) {
-
-            detailsJO.field = Constants.ENVIRONMENT;
-
-            detailsJO.expected_type = Environment.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
-        if(sdkConfig === null) {
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, Constants.SDK_CONFIG_ERROR_MESSAGE);
-        }
-
-        if (!(token instanceof Token) && document.getElementById(Constants.ZES_CLIENT_SCOPE) === null) {
-
-            detailsJO.field = Constants.TOKEN;
-
-            detailsJO.expected_type = Token.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
-        if (logger === null) {
-
-            logger = Logger.getInstance(Levels.INFO);
-        }
-
-        if(proxy != null && !(proxy instanceof RequestProxy)) {
-
-            detailsJO.field = Constants.USER_PROXY;
-
-            detailsJO.expected_type = RequestProxy.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
         if (token === null && document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
-
             let clientId = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_CLIENT_ID);
 
             let scope = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_SCOPE);
@@ -575,12 +600,10 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
             var length = pathSplit.length;
 
             if(length > 0) {
-
                 redirect_url += "/"
             }
 
             for (var i = 0; i < length - 2; i++) {
-
                 if(pathSplit[i] !== "" && pathSplit[i].trim().length > 0 && !pathSplit[i].endsWith(".html")) {
 
                     redirect_url += pathSplit[i] + "/";
@@ -588,16 +611,18 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
             }
 
             if(location.hostname === Constants.HOSTADDRESS || location.hostname === Constants.LOCALHOST || location.hostname === "" ) {
-
                 redirect_url += Constants.APP + "/";
             }
 
             if(!redirect_url.endsWith("/")){
-
                 redirect_url += "/";
             }
 
-            token = new OAuthToken(clientId, redirect_url + Constants.REDIRECT_FILE, scope);
+            token = new OAuthBuilder()
+            .clientId(clientId)
+            .scope(scope)
+            .redirectURL(redirect_url + Constants.REDIRECT_FILE)
+            .build();
         }
 
         SDKLogger.initialize(logger);
@@ -617,13 +642,10 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
         SDKLogger.log(Levels.INFO, Constants.INITIALIZATION_SUCCESSFUL.concat(environment.url).concat("."));
     }
     catch (e) {
-
         if(e instanceof SDKException) {
-
             throw e;
         }
         else {
-
             throw new SDKException(Constants.INITIALIZATION_EXCEPTION, e.toString());
         }
     }
@@ -633,14 +655,12 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
  * This class represents the HTTP header.
  */
 class Header {
-
 	/**
 	 * Creates an Header class instance with the specified header name.
 	 * @param {string} name A String containing the header name.
 	 * @param {string} className A String containing the header class name.
 	 */
 	constructor(name, className = null) {
-
 		this._name = name;
 
 		this._className = className;
@@ -651,7 +671,6 @@ class Header {
 	 * @returns {string} A String representing the header name.
 	 */
 	getName() {
-
 		return this._name;
 	}
 
@@ -660,18 +679,15 @@ class Header {
 	 * @returns {string} A String representing the header class name.
 	 */
 	getClassName() {
-
 		return this._className;
-    }
+	}
 }
 
 /**
  * This class represents the HTTP header name and value.
  */
 class HeaderMap {
-
     constructor() {
-
         this._headerMap = new Map();
     }
 
@@ -680,7 +696,6 @@ class HeaderMap {
      * @return A Map representing the API request headers.
      */
     getHeaderMap() {
-
         return this._headerMap;
     }
 
@@ -689,7 +704,6 @@ class HeaderMap {
      * @param {Map} headerMap  An Map representing the API request headers.
      */
     setHeaderMap(headerMap) {
-
         this._headerMap = headerMap;
     }
 
@@ -699,49 +713,41 @@ class HeaderMap {
      * @param {object} value A object containing the header value.
      */
     async add(header, value) {
-
-        if(header === null) {
-
-			throw new SDKException(Constants.HEADER_NULL_ERROR, Constants.HEADER_INSTANCE_NULL_ERROR);
-		}
+        if (header === null) {
+            throw new SDKException(Constants.HEADER_NULL_ERROR, Constants.HEADER_INSTANCE_NULL_ERROR);
+        }
 
         let headerName = header.getName();
 
-        if(headerName === null) {
-
-			throw new SDKException(Constants.HEADER_NAME_NULL_ERROR, Constants.HEADER_NAME_NULL_ERROR_MESSAGE);
+        if (headerName === null) {
+            throw new SDKException(Constants.HEADER_NAME_NULL_ERROR, Constants.HEADER_NAME_NULL_ERROR_MESSAGE);
         }
 
-        if(value === null) {
-
-			throw new SDKException(Constants.HEADER_NULL_ERROR, headerName + Constants.NULL_VALUE_ERROR_MESSAGE);
+        if (value === null) {
+            throw new SDKException(Constants.HEADER_NULL_ERROR, headerName + Constants.NULL_VALUE_ERROR_MESSAGE);
         }
 
         let headerClassName = header.getClassName();
 
         let parsedHeaderValue = null;
 
-        if(headerClassName !== null) {
-
+        if (headerClassName !== null) {
             let headerParamValidator = new HeaderParamValidator();
 
             parsedHeaderValue = await headerParamValidator.validate(header, value);
         }
         else {
-
             try {
-
                 parsedHeaderValue = await DataTypeConverter.postConvert(value, value.constructor.name);
             }
-            catch(ex) {
+            catch (ex) {
 
                 parsedHeaderValue = value;
             }
 
         }
 
-        if(this._headerMap.has(headerName) && this._headerMap.get(headerName) !== null) {
-
+        if (this._headerMap.has(headerName) && this._headerMap.get(headerName) !== null) {
             let headerValue = this._headerMap.get(headerName);
 
             headerValue = headerValue.concat(",", parsedHeaderValue.toString());
@@ -759,14 +765,12 @@ class HeaderMap {
  * This class represents the HTTP parameter.
  */
 class Param {
-
     /**
      * Creates an Param class instance with the specified parameter name.
      * @param {string} name A String containing the parameter name.
      * @param {string} className A String containing the parameter class name.
      */
     constructor(name, className = null) {
-
         this._name = name;
 
         this._className = className;
@@ -777,7 +781,6 @@ class Param {
      * @returns {string} A String representing the parameter name.
      */
     getName() {
-
         return this._name;
     }
 
@@ -786,7 +789,6 @@ class Param {
      * @returns {string} A String representing the parameter class name.
      */
     getClassName() {
-
         return this._className;
     }
 }
@@ -795,9 +797,7 @@ class Param {
  * This class representing the HTTP parameter name and value.
  */
 class ParameterMap {
-
     constructor() {
-
         this._parameterMap = new Map();
     }
 
@@ -806,7 +806,6 @@ class ParameterMap {
      * @returns {Map} A Map representing the API response parameters.
      */
     getParameterMap() {
-
         return this._parameterMap;
     }
 
@@ -815,7 +814,6 @@ class ParameterMap {
      * @returns {Map} An Map representing the API request parameters.
      */
     setParameterMap(parameterMap) {
-
         this._parameterMap = parameterMap;
     }
 
@@ -825,21 +823,17 @@ class ParameterMap {
      * @param {object} value A Object containing the parameter value.
      */
     async add(param, value) {
-
-        if(param === null) {
-
+        if (param === null) {
             throw new SDKException(Constants.HEADER_NULL_ERROR, Constants.HEADER_INSTANCE_NULL_ERROR);
         }
 
         let paramName = param.getName();
 
-        if(paramName === null)
-        {
+        if (paramName === null) {
             throw new SDKException(Constants.HEADER_NAME_NULL_ERROR, Constants.HEADER_NAME_NULL_ERROR_MESSAGE);
         }
 
-        if(value === null) {
-
+        if (value === null) {
             throw new SDKException(Constants.HEADER_NULL_ERROR, paramName + Constants.NULL_VALUE_ERROR_MESSAGE);
         }
 
@@ -847,26 +841,21 @@ class ParameterMap {
 
         let parsedParamValue = null;
 
-        if(paramClassName !== null) {
-
+        if (paramClassName !== null) {
             let headerParamValidator = new HeaderParamValidator();
 
             parsedParamValue = await headerParamValidator.validate(param, value);
         }
         else {
-
             try {
-
                 parsedParamValue = await DataTypeConverter.postConvert(value, value.constructor.name);
             }
-            catch(ex) {
-
+            catch (ex) {
                 parsedParamValue = value;
             }
         }
 
-        if(this._parameterMap.has(paramName) && this._parameterMap.get(paramName) !== null) {
-
+        if (this._parameterMap.has(paramName) && this._parameterMap.get(paramName) != null) {
             let paramValue = this._parameterMap.get(paramName);
 
             paramValue = paramValue.concat(",", parsedParamValue.toString());
@@ -874,7 +863,6 @@ class ParameterMap {
             this._parameterMap.set(paramName, paramValue);
         }
         else {
-
             this._parameterMap.set(paramName, parsedParamValue.toString());
         }
     }
@@ -883,42 +871,40 @@ class ParameterMap {
 var listener = 0;
 
 var Store = class {
-
-    getToken(token){}
+    getToken(token) { }
 }
 
 class TokenStore extends Store {
-
     async getToken(token) {
 
-        if(listener === 0) {
+        if (token !== null && token.getAccessToken() !== null && token.getAccessToken() != undefined) {
+            token.setAccessToken(token.getAccessToken());
 
-            window.addEventListener(Constants.STORAGE, function(reponse) {
+            return token;
+        }
 
-                if(reponse.key === Constants.ACCESS_TOKEN && (reponse.oldValue !== reponse.newValue || reponse.oldValue === null)){
-
+        if (listener === 0) {
+            window.addEventListener(Constants.STORAGE, function (reponse) {
+                if (reponse.key === Constants.ACCESS_TOKEN && (reponse.oldValue !== reponse.newValue || reponse.oldValue === null)) {
                     location.reload();
                 }
 
-                if(reponse.key === Constants.ACCESS_TOKEN){
-
+                if (reponse.key === Constants.ACCESS_TOKEN) {
                     sessionStorage.removeItem(Constants.AUTH_PROCESS);
                 }
             }, false);
 
             listener = 1;
 
-            if(sessionStorage.getItem(Constants.AUTH_PROCESS)) {
-
+            if (sessionStorage.getItem(Constants.AUTH_PROCESS)) {
                 sessionStorage.removeItem(Constants.AUTH_PROCESS);
             }
         }
 
         Constants.TOKEN_KEYS.forEach(function (k) {
-
             var isKeyExists = localStorage.hasOwnProperty(k);
 
-            if(isKeyExists) {
+            if (isKeyExists) {
 
                 sessionStorage.setItem(k, localStorage[k]);
             }
@@ -930,7 +916,7 @@ class TokenStore extends Store {
 
         var tokenInit = sessionStorage.getItem(Constants.TOKEN_INIT);
 
-        if(tokenInit !== null && valueInStore !== null && Date.now() >= parseInt(tokenInit) + 59 * 60 * 1000){ // check after 59th minute
+        if (tokenInit !== null && valueInStore !== null && Date.now() >= parseInt(tokenInit) + 59 * 60 * 1000) { // check after 59th minute
 
             valueInStore = null;
 
@@ -940,7 +926,6 @@ class TokenStore extends Store {
         var auth_process = sessionStorage.getItem(Constants.AUTH_PROCESS);
 
         if ((valueInStore === null && auth_process === null) || (valueInStore === 'undefined' && (auth_process === null || auth_process === Constants.TRUE))) {
-
             var accountsUrl;
 
             var clientId;
@@ -949,13 +934,11 @@ class TokenStore extends Store {
 
             var redirectUrl;
 
-            if(Initializer.environment !== null){
-
+            if (Initializer.environment !== null) {
                 accountsUrl = Initializer.environment.getAccountsUrl();
             }
 
-            if(token !== null && token.getClientId().length > 0) {
-
+            if (token !== null && token.getClientId().length > 0) {
                 clientId = token.getClientId();
 
                 scope = token.getScope();
@@ -963,13 +946,11 @@ class TokenStore extends Store {
                 redirectUrl = token.getRedirectUrl();
             }
 
-            if(document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
-
+            if (document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
                 let accounts_url = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_ACCOUNTS_URL);
 
-                if(accounts_url !== null) {
-
-                    if(!accounts_url.includes("/oauth/v2/auth")) {
+                if (accounts_url !== null) {
+                    if (!accounts_url.includes("/oauth/v2/auth")) {
 
                         accounts_url = accounts_url + "/oauth/v2/auth";
                     }
@@ -982,13 +963,11 @@ class TokenStore extends Store {
 
             var grantedForSession = sessionStorage.getItem(Constants.GRANTED_FOR_SESSION);
 
-            if(sessionStorage.getItem(Constants.TOKEN_INIT) !== null && ((fullGrant !== null && Constants.TRUE === fullGrant) || (grantedForSession !== null && Constants.TRUE === grantedForSession))) {
-
+            if (sessionStorage.getItem(Constants.TOKEN_INIT) !== null && ((fullGrant !== null && Constants.TRUE === fullGrant) || (grantedForSession !== null && Constants.TRUE === grantedForSession))) {
                 accountsUrl += Constants.REFRESH_URL;
             }
 
             if (clientId && scope) {
-
                 sessionStorage.setItem(Constants.TOKEN_INIT, Date.now());
 
                 sessionStorage.removeItem(Constants.ACCESS_TOKEN);
@@ -998,11 +977,9 @@ class TokenStore extends Store {
                 window.open(accountsUrl + "?" + Constants.SCOPE + "=" + scope + "&" + Constants.CLIENT_ID + "=" + clientId + Constants.ACCOUNTS_URL + redirectUrl);
 
                 Constants.TOKEN_KEYS.forEach(function (k) {
-
                     var isKeyExists = localStorage.hasOwnProperty(k);
 
-                    if(isKeyExists) {
-
+                    if (isKeyExists) {
                         sessionStorage.setItem(k, localStorage[k]);
                     }
 
@@ -1011,22 +988,19 @@ class TokenStore extends Store {
 
                 valueInStore = sessionStorage.getItem(Constants.ACCESS_TOKEN);
             }
-            else{
-
+            else {
                 throw new SDKException(Constants.TOKEN_STORE_ERROR, Constants.GET_TOKEN_ERROR, null, null);
             }
         }
 
-        if(token !== null && valueInStore !== 'undefined') {
-
+        if (token !== null && valueInStore !== 'undefined') {
             token.setAccessToken(valueInStore);
         }
 
         return token;
     }
 
-    revokeAccess(){
-
+    revokeAccess() {
         sessionStorage.removeItem(Constants.CRM_ACCESS_TOKEN);
     }
 }
@@ -1035,32 +1009,30 @@ class TokenStore extends Store {
  * This class verifies and sets token to APIHTTPConnector instance.
  */
 var Token = class {
-
     /**
      * This method to set authentication token to APIHTTPConnector instance.
      * @param {APIHTTPConnector} urlConnection A APIHTTPConnector class instance.
      */
-    authenticate(urlConnection) {}
+    authenticate(urlConnection) { }
 }
 
-/**
- * This class gets the tokens and checks the expiry time.
- */
-class OAuthToken extends Token {
+class OAuthBuilder {
+    constructor() {
+        this._clientId = null;
 
-    /**
-     * Creates an OAuthToken class instance with the specified parameters.
-     * @param {String} clientid A String containing the OAuth client id.
-     * @param {String} redirecturl A String containing the OAuth redirect URL.
-     * @param {String} scope A String containing the OAuth scope.
-     */
-    constructor(clientid, redirecturl, scope) {
+        this._redirectUrl = null;
+    
+        this._scope = null;
+    
+        this._accessToken = null;
+    }
 
-        super();
+    clientId(clientID) {
+        Utility.assertNotNull(clientID, Constants.TOKEN_ERROR, Constants.CLIENT_ID_NULL_ERROR_MESSAGE);
 
         var error = {};
 
-        if (typeof clientid !== Constants.STRING) {
+        if (typeof clientID !== Constants.STRING) {
 
             error[Constants.FIELD] = Constants.CLIENT_ID;
 
@@ -1071,7 +1043,17 @@ class OAuthToken extends Token {
             throw new SDKException(Constants.TOKEN_ERROR, null, error, null);
         }
 
-        if (typeof redirecturl !== Constants.STRING) {
+        this._clientId = clientID;
+
+        return this;
+    }
+
+    redirectURL(redirectURL) {
+        Utility.assertNotNull(redirectURL, Constants.TOKEN_ERROR, Constants.REDIRECT_URL_NULL_ERROR_MESSAGE);
+
+        var error = {};
+
+        if (redirectURL != null && typeof redirectURL !== Constants.STRING) {
 
             error[Constants.FIELD] = Constants.REDIRECT_URL;
 
@@ -1081,6 +1063,16 @@ class OAuthToken extends Token {
 
             throw new SDKException(Constants.TOKEN_ERROR, null, error, null);
         }
+
+        this._redirectURL = redirectURL;
+
+        return this;
+    }
+
+    scope(scope) {
+        Utility.assertNotNull(scope, Constants.TOKEN_ERROR, Constants.SCOPE_NULL_ERROR_MESSAGE);
+
+        var error = {};
 
         if (typeof scope !== Constants.STRING) {
 
@@ -1093,11 +1085,59 @@ class OAuthToken extends Token {
             throw new SDKException(Constants.TOKEN_ERROR, null, error, null);
         }
 
+        this._scope = scope;
+
+        return this;
+    }
+
+    accessToken(accessToken) {
+        var error = {};
+        
+        if (typeof accessToken !== Constants.STRING) {
+
+            error[Constants.FIELD] = Constants.ACCESS_TOKEN;
+
+            error[Constants.EXPECTED_TYPE] = Constants.STRING;
+
+            error[Constants.CLASS] = OAuthToken.name;
+
+            throw new SDKException(Constants.TOKEN_ERROR, null, error, null);
+        }
+
+        this._accessToken = accessToken;
+
+        return this;
+    }
+
+    build() {
+        if (this._clientId == null && this._redirectUrl == null && this._scope == null && this._accessToken == null) {
+            throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.MANDATORY_KEY_ERROR, Constants.OAUTH_MANDATORY_KEYS);
+        }
+
+        return new OAuthToken(this._clientId, this._redirectURL, this._scope, this._accessToken);
+    }
+}
+
+
+/**
+ * This class gets the tokens and checks the expiry time.
+ */
+class OAuthToken extends Token {
+    /**
+     * Creates an OAuthToken class instance with the specified parameters.
+     * @param {String} clientid A String containing the OAuth client id.
+     * @param {String} redirecturl A String containing the OAuth redirect URL.
+     * @param {String} scope A String containing the OAuth scope.
+     * @param {String} accessToken A String containing the OAuth access token.
+     */
+    constructor(clientid, redirecturl, scope, accessToken = null) {
+        super();
+
         this._clientId = clientid;
 
         this._redirectUrl = redirecturl;
 
-        this._accessToken = null;
+        this._accessToken = accessToken;
 
         this._scope = scope;
     }
@@ -1107,7 +1147,6 @@ class OAuthToken extends Token {
      * @returns A String representing the OAuth client id.
      */
     getClientId() {
-
         return this._clientId;
     }
 
@@ -1116,7 +1155,6 @@ class OAuthToken extends Token {
      * @returns A String representing the OAuth redirect URL.
      */
     getRedirectUrl() {
-
         return this._redirectUrl;
     }
 
@@ -1125,7 +1163,6 @@ class OAuthToken extends Token {
      * @returns A String representing the access token.
      */
     getAccessToken() {
-
         return this._accessToken;
     }
 
@@ -1134,7 +1171,6 @@ class OAuthToken extends Token {
      * @returns A String containing the access token.
      */
     setAccessToken(accessToken) {
-
         this._accessToken = accessToken;
     }
 
@@ -1143,29 +1179,28 @@ class OAuthToken extends Token {
      * @returns A String representing the oauth scope.
      */
     getScope() {
-
         return this._scope;
     }
 
     async authenticate(urlConnection) {
-
         try {
-
             super.authenticate(urlConnection);
 
-            var oauth_token = await Initializer.store.getToken(this);
+            var token = this._accessToken;
 
-            if (oauth_token.getAccessToken() === null) {
+            if(token == null || token == undefined) {
+                var oauth_token = await Initializer.store.getToken(this);
 
-                throw Constants.INVALID_CLIENT_ERROR;
+                if (oauth_token.getAccessToken() === null) {
+                    throw Constants.INVALID_CLIENT_ERROR;
+                }
+
+                token = oauth_token.getAccessToken();
             }
 
-            var token = Constants.OAUTH_HEADER_PREFIX + oauth_token.getAccessToken();
-
-            urlConnection.addHeader(Constants.AUTHORIZATION, token);
+            urlConnection.addHeader(Constants.AUTHORIZATION, Constants.OAUTH_HEADER_PREFIX + token);
         }
-        catch(err) {
-
+        catch (err) {
             throw new SDKException(Constants.TOKEN_ERROR, Constants.GET_TOKEN_ERROR, null, err);
         }
     }
@@ -1175,14 +1210,11 @@ class OAuthToken extends Token {
  * Common Class to provide or obtain a value, when there are multiple supported values.
  */
 class Choice {
-
     constructor(value) {
-
         this._value = value;
     }
 
     getValue() {
-
         return this._value;
     }
 }
@@ -1191,26 +1223,136 @@ class Choice {
  * This class handles module field details.
  */
 class Utility {
-
-    static moduleAPIName = null;
+    static async assertNotNull(value, errorCode, errorMessage) {
+        if (value == null) {
+            throw new SDKException(errorCode, errorMessage);
+        }
+    }
 
     static isEmpty(obj) {
-
         return Object.keys(obj).length === 0;
     }
 
-    static async getFields(moduleAPIName) {
-        this.moduleAPIName = moduleAPIName;
+    static async fileExistsFlow(moduleAPIName, encodedName, lastModifiedTime) {
+        let recordFieldDetailsJson = await LocalCache.get(encodedName);
 
-        await this.getFieldsInfo(this.moduleAPIName);
+        if (Initializer.sdkConfig.getAutoRefreshFields() == true && !Utility.getModifiedModules && (!(recordFieldDetailsJson.hasOwnProperty(Constants.FIELDS_LAST_MODIFIED_TIME)) || Utility.forceRefresh || (new Date().getTime() - recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME]) > 3600000)) {
+            Utility.getModifiedModules = true;
+
+            lastModifiedTime = !this.forceRefresh && recordFieldDetailsJson.hasOwnProperty(Constants.FIELDS_LAST_MODIFIED_TIME) ? recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME] : null;
+            
+            await Utility.modifyFields(encodedName, lastModifiedTime);
+
+            Utility.getModifiedModules = false;
+        }
+        else if (Initializer.sdkConfig.getAutoRefreshFields() == false && Utility.forceRefresh && !Utility.getModifiedModules) {
+            this.getModifiedModules = true;
+
+            await Utility.modifyFields(encodedName, lastModifiedTime);
+
+            this.getModifiedModules = false;
+        }
+
+        recordFieldDetailsJson = await LocalCache.get(encodedName);
+
+        if (moduleAPIName == null || (recordFieldDetailsJson.hasOwnProperty(moduleAPIName.toLowerCase()) && recordFieldDetailsJson[moduleAPIName.toLowerCase()] != null)) {
+            return;
+        }
+        else {
+            await fillDataType();
+            
+            recordFieldDetailsJson[moduleAPIName.toLowerCase()] = {};
+
+            await LocalCache.set(encodedName, recordFieldDetailsJson);
+
+            let fieldsDetails = await Utility.getFieldsDetails(moduleAPIName);
+
+            recordFieldDetailsJson = await LocalCache.get(encodedName);
+
+            recordFieldDetailsJson[moduleAPIName.toLowerCase()] = fieldsDetails;
+
+            await LocalCache.set(encodedName, recordFieldDetailsJson);
+        }
+    }
+
+    static async verifyModuleAPIName(moduleName) {
+        if (moduleName != null && Constants.DEFAULT_MODULENAME_VS_APINAME.has(moduleName.toLowerCase()) && Constants.DEFAULT_MODULENAME_VS_APINAME.get(moduleName.toLowerCase()) != null) {
+            return Constants.DEFAULT_MODULENAME_VS_APINAME.get(moduleName.toLowerCase());
+        }
+
+        if (Initializer.sdkConfig.getCacheStore()) {
+            let encodedName = new Converter().getEncodedFileName();
+
+            if (await LocalCache.exist()) {
+                let fieldsJSON = await LocalCache.get(encodedName);
+
+                if (fieldsJSON.hasOwnProperty(Constants.SDK_MODULE_METADATA) && fieldsJSON[Constants.SDK_MODULE_METADATA].hasOwnProperty(moduleName.toLowerCase())) {
+                    let moduleMeta = fieldsJSON[Constants.SDK_MODULE_METADATA];
+
+                    return moduleMeta[moduleName.toLowerCase()][Constants.API_NAME];
+                }
+            }
+        }
+        else {
+            if (CommonAPIHandler.recordFieldDetails.has(moduleName.toLowerCase())) {
+                return;
+            }
+
+            if (CommonAPIHandler.recordFieldDetails.has(Constants.SDK_MODULE_METADATA)) {
+                let fieldsJSON = CommonAPIHandler.recordFieldDetails.get(Constants.SDK_MODULE_METADATA);
+                if (fieldsJSON.hasOwnProperty(moduleName.toLowerCase())) {
+                    let moduleMeta = fieldsJSON[Constants.SDK_MODULE_METADATA];
+
+                    return moduleMeta[moduleName.toLowerCase()][Constants.API_NAME];
+                }
+            }
+        }
+
+        return moduleName;
+    }
+
+    static async setHandlerAPIPath(moduleAPIName, handlerInstance) {
+        if (handlerInstance == null) {
+            return;
+        }
+
+        let apiPath = handlerInstance.getAPIPath();
+
+        if (apiPath.toLowerCase().includes(moduleAPIName.toLowerCase())) {
+            let apiPathSplit = apiPath.split("/");
+
+            for (var i = 0; i < apiPathSplit.length; i++) {
+                if (apiPathSplit[i].toLowerCase() == moduleAPIName.toLowerCase()) {
+                    apiPathSplit[i] = moduleAPIName;
+                }
+                else if (Constants.DEFAULT_MODULENAME_VS_APINAME.has(apiPathSplit[i].toLowerCase()) && Constants.DEFAULT_MODULENAME_VS_APINAME.get(apiPathSplit[i].toLowerCase()) != null) {
+                    apiPathSplit[i] = Constants.DEFAULT_MODULENAME_VS_APINAME.get(apiPathSplit[i].toLowerCase());
+                }
+            }
+
+            apiPath = apiPathSplit.join("/");
+
+            handlerInstance.setAPIPath(apiPath);
+        }
     }
 
     /**
      * This method to fetch field details of the current module for the current user and store the result in a JSON file.
-     * @param {string} moduleAPIName A String containing the CRM module API name.
+     * @param {string} moduleAPIName - A String containing the CRM module API name.
+     * @param {CommonAPIHandler} handlerInstance - A String containing CommonAPIHandler Instance.
      */
-    static async getFieldsInfo(moduleAPIName) {
+    static async getFields(moduleAPIName, handlerInstance = null) {
+        this.moduleAPIName = moduleAPIName;
 
+        await this.getFieldsInfo(this.moduleAPIName, handlerInstance);
+    }
+
+    /**
+     * This method to fetch field details of the current module for the current user and store the result in a JSON file.
+     * @param {string} moduleAPIName - A String containing the CRM module API name.
+     * @param {CommonAPIHandler} handlerInstance - A String containing CommonAPIHandler Instance.
+     */
+    static async getFieldsInfo(moduleAPIName, handlerInstance = null) {
         let lastModifiedTime = null;
 
         let encodedName = null;
@@ -1218,102 +1360,68 @@ class Utility {
         await fillDataType();
 
         try {
-
             if (moduleAPIName != null && await Utility.searchJSONDetails(moduleAPIName) != null) {
-
-				return;
+                return;
             }
 
-            if(Initializer.sdkConfig.getCacheStore()) {
+            if(moduleAPIName != null && moduleAPIName != undefined) {
+                moduleAPIName = await Utility.verifyModuleAPIName(moduleAPIName);
 
+                await Utility.setHandlerAPIPath(moduleAPIName, handlerInstance);
+
+                if (handlerInstance != null && handlerInstance.getModuleAPIName() == null && !Constants.SKIP_MODULES.includes(moduleAPIName.toLowerCase())) {
+                    return;
+                }
+            }
+
+            if (Initializer.sdkConfig.getCacheStore()) {
                 encodedName = new Converter().getEncodedFileName();
 
                 if (await LocalCache.exist()) {
-
-                    let recordFieldDetailsJson = await LocalCache.get(encodedName);
-
-                    if(Initializer.sdkConfig.getAutoRefreshFields() == true && !Utility.getModifiedModules && (!(recordFieldDetailsJson.hasOwnProperty(Constants.FIELDS_LAST_MODIFIED_TIME)) || Utility.forceRefresh || (new Date().getTime() - recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME]) > 3600000)) {
-
-                        Utility.getModifiedModules = true;
-
-                        lastModifiedTime = recordFieldDetailsJson.hasOwnProperty(Constants.FIELDS_LAST_MODIFIED_TIME) ? recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME] : null;
-
-                        await Utility.modifyFields(lastModifiedTime);
-
-                        Utility.getModifiedModules = false;
-                    }
-                    else if(Initializer.sdkConfig.getAutoRefreshFields() == false && Utility.forceRefresh && !Utility.getModifiedModules) {
-
-                        this.getModifiedModules = true;
-
-                        await Utility.modifyFields(lastModifiedTime);
-
-                        this.getModifiedModules = false;
-                    }
-
-                    recordFieldDetailsJson = await LocalCache.get(encodedName);
-
-                    if(moduleAPIName == null || recordFieldDetailsJson.hasOwnProperty(moduleAPIName.toLowerCase())) {
-
-                        return;
-                    }
-                    else {
-
-                        recordFieldDetailsJson[moduleAPIName.toLowerCase()] = {};
-
-                        await LocalCache.set(encodedName, recordFieldDetailsJson);
-
-                        let fieldsDetails = await Utility.getFieldsDetails(moduleAPIName.toLowerCase());
-
-                        recordFieldDetailsJson = await LocalCache.get(encodedName);
-
-                        recordFieldDetailsJson[moduleAPIName.toLowerCase()] = fieldsDetails;
-
-                        await LocalCache.set(encodedName, recordFieldDetailsJson);
-                    }
+                    await Utility.fileExistsFlow(moduleAPIName, encodedName, lastModifiedTime);
                 }
-                else if(Initializer.sdkConfig.getAutoRefreshFields() == true) {
-
+                else if (Initializer.sdkConfig.getAutoRefreshFields() == true) {
                     await fillDataType();
 
-                    this.apiSupportedModule = this.apiSupportedModule.size > 0 ? this.apiSupportedModule : await this.getAllModules(null);
+                    this.apiSupportedModule = this.apiSupportedModule.size > 0 ? this.apiSupportedModule : await this.getModules(null);
 
-                    let recordFieldDetailsJson = {};
+                    let recordFieldDetailsJson = await LocalCache.exist() ? await LocalCache.get(encodedName) : {};
 
                     recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME] = new Date().getTime();
 
-                    for(let module of this.apiSupportedModule.keys()) {
+                    if (Object.keys(this.apiSupportedModule).length > 0) {
+                        for (let module in this.apiSupportedModule) {
+                            if (!recordFieldDetailsJson.hasOwnProperty(module)) {
+                                let moduleData = this.apiSupportedModule[module];
 
-                        if(!recordFieldDetailsJson.hasOwnProperty(module)) {
+                                recordFieldDetailsJson[module] = {};
 
-                            recordFieldDetailsJson[module] = {};
+                                await LocalCache.set(encodedName, recordFieldDetailsJson);
 
-                            await LocalCache.set(encodedName, recordFieldDetailsJson);
+                                let fieldsDetails = await Utility.getFieldsDetails(moduleData[Constants.API_NAME]);
 
-                            let fieldsDetails = await Utility.getFieldsDetails(module);
+                                recordFieldDetailsJson = await LocalCache.get(encodedName);
 
-                            recordFieldDetailsJson = await LocalCache.get(encodedName);
+                                recordFieldDetailsJson[module] = fieldsDetails;
 
-                            recordFieldDetailsJson[module] = fieldsDetails;
-
-                            await LocalCache.set(encodedName, recordFieldDetailsJson);
+                                await LocalCache.set(encodedName, recordFieldDetailsJson);
+                            }
                         }
                     }
                 }
-                else if(Utility.forceRefresh && !Utility.getModifiedModules) {
-
+                else if (Utility.forceRefresh && !Utility.getModifiedModules) {
+                    //New file - and force refresh by Users
                     Utility.getModifiedModules = true;
 
                     let recordFieldDetailsJson = {};
 
                     await LocalCache.set(encodedName, recordFieldDetailsJson);
 
-                    await Utility.modifyFields(lastModifiedTime);
+                    await Utility.modifyFields(encodedName, lastModifiedTime);
 
                     Utility.getModifiedModules = false;
                 }
                 else {
-
                     await fillDataType();
 
                     let recordFieldDetailsJson = {};
@@ -1322,7 +1430,7 @@ class Utility {
 
                     await LocalCache.set(encodedName, recordFieldDetailsJson);
 
-                    let fieldsDetails = await Utility.getFieldsDetails(moduleAPIName.toLowerCase());
+                    let fieldsDetails = await Utility.getFieldsDetails(moduleAPIName);
 
                     recordFieldDetailsJson = await LocalCache.get(encodedName);
 
@@ -1332,40 +1440,32 @@ class Utility {
                 }
             }
             else {
-
                 if (CommonAPIHandler.recordFieldDetails.has(moduleAPIName.toLowerCase())) {
-
                     return;
                 }
 
                 CommonAPIHandler.recordFieldDetails.set(moduleAPIName.toLowerCase(), {});
 
-                let fieldDetails = await Utility.getFieldsDetails(moduleAPIName.toLowerCase());
+                let fieldDetails = await Utility.getFieldsDetails(moduleAPIName);
 
                 CommonAPIHandler.recordFieldDetails.set(moduleAPIName.toLowerCase(), fieldDetails);
             }
         }
-        catch(error) {
-
-            if(Initializer.sdkConfig.getCacheStore()) {
-
+        catch (error) {
+            if (Initializer.sdkConfig.getCacheStore()) {
                 if (await LocalCache.exist()) {
-
                     let recordFieldDetailsJson = await LocalCache.get(encodedName);
 
-                    if(recordFieldDetailsJson.hasOwnProperty(moduleAPIName.toLowerCase())){
-
+                    if (recordFieldDetailsJson.hasOwnProperty(moduleAPIName.toLowerCase())) {
                         delete recordFieldDetailsJson[moduleAPIName.toLowerCase()];
                     }
 
-                    if(Utility.forceRefresh || Utility.getModifiedModules) {
-
+                    if (Utility.forceRefresh || Utility.getModifiedModules) {
                         Utility.getModifiedModules = false;
 
                         Utility.forceRefresh = false;
 
-                        if(lastModifiedTime != null){
-
+                        if (lastModifiedTime != null) {
                             recordFieldDetailsJson[Constants.FIELDS_LAST_MODIFIED_TIME] = lastModifiedTime;
                         }
                     }
@@ -1374,8 +1474,7 @@ class Utility {
                 }
             }
 
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -1385,11 +1484,8 @@ class Utility {
         }
     }
 
-    static async modifyFields(modifiedTime) {
-
-        var encodedName = new Converter().getEncodedFileName();
-
-        let modifiedModules = await this.getAllModules(modifiedTime);
+    static async modifyFields(encodedName, modifiedTime) {
+        let modifiedModules = await this.getModules(modifiedTime);
 
         let recordFieldDetailsJson = await LocalCache.get(encodedName);
 
@@ -1397,90 +1493,75 @@ class Utility {
 
         await LocalCache.set(encodedName, recordFieldDetailsJson);
 
-        if(modifiedModules.size > 0) {
-
-            for(let module of modifiedModules.keys()) {
-
-                if(recordFieldDetailsJson.hasOwnProperty(module)) {
-
+        if (Object.keys(modifiedModules).length > 0) {
+            for (let module in modifiedModules) {
+                if (recordFieldDetailsJson.hasOwnProperty(module)) {
                     await this.deleteFields(recordFieldDetailsJson, module);
                 }
             }
 
             await LocalCache.set(encodedName, recordFieldDetailsJson);
 
-            for(let module of modifiedModules.keys()) {
+            for (let module in modifiedModules) {
+                let moduleMeta = modifiedModules[module];
 
-                await Utility.getFieldsInfo(module);
+                await Utility.getFieldsInfo(moduleMeta[Constants.API_NAME]);
             }
         }
     }
 
     static async deleteFields(recordFieldDetailsJson, module) {
-
         let subformModules = [];
 
         let fieldsJSON = recordFieldDetailsJson[module.toLowerCase()];
 
         for (let keyName of Object.keys(fieldsJSON)) {
-
-            if(fieldsJSON[keyName].hasOwnProperty(Constants.SUBFORM) && fieldsJSON[keyName][Constants.SUBFORM] == true) {
-
-                subformModules.push(fieldsJSON[keyName][Constants.MODULE.toLowerCase()]);
+            if (fieldsJSON[keyName].hasOwnProperty(Constants.SUBFORM) && fieldsJSON[keyName][Constants.SUBFORM] == true && recordFieldDetailsJson.hasOwnProperty((fieldsJSON[keyName][Constants.MODULE]).toLowerCase())) {
+                subformModules.push(fieldsJSON[keyName][Constants.MODULE]);
             }
         }
 
         delete recordFieldDetailsJson[module.toLowerCase()];
 
-        if(subformModules.length > 0) {
-
-            for(let subformModule of subformModules) {
-
+        if (subformModules.length > 0) {
+            for (let subformModule of subformModules) {
                 await this.deleteFields(recordFieldDetailsJson, subformModule);
             }
         }
     }
 
     static async getRelatedLists(relatedModuleName, moduleAPIName, commonAPIHandler) {
-
-		try {
-
+        try {
             let isnewData = false;
 
-			let key = (moduleAPIName + Constants.UNDERSCORE + Constants.RELATED_LISTS).toLowerCase();
+            let key = (moduleAPIName + Constants.UNDERSCORE + Constants.RELATED_LISTS).toLowerCase();
 
             await fillDataType();
 
-            if(Initializer.sdkConfig.getCacheStore()) {
-
+            if (Initializer.sdkConfig.getCacheStore()) {
                 var encodedName = new Converter().getEncodedFileName();
 
-                if (! await LocalCache.exist()) {
+                let recordFieldDetailsJSON = null;
 
-                    await LocalCache.set(encodedName, {});
-                }
-
-                let JSONDetails = await LocalCache.get(encodedName);
-
-                if(!JSONDetails.hasOwnProperty(key)) {
-
+                if ( !await LocalCache.exist() || (await LocalCache.exist() && (!(await LocalCache.get(encodedName)).hasOwnProperty(key) || (await LocalCache.get(encodedName))[key] == null || (await LocalCache.get(encodedName))[key].length <= 0 ))) {
                     isnewData = true;
 
-                    let relatedListValues1 = await Utility.getRelatedListDetails(moduleAPIName);
+                    moduleAPIName = await Utility.verifyModuleAPIName(moduleAPIName);
 
-                    let recordFieldDetailsJSON1 = await LocalCache.get(encodedName);
+                    let relatedListValues = await Utility.getRelatedListDetails(moduleAPIName);
 
-                    recordFieldDetailsJSON1[key] = relatedListValues1;
+                    recordFieldDetailsJSON = await LocalCache.exist() ? await LocalCache.get(encodedName) : {};
 
-                    await LocalCache.set(encodedName, recordFieldDetailsJSON1);
+                    recordFieldDetailsJSON[key] = relatedListValues;
+
+                    await LocalCache.set(encodedName, recordFieldDetailsJSON);
                 }
 
-                let recordFieldDetailsJSON = await LocalCache.get(encodedName);
+                recordFieldDetailsJSON = await LocalCache.get(encodedName);
 
-                let moduleRelatedList = recordFieldDetailsJSON[key];
+                let moduleRelatedList = recordFieldDetailsJSON.hasOwnProperty(key) ? recordFieldDetailsJSON[key] : {};
 
-                if(!(await Utility.checkRelatedListExists(relatedModuleName, moduleRelatedList, commonAPIHandler)) && !isnewData) {
-
+                if (!(await Utility.checkRelatedListExists(relatedModuleName, moduleRelatedList, commonAPIHandler)) && !isnewData) {
                     delete recordFieldDetailsJSON[key];
 
                     await LocalCache.set(encodedName, recordFieldDetailsJSON);
@@ -1488,30 +1569,28 @@ class Utility {
                     await Utility.getRelatedLists(relatedModuleName, moduleAPIName, commonAPIHandler);
                 }
             }
-            else if (CommonAPIHandler.recordFieldDetails.has(key)) {
+            else {
+                if (CommonAPIHandler.recordFieldDetails.size <= 0 || (CommonAPIHandler.recordFieldDetails.size > 0 && (!CommonAPIHandler.recordFieldDetails.has(key) || CommonAPIHandler.recordFieldDetails.get(key) == null || CommonAPIHandler.recordFieldDetails.get(key).length <= 0 ))) {
+                    isnewData = true;
 
-                let moduleRelatedList = CommonAPIHandler.recordFieldDetails.get(key);
+                    moduleAPIName = await Utility.verifyModuleAPIName(moduleAPIName);
 
-                if (! await Utility.checkRelatedListExists(relatedModuleName, moduleRelatedList, commonAPIHandler)) {
+                    let relatedListValues = await Utility.getRelatedListDetails(moduleAPIName);
+
+                    CommonAPIHandler.recordFieldDetails.set(key, relatedListValues);
+                }
+
+                let moduleRelatedList = CommonAPIHandler.recordFieldDetails.has(key) ? CommonAPIHandler.recordFieldDetails.get(key) : {};
+
+                if (! (await Utility.checkRelatedListExists(relatedModuleName, moduleRelatedList, commonAPIHandler)) && !isnewData) {
+                    CommonAPIHandler.recordFieldDetails.delete(key);
 
                     await Utility.getRelatedLists(relatedModuleName, moduleAPIName, commonAPIHandler);
                 }
             }
-            else {
-
-                CommonAPIHandler.recordFieldDetails.set(key, {});
-
-                let relatedListValues = await Utility.getRelatedListDetails(moduleAPIName);
-
-                CommonAPIHandler.recordFieldDetails.set(key, relatedListValues);
-
-                await Utility.getRelatedLists(relatedModuleName, moduleAPIName, commonAPIHandler);
-            }
         }
-        catch(error) {
-
-            if(!(error instanceof SDKException)) {
-
+        catch (error) {
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -1521,71 +1600,59 @@ class Utility {
         }
     }
 
-    static async checkRelatedListExists(relatedModuleName, modulerelatedListJA, commonAPIHandler) {
+    static async checkRelatedListExists(relatedModuleName, modulerelatedListArray, commonAPIHandler) {
+        for (let index = 0; index < modulerelatedListArray.length; index++) {
+            let relatedListObject = modulerelatedListArray[index];
 
-		for (let index = 0; index < modulerelatedListJA.length; index++) {
-
-			let relatedListJO = modulerelatedListJA[index];
-
-			if (relatedListJO[Constants.API_NAME] != null && relatedListJO[Constants.API_NAME].toLowerCase() == relatedModuleName.toLowerCase()) {
-
-                if(relatedListJO[Constants.HREF].toString().toLowerCase() == Constants.NULL_VALUE) {
-
-					throw new SDKException(Constants.UNSUPPORTED_IN_API, commonAPIHandler.getHttpMethod() + " " + commonAPIHandler.getAPIPath() + Constants.UNSUPPORTED_IN_API_MESSAGE);
-				}
-
-				if(relatedListJO[Constants.MODULE.toLowerCase()].toString().toLowerCase() != Constants.NULL_VALUE)
-				{
-					commonAPIHandler.setModuleAPIName(relatedListJO[Constants.MODULE.toLowerCase()]);
-
-				    await Utility.getFieldsInfo(relatedListJO[Constants.MODULE.toLowerCase()]);
+            if (relatedListObject[Constants.API_NAME] != null && relatedListObject[Constants.API_NAME].toLowerCase() == relatedModuleName.toLowerCase()) {
+                if (relatedListObject[Constants.HREF].toString().toLowerCase() == Constants.NULL_VALUE) {
+                    throw new SDKException(Constants.UNSUPPORTED_IN_API, commonAPIHandler.getHttpMethod() + " " + commonAPIHandler.getAPIPath() + Constants.UNSUPPORTED_IN_API_MESSAGE);
                 }
 
-				return true;
-			}
-		}
+                if (relatedListObject[Constants.MODULE].toString().toLowerCase() != Constants.NULL_VALUE) {
+                    commonAPIHandler.setModuleAPIName(relatedListObject[Constants.MODULE]);
 
-		return false;
-	}
+                    await Utility.getFieldsInfo(relatedListObject[Constants.MODULE], commonAPIHandler);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     static async getRelatedListDetails(moduleAPIName) {
-
-        var relatedListJA = [];
+        var relatedListArray = [];
 
         var response = await new ZCRM.RelatedList.Operations(moduleAPIName).getRelatedLists();
 
-		if (response != null) {
-
-			if (response.getStatusCode() == Constants.NO_CONTENT_STATUS_CODE) {
-
-				return relatedListJA;
+        if (response != null) {
+            if (response.getStatusCode() == Constants.NO_CONTENT_STATUS_CODE) {
+                return relatedListArray;
             }
 
             let responseObject = await response.getObject();
 
-            if(responseObject != null) {
-
+            if (responseObject != null) {
                 if (responseObject instanceof ZCRM.RelatedList.Model.ResponseWrapper) {
-
                     let relatedLists = await responseObject.getRelatedLists();
 
-                    for (let relatedList in relatedLists) {
-
+                    for (let relatedList of relatedLists) {
                         let relatedListDetail = {};
 
-                        relatedListDetail[Constants.API_NAME] = await relatedLists[relatedList].getAPIName();
+                        relatedListDetail[Constants.API_NAME] = await relatedList.getAPIName();
 
-                        relatedListDetail[Constants.MODULE.toLowerCase()] = await relatedLists[relatedList].getModule() != null ?relatedLists[relatedList].getModule() : Constants.NULL_VALUE;
+                        relatedListDetail[Constants.MODULE] = await relatedList.getModule() != null ? relatedList.getModule() : Constants.NULL_VALUE;
 
-                        relatedListDetail[Constants.NAME] = await relatedLists[relatedList].getName();
+                        relatedListDetail[Constants.NAME] = await relatedList.getName();
 
-                        relatedListDetail[Constants.HREF] = await relatedLists[relatedList].getHref() != null ? relatedLists[relatedList].getHref() : Constants.NULL_VALUE ;
+                        relatedListDetail[Constants.HREF] = await relatedList.getHref() != null ? relatedList.getHref() : Constants.NULL_VALUE;
 
-                        relatedListJA.push(relatedListDetail);
+                        relatedListArray.push(relatedListDetail);
                     }
                 }
-                else if (responseObject instanceof ZCRM.RelatedList.Model.APIException)
-                {
+                else if (responseObject instanceof ZCRM.RelatedList.Model.APIException) {
                     let errorResponse = {};
 
                     errorResponse.code = await responseObject.getCode().getValue();
@@ -1598,16 +1665,15 @@ class Utility {
                 }
             }
             else {
-
                 let errorResponse = {};
 
-                errorResponse[Constants.CODE] = response.getStatusCode();
+                errorResponse.code = response.getStatusCode();
 
                 throw new SDKException(Constants.API_EXCEPTION, null, errorResponse);
             }
-		}
+        }
 
-		return relatedListJA;
+        return relatedListArray;
     }
 
     /**
@@ -1616,7 +1682,6 @@ class Utility {
      * @returns {object} A Object representing the Zoho CRM module field details.
      */
     static async getFieldsDetails(moduleAPIName) {
-
         var fields = {};
 
         var fieldsDetails = {};
@@ -1625,27 +1690,21 @@ class Utility {
 
         var response = await fieldOperation.getFields(null);
 
-        if(response != null) {
-
+        if (response != null) {
             if (response.getStatusCode() == Constants.NO_CONTENT_STATUS_CODE) {
-
-				return fieldsDetails;
+                return fieldsDetails;
             }
 
             let responseObject = await response.getObject();
 
-            if(responseObject != null) {
-
-                if(responseObject instanceof ZCRM.Field.Model.ResponseWrapper) {
-
+            if (responseObject != null) {
+                if (responseObject instanceof ZCRM.Field.Model.ResponseWrapper) {
                     fields = await responseObject.getFields();
 
                     for(let field of fields) {
-
                         let keyName = await field.getAPIName();
 
-                        if(Constants.KEYS_TO_SKIP.includes(keyName)){
-
+                        if (Constants.KEYS_TO_SKIP.includes(keyName)) {
                             continue;
                         }
 
@@ -1657,7 +1716,6 @@ class Utility {
                     }
 
                     if (Constants.INVENTORY_MODULES.includes(moduleAPIName.toLowerCase())) {
-
                         let fieldDetail = {};
 
                         fieldDetail.name = Constants.LINE_TAX;
@@ -1666,19 +1724,16 @@ class Utility {
 
                         fieldDetail.structure_name = Constants.LINE_TAX_NAMESPACE;
 
-                        fieldsDetails[Constants.LOOKUP] = true;
-
                         fieldsDetails[Constants.LINE_TAX] = fieldDetail;
                     }
                     if (Constants.NOTES.toLowerCase() == moduleAPIName.toLowerCase()) {
-
                         let fieldDetail = {};
 
-                        fieldDetail.name =  Constants.ATTACHMENTS;
+                        fieldDetail.name = Constants.ATTACHMENTS;
 
                         fieldDetail.type = Constants.LIST_NAMESPACE;
 
-                        fieldDetail.structure_name =  Constants.ATTACHMENTS_NAMESPACE;
+                        fieldDetail.structure_name = Constants.ATTACHMENTS_NAMESPACE;
 
                         fieldsDetails[Constants.ATTACHMENTS] = fieldDetail;
                     }
@@ -1694,7 +1749,7 @@ class Utility {
 
                     let exception = new SDKException(Constants.API_EXCEPTION, null, errorResponse);
 
-                    if(this.moduleAPIName.toLowerCase() == moduleAPIName.toLowerCase()) {
+                    if (this.moduleAPIname != null && this.moduleAPIName.toLowerCase() == moduleAPIName.toLowerCase()) {
                         throw exception;
                     }
 
@@ -1702,10 +1757,9 @@ class Utility {
                 }
             }
             else {
-
                 let errorResponse = {};
 
-                errorResponse[Constants.CODE] = response.getStatusCode();
+                errorResponse.code = response.getStatusCode();
 
                 throw new SDKException(Constants.API_EXCEPTION, null, errorResponse);
             }
@@ -1714,80 +1768,11 @@ class Utility {
         return fieldsDetails;
     }
 
-    static async verifyPhotoSupport(moduleAPIName) {
-        return;
-    }
-
-    static async getAllModules(header) {
-
-        let apiNames = new Map();
-
-        let headerMap = new HeaderMap();
-
-        if(header !== null) {
-
-            await headerMap.add(ZCRM.Module.Model.GetModulesHeader.IF_MODIFIED_SINCE, new Date(header))
-        }
-
-        let response = await new ZCRM.Module.Operations().getModules(headerMap);
-
-        if(response !== null) {
-
-            if([Constants.NO_CONTENT_STATUS_CODE, Constants.NOT_MODIFIED_STATUS_CODE].includes(response.getStatusCode())) {
-
-                return apiNames;
-            }
-
-            let responseObject = await response.getObject();
-
-            if(responseObject !== null) {
-
-                if(responseObject instanceof ZCRM.Module.Model.ResponseWrapper) {
-
-                    let modules = responseObject.getModules();
-
-                    for(let module of modules) {
-
-                        if(module.getAPISupported() === true){
-
-                            apiNames.set(module.getAPIName().toLowerCase(), module.getGeneratedType().getValue());
-                        }
-                    }
-                }
-                else if(responseObject instanceof ZCRM.Module.Model.APIException) {
-
-                    let errorResponse = {};
-
-                    errorResponse[Constants.CODE] = responseObject.getCode().getValue();
-
-                    errorResponse[Constants.STATUS] = responseObject.getStatus().getValue();
-
-                    errorResponse[Constants.MESSAGE] = responseObject.getMessage().getValue();
-
-                    throw new SDKException(Constants.API_EXCEPTION, null, errorResponse);
-                }
-            }
-            else {
-
-                let errorResponse = {};
-
-                errorResponse[Constants.CODE] = response.getStatusCode();
-
-                throw new SDKException(Constants.API_EXCEPTION, null, errorResponse, null);
-            }
-        }
-
-        return apiNames;
-    }
-
     static async searchJSONDetails(key) {
+        key = Constants.PACKAGE_NAMESPACE + key;
 
-        key =  Constants.PACKAGE_NAMESPACE + key;
-
-        for(let keyInJSON in classDetailMap) {
-
-            if(keyInJSON.toLowerCase() === key.toLowerCase()) {
-
+        for (let keyInJSON in classDetailMap) {
+            if (keyInJSON.toLowerCase() === key.toLowerCase()) {
                 let returnJSON = {};
 
                 returnJSON[Constants.MODULEPACKAGENAME] = keyInJSON;
@@ -1801,8 +1786,172 @@ class Utility {
         return null;
     }
 
-    static async refreshModules() {
+    static async verifyPhotoSupport(moduleAPIName) {
+        try {
+            moduleAPIName = await Utility.verifyModuleAPIName(moduleAPIName);
 
+            if (Constants.PHOTO_SUPPORTED_MODULES.includes(moduleAPIName.toLowerCase())) {
+                return true;
+            }
+
+            let modules = await Utility.getModuleNames();
+
+            if (modules.hasOwnProperty(moduleAPIName.toLowerCase()) && modules[moduleAPIName.toLowerCase()] != null) {
+                let moduleMetaData = modules[moduleAPIName.toLowerCase()];
+
+                if (moduleMetaData.hasOwnProperty(Constants.GENERATED_TYPE) && moduleMetaData[Constants.GENERATED_TYPE] != Constants.GENERATED_TYPE_CUSTOM) {
+                    throw new SDKException(Constants.UPLOAD_PHOTO_UNSUPPORTED_ERROR, Constants.UPLOAD_PHOTO_UNSUPPORTED_MESSAGE + moduleAPIName);
+                }
+            }
+        }
+        catch (error) {
+            if (!(error instanceof SDKException)) {
+                error = new SDKException(null, null, null, error);
+            }
+
+            Logger.error(Constants.EXCEPTION, error);
+
+            throw error;
+        }
+
+        return true;
+    }
+
+    static async getModuleNames() {
+        let moduleData = {};
+
+        if (Initializer.sdkConfig.getCacheStore()) {
+            let encodedName = new Converter().getEncodedFileName();
+
+            if (!await LocalCache.exist()) {
+                moduleData = await Utility.getModules(null);
+
+                await Utility.writeModuleMetaData(encodedName, moduleData);
+
+                return moduleData;
+            }
+            else if (await LocalCache.exist()) {
+                let recordFieldDetailsJson = await LocalCache.get(encodedName);
+
+                if (!recordFieldDetailsJson.hasOwnProperty(Constants.SDK_MODULE_METADATA) || (recordFieldDetailsJson.hasOwnProperty(Constants.SDK_MODULE_METADATA) && (recordFieldDetailsJson[Constants.SDK_MODULE_METADATA] == null || Object.keys(recordFieldDetailsJson[Constants.SDK_MODULE_METADATA]).length <= 0))) {
+                    moduleData = await Utility.getModules(null);
+
+                    await Utility.writeModuleMetaData(encodedName, moduleData);
+
+                    return moduleData;
+                }
+            }
+
+            let recordFieldDetailsJson = await LocalCache.get(encodedName);
+
+            return recordFieldDetailsJson[Constants.SDK_MODULE_METADATA];
+        }
+        else {
+            if (CommonAPIHandler.recordFieldDetails.size <= 0) {
+                return moduleData;
+            }
+
+            if (!CommonAPIHandler.recordFieldDetails.has(Constants.SDK_MODULE_METADATA) || (CommonAPIHandler.recordFieldDetails.has(Constants.SDK_MODULE_METADATA) && (CommonAPIHandler.recordFieldDetails.get(Constants.SDK_MODULE_METADATA) == null || Object.keys(CommonAPIHandler.recordFieldDetails.get(Constants.SDK_MODULE_METADATA)).length <= 0))) {
+                moduleData = await Utility.getModules(null);
+
+                CommonAPIHandler.recordFieldDetails.set(Constants.SDK_MODULE_METADATA, moduleData);
+
+                return moduleData;
+            }
+
+            return CommonAPIHandler.recordFieldDetails.get(Constants.SDK_MODULE_METADATA);
+        }
+    }
+
+    static async writeModuleMetaData(encodedName, moduleData) {
+        let fieldDetailsJSON = await LocalCache.exist() ? await LocalCache.get(encodedName) : {};
+
+        fieldDetailsJSON[Constants.SDK_MODULE_METADATA] = moduleData;
+
+        await LocalCache.set(encodedName, fieldDetailsJSON);
+    }
+
+    static async getModules(header) {
+        let apiNames = {};
+
+        let headerMap = new HeaderMap();
+
+        if (header !== null) {
+            await headerMap.add(ZCRM.Module.Model.GetModulesHeader.IF_MODIFIED_SINCE, new Date(header))
+        }
+
+        let response = await new ZCRM.Module.Operations().getModules(headerMap);
+
+        if (response !== null) {
+            if ([Constants.NO_CONTENT_STATUS_CODE, Constants.NOT_MODIFIED_STATUS_CODE].includes(response.getStatusCode())) {
+                return apiNames;
+            }
+
+            let responseObject = await response.getObject();
+
+            if (responseObject !== null) {
+                if (responseObject instanceof ZCRM.Module.Model.ResponseWrapper) {
+                    let modules = responseObject.getModules();
+
+                    modules.forEach(async module => {
+                        if (module.getAPISupported() == true) {
+                            let moduleDetails = {};
+
+                            moduleDetails[Constants.API_NAME] = await module.getAPIName();
+
+                            moduleDetails[Constants.GENERATED_TYPE] = await module.getGeneratedType().getValue();
+
+                            apiNames[await module.getAPIName().toLowerCase()] = moduleDetails;
+                        }
+                    });
+                }
+                else if (responseObject instanceof ZCRM.Module.Model.APIException) {
+                    let errorResponse = {};
+
+                    errorResponse.code = responseObject.getCode().getValue();
+
+                    errorResponse.status = responseObject.getStatus().getValue();
+
+                    errorResponse.message = responseObject.getMessage().getValue();
+
+                    throw new SDKException(Constants.API_EXCEPTION, null, errorResponse);
+                }
+            }
+            else {
+                let errorResponse = {};
+
+                errorResponse.code = response.getStatusCode();
+
+                throw new SDKException(Constants.API_EXCEPTION, null, errorResponse, null);
+            }
+        }
+
+        if (header == null) {
+            try {
+                if (Initializer.sdkConfig.getCacheStore()) {
+                    let encodedName = new Converter().getEncodedFileName();
+
+                    await Utility.writeModuleMetaData(encodedName, apiNames);
+                }
+                else {
+                    CommonAPIHandler.recordFieldDetails.set(Constants.SDK_MODULE_METADATA, apiNames);
+                }
+            }
+            catch (error) {
+                if (!(error instanceof SDKException)) {
+                    error = new SDKException(null, null, null, error);
+                }
+
+                Logger.error(Constants.EXCEPTION, error);
+
+                throw error;
+            }
+        }
+
+        return apiNames;
+    }
+
+    static async refreshModules() {
         Utility.forceRefresh = true;
 
         await Utility.getFieldsInfo(null);
@@ -1811,185 +1960,159 @@ class Utility {
     }
 
     static async getJSONObject(json, key) {
-
-        if(json.has(key)) {
-
+        if (json.has(key)) {
             return json.get(key);
         }
 
         return null;
     }
 
-    static async setDataType(fieldDetail, field, moduleAPIName){
+    static async setDataType(fieldDetail, field, moduleAPIName) {
+        var apiType = field.getDataType();
 
-            var apiType = field.getDataType();
+        var keyName = field.getAPIName();
 
-            var keyName = field.getAPIName();
+        var module = "";
 
-            var module = "";
+        if (field.getSystemMandatory() !== null && field.getSystemMandatory() === true && !(moduleAPIName.toLowerCase() === Constants.CALLS && keyName.toLowerCase() === Constants.CALL_DURATION)) {
+            fieldDetail.required = true;
+        }
 
-            if(field.getSystemMandatory() !== null && field.getSystemMandatory() === true && !(moduleAPIName.toLowerCase() === Constants.CALLS.toLowerCase() && keyName.toLowerCase() === Constants.CALL_DURATION.toLowerCase())) {
-
-                fieldDetail[Constants.REQUIRED] = true;
-            }
-
-            if(keyName.toLowerCase() === Constants.PRODUCT_DETAILS.toLowerCase() && Constants.INVENTORY_MODULES.includes(moduleAPIName.toLowerCase())) {
-
-                fieldDetail.name = keyName;
-
-                fieldDetail.type = Constants.LIST_NAMESPACE;
-
-                fieldDetail.structure_name = Constants.INVENTORY_LINE_ITEMS;
-
-                fieldDetail[Constants.SKIP_MANDATORY] = true;
-
-                return;
-            }
-            else if(keyName.toLowerCase() === Constants.PRICING_DETAILS.toLowerCase() && moduleAPIName.toLowerCase() == Constants.PRICE_BOOKS.toLowerCase()) {
-
-                fieldDetail.name = keyName;
-
-                fieldDetail.type = Constants.LIST_NAMESPACE;
-
-                fieldDetail.structure_name = Constants.PRICINGDETAILS;
-
-                fieldDetail[Constants.SKIP_MANDATORY] = true;
-
-                return;
-            }
-            else if(keyName.toLowerCase() === Constants.PARTICIPANT_API_NAME.toLowerCase() && (moduleAPIName.toLowerCase() === Constants.EVENTS.toLowerCase() || moduleAPIName.toLowerCase() === Constants.ACTIVITIES.toLowerCase())) {
-
-                fieldDetail.name = keyName;
-
-                fieldDetail.type = Constants.LIST_NAMESPACE;
-
-                fieldDetail.structure_name = Constants.PARTICIPANTS;
-
-                fieldDetail[Constants.SKIP_MANDATORY] = true;
-
-                return;
-            }
-            else if (keyName.toLowerCase() === Constants.COMMENTS.toLowerCase() && (moduleAPIName.toLowerCase() === Constants.SOLUTIONS.toLowerCase() || moduleAPIName.toLowerCase() === Constants.CASES.toLowerCase())) {
-
-                fieldDetail.name = keyName;
-
-                fieldDetail.type = Constants.LIST_NAMESPACE;
-
-                fieldDetail.structure_name = Constants.COMMENT_NAMESPACE;
-
-                fieldDetail[Constants.LOOKUP] = true;
-
-                return;
-            }
-            else if(keyName.toLowerCase() === Constants.LAYOUT.toLowerCase()) {
-
-                fieldDetail.name = keyName;
-
-                fieldDetail.type = Constants.LAYOUT_NAMESPACE;
-
-                fieldDetail.structure_name = Constants.LAYOUT_NAMESPACE;
-
-                fieldDetail[Constants.LOOKUP] = true;
-
-                return;
-            }
-            else if(Utility.apiTypeVsdataType.has(apiType)) {
-
-                fieldDetail.type = Utility.apiTypeVsdataType.get(apiType);
-            }
-            else if(apiType.toLowerCase() === Constants.FORMULA.toLowerCase())
-            {
-                if(field.getFormula() !== null)
-                {
-                    let returnType = field.getFormula().getReturnType();
-
-                    if(Utility.apiTypeVsdataType.get(returnType) !== null)
-                    {
-                        fieldDetail.type = Utility.apiTypeVsdataType.get(returnType);
-                    }
-                }
-
-                fieldDetail[Constants.READ_ONLY] = true;
-            }
-            else {
-
-                return;
-            }
-
-            if(apiType.toLowerCase().includes(Constants.LOOKUP)) {
-
-                fieldDetail[Constants.LOOKUP] = true;
-            }
-
-            if(apiType.toLowerCase() === Constants.CONSENT_LOOKUP) {
-
-                fieldDetail.skip_mandatory = true;
-            }
-
-            if(Utility.apiTypeVsStructureName.has(apiType)) {
-
-                fieldDetail.structure_name = Utility.apiTypeVsStructureName.get(apiType);
-            }
-
-            if(apiType.toLowerCase() === Constants.PICKLIST && field.getPickListValues() !== null && field.getPickListValues().length > 0) {
-
-                let values = [];
-
-                fieldDetail[Constants.PICKLIST] = true;
-
-                field.getPickListValues().every(x => values.push(x.getDisplayValue()));
-
-                fieldDetail.values = values;
-            }
-
-            if(apiType.toLowerCase() === Constants.SUBFORM.toLowerCase()) {
-
-                if(field.getSubform() !== null) {
-
-                    module = field.getSubform().getModule();
-
-                    fieldDetail[Constants.MODULE.toLowerCase()] = module;
-
-                    fieldDetail[Constants.SKIP_MANDATORY] = true;
-
-                    fieldDetail[Constants.SUBFORM] = true;
-                }
-            }
-
-            if(apiType === Constants.LOOKUP) {
-
-                if(field.getLookup() !== null)
-                {
-                    module = field.getLookup().getModule();
-
-                    if(module !== null && module !== Constants.SE_MODULE) {
-
-                        fieldDetail[Constants.MODULE.toLowerCase()] = module;
-
-                        if(module.toLowerCase() === Constants.ACCOUNTS.toLowerCase() && !field.getCustomField()) {
-
-                            fieldDetail[Constants.SKIP_MANDATORY] = true;
-                        }
-                    }
-                    else {
-
-                        module = "";
-                    }
-                }
-
-                fieldDetail[Constants.LOOKUP] = true;
-            }
-
-            if(module.length > 0) {
-
-                await Utility.getFieldsInfo(module);
-            }
-
+        if (keyName.toLowerCase() === Constants.PRODUCT_DETAILS.toLowerCase() && Constants.INVENTORY_MODULES.includes(moduleAPIName.toLowerCase())) {
             fieldDetail.name = keyName;
+
+            fieldDetail.type = Constants.LIST_NAMESPACE;
+
+            fieldDetail.structure_name = Constants.INVENTORY_LINE_ITEMS;
+
+            fieldDetail[Constants.SKIP_MANDATORY] = true;
+
+            return;
+        }
+        else if (keyName.toLowerCase() === Constants.PRICING_DETAILS.toLowerCase() && moduleAPIName.toLowerCase() == Constants.PRICE_BOOKS.toLowerCase()) {
+            fieldDetail.name = keyName;
+
+            fieldDetail.type = Constants.LIST_NAMESPACE;
+
+            fieldDetail.structure_name = Constants.PRICINGDETAILS;
+
+            fieldDetail[Constants.SKIP_MANDATORY] = true;
+
+            return;
+        }
+        else if (keyName.toLowerCase() === Constants.PARTICIPANT_API_NAME.toLowerCase() && (moduleAPIName.toLowerCase() === Constants.EVENTS.toLowerCase() || moduleAPIName.toLowerCase() === Constants.ACTIVITIES.toLowerCase())) {
+            fieldDetail.name = keyName;
+
+            fieldDetail.type = Constants.LIST_NAMESPACE;
+
+            fieldDetail.structure_name = Constants.PARTICIPANTS;
+
+            fieldDetail[Constants.SKIP_MANDATORY] = true;
+
+            return;
+        }
+        else if (keyName.toLowerCase() === Constants.COMMENTS.toLowerCase() && (moduleAPIName.toLowerCase() === Constants.SOLUTIONS.toLowerCase() || moduleAPIName.toLowerCase() === Constants.CASES.toLowerCase())) {
+            fieldDetail.name = keyName;
+
+            fieldDetail.type = Constants.LIST_NAMESPACE;
+
+            fieldDetail.structure_name = Constants.COMMENT_NAMESPACE;
+
+            fieldDetail[Constants.LOOKUP] = true;
+
+            return;
+        }
+        else if (keyName.toLowerCase() === Constants.LAYOUT.toLowerCase()) {
+            fieldDetail.name = keyName;
+
+            fieldDetail.type = Constants.LAYOUT_NAMESPACE;
+
+            fieldDetail.structure_name = Constants.LAYOUT_NAMESPACE;
+
+            fieldDetail[Constants.LOOKUP] = true;
+
+            return;
+        }
+        else if (Utility.apiTypeVsdataType.has(apiType)) {
+            fieldDetail.type = Utility.apiTypeVsdataType.get(apiType);
+        }
+        else if (apiType.toLowerCase() === Constants.FORMULA.toLowerCase()) {
+            if (field.getFormula() !== null) {
+                let returnType = field.getFormula().getReturnType();
+
+                if (Utility.apiTypeVsdataType.has(returnType) && Utility.apiTypeVsdataType.get(returnType) !== null) {
+                    fieldDetail.type = Utility.apiTypeVsdataType.get(returnType);
+                }
+            }
+
+            fieldDetail[Constants.READ_ONLY] = true;
+        }
+        else {
+            return;
+        }
+
+        if (apiType.toLowerCase().includes(Constants.LOOKUP)) {
+            fieldDetail[Constants.LOOKUP] = true;
+        }
+
+        if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP) {
+            fieldDetail.skip_mandatory = true;
+        }
+
+        if (Utility.apiTypeVsStructureName.has(apiType)) {
+            fieldDetail.structure_name = Utility.apiTypeVsStructureName.get(apiType);
+        }
+
+        if (apiType.toLowerCase() === Constants.PICKLIST && field.getPickListValues() !== null && field.getPickListValues().length > 0) {
+            let values = [];
+
+            fieldDetail[Constants.PICKLIST] = true;
+
+            field.getPickListValues().every(x => values.push(x.getDisplayValue()));
+
+            fieldDetail.values = values;
+        }
+
+        if (apiType.toLowerCase() === Constants.SUBFORM.toLowerCase()) {
+            if (field.getSubform() !== null) {
+                module = field.getSubform().getModule();
+
+                fieldDetail[Constants.MODULE] = module;
+
+                fieldDetail[Constants.SKIP_MANDATORY] = true;
+
+                fieldDetail[Constants.SUBFORM] = true;
+            }
+        }
+
+        if (apiType === Constants.LOOKUP) {
+            if (field.getLookup() !== null) {
+                module = field.getLookup().getModule();
+
+                if (module !== null && module !== Constants.SE_MODULE) {
+
+                    fieldDetail.module = module;
+
+                    if (module.toLowerCase() === Constants.ACCOUNTS.toLowerCase() && !field.getCustomField()) {
+                        fieldDetail.skip_mandatory = true;
+                    }
+                }
+                else {
+                    module = "";
+                }
+            }
+
+            fieldDetail.lookup = true;
+        }
+
+        if (module.length > 0) {
+            await Utility.getFieldsInfo(module);
+        }
+
+        fieldDetail.name = keyName;
     }
 
     static checkInteger(value) {
-
         return (parseInt(value) === value) ? true : false;
     }
 }
@@ -2004,16 +2127,16 @@ Utility.forceRefresh = false;
 
 Utility.apiSupportedModule = new Map();
 
+Utility.moduleAPIName = null;
+
 async function fillDataType() {
-
-    if(Utility.apiTypeVsdataType.size > 0 && Utility.apiTypeVsStructureName.size > 0){
-
+    if (Utility.apiTypeVsdataType.size > 0 && Utility.apiTypeVsStructureName.size > 0) {
         return;
     }
 
-    let fieldAPINamesString = ["textarea", "text", "website", "email", "phone", "mediumtext", "multiselectlookup","profileimage", "autonumber"];
+    let fieldAPINamesString = ["textarea", "text", "website", "email", "phone", "mediumtext", "multiselectlookup", "profileimage", "autonumber"];
 
-    let fieldAPINamesInteger = [ "integer"];
+    let fieldAPINamesInteger = ["integer"];
 
     let fieldAPINamesBoolean = ["boolean"];
 
@@ -2051,108 +2174,91 @@ async function fillDataType() {
 
     let fieldAPINameConsentLookUp = ["consent_lookup"];
 
-    for(let fieldAPIName of fieldAPINamesString) {
-
+    for (let fieldAPIName of fieldAPINamesString) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.STRING_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesInteger) {
-
+    for (let fieldAPIName of fieldAPINamesInteger) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.INTEGER_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesBoolean) {
-
+    for (let fieldAPIName of fieldAPINamesBoolean) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.BOOLEAN_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesLong) {
-
+    for (let fieldAPIName of fieldAPINamesLong) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LONG_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesDouble) {
-
+    for (let fieldAPIName of fieldAPINamesDouble) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.DOUBLE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesFile) {
-
+    for (let fieldAPIName of fieldAPINamesFile) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.FILE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesDateTime) {
-
+    for (let fieldAPIName of fieldAPINamesDateTime) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.DATETIME_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesDate) {
-
+    for (let fieldAPIName of fieldAPINamesDate) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.DATE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesLookup) {
-
+    for (let fieldAPIName of fieldAPINamesLookup) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.RECORD_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.RECORD_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesPickList) {
-
+    for (let fieldAPIName of fieldAPINamesPickList) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.CHOICE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesMultiSelectPickList) {
-
+    for (let fieldAPIName of fieldAPINamesMultiSelectPickList) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LIST_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.CHOICE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesSubForm) {
-
+    for (let fieldAPIName of fieldAPINamesSubForm) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LIST_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.RECORD_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesOwnerLookUp) {
-
+    for (let fieldAPIName of fieldAPINamesOwnerLookUp) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.USER_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.USER_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesMultiUserLookUp) {
-
+    for (let fieldAPIName of fieldAPINamesMultiUserLookUp) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LIST_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.USER_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesMultiModuleLookUp) {
-
+    for (let fieldAPIName of fieldAPINamesMultiModuleLookUp) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LIST_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.MODULE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINamesFieldFile) {
-
+    for (let fieldAPIName of fieldAPINamesFieldFile) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.LIST_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.FIELD_FILE_NAMESPACE);
     }
 
-    for(let fieldAPIName of fieldAPINameTaskRemindAt) {
-
+    for (let fieldAPIName of fieldAPINameTaskRemindAt) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.REMINDAT_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.REMINDAT_NAMESPACE);
     }
-    for (let fieldAPIName of fieldAPINameRecurringActivity) {
 
+    for (let fieldAPIName of fieldAPINameRecurringActivity) {
         Utility.apiTypeVsdataType.set(fieldAPIName, Constants.RECURRING_ACTIVITY_NAMESPACE);
 
         Utility.apiTypeVsStructureName.set(fieldAPIName, Constants.RECURRING_ACTIVITY_NAMESPACE);
@@ -2177,21 +2283,17 @@ async function fillDataType() {
  * The class contains methods to manipulate the module fields only when autoRefreshFields is set to false in Initializer.
  */
 class ModuleFieldsHandler {
-
     /**
      * The method to delete fields JSON File of the current user.
      * @throws {SDKException}
      */
     static async deleteFieldsFile() {
-
         try {
-
             let encodedFileName = await new Converter().getEncodedFileName();
 
             await LocalCache.removeKey(encodedFileName);
 
         } catch (error) {
-
             let exception = new SDKException(null, null, null, error);
 
             SDKLogger.log(Levels.ERROR, Constants.DELETE_FIELD_FILE_ERROR, exception);
@@ -2206,22 +2308,18 @@ class ModuleFieldsHandler {
      * @throws {SDKException}
      */
     static async deleteFields(module) {
-
         try {
-
             let encodedFileName = await new Converter().getEncodedFileName();
 
             let recordFieldDetailsJson = await LocalCache.get(encodedFileName);
 
-            if(recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
-
+            if (recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
                 await Utility.deleteFields(recordFieldDetailsJson, module);
 
                 await LocalCache.set(encodedFileName, recordFieldDetailsJson);
             }
         }
         catch (error) {
-
             let exception = new SDKException(null, null, null, error);
 
             throw exception;
@@ -2234,22 +2332,17 @@ class ModuleFieldsHandler {
      * @throws {SDKException}
      */
     static async refreshFields(module) {
-
         try {
-
             await ModuleFieldsHandler.deleteFields(module);
 
-            await Utility.getFields(module);
-
+            await Utility.getFieldsInfo(module);
         }
         catch (error) {
-
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
-            SDKLogger.log(Levels.ERROR, Constants.REFRESH_SINGLE_MODULE_FIELDS_ERROR + module, error); 
+            SDKLogger.log(Levels.ERROR, Constants.REFRESH_SINGLE_MODULE_FIELDS_ERROR + module, error);
 
             throw error;
         }
@@ -2260,15 +2353,11 @@ class ModuleFieldsHandler {
      * @throws {SDKException}
      */
     static async refreshAllModules() {
-
         try {
-
             await Utility.refreshModules();
         }
         catch (error) {
-
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -2283,24 +2372,19 @@ class ModuleFieldsHandler {
  * This class is to validate API headers and parameters.
  */
 class HeaderParamValidator {
-
     async validate(headerparam, value) {
-
         let name = headerparam.getName();
 
         let className = headerparam.getClassName();
 
         let typeDetail = null;
 
-        if(classDetailMap.hasOwnProperty(className)) {
-
+        if (classDetailMap.hasOwnProperty(className)) {
             typeDetail = await this.getKeyJSONDetails(name, classDetailMap[className]);
         }
 
-        if(typeDetail != null) {
-
-            if(! await this.checkDataType(typeDetail, value)){
-
+        if (typeDetail != null) {
+            if (!await this.checkDataType(typeDetail, value)) {
                 let type = className != null && className.endsWith("param") ? "PARAMETER" : "HEADER";
 
                 let detailsJO = {};
@@ -2311,12 +2395,9 @@ class HeaderParamValidator {
 
                 detailsJO[Constants.ACCEPTED_TYPE] = Constants.SPECIAL_TYPES.hasOwnProperty(typeDetail[Constants.TYPE]) ? Constants.SPECIAL_TYPES.get(typeDetail[Constants.TYPE]) : typeDetail[Constants.TYPE];
 
-                let exception = new SDKException(Constants.TYPE_ERROR, null, detailsJO);
-
-                throw exception;
+                throw new SDKException(Constants.TYPE_ERROR, null, detailsJO);
             }
             else {
-
                 value = await DataTypeConverter.postConvert(value, typeDetail[Constants.TYPE]);
             }
         }
@@ -2325,21 +2406,15 @@ class HeaderParamValidator {
     }
 
     async getKeyJSONDetails(name, jsonDetails) {
-
         let keyArray = Array.from(Object.keys(jsonDetails));
 
         for (let index = 0; index < keyArray.length; index++) {
-
             const key = keyArray[index];
 
             let detail = await jsonDetails[key];
 
-            if(detail.hasOwnProperty(Constants.NAME)) {
-
-                if(name.toLowerCase() === detail[Constants.NAME].toLowerCase())
-                {
-                    return detail;
-                }
+            if (detail.hasOwnProperty(Constants.NAME) && name.toLowerCase() === detail[Constants.NAME].toLowerCase()) {
+                return detail;
             }
         }
 
@@ -2347,18 +2422,16 @@ class HeaderParamValidator {
     }
 
     checkDataType(keyDetail, value) {
-
         let type = keyDetail[Constants.TYPE];
 
-        if(type !== null && Constants.TYPE_VS_DATATYPE.has(type.toLowerCase())) {
+        let dataType = Constants.SPECIAL_TYPES.has(type) ? Constants.SPECIAL_TYPES.get(type) : type;
 
-            if(type === Constants.INTEGER_NAMESPACE) {
-
+        if (dataType !== null && Constants.TYPE_VS_DATATYPE.has(dataType.toLowerCase())) {
+            if (type === Constants.INTEGER_NAMESPACE) {
                 return Utility.checkInteger(value);
             }
 
-            if(Object.prototype.toString.call(value) !== Constants.TYPE_VS_DATATYPE.get(type.toLowerCase())) {
-
+            if (Object.prototype.toString.call(value) !== Constants.TYPE_VS_DATATYPE.get(type.toLowerCase())) {
                 return false;
             }
         }
@@ -2371,57 +2444,63 @@ class HeaderParamValidator {
  * This abstract class is to construct API request and response.
  */
 var Converter = class {
-
-	/**
-	 * This abstract method is to process the API response.
-	 * @param {object} response A Object containing the API response contents or response.
-	 * @param {string} pack A String containing the expected method return type.
-	 * @returns A Object representing the POJO class instance.
-	 */
-	getResponse(response, pack) {}
-
-	/**
-	 * This abstract method is to construct the API request.
-	 * @param {object} requestObject A Object containing the POJO class instance.
-	 * @param {string} pack A String containing the expected method return type.
-	 * @param {number} instanceNumber An Integer containing the POJO class instance list number.
-	 * @param {Map} memberDetail An Map containing the member properties
-	 */
-	formRequest(requestObject, pack, instanceNumber, memberDetail) {}
-
-	/**
-	 * This abstract method is to construct the API request body.
-	 * @param {APIHTTPConnector} requestBase A APIHTTPConnector class instance.
-	 */
-	appendToRequest(requestBase) {}
-
-	/**
-	 * This abstract method is to process the API response.
-	 * @param {object} response A Object containing the HttpResponse class instance.
-	 * @param {string} pack A String containing the expected method return type.
-	 */
-	getWrappedResponse(response, pack) {}
-
 	/**
 	 * Creates a Converter class instance with the CommonAPIHandler class instance.
-	 * @param {CommonAPIHandler} commonAPIHandler A CommonAPIHandler class instance.
+	 * @param {CommonAPIHandler} commonAPIHandler - A CommonAPIHandler class instance.
 	 */
 	constructor(commonAPIHandler) {
-
 		this.commonAPIHandler = commonAPIHandler;
 	}
 
 	/**
+	 * This abstract method is to process the API response.
+	 * @param {object} response - An Object containing the API response contents or response.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @returns An Object representing the class instance.
+	 * @throws {Error}
+	 */
+	getResponse(response, pack) { }
+
+	/**
+	 * This method is to construct the API request.
+	 * @param {object} requestObject - An Object containing the class instance.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @param {int} instanceNumber - An Integer containing the class instance list number.
+	 * @param {object} memberDetail - An object containing the member properties
+	 * @returns An Object representing the API request body object.
+	 * @throws {Error}
+	 */
+	formRequest(requestObject, pack, instanceNumber, memberDetail) { }
+
+	/**
+	 * This abstract method is to construct the API request body.
+	 * @param {object} requestBase
+	 * @param {object} requestObject - A Object containing the API request body object.
+	 * @throws {Error}
+	 */
+	appendToRequest(requestBase) { }
+
+	/**
+	 * This abstract method is to process the API response.
+	 * @param {object} response - An Object containing the HttpResponse class instance.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @returns An Object representing the class instance.
+	 * @throws {Error}
+	 */
+	getWrappedResponse(response, pack) { }
+
+	/**
 	 * This method is to validate if the input values satisfy the constraints for the respective fields.
-	 * @param {string} className A String containing the class name.
-	 * @param {string} memberName A String containing the member name.
-	 * @param {JSON} keyDetails A JSON containing the key JSON details.
-	 * @param {object} value A Object containing the key value.
-	 * @param {Map} uniqueValuesMap A Map containing the construct objects.
-	 * @param {Number} instanceNumber An Integer containing the POJO class instance list number.
+	 * @param {string} className - A String containing the class name.
+	 * @param {string} memberName - A String containing the member name.
+	 * @param {object} keyDetails - A JSONObject containing the key JSON details.
+	 * @param {object} value - A Object containing the key value.
+	 * @param {Map} uniqueValuesMap - A Map containing the value of constructed object's unique fields.
+	 * @param {int} instanceNumber - An Integer containing the class instance list number.
+	 * @returns A Boolean representing the key value is expected pattern, unique, length, and values.
+	 * @throws {SDKException}
 	 */
 	valueChecker(className, memberName, keyDetails, value, uniqueValuesMap, instanceNumber) {
-
 		var detailsJO = {};
 
 		var name = keyDetails[Constants.NAME];
@@ -2434,31 +2513,25 @@ var Converter = class {
 
 		let givenType = null;
 
-		if(Constants.TYPE_VS_DATATYPE.has(type.toLowerCase())) {
-
-			if(Array.isArray(value) && value.length > 0 && keyDetails.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+		if (Constants.TYPE_VS_DATATYPE.has(type.toLowerCase())) {
+			if (Array.isArray(value) && value.length > 0 && keyDetails.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				let expectedStructure = keyDetails[Constants.STRUCTURE_NAME];
 
 				let index = 0;
 
-				for(let data of value) {
-
+				for (let data of value) {
 					className = Object.prototype.toString.call(data);
 
-					if(className == Constants.OBJECT_TYPE)
-					{
+					if (className == Constants.OBJECT_TYPE) {
 						className = data.constructor.name;
 
 						check = expectedStructure.includes(className);
 					}
 					else {
-
 						check = className === expectedStructure ? true : false;
 					}
 
-					if(!check) {
-
+					if (!check) {
 						instanceNumber = index;
 
 						type = Constants.ARRAY_NAME + "(" + expectedStructure + ")";
@@ -2471,45 +2544,38 @@ var Converter = class {
 					index = index + 1;
 				}
 			}
-			else if(value != null) {
-
+			else if (value != null) {
 				check = (valueType != Constants.TYPE_VS_DATATYPE.get(type.toLowerCase()) ? false : true);
 
-				if(check && type == Constants.INTEGER_NAMESPACE){
-
+				if (check && type == Constants.INTEGER_NAMESPACE) {
 					check = Utility.checkInteger(value);
 				}
 
 				givenType = Object.getPrototypeOf(value).constructor.name;
 			}
 		}
-		else if(value != null && type.toLowerCase() !== Constants.OBJECT_KEY) {
-
+		else if (value != null && type.toLowerCase() !== Constants.OBJECT_KEY) {
 			let expectedStructure = keyDetails[Constants.TYPE];
 
 			className = Object.prototype.toString.call(value);
 
-			if(className == Constants.OBJECT_TYPE)
-			{
+			if (className == Constants.OBJECT_TYPE) {
 				className = value.constructor.name;
 
 				check = expectedStructure.includes(className);
 			}
 			else {
-
 				check = className === expectedStructure ? true : false;
 			}
 
-			if(!check) {
-
+			if (!check) {
 				type = expectedStructure;
 
 				givenType = value.constructor.name;
 			}
 		}
 
-		if(!check && value !== null) {
-
+		if (!check && value !== null) {
 			detailsJO.field = memberName;
 
 			detailsJO.class = className;
@@ -2518,35 +2584,30 @@ var Converter = class {
 
 			detailsJO.given_type = givenType;
 
-			if(instanceNumber != null) {
-
+			if (instanceNumber != null) {
 				detailsJO.index = instanceNumber;
 			}
 
 			throw new SDKException(Constants.TYPE_ERROR, null, detailsJO);
 		}
 
-		if (keyDetails.hasOwnProperty(Constants.VALUES) && (!keyDetails.hasOwnProperty(Constants.PICKLIST)) || (keyDetails[Constants.PICKLIST] && Initializer.sdkConfig.getPickListValidation() == true)) {
-
+		if (keyDetails.hasOwnProperty(Constants.VALUES) && (!keyDetails.hasOwnProperty(Constants.PICKLIST) || (keyDetails[Constants.PICKLIST] && Initializer.sdkConfig.getPickListValidation() == true))) {
 			let valuesJA = keyDetails[Constants.VALUES];
 
-			if(value instanceof Choice) {
-
+			if (value instanceof Choice) {
 				value = value.getValue();
 			}
 
 			if (!valuesJA.includes(value)) {
-
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					detailsJO.index = instanceNumber;
 				}
 
-				detailsJO.given_value =  value;
+				detailsJO.given_value = value;
 
 				detailsJO.accepted_values = valuesJA;
 
@@ -2555,11 +2616,9 @@ var Converter = class {
 		}
 
 		if (keyDetails.hasOwnProperty(Constants.UNIQUE)) {
-
 			let valuesArray = uniqueValuesMap[name];
 
 			if (valuesArray != null && valuesArray.includes(value)) {
-
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
@@ -2571,9 +2630,7 @@ var Converter = class {
 				throw new SDKException(Constants.UNIQUE_KEY_ERROR, null, detailsJO);
 			}
 			else {
-
-				if(valuesArray == null) {
-
+				if (valuesArray == null) {
 					valuesArray = [];
 				}
 
@@ -2584,16 +2641,13 @@ var Converter = class {
 		}
 
 		if (keyDetails.hasOwnProperty(Constants.MIN_LENGTH) || keyDetails.hasOwnProperty(Constants.MAX_LENGTH)) {
-
 			let count = value.toString().length;
 
-			if(Array.isArray(value)) {
-
+			if (Array.isArray(value)) {
 				count = value.length;
 			}
 
-			if (keyDetails.hasOwnProperty(Constants.MAX_LENGTH) &&  count > keyDetails[Constants.MAX_LENGTH]) {
-
+			if (keyDetails.hasOwnProperty(Constants.MAX_LENGTH) && count > keyDetails[Constants.MAX_LENGTH]) {
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
@@ -2615,43 +2669,35 @@ var Converter = class {
 
 				detailsJO.minimum_length = keyDetails[Constants.MIN_LENGTH];
 
-				throw new SDKException(Constants.MINIMUM_LENGTH_ERROR, null,  detailsJO);
+				throw new SDKException(Constants.MINIMUM_LENGTH_ERROR, null, detailsJO);
 			}
 		}
 
-		if (keyDetails.hasOwnProperty(Constants.REGEX)) {
+		if (keyDetails.hasOwnProperty(Constants.REGEX) && !keyDetails[Constants.REGEX].match(value)) {
+			detailsJO.field = memberName;
 
-			if (!keyDetails[Constants.REGEX].match(value)) {
+			detailsJO.class = className;
 
-				detailsJO.field = memberName;
-
-				detailsJO.class = className;
-
-				if(instanceNumber != null) {
-
-					detailsJO.index = instanceNumber;
-				}
-
-				throw new SDKException(Constants.REGEX_MISMATCH_ERROR, null,  detailsJO);
+			if (instanceNumber != null) {
+				detailsJO.index = instanceNumber;
 			}
+
+			throw new SDKException(Constants.REGEX_MISMATCH_ERROR, null, detailsJO);
 		}
 
 		return true;
 	}
 
 	getEncodedFileName() {
-
 		let clientId = "";
 
 		let url = Initializer.environment.getUrl();
 
-		if(Initializer.token !== null && Initializer.token.getClientId().length > 0) {
-
+		if (Initializer.token !== null && Initializer.token.getClientId().length > 0) {
 			clientId = Initializer.token.getClientId();
 		}
 
-		if(document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
-
+		if (document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
 			clientId = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_CLIENT_ID);
 		}
 
@@ -2663,16 +2709,13 @@ var Converter = class {
  * This class processes the API response object to the POJO object and POJO object to a JSON object.
  */
 class JSONConverter extends Converter {
-
 	constructor(commonAPIHandler) {
-
 		super(commonAPIHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 
 		return JSON.stringify(request.getRequestBody()) || null;
@@ -2680,13 +2723,11 @@ class JSONConverter extends Converter {
 	}
 
 	async formRequest(requestInstance, pack, instanceNumber, classMemberDetail) { // if structure
-
 		super.formRequest(requestInstance, pack, instanceNumber, classMemberDetail);
 
 		var classDetail = classDetailMap[pack];
 
-		if(classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // useless
-
+		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // useless
 			var classes = classDetail[Constants.CLASSES];
 
 			var baseName = pack.split('/').slice(0, -1);
@@ -2697,10 +2738,8 @@ class JSONConverter extends Converter {
 
 			let requestObjectClassName = baseName.join('/');
 
-			for (let className of classes) {
-
-				if(className.toLowerCase() === requestObjectClassName.toLowerCase()){
-
+			for (let className1 of classes) {
+				if (className1.toLowerCase() == requestObjectClassName.toLowerCase()) {
 					classDetail = classDetailMap[requestObjectClassName];
 
 					break;
@@ -2709,7 +2748,6 @@ class JSONConverter extends Converter {
 		}
 
 		if (requestInstance instanceof ZCRM.Record.Model.Record) {
-
 			let moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
 			let returnJSON = await this.isRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail);
@@ -2719,13 +2757,11 @@ class JSONConverter extends Converter {
 			return returnJSON;
 		}
 		else {
-
 			return await this.isNotRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail);
 		}
 	}
 
 	async isNotRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail) {
-
 		let requestJSON = {};
 
 		let requiredKeys = new Map();
@@ -2740,8 +2776,7 @@ class JSONConverter extends Converter {
 
 		let classMemberName = null;
 
-		if (classMemberDetail != null){
-
+		if (classMemberDetail != null) {
 			lookUp = (classMemberDetail.hasOwnProperty(Constants.LOOKUP) ? classMemberDetail[Constants.LOOKUP] : false);
 
 			skipMandatory = (classMemberDetail.hasOwnProperty(Constants.SKIP_MANDATORY) ? classMemberDetail[Constants.SKIP_MANDATORY] : false);
@@ -2749,53 +2784,43 @@ class JSONConverter extends Converter {
 			classMemberName = this.buildName(classMemberDetail[Constants.NAME]);
 		}
 
-		for(let memberName in classDetail) {
-
+		for (let memberName in classDetail) {
 			var modification = null;
 
 			var memberDetail = classDetail[memberName];
 
 			if ((memberDetail.hasOwnProperty(Constants.READ_ONLY) && memberDetail[Constants.READ_ONLY] === 'true') || !memberDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
-
 				continue;
 			}
 
 			var keyName = memberDetail[Constants.NAME];
 
 			try {
-
-				modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
+				modification = requestInstance.isKeyModified(keyName);
 			}
-			catch(ex) {
-
+			catch (ex) {
 				throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, ex);
 			}
 
 			if (memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == true) {
-
 				requiredKeys.set(keyName, true);
 			}
 
-			if (memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) && memberDetail[Constants.REQUIRED_IN_UPDATE] == true) {
-
-				requiredInUpdateKeys.set(keyName, true);
+			if (memberDetail.hasOwnProperty(Constants.PRIMARY) && memberDetail[Constants.PRIMARY] == true && (!memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) || memberDetail[Constants.REQUIRED_IN_UPDATE] == true)) {
+				primaryKeys.set(keyName, true);
 			}
 
-			if (memberDetail.hasOwnProperty(Constants.PRIMARY) && memberDetail[Constants.PRIMARY] == true && (!memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) || memberDetail[Constants.REQUIRED_IN_UPDATE] == true)) {
-
-				primaryKeys.set(keyName, true);
+			if (memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) && memberDetail[Constants.REQUIRED_IN_UPDATE] == true) {
+				requiredInUpdateKeys.set(keyName, true);
 			}
 
 			var fieldValue = null;
 
 			if (modification != null && parseInt(modification) != 0) {
-
 				fieldValue = Reflect.get(requestInstance, memberName);
 
-			 	if (await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber)) {
-
-					if(fieldValue != null) {
-
+				if (await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber)) {
+					if (fieldValue != null) {
 						requiredKeys.delete(keyName);
 
 						primaryKeys.delete(keyName);
@@ -2804,11 +2829,14 @@ class JSONConverter extends Converter {
 					}
 
 					if (requestInstance instanceof ZCRM.Record.Model.FileDetails) {
-
-						requestJSON[keyName.toLowerCase()] =  fieldValue;
+						if (fieldValue == null || fieldValue == "null") {
+							requestJSON[keyName.toLowerCase()] = null;
+						}
+						else {
+							requestJSON[keyName.toLowerCase()] = fieldValue;
+						}
 					}
 					else {
-
 						requestJSON[keyName] = await this.setData(memberDetail, fieldValue);
 					}
 				}
@@ -2816,39 +2844,31 @@ class JSONConverter extends Converter {
 		}
 
 		if (skipMandatory || await this.checkException(classMemberName, requestInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, requiredInUpdateKeys)) {
-
 			return requestJSON;
 		}
 	}
 
 	async checkException(memberName, requestInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, requiredInUpdateKeys) {
-
-		if(requiredInUpdateKeys.size > 0 && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
-
+		if (requiredInUpdateKeys.size > 0 && this.commonAPIHandler.getCategoryMethod() != null && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
 			let error = {};
 
 			error.field = memberName;
 
-			error.type =  requestInstance.constructor.name;
+			error.type = requestInstance.constructor.name;
 
 			error.keys = Array.from(requiredInUpdateKeys.keys()).toString();
 
-			if(instanceNumber != null) {
-
+			if (instanceNumber != null) {
 				error.instance_number = instanceNumber;
 			}
 
 			throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.MANDATORY_KEY_ERROR, error, null);
 		}
 
-		if(this.commonAPIHandler.getMandatoryChecker() != null && this.commonAPIHandler.getMandatoryChecker()) {
-
-			if(this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_CREATE.toLowerCase()) {
-
-				if(lookUp) {
-
-					if(primaryKeys.size > 0) {
-
+		if (this.commonAPIHandler.isMandatoryChecker() != null && this.commonAPIHandler.isMandatoryChecker()) {
+			if (this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_CREATE.toLowerCase()) {
+				if (lookUp) {
+					if (primaryKeys.size > 0) {
 						let error = {};
 
 						error.field = memberName;
@@ -2857,16 +2877,14 @@ class JSONConverter extends Converter {
 
 						error.keys = Array.from(primaryKeys.keys()).toString();
 
-						if(instanceNumber != null) {
-
+						if (instanceNumber != null) {
 							error.instance_number = instanceNumber;
 						}
 
 						throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.PRIMARY_KEY_ERROR, error, null);
 					}
 				}
-				else if(requiredKeys.size > 0) {
-
+				else if (requiredKeys.size > 0) {
 					let error = {};
 
 					error.field = memberName;
@@ -2875,8 +2893,7 @@ class JSONConverter extends Converter {
 
 					error.keys = Array.from(requiredKeys.keys()).toString();
 
-					if(instanceNumber != null) {
-
+					if (instanceNumber != null) {
 						error.instance_number = instanceNumber;
 					}
 
@@ -2884,8 +2901,7 @@ class JSONConverter extends Converter {
 				}
 			}
 
-			if(this.commonAPIHandler.getCategoryMethod().toUpperCase() == Constants.REQUEST_CATEGORY_UPDATE && primaryKeys.size > 0) {
-
+			if (this.commonAPIHandler.getCategoryMethod().toUpperCase() == Constants.REQUEST_CATEGORY_UPDATE && primaryKeys.size > 0) {
 				let error = {};
 
 				error.field = memberName;
@@ -2894,8 +2910,7 @@ class JSONConverter extends Converter {
 
 				error.keys = Array.from(primaryKeys.keys()).toString();
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					error.instance_number = instanceNumber;
 				}
 
@@ -2904,9 +2919,7 @@ class JSONConverter extends Converter {
 		}
 
 		else if (lookUp && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
-
 			if (primaryKeys.size > 0) {
-
 				let error = {};
 
 				error.field = memberName;
@@ -2915,8 +2928,7 @@ class JSONConverter extends Converter {
 
 				error.keys = Array.from(primaryKeys.keys()).toString();
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					error.instance_number = instanceNumber;
 				}
 
@@ -2928,7 +2940,6 @@ class JSONConverter extends Converter {
 	}
 
 	async isRecordRequest(recordInstance, classDetail, instanceNumber, classMemberDetail) {
-
 		var requestJSON = {};
 
 		var moduleDetail = {};
@@ -2940,46 +2951,39 @@ class JSONConverter extends Converter {
 		var classMemberName = null;
 
 		if (classMemberDetail != null) {
-
 			lookUp = (classMemberDetail.hasOwnProperty(Constants.LOOKUP) ? classMemberDetail[Constants.LOOKUP] : false);
 
 			skipMandatory = (classMemberDetail.hasOwnProperty(Constants.SKIP_MANDATORY) ? classMemberDetail[Constants.SKIP_MANDATORY] : false);
 
-			classMemberName = classMemberDetail[Constants.NAME];
+			classMemberName = this.buildName(classMemberDetail[Constants.NAME]);
 		}
 
 		var moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
-		if(moduleAPIName != null) { // entry
-
+		if (moduleAPIName != null) { // entry
 			this.commonAPIHandler.setModuleAPIName(null);
 
 			let fullDetail = await Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
 
-			if(fullDetail != null) { // from Jsondetails
-
+			if (fullDetail != null) { // from Jsondetails
 				moduleDetail = fullDetail[Constants.MODULEDETAILS];
 			}
 			else { // from user spec
-
 				moduleDetail = await this.getModuleDetailFromUserSpecJSON(moduleAPIName);
 			}
 		}
 		else {
-
 			moduleDetail = classDetail;
 
 			classDetail = classDetailMap[Constants.RECORD_NAMESPACE];
 		} // class detail must contain record structure at this point
 
 		//Super Class
-		if(Object.getPrototypeOf(Object.getPrototypeOf(recordInstance)).constructor.name === "Record") {
-
+		if (Object.getPrototypeOf(Object.getPrototypeOf(recordInstance)).constructor.name === "Record") {
 			Object.setPrototypeOf(recordInstance, ZCRM.Record.Model.Record.prototype);
 		}
 
-		if(moduleDetail == null) {
-
+		if (moduleDetail == null) {
 			moduleDetail = {};
 		}
 
@@ -2996,46 +3000,37 @@ class JSONConverter extends Converter {
 		var primaryKeys = new Map();
 
 		if (!skipMandatory) {
-
-			for(let keyName of Object.keys(moduleDetail)) {
-
+			for (let keyName of Object.keys(moduleDetail)) {
 				let keyDetail = moduleDetail[keyName];
 
 				let name = keyDetail[Constants.NAME];
 
-				if (keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
 					requiredKeys.set(name, true);
 				}
 
-				if (keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
 					primaryKeys.set(name, true);
 				}
 			}
 
 			for (let keyName of Object.keys(classDetail)) {
-
 				let keyDetail = classDetail[keyName];
 
 				let name = keyDetail[Constants.NAME];
 
-				if (keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
 					requiredKeys.set(name, true);
 				}
 
-				if (keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
 					primaryKeys.set(name, true);
 				}
 			}
 		}
 
 		for (let keyName of Array.from(keyModified.keys())) {
-
-			if(keyModified.get(keyName) != 1) {
-
+			if (keyModified.get(keyName) != 1) {
 				continue;
 			}
 
@@ -3045,84 +3040,67 @@ class JSONConverter extends Converter {
 
 			let jsonValue = null;
 
+			if (keyValue != null) {
+				requiredKeys.delete(keyName);
+
+				primaryKeys.delete(keyName);
+			}
+
 			let memberName = this.buildName(keyName);
 
-			if(Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
-
-				if(moduleDetail.hasOwnProperty(keyName)) {
-
+			if (moduleDetail != null && Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
+				if (moduleDetail.hasOwnProperty(keyName)) {
 					keyDetail = moduleDetail[keyName]; // incase of user spec json
 				}
 				else {
-
 					keyDetail = moduleDetail[memberName]; // json details
 				}
 			}
-			else if(classDetail.hasOwnProperty(memberName)) {
-
+			else if (classDetail.hasOwnProperty(memberName)) {
 				keyDetail = classDetail[memberName];
 			}
 
-			if(Object.keys(keyDetail).length > 0) {
-
-				if ((keyDetail.hasOwnProperty(Constants.READ_ONLY) && keyDetail[Constants.READ_ONLY] === 'true') || !keyDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
-
+			if (Object.keys(keyDetail).length > 0) {
+				if ((keyDetail.hasOwnProperty(Constants.READ_ONLY) && (keyDetail[Constants.READ_ONLY] == true || keyDetail[Constants.READ_ONLY] == 'true')) || !keyDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
 					continue;
 				}
-				if (await this.valueChecker(recordInstance.constructor.name, keyName, keyDetail, keyValue, this.uniqueValuesMap, instanceNumber)) {
 
+				if (await this.valueChecker(recordInstance.constructor.name, keyName, keyDetail, keyValue, this.uniqueValuesMap, instanceNumber)) {
 					jsonValue = await this.setData(keyDetail, keyValue);
 				}
 			}
 			else {
-
 				jsonValue = await this.redirectorForObjectToJSON(keyValue);
-			}
-
-			if(keyValue != null) {
-
-				requiredKeys.delete(keyName);
-
-				primaryKeys.delete(keyName);
 			}
 
 			requestJSON[keyName] = jsonValue;
 		}
 
 		if (skipMandatory || await this.checkException(classMemberName, recordInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, new Map())) {
-
 			return requestJSON;
 		}
 	}
 
 	async setData(memberDetail, fieldValue) {
-
-		if(fieldValue != null) {
-
+		if (fieldValue != null) {
 			let type = memberDetail[Constants.TYPE].toString();
 
-			if(type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
-
+			if (type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
 				return await this.setJSONArray(fieldValue, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
-
+			else if (type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
 				return await this.setJSONObject(fieldValue, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase() || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase())) {
-
+			else if (type.toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase() || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase())) {
 				return fieldValue.getValue();
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase())) {
-
-				return await this.isRecordRequest(fieldValue, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), null, memberDetail);
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE)) {
+				return await this.isRecordRequest(fieldValue, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), null, memberDetail);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				return await this.formRequest(fieldValue, memberDetail[Constants.STRUCTURE_NAME], null, memberDetail);
 			}
 			else {
-
 				return await DataTypeConverter.postConvert(fieldValue, type);
 			}
 		}
@@ -3131,26 +3109,20 @@ class JSONConverter extends Converter {
 	}
 
 	async setJSONObject(fieldValue, memberDetail) {
-
 		var jsonObject = {};
 
 		var requestObject = fieldValue;
 
-		if(Array.from(requestObject.keys()).length > 0) {
-
+		if (Array.from(requestObject.keys()).length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.KEYS))) {
-
-				for (let key of Array.from(requestObject.keys())){
-
+				for (let key of Array.from(requestObject.keys())) {
 					jsonObject[key] = await this.redirectorForObjectToJSON(requestObject.get(key));
 				}
 			}
-			else if(memberDetail.hasOwnProperty(Constants.KEYS)) {
-
+			else if (memberDetail !== null && memberDetail.hasOwnProperty(Constants.KEYS)) {
 				var keysDetail = memberDetail[Constants.KEYS];
 
 				for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 					let keyDetail = keysDetail[keyIndex];
 
 					let keyName = keyDetail[Constants.NAME];
@@ -3158,7 +3130,6 @@ class JSONConverter extends Converter {
 					let keyValue = null;
 
 					if (requestObject.has(keyName) && requestObject.get(keyName) != null) {
-
 						keyValue = await this.setData(keyDetail, requestObject.get(keyName));
 
 						jsonObject[keyName] = keyValue;
@@ -3171,48 +3142,37 @@ class JSONConverter extends Converter {
 	}
 
 	async setJSONArray(fieldValue, memberDetail) {
-
 		var jsonArray = [];
 
 		var requestObjects = fieldValue;
 
-		if(requestObjects.length > 0) {
-
+		if (requestObjects.length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME))) {
-
 				for (let request of requestObjects) {
-
 					jsonArray.push(await this.redirectorForObjectToJSON(request));
 				}
 			}
 			else {
-
 				let pack = memberDetail[Constants.STRUCTURE_NAME].toString();
 
-				if(pack == Constants.CHOICE_NAMESPACE) {
-
-					for(let request of requestObjects) {
-
+				if (pack == Constants.CHOICE_NAMESPACE) {
+					for (let request of requestObjects) {
 						jsonArray.push(request.getValue());
 					}
 				}
-				else if(memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase()) && memberDetail[Constants.MODULE.toLowerCase()] != null) {
-
+				else if (memberDetail.hasOwnProperty(Constants.MODULE) && memberDetail[Constants.MODULE] != null) {
 					let instanceCount = 0;
 
-					for(let request of requestObjects) {
-
-						jsonArray.push(await this.isRecordRequest(request, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), instanceCount, memberDetail));
+					for (let request of requestObjects) {
+						jsonArray.push(await this.isRecordRequest(request, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), instanceCount, memberDetail));
 
 						instanceCount++;
 					}
 				}
 				else {
-
 					let instanceCount = 0;
 
 					for (let request of requestObjects) {
-
 						jsonArray.push(await this.formRequest(request, pack, instanceCount, memberDetail));
 
 						instanceCount++;
@@ -3225,47 +3185,39 @@ class JSONConverter extends Converter {
 	}
 
 	async redirectorForObjectToJSON(request) {
-
 		if (Array.isArray(request)) {
-
 			return await this.setJSONArray(request, null);
 		}
 		else if (request instanceof Map) {
-
 			return await this.setJSONObject(request, null);
 		}
-		else{
-
+		else {
 			return request;
 		}
 	}
 
 	async getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 
-		if(response.response != null) {
-
+		if (response.response != null) {
 			let responseObject = response.response;
 
-			if(responseObject.valueOf() instanceof ArrayBuffer) {
-
+			if (responseObject.valueOf() instanceof ArrayBuffer) {
 				let binary = '';
 
-				let bytes = new Uint8Array( responseObject );
+				let bytes = new Uint8Array(responseObject);
 
 				let len = bytes.byteLength;
 
 				for (var i = 0; i < len; i++) {
 
-					binary += await String.fromCharCode(bytes[ i ] );
+					binary += await String.fromCharCode(bytes[i]);
 				}
 
 				responseObject = binary;
 			}
 
 			if (responseObject != null && responseObject.toString() != "" && Object.keys(responseObject).length > 0) {
-
 				return await this.getResponse(JSON.parse(responseObject), pack);
 			}
 		}
@@ -3273,43 +3225,37 @@ class JSONConverter extends Converter {
 		return null;
 	}
 
-	async getResponse(response, pack) {
+	async getResponse(response, packageName) {
+		super.getResponse(response, packageName);
 
-		super.getResponse(response, pack);
+		var instance = null;
 
 		if (response == null || response == "" || Object.keys(response).length === 0) {
-
-			return null;
+			return instance;
 		}
 
 		var responseJson = response;
 
-		var classDetail = classDetailMap[pack];
-
-		var instance = null;
+		var classDetail = classDetailMap[packageName];
 
 		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // if interface
-
 			let classes = classDetail[Constants.CLASSES];
 
-			instance = await this.findMatch(classes, responseJson);
+			instance = await this.findMatch(classes, responseJson);// findmatch returns instance(calls getresponse() recursively)
 		}
 		else {
-
-			var ClassName = this.stringToFunction(pack);
+			var ClassName = this.stringToFunction(packageName);
 
 			instance = new ClassName();
 
-			if(instance instanceof ZCRM.Record.Model.Record) { // if record -> based on response json data will be assigned to field Values
-
+			if (instance instanceof ZCRM.Record.Model.Record) { // if record -> based on response json data will be assigned to field Values
 				let moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
-				instance = await this.isRecordResponse(responseJson, classDetail, pack);
+				instance = await this.isRecordResponse(responseJson, classDetail, packageName);
 
 				this.commonAPIHandler.setModuleAPIName(moduleAPIName);
 			}
 			else {
-
 				instance = await this.notRecordResponse(instance, responseJson, classDetail);// based on json details data will be assigned
 			}
 		}
@@ -3318,15 +3264,12 @@ class JSONConverter extends Converter {
 	}
 
 	async notRecordResponse(instance, responseJson, classDetail) {
-
-		for(let memberName in classDetail) {
-
+		for (let memberName in classDetail) {
 			let keyDetail = classDetail[memberName];
 
-			let keyName = keyDetail.hasOwnProperty(Constants.NAME) ? keyDetail[Constants.NAME] : null;
+			let keyName = keyDetail.hasOwnProperty(Constants.NAME) ? keyDetail[Constants.NAME] : null;// api-name of the member
 
-			if(keyName != null && responseJson.hasOwnProperty(keyName)) {
-
+			if (keyName != null && responseJson.hasOwnProperty(keyName) && responseJson[keyName] !== null) {
 				let keyData = responseJson[keyName];
 
 				let memberValue = await this.getData(keyData, keyDetail);
@@ -3339,7 +3282,6 @@ class JSONConverter extends Converter {
 	}
 
 	async isRecordResponse(responseJson, classDetail, pack) {
-
 		let className = this.stringToFunction(pack);
 
 		let recordInstance = new className();
@@ -3348,14 +3290,12 @@ class JSONConverter extends Converter {
 
 		let moduleDetail = {};
 
-		if(moduleAPIName != null) { // entry
-
+		if (moduleAPIName != null) { // entry
 			this.commonAPIHandler.setModuleAPIName(null);
 
 			let fullDetail = await Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
 
-			if(fullDetail != null) { // from Jsondetails
-
+			if (fullDetail != null) { // from Jsondetails
 				moduleDetail = fullDetail[Constants.MODULEDETAILS];
 
 				let moduleClassName = this.stringToFunction(fullDetail[Constants.MODULEPACKAGENAME]);
@@ -3363,18 +3303,15 @@ class JSONConverter extends Converter {
 				recordInstance = new moduleClassName();
 			}
 			else { // from user spec
-
 				moduleDetail = await this.getModuleDetailFromUserSpecJSON(moduleAPIName);
 			}
 		}
 
-		if(moduleDetail == null) {
-
+		if (moduleDetail == null) {
 			moduleDetail = {};
 		}
 
-		for(let key in classDetail) {
-
+		for (let key in classDetail) {
 			moduleDetail[key] = classDetail[key];
 		}
 
@@ -3384,25 +3321,20 @@ class JSONConverter extends Converter {
 
 		var keyValues = new Map();
 
-		for(let keyName in responseJson) {
-
+		for (let keyName in responseJson) {
 			let memberName = this.buildName(keyName);
 
 			let keyDetail = {};
 
-			if(Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
-
-				if(moduleDetail.hasOwnProperty(keyName)) {
-
+			if (moduleDetail != null && Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
+				if (moduleDetail.hasOwnProperty(keyName)) {
 					keyDetail = moduleDetail[keyName];// incase of user spec json
 				}
 				else {
-
 					keyDetail = moduleDetail[memberName];// json details
 				}
 			}
-			else if(recordDetail.hasOwnProperty(memberName)) {
-
+			else if (recordDetail.hasOwnProperty(memberName)) {
 				keyDetail = recordDetail[memberName];
 			}
 
@@ -3410,14 +3342,12 @@ class JSONConverter extends Converter {
 
 			let keyData = responseJson[keyName];
 
-			if(Object.keys(keyDetail).length > 0) {
-
+			if (keyDetail != null && Object.keys(keyDetail).length > 0) {
 				keyName = keyDetail[Constants.NAME];
 
 				keyValue = await this.getData(keyData, keyDetail);
 			}
 			else {// if not key detail
-
 				keyValue = await this.redirectorForJSONToObject(keyData);
 			}
 
@@ -3430,35 +3360,27 @@ class JSONConverter extends Converter {
 	}
 
 	async getData(keyData, memberDetail) {
-
 		let memberValue = null;
 
-		if(keyData != null) {
-
+		if (keyData != null) {
 			let type = memberDetail[Constants.TYPE].toString();
 
-			if(type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
-
+			if (type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
 				memberValue = await this.getCollectionsData(keyData, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
-
+			else if (type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
 				memberValue = await this.getMapData(keyData, memberDetail);
 			}
-			else if(type === Constants.CHOICE_NAMESPACE || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase())) {
-
+			else if (type === Constants.CHOICE_NAMESPACE || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase())) {
 				memberValue = new Choice(keyData);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase())) {
-
-				memberValue = await this.isRecordResponse(keyData, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), memberDetail[Constants.STRUCTURE_NAME]);
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE)) {
+				memberValue = await this.isRecordResponse(keyData, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), memberDetail[Constants.STRUCTURE_NAME]);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				memberValue = await this.getResponse(keyData, memberDetail[Constants.STRUCTURE_NAME]);
 			}
 			else {
-
 				memberValue = await DataTypeConverter.preConvert(keyData, type);
 			}
 		}
@@ -3467,24 +3389,18 @@ class JSONConverter extends Converter {
 	}
 
 	async getMapData(response, memberDetail) {
-
 		var mapInstance = new Map();
 
-		if(Object.keys(response).length > 0) {
-
+		if (Object.keys(response).length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.KEYS))) {
-
 				for (let key in response) {
-
 					mapInstance.set(key, await this.redirectorForJSONToObject(response[key]));
 				}
 			}
-			else if(memberDetail.hasOwnProperty(Constants.KEYS)) { // member must have keys
-
+			else if (memberDetail.hasOwnProperty(Constants.KEYS)) { // member must have keys
 				var keysDetail = memberDetail[Constants.KEYS];
 
 				for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 					var keyDetail = keysDetail[keyIndex];
 
 					var keyName = keyDetail[Constants.NAME];
@@ -3492,7 +3408,6 @@ class JSONConverter extends Converter {
 					var keyValue = null;
 
 					if (response.hasOwnProperty(keyName) && response[keyName] != null) {
-
 						keyValue = await this.getData(response[keyName], keyDetail);
 
 						mapInstance.set(keyName, keyValue);
@@ -3505,40 +3420,29 @@ class JSONConverter extends Converter {
 	}
 
 	async getCollectionsData(responses, memberDetail) {
-
 		var values = new Array();
 
-		if(responses.length > 0) {
-
+		if (responses.length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME))) {
-
 				for (let response of responses) {
-
 					values.push(await this.redirectorForJSONToObject(response));
 				}
 			}
 			else { // need to have structure Name in memberDetail
-
 				let pack = memberDetail[Constants.STRUCTURE_NAME];
 
-				if(pack == Constants.CHOICE_NAMESPACE) {
-
+				if (pack == Constants.CHOICE_NAMESPACE) {
 					for (let response of responses) {
-
 						values.push(new Choice(response));
 					}
 				}
-				else if(memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase()) && memberDetail[Constants.MODULE.toLowerCase()] != null){
-
-					for(let response of responses) {
-
-						values.push(await this.isRecordResponse(response, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), pack));
+				else if (memberDetail.hasOwnProperty(Constants.MODULE) && memberDetail[Constants.MODULE] != null) {
+					for (let response of responses) {
+						values.push(await this.isRecordResponse(response, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), pack));
 					}
 				}
 				else {
-
-					for(let response of responses) {
-
+					for (let response of responses) {
 						values.push(await this.getResponse(response, pack));
 					}
 				}
@@ -3549,27 +3453,22 @@ class JSONConverter extends Converter {
 	}
 
 	async getModuleDetailFromUserSpecJSON(module) {
-
 		let moduleDetail = {};
 
-		if(Initializer.sdkConfig.getCacheStore()) {
-
+		if (Initializer.sdkConfig.getCacheStore()) {
 			var converterInstance = new Converter();
 
 			var encodedName = await converterInstance.getEncodedFileName();
 
 			if (await LocalCache.exist()) {
-
 				let recordFieldDetailsJson = await LocalCache.get(encodedName);
 
-				if(recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
-
+				if (recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
 					moduleDetail = recordFieldDetailsJson[module.toLowerCase()];
 				}
 			}
 		}
 		else {
-
 			let json = CommonAPIHandler.recordFieldDetails;
 
 			moduleDetail = await Utility.getJSONObject(json, module.toLowerCase());
@@ -3578,44 +3477,36 @@ class JSONConverter extends Converter {
 		return moduleDetail;
 	}
 
-	async redirectorForJSONToObject(keyData){
-
+	async redirectorForJSONToObject(keyData) {
 		let type = Object.prototype.toString.call(keyData);
 
 		if (type === Constants.OBJECT_TYPE) {
-
 			return await this.getMapData(keyData, null);
 		}
 		else if (type === Constants.ARRAY_KEY) {
-
 			return await this.getCollectionsData(keyData, null);
 		}
 		else {
-
 			return keyData;
 		}
 	}
 
-	async findMatch(classes, responseJson){
-
+	async findMatch(classes, responseJson) {
 		let pack = "";
 
 		let ratio = 0;
 
-		for(let className of classes) {
-
+		for (let className of classes) {
 			var matchRatio = await this.findRatio(className, responseJson);
 
-			if(matchRatio === 1.0) {
-
+			if (matchRatio === 1.0) {
 				pack = className;
 
 				ratio = 1;
 
 				break;
 			}
-			else if(matchRatio > ratio) {
-
+			else if (matchRatio > ratio) {
 				pack = className;
 
 				ratio = matchRatio;
@@ -3626,7 +3517,6 @@ class JSONConverter extends Converter {
 	}
 
 	findRatio(className, responseJson) {
-
 		var classDetail = classDetailMap[className];
 
 		var totalPoints = Array.from(Object.keys(classDetail)).length;
@@ -3634,19 +3524,15 @@ class JSONConverter extends Converter {
 		var matches = 0;
 
 		if (totalPoints == 0) {
-
 			return 0;
 		}
 		else {
-
 			for (let memberName in classDetail) {
-
 				var memberDetail = classDetail[memberName];
 
 				var keyName = memberDetail.hasOwnProperty(Constants.NAME) ? memberDetail[Constants.NAME] : null;
 
 				if (keyName != null && responseJson.hasOwnProperty(keyName) && responseJson[keyName] != null) {// key not empty
-
 					var keyData = responseJson[keyName];
 
 					let type = Object.prototype.toString.call(keyData);
@@ -3654,22 +3540,17 @@ class JSONConverter extends Converter {
 					let structureName = memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) ? memberDetail[Constants.STRUCTURE_NAME] : null;
 
 					if (type.toLowerCase() == Constants.OBJECT_TYPE.toLowerCase()) {
-
 						type = Constants.MAP_KEY;
 					}
 
-					if(Constants.TYPE_VS_DATATYPE.has(memberDetail[Constants.TYPE].toLowerCase()) && Constants.TYPE_VS_DATATYPE.get(memberDetail[Constants.TYPE].toLowerCase()) == type){
-
+					if (Constants.TYPE_VS_DATATYPE.has(memberDetail[Constants.TYPE].toLowerCase()) && Constants.TYPE_VS_DATATYPE.get(memberDetail[Constants.TYPE].toLowerCase()) == type) {
 						matches++;
 					}
-					else if(memberDetail[Constants.TYPE].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase()) {
-
+					else if (memberDetail[Constants.TYPE].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase()) {
 						let values = memberDetail[Constants.VALUES];
 
-						for(let value of values) {
-
-							if(keyData == value) {
-
+						for (let value of values) {
+							if (keyData == value) {
 								matches++;
 
 								break;
@@ -3677,16 +3558,12 @@ class JSONConverter extends Converter {
 						}
 					}
 
-					if(structureName != null && structureName == memberDetail[Constants.TYPE]) {
-
-						if(memberDetail.hasOwnProperty(Constants.VALUES)) {
-
+					if (structureName != null && structureName == memberDetail[Constants.TYPE]) {
+						if (memberDetail.hasOwnProperty(Constants.VALUES)) {
 							let values = memberDetail[Constants.VALUES];
 
-							for(let value of values) {
-
-								if(keyData == value) {
-
+							for (let value of values) {
+								if (keyData == value) {
 									matches++;
 
 									break;
@@ -3694,7 +3571,6 @@ class JSONConverter extends Converter {
 							}
 						}
 						else {
-
 							matches++;
 						}
 					}
@@ -3705,32 +3581,28 @@ class JSONConverter extends Converter {
 		return matches / totalPoints;
 	}
 
-	buildName(memberName){
-
-		let name = memberName.split("_");
+	buildName(memberName) {
+		let name = memberName.toLowerCase().split("_");
 
 		var index = 0;
 
-		if (name.length == 0)
-		{
+		if (name.length == 0) {
 			index = 1;
 		}
 
 		var sdkName = name[0];
 
-		sdkName = sdkName[0].toLowerCase() +  sdkName.slice(1);
+		sdkName = sdkName[0].toLowerCase() + sdkName.slice(1);
 
 		index = 1;
 
 		for (var nameIndex = index; nameIndex < name.length; nameIndex++) {
-
 			var fieldName = name[nameIndex];
 
 			var firstLetterUppercase = "";
 
-			if(fieldName.length > 0)
-			{
-				firstLetterUppercase = fieldName[0].toUpperCase() +  fieldName.slice(1);
+			if (fieldName.length > 0) {
+				firstLetterUppercase = fieldName[0].toUpperCase() + fieldName.slice(1);
 			}
 
 			sdkName = sdkName.concat(firstLetterUppercase);
@@ -3740,7 +3612,6 @@ class JSONConverter extends Converter {
 	}
 
 	stringToFunction(str) {
-
 		str = "ZCRM." + str;
 
 		var arr = str.split(".");
@@ -3748,28 +3619,24 @@ class JSONConverter extends Converter {
 		var fn = (window || this);
 
 		for (var i = 0, len = arr.length; i < len; i++) {
-
 			fn = fn[arr[i]];
 		}
 
 		if (typeof fn !== Constants.FUNCTION) {
-
 			throw new SDKException(Constants.CLASS_NOT_FOUND, null, null, null);
 		}
 
-		return  fn;
+		return fn;
 	}
 
 	getFileName(name) {
-
 		let fileName = [];
 
-		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function(e){return e});
+		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) { return e });
 
 		fileName.push(nameParts[0].toLowerCase());
 
-		for(let i = 1; i < nameParts.length; i++) {
-
+		for (let i = 1; i < nameParts.length; i++) {
 			fileName.push(nameParts[i].toLowerCase());
 		}
 
@@ -3781,139 +3648,114 @@ class JSONConverter extends Converter {
  * This class processes the API response object to the POJO object and POJO object to an XML object.
  */
 class XMLConverter extends Converter {
-
 	constructor(commonAPIHandler) {
-
 		super(commonAPIHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	formRequest(requestObject, pack, instanceNumber) {
-
 		super.formRequest(requestObject, pack, instanceNumber);
 	}
 
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 	}
 
 	getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 	}
 
 	getResponse(response, pack) {
-
 		super.getResponse(response, pack);
 	}
-
 }
 
 /**
  * This class is to process the download file and stream response.
  */
 class Downloader extends Converter {
-
 	constructor(commonApiHandler) {
-
 		super(commonApiHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
-	formRequest(requestObject, pack, instanceNumber) {
-
-		super.formRequest(requestObject, pack, instanceNumber);
-	}
-
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 	}
 
-	async getWrappedResponse(response, pack) {
+	formRequest(requestObject, pack, instanceNumber) {
+		super.formRequest(requestObject, pack, instanceNumber);
+	}
 
-		super.getWrappedResponse(response,pack);
+	async getWrappedResponse(response, pack) {
+		super.getWrappedResponse(response, pack);
 
 		return await this.getResponse(response, pack);
 	}
 
 	async getResponse(response, pack) {
-
 		super.getResponse(response, pack);
 
 		var instance = null;
 
-		var classDetail = classDetailMap[pack];
+		var recordJsonDetails = classDetailMap[pack];
 
-		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // if interface
-
-			let classes = classDetail[Constants.CLASSES];
+		if (recordJsonDetails.hasOwnProperty(Constants.INTERFACE) && recordJsonDetails[Constants.INTERFACE]) { // if interface
+			let classes = recordJsonDetails[Constants.CLASSES];
 
 			for (let index = 0; index < classes.length; index++) {
+				let className = classes[index];
 
-				let eachClass = classes[index];
-
-                if(eachClass.toString().toLowerCase().includes(Constants.FILE_BODY_WRAPPER.toLowerCase())){
-
-					return await this.getResponse(response, eachClass);
-                }
-            }
+				if (className.toString().toLowerCase().includes(Constants.FILE_BODY_WRAPPER.toLowerCase())) {
+					return await this.getResponse(response, className);
+				}
+			}
 		}
 		else {
-
 			let className = await this.stringToFunction(pack);
 
 			instance = new className();
 
-			for (let memberName in classDetail) {
-
-				var memberDetail = classDetail[memberName];
+			for (let memberName in recordJsonDetails) {
+				var memberDetail = recordJsonDetails[memberName];
 
 				var type = memberDetail[Constants.TYPE];
 
 				var instanceValue = null;
 
-				if(type === Constants.STREAM_WRAPPER_CLASS) {
-
+				if (type === Constants.STREAM_WRAPPER_CLASS) {
 					var filename;
 
 					if (response.getAllResponseHeaders().indexOf(Constants.CONTENT_DISPOSITION) >= 0) {
+						var disposition = response.getResponseHeader(Constants.CONTENT_DISPOSITION);//No I18N
 
-                        var disposition = response.getResponseHeader(Constants.CONTENT_DISPOSITION);//No I18N
+						if (disposition && disposition.indexOf('attachment') !== -1) {
+							var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
 
-                        if (disposition && disposition.indexOf('attachment') !== -1) {
+							var matches = filenameRegex.exec(disposition);
 
-                            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							if (matches != null && matches[1]) {
+								filename = matches[1].replace(/['"]/g, '');
 
-                            var matches = filenameRegex.exec(disposition);
-
-                            if (matches != null && matches[1]) {
-
-                                filename = matches[1].replace(/['"]/g, '');
-
-                                filename = filename.replace('UTF-8','');
-                            }
-                        }
+								filename = filename.replace('UTF-8', '');
+							}
+						}
 					}
 
 					var mimeType = response.getResponseHeader(Constants.CONTENT_TYPE_HEADER.toLowerCase());//No I18N
 
-                    if(mimeType != undefined && mimeType != null) {
+					if (mimeType != undefined && mimeType != null) {
+						if (mimeType.includes(";")) {
+							mimeType = mimeType.split(";")[0];
+						}
+					}
+					else {
+						mimeType = "text/plain";
+					}
 
-                        if(mimeType.includes(";")) {
-
-                            mimeType = mimeType.split(";")[0];
-                        }
-                    }
-                    else {
-
-                        mimeType = "text/plain";
-                    }
-
-                    let blob = new Blob([response.response], {type: mimeType.toString()});
+					let blob = new Blob([response.response], { type: mimeType.toString() });
 
 					var fileInstance = new StreamWrapper.Model.StreamWrapper(filename, blob);
 
@@ -3928,7 +3770,6 @@ class Downloader extends Converter {
 	}
 
 	stringToFunction(str) {
-
 		str = "ZCRM." + str;
 
 		var arr = str.split(".");
@@ -3936,16 +3777,14 @@ class Downloader extends Converter {
 		var fn = (window || this);
 
 		for (var i = 0, len = arr.length; i < len; i++) {
-
 			fn = fn[arr[i]];
 		}
 
 		if (typeof fn !== Constants.FUNCTION) {
-
 			throw new SDKException(Constants.CLASS_NOT_FOUND, null, null, null);
 		}
 
-		return  fn;
+		return fn;
 	};
 }
 
@@ -3953,138 +3792,113 @@ class Downloader extends Converter {
  * This class is to process the upload file and stream.
  */
 class FormDataConverter extends Converter {
-
 	constructor(commonApiHandler) {
-
 		super(commonApiHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	async appendToRequest(requestBase) {
-
 		super.appendToRequest(requestBase);
 
 		var formDataRequestBody = new FormData();
 
-        await this.addFileBody(requestBase.getRequestBody(), formDataRequestBody);
+		await this.addFileBody(requestBase.getRequestBody(), formDataRequestBody);
 
-        return formDataRequestBody;
+		return formDataRequestBody;
 	}
 
 	async addFileBody(requestObject, formData) {
-
 		let requestKeys = Object.keys(requestObject);
 
-        for(let key of requestKeys) {
-
+		for (let key of requestKeys) {
 			let value = requestObject[key];
 
-            if (Array.isArray(value)) {
-
-                for(let fileObject of value) {
-
-					if(fileObject instanceof StreamWrapper.Model.StreamWrapper) {
-
-                        formData.append(key, new Blob([fileObject.getStream()]), fileObject.getName());
-                    }
-                    else {
-
-                        formData.append(key, fileObject);
-                    }
-                }
-            }
-            else if(value instanceof StreamWrapper.Model.StreamWrapper) {
-
+			if (Array.isArray(value)) {
+				for (let fileObject of value) {
+					if (fileObject instanceof StreamWrapper.Model.StreamWrapper) {
+						formData.append(key, new Blob([fileObject.getStream()]), fileObject.getName());
+					}
+					else {
+						formData.append(key, fileObject);
+					}
+				}
+			}
+			else if (value instanceof StreamWrapper.Model.StreamWrapper) {
 				formData.append(key, new Blob([value.getStream()]), value.getName());
-            }
-            else {
-
+			}
+			else {
 				formData.append(key, value);
-            }
-        }
-    }
+			}
+		}
+	}
 
 	async formRequest(requestInstance, pack, instanceNumber, classMemberDetail) {
-
 		super.formRequest(requestInstance, pack, instanceNumber);
 
 		var classDetail = classDetailMap[pack];
 
 		var request = {};
 
-		if(classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) {
-
+		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) {
 			var classes = classDetail[Constants.CLASSES];
 
-            var baseName = pack.split('/').slice(0, -1);
+			var baseName = pack.split('/').slice(0, -1);
 
-            let className = await this.getFileName(requestInstance.constructor.name);
+			let className = await this.getFileName(requestInstance.constructor.name);
 
-            baseName.push(className);
+			baseName.push(className);
 
-            let requestObjectClassName = baseName.join('/');
+			let requestObjectClassName = baseName.join('/');
 
-            for (let classname of classes) {
-
-				if(classname.toLowerCase() == requestObjectClassName.toLowerCase()) {
-
+			for (let classname of classes) {
+				if (classname.toLowerCase() == requestObjectClassName.toLowerCase()) {
 					classDetail = classDetailMap[requestObjectClassName];
 
-                    break;
-                }
-            }
+					break;
+				}
+			}
 		}
 
 		for (let memberName in classDetail) {
-
 			var modification = null;
 
 			var memberDetail = classDetail[memberName];
 
 			// check and neglect read_only
 			if ((memberDetail.hasOwnProperty(Constants.READ_ONLY) && memberDetail[Constants.READ_ONLY] == Constants.TRUE) || !memberDetail.hasOwnProperty(Constants.NAME)) {
-
 				continue;
-            }
+			}
 
-            try {
-
-                modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
-            }
-            catch(e) {
-
-                throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, e);
-            }
+			try {
+				modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
+			}
+			catch (e) {
+				throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, e);
+			}
 
 			// check required
-			if (modification == null || modification === 0 && memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == Constants.TRUE) {
-
+			if ((modification == null || modification === 0) && memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == Constants.TRUE) {
 				throw new SDKException(Constants.MANDATORY_VALUE_MISSING_ERROR, Constants.MANDATORY_KEY_MISSING_ERROR + memberName);
 			}
 
 			var fieldValue = Reflect.get(requestInstance, memberName);
 
 			if (modification != null && modification !== 0 && await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber) === true) {
-
 				var keyName = memberDetail[Constants.NAME];
 
 				var type = memberDetail[Constants.TYPE];
 
 				if (type.toLowerCase() == Constants.LIST_NAMESPACE.toLowerCase()) {
-
 					request[keyName] = await this.setJSONArray(fieldValue, memberDetail);
 				}
 				else if (type.toLowerCase() == Constants.MAP_NAMESPACE.toLowerCase()) {
-
 					request[keyName] = await this.setJSONObject(fieldValue, memberDetail);
 				}
 				else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 					request[keyName] = await this.formRequest(fieldValue, memberDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
 				}
 				else {
-
 					request[keyName] = fieldValue;
 				}
 			}
@@ -4093,25 +3907,34 @@ class FormDataConverter extends Converter {
 		return request;
 	}
 
-	async setJSONObject(fieldValue, memberDetail) {
+	getFileName(name) {
+		let fileName = [];
 
+		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) { return e; });
+
+		fileName.push(nameParts[0].toLowerCase());
+
+		for (let i = 1; i < nameParts.length; i++) {
+			fileName.push(nameParts[i].toLowerCase());
+		}
+
+		return fileName.join("_");
+	}
+
+	async setJSONObject(fieldValue, memberDetail) {
 		var jsonObject = {};
 
 		var requestObject = fieldValue;
 
 		if (memberDetail == null) {
-
 			for (let key of Array.from(requestObject.keys())) {
-
 				jsonObject[key] = await this.redirectorForObjectToJSON(requestObject.get(key));
-            }
+			}
 		}
 		else {
-
 			var keysDetail = memberDetail[Constants.KEYS];
 
 			for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 				let keyDetail = keysDetail[keyIndex];
 
 				let keyName = keyDetail[Constants.NAME];
@@ -4119,18 +3942,13 @@ class FormDataConverter extends Converter {
 				let keyValue = null;
 
 				if (requestObject.hasOwnProperty(keyName) && requestObject[keyName] != null) {
-
 					if (keyDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 						keyValue = await this.formRequest(requestObject[keyName], keyDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
 
 						jsonObject[keyName] = keyValue;
 					}
 					else {
-
-						keyValue = requestObject[keyName];
-
-						jsonObject[keyName] = await this.redirectorForObjectToJSON(keyValue);
+						jsonObject[keyName] = await this.redirectorForObjectToJSON(requestObject[keyName]);
 					}
 				}
 			}
@@ -4140,33 +3958,26 @@ class FormDataConverter extends Converter {
 	}
 
 	async setJSONArray(fieldValue, memberDetail) {
-
 		var jsonArray = [];
 
 		var requestObjects = fieldValue;
 
 		if (memberDetail == null) {
-
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.redirectorForObjectToJSON(request));
 			}
 		}
 		else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 			let instanceCount = 0;
 
 			let pack = memberDetail[Constants.STRUCTURE_NAME];
 
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.formRequest(request, pack, instanceCount++, memberDetail));
 			}
 		}
 		else {
-
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.redirectorForObjectToJSON(request));
 			}
 		}
@@ -4175,87 +3986,53 @@ class FormDataConverter extends Converter {
 	}
 
 	redirectorForObjectToJSON(request) {
-
 		let type = Object.prototype.toString.call(request)
 
 		if (type.toLowerCase() == Constants.ARRAY_KEY.toLowerCase()) {
-
 			return this.setJSONArray(request, null);
 		}
 		else if (type.toLowerCase() == Constants.MAP_KEY.toLowerCase()) {
-
 			return this.setJSONObject(request, null);
 		}
 		else {
-
 			return request;
 		}
 	}
 
 	getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 	}
 
 	getResponse(responseJson, pack) {
-
 		super.getResponse(responseJson, pack);
-	}
-
-	getFileName(name) {
-
-		let fileName = [];
-
-		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) {
-
-			return e;
-		});
-
-		fileName.push(nameParts[0].toLowerCase());
-
-		for (let i = 1; i < nameParts.length; i++) {
-
-			fileName.push(nameParts[i].toLowerCase());
-		}
-
-		return fileName.join("_");
 	}
 }
 
 var LocalCache = {
-
     data: {},
     remove: async function () {
-
         if ('caches' in window) {
-
             await caches.delete(Constants.CRMSDK);
         }
     },
     exist: async function () {
-
         if ('caches' in window) {
-
             return await caches.has(Constants.CRMSDK);
         }
     },
     get: async function (userKey) {
-
         let request = '/' + userKey + '.json';
 
         let response = await caches.match(request);
 
-        if(response != undefined) {
-
+        if (response != undefined) {
             return await response.json();
         }
 
         return {};
     },
     set: async function (userKey, value) {
-
         if ('caches' in window) {
-
             let cache = await caches.open(Constants.CRMSDK);
 
             let request = '/' + userKey + '.json';
@@ -4263,10 +4040,8 @@ var LocalCache = {
             await cache.put(request, new Response(JSON.stringify(value)));
         }
     },
-    removeKey : async function(userKey) {
-
+    removeKey: async function (userKey) {
         if ('caches' in window) {
-
             let cache = await caches.open(Constants.CRMSDK);
 
             let request = '/' + userKey + '.json';
@@ -4283,14 +4058,12 @@ var LocalCache = {
  * Process the response JSON and converts it to relevant objects in the library.
  */
 class CommonAPIHandler {
-
     constructor() {
-
         this._apiPath = null;
 
-        this._parameters = new ParameterMap();
+        this._param = new ParameterMap();
 
-        this._headers = new HeaderMap();
+        this._header = new HeaderMap();
 
         this._request = null;
 
@@ -4305,32 +4078,11 @@ class CommonAPIHandler {
         this._mandatoryChecker = null;
     }
 
-    getCategoryMethod() {
-
-		return this._categoryMethod;
-	}
-
-	setCategoryMethod(category) {
-
-		this._categoryMethod = category;
-	}
-
-    getMandatoryChecker() {
-
-        return this._mandatoryChecker;
-    }
-
-    setMandatoryChecker(mandatoryChecker) {
-
-        this._mandatoryChecker = mandatoryChecker;
-    }
-
     /**
      * This is a setter method to set an API request content type.
      * @param {String} contentType A String containing the API request content type.
      */
     setContentType(contentType) {
-
         this._contentType = contentType;
     }
 
@@ -4339,14 +4091,8 @@ class CommonAPIHandler {
      * @param {String} apiPath A String containing the API request URL.
      */
     setAPIPath(apiPath) {
-
         this._apiPath = apiPath;
     }
-
-    getAPIPath() {
-
-		return this._apiPath;
-	}
 
     /**
      * This method is to add an API request parameter.
@@ -4354,18 +4100,15 @@ class CommonAPIHandler {
      * @param {object} paramValue A object containing the API request parameter value.
      */
     async addParam(paramInstance, paramValue) {
-
-        if(paramValue == null) {
-
-			return;
+        if (paramValue == null) {
+            return;
         }
 
-        if(this._parameters == null) {
-
-            this._parameters = new ParameterMap();
+        if (this._param == null) {
+            this._param = new ParameterMap();
         }
 
-        await this._parameters.add(paramInstance, paramValue);
+        await this._param.add(paramInstance, paramValue);
     }
 
     /**
@@ -4374,18 +4117,15 @@ class CommonAPIHandler {
      * @param {object} headerValue A object containing the API request header value.
      */
     async addHeader(headerInstance, headerValue) {
-
-        if(headerValue == null) {
-
-			return;
+        if (headerValue == null) {
+            return;
         }
 
-        if(this._headers == null) {
-
-            this._headers = new HeaderMap();
+        if (this._header == null) {
+            this._header = new HeaderMap();
         }
 
-        await this._headers.add(headerInstance, headerValue);
+        await this._header.add(headerInstance, headerValue);
     }
 
     /**
@@ -4393,22 +4133,17 @@ class CommonAPIHandler {
      * @param {ParameterMap} param A ParameterMap class instance containing the API request parameter.
      */
     setParam(param) {
+        if (param == null) {
+            return;
+        }
 
-        if(param == null) {
-
-			return;
-		}
-
-        if(this._parameters.getParameterMap() != null && this._parameters.getParameterMap().size > 0) {
-
-            for(let key of param.getParameterMap().keys()) {
-
-				this._parameters.getParameterMap().set(key, param.getParameterMap().get(key));
-			}
+        if (this._param.getParameterMap() != null && this._param.getParameterMap().size > 0) {
+            for (let key of param.getParameterMap().keys()) {
+                this._param.getParameterMap().set(key, param.getParameterMap().get(key));
+            }
         }
         else {
-
-            this._parameters = param;
+            this._param = param;
         }
     }
 
@@ -4417,7 +4152,6 @@ class CommonAPIHandler {
      * @returns {String} A String representing the Zoho CRM module API name.
      */
     getModuleAPIName() {
-
         return this._moduleAPIName;
     }
 
@@ -4426,7 +4160,6 @@ class CommonAPIHandler {
      * @param {String} moduleAPIName A String containing the Zoho CRM module API name.
      */
     setModuleAPIName(moduleAPIName) {
-
         this._moduleAPIName = moduleAPIName;
     }
 
@@ -4435,22 +4168,17 @@ class CommonAPIHandler {
      * @param {HeaderMap} header A HeaderMap class instance containing the API request header.
      */
     setHeader(header) {
+        if (header == null) {
+            return;
+        }
 
-        if(header == null) {
-
-			return;
-		}
-
-        if(this._headers.getHeaderMap() != null && this._headers.getHeaderMap().size > 0) {
-
-            for(let key of header.getHeaderMap().keys()) {
-
-				this._headers.getHeaderMap().set(key, header.getHeaderMap().get(key));
-			}
+        if (this._header.getHeaderMap() != null && this._header.getHeaderMap().size > 0) {
+            for (let key of header.getHeaderMap().keys()) {
+                this._header.getHeaderMap().set(key, header.getHeaderMap().get(key));
+            }
         }
         else {
-
-            this._headers = header;
+            this._header = header;
         }
     }
 
@@ -4459,7 +4187,6 @@ class CommonAPIHandler {
      * @param {object} request A Object containing the API request body object.
      */
     setRequest(request) {
-
         this._request = request;
     }
 
@@ -4468,8 +4195,23 @@ class CommonAPIHandler {
      * @param {String} httpMethod A String containing the HTTP API request method.
      */
     setHttpMethod(httpMethod) {
-
         this._httpMethod = httpMethod;
+    }
+
+    /**
+     * This is a getter method to get mandatoryChecker
+     * @returns {Boolean} - A Boolean value representing mandatoryChecker
+     */
+    isMandatoryChecker() {
+        return this._mandatoryChecker;
+    }
+
+    /**
+     * This is a setter method to set mandatoryChecker
+     * @param {Bool} mandatoryChecker - A Boolean value
+     */
+    setMandatoryChecker(mandatoryChecker) {
+        this._mandatoryChecker = mandatoryChecker;
     }
 
     /**
@@ -4477,8 +4219,31 @@ class CommonAPIHandler {
      * @returns {String} A String representing the HTTP API request method.
      */
     getHttpMethod() {
-
         return this._httpMethod;
+    }
+
+    /**
+     * This is a getter method to get categoryMethod
+     * @returns {String} - A String value representing categoryMethod
+     */
+    getCategoryMethod() {
+        return this._categoryMethod;
+    }
+
+    /**
+     * This is a setter method to set categoryMethod
+     * @param {String} categoryMethod - A String value representing categoryMethod
+     */
+    setCategoryMethod(category) {
+        this._categoryMethod = category;
+    }
+
+    /** 
+     * This is a getter method to get the API request URL.
+     * @returns {String} A String containing the API request URL.
+     */
+    getAPIPath() {
+        return this._apiPath;
     }
 
     /**
@@ -4487,23 +4252,18 @@ class CommonAPIHandler {
      * @param {String} encodeType A String containing the expected API response content type.
      * @returns {APIResponse} A APIResponse representing the Zoho CRM API response instance or null.
      */
-    async apiCall(className,  encodeType) {
-
-        if(Initializer == null) {
-
-			throw new SDKException(Constants.SDK_UNINITIALIZATION_ERROR, Constants.SDK_UNINITIALIZATION_MESSAGE);
+    async apiCall(className, encodeType) {
+        if (Initializer == null) {
+            throw new SDKException(Constants.SDK_UNINITIALIZATION_ERROR, Constants.SDK_UNINITIALIZATION_MESSAGE);
         }
 
         var connector = new APIHTTPConnector();
 
         try {
-
             await this.setAPIUrl(connector);
         }
         catch (error) {
-
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -4516,24 +4276,19 @@ class CommonAPIHandler {
 
         connector.setContentType(this._contentType);
 
-        if(this._headers != null && this._headers.getHeaderMap().size > 0) {
-
-            connector.setHeaders(this._headers.getHeaderMap());
+        if (this._header != null && this._header.getHeaderMap().size > 0) {
+            connector.setHeaders(this._header.getHeaderMap());
         }
 
-        if(this._parameters != null && this._parameters.getParameterMap().size > 0) {
-
-            connector.setParams(this._parameters.getParameterMap());
+        if (this._param != null && this._param.getParameterMap().size > 0) {
+            connector.setParams(this._param.getParameterMap());
         }
 
         try {
-
             await Initializer.token.authenticate(connector);
         }
         catch (error) {
-
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -4547,23 +4302,19 @@ class CommonAPIHandler {
         var convertInstance = null;
 
         if (this._contentType != null && Constants.IS_GENERATE_REQUEST_BODY.includes(this._httpMethod.toUpperCase())) {
-
             let request = null;
 
             var requestClassName = className.split(".");
 
-            requestClassName[requestClassName.length -1] = this._request.constructor.name;
+            requestClassName[requestClassName.length - 1] = this._request.constructor.name;
 
             try {
-
                 convertInstance = await this.getConverterClassInstance(this._contentType.toLowerCase());
 
                 request = await convertInstance.formRequest(this._request, requestClassName.join("."), null, null);
             }
-            catch(error) {
-
-                if(!(error instanceof SDKException)) {
-
+            catch (error) {
+                if (!(error instanceof SDKException)) {
                     error = new SDKException(null, null, null, error);
                 }
 
@@ -4576,24 +4327,20 @@ class CommonAPIHandler {
         }
 
         try {
+            // let zoho_sdk_value = navigator.appCodeName + "/" + parseFloat(navigator.appVersion) + "javascript-2.0/" + ":" + Constants.SDK_VERSION;
+            // connector.addHeader(Constants.ZOHO_SDK, zoho_sdk_value);
 
-            let zoho_sdk_value = navigator.appCodeName + "/" + parseFloat(navigator.appVersion) + "/javascript-2.0/" + ":" + Constants.SDK_VERSION;
-
-            connector.addHeader(Constants.ZOHO_SDK, zoho_sdk_value);
-
-            let response =  await connector.fireRequest(convertInstance);
+            let response = await connector.fireRequest(convertInstance);
 
             var statusCode = response.status;
 
             var headerMap = await this.getHeaders(await response.getAllResponseHeaders());
 
-            if(headerMap.hasOwnProperty(Constants.CONTENT_TYPE_HEADER.toLowerCase())) {
-
+            if (headerMap.hasOwnProperty(Constants.CONTENT_TYPE_HEADER.toLowerCase())) {
                 var mimeType = headerMap[Constants.CONTENT_TYPE_HEADER];
 
-                if(mimeType != undefined && mimeType != null) {
-
-                    if(mimeType.includes(";")) {
+                if (mimeType != undefined && mimeType != null) {
+                    if (mimeType.includes(";")) {
 
                         mimeType = mimeType.split(";")[0];
                     }
@@ -4604,16 +4351,13 @@ class CommonAPIHandler {
                 }
             }
             else {
-
-				SDKLogger.log(Levels.ERROR, Constants.API_ERROR_RESPONSE + statusCode.toString());
-			}
+                SDKLogger.log(Levels.ERROR, Constants.API_ERROR_RESPONSE + statusCode.toString());
+            }
 
             return new APIResponse(headerMap, statusCode, returnObject);
         }
         catch (error) {
-
-            if(!(error instanceof SDKException)) {
-
+            if (!(error instanceof SDKException)) {
                 error = new SDKException(null, null, null, error);
             }
 
@@ -4624,14 +4368,38 @@ class CommonAPIHandler {
     }
 
     /**
-	 * This method is used to get a Converter class instance.
-	 * @param {String} encodeType A String containing the API response content type.
-	 * @return A Converter class instance.
-	 */
+     * This method to get API response headers.
+     * @param {ByteString} headers A ByteString containing the API response headers.
+     * @return {Map} A Map&lt;String,String&gt; representing the API response headers.
+     */
+    async getHeaders(headers) {
+        // Convert the header string into an array
+        // of individual headers
+        var arr = headers.trim().split(/[\r\n]+/);
+
+        // Create a map of header names to values
+        var headerMap = new Map();
+
+        arr.forEach(function (line) {
+            var parts = line.split(': ');
+
+            var header = parts.shift();
+
+            var value = parts.join(': ');
+
+            headerMap[header] = value;
+        });
+
+        return headerMap;
+    }
+
+    /**
+     * This method is used to get a Converter class instance.
+     * @param {String} encodeType A String containing the API response content type.
+     * @return A Converter class instance.
+     */
     async getConverterClassInstance(encodeType) {
-
-        switch(encodeType) {
-
+        switch (encodeType) {
             case "application/json":
             case "text/plain":
             case "application/ld+json":
@@ -4690,67 +4458,32 @@ class CommonAPIHandler {
         return null;
     }
 
-    /**
-	 * This method to get API response headers.
-	 * @param {ByteString} headers A ByteString containing the API response headers.
-	 * @return {Map} A Map&lt;String,String&gt; representing the API response headers.
-	 */
-    async getHeaders(headers) {
-
-        // Convert the header string into an array
-        // of individual headers
-        var arr = headers.trim().split(/[\r\n]+/);
-
-        // Create a map of header names to values
-        var headerMap = new Map();
-
-        arr.forEach(function (line) {
-
-            var parts = line.split(': ');
-
-            var header = parts.shift();
-
-            var value = parts.join(': ');
-
-            headerMap[header] = value;
-        });
-
-        return headerMap;
-    }
-
     async setAPIUrl(connector) {
-
         var apiPath = "";
 
-        if(this._apiPath.toString().includes(Constants.HTTP)) {
-
-            if(this._apiPath.includes(Constants.CONTENT_API_URL)) {
-
+        if (this._apiPath.toString().includes(Constants.HTTP)) {
+            if (this._apiPath.includes(Constants.CONTENT_API_URL)) {
                 apiPath = apiPath.concat(Initializer.environment.getFileUploadUrl())
 
                 try {
-
                     const myURL = new URL(this._apiPath);
 
                     apiPath = apiPath.concat(myURL.pathname);
                 }
                 catch (error) {
-
                     throw new SDKException(Constants.INVALID_URL_ERROR, null, null, error);
                 }
             }
-            else{
+            else {
 
-                if(this._apiPath.substring(0,1) == "/") {
-
+                if (this._apiPath.substring(0, 1) == "/") {
                     this._apiPath = this._apiPath.substring(1);
                 }
 
                 apiPath = apiPath.concat(this._apiPath);
             }
         }
-        else{
-
+        else {
             apiPath = Initializer.environment.getUrl();
 
             apiPath = apiPath.concat(this._apiPath);
@@ -4766,9 +4499,7 @@ CommonAPIHandler.recordFieldDetails = new Map();
  * This module is to make HTTP connections, trigger the requests and receive the response.
  */
 class APIHTTPConnector {
-
     constructor() {
-
         this._url = null;
 
         this._requestMethod = null;
@@ -4787,7 +4518,6 @@ class APIHTTPConnector {
      * @returns {String} A String representing the API request ContentType.
      */
     getContentType() {
-
         return this._contentType;
     }
 
@@ -4796,7 +4526,6 @@ class APIHTTPConnector {
      * @param {String} A String containing the API request ContentType.
      */
     setContentType(contentType) {
-
         this._contentType = contentType;
     }
 
@@ -4806,7 +4535,6 @@ class APIHTTPConnector {
      * @param {String} url A String containing the API Request URL.
      */
     setUrl(url) {
-
         this._url = url;
     }
 
@@ -4815,7 +4543,6 @@ class APIHTTPConnector {
      * @param {String} httpMethod A String containing the API request method.
      */
     setRequestMethod(httpMethod) {
-
         this._requestMethod = httpMethod;
     }
 
@@ -4824,7 +4551,6 @@ class APIHTTPConnector {
      * @returns {Map} A Map representing the API request headers.
      */
     getHeaders() {
-
         return this._headers;
     }
 
@@ -4833,7 +4559,6 @@ class APIHTTPConnector {
      * @param {Map} A Map containing the API request headers.
      */
     setHeaders(headers) {
-
         this._headers = headers;
     }
 
@@ -4843,7 +4568,6 @@ class APIHTTPConnector {
      * @param {String} headerValue A String containing the API request header value.
      */
     addHeader(headerName, headerValue) {
-
         this._headers.set(headerName, headerValue);
     }
 
@@ -4852,7 +4576,6 @@ class APIHTTPConnector {
      * @returns {Map} A Map representing the API request parameters.
      */
     getParams() {
-
         return this._parameters;
     }
 
@@ -4861,7 +4584,6 @@ class APIHTTPConnector {
      * @param Map A Map containing the API request parameters.
      */
     setParams(params) {
-
         this._parameters = params;
     }
 
@@ -4871,7 +4593,6 @@ class APIHTTPConnector {
      * @param {String} paramValue A String containing the API request param value.
      */
     addParam(paramName, paramValue) {
-
         this._parameters.set(paramName, paramValue);
     }
 
@@ -4880,7 +4601,6 @@ class APIHTTPConnector {
      * @param {object} requestBody A Object containing the API request body.
      */
     setRequestBody(requestBody) {
-
         this._requestBody = requestBody;
     }
 
@@ -4888,7 +4608,6 @@ class APIHTTPConnector {
      * This is a setter method to set the API request body.
      */
     getRequestBody() {
-
         return this._requestBody;
     }
 
@@ -4898,20 +4617,16 @@ class APIHTTPConnector {
      * @returns JSON A JSON representing the API response.
      */
     async fireRequest(converterInstance) {
-
         var apiHeaders = {};
 
         var modifiedRequestBody = "";
 
-        if(this._contentType != null) {
-
-			await this.setContentTypeHeader();
+        if (this._contentType != null) {
+            await this.setContentTypeHeader();
         }
 
-        if(this._headers) {
-
-            this._headers.forEach(function(value, key) {
-
+        if (this._headers) {
+            this._headers.forEach(function (value, key) {
                 apiHeaders[key] = value;
             });
         }
@@ -4919,39 +4634,28 @@ class APIHTTPConnector {
         var baseUrl = this._url;
 
         if (this._parameters != null && this._parameters.size > 0) {
-
             baseUrl = await this.setQueryParams(this._parameters);
         }
 
-        if (Array.from(Object.keys(this._requestBody)).length > 0){
-
-			modifiedRequestBody = await converterInstance.appendToRequest(this, null);
+        if (Array.from(Object.keys(this._requestBody)).length > 0) {
+            modifiedRequestBody = await converterInstance.appendToRequest(this, null);
         }
 
         let proxy = {};
 
-        if(Initializer.requestProxy != null) {
-
+        if (Initializer.requestProxy != null) {
             proxy.host = Initializer.requestProxy.getHost();
-
             proxy.port = Initializer.requestProxy.getPort();
-
             SDKLogger.log(Levels.INFO, await this.proxyLog(Initializer.requestProxy));
         }
 
         var requestObj = {
-
-            uri : baseUrl,
-
-            method : this._requestMethod,
-
-            headers : apiHeaders,
-
-            body : modifiedRequestBody,
-
-            encoding : Constants.ENCODING,
-
-            requestProxy : proxy
+            uri: baseUrl,
+            method: this._requestMethod,
+            headers: apiHeaders,
+            body: modifiedRequestBody,
+            encoding: Constants.ENCODING,
+            requestProxy: proxy
         };
 
         SDKLogger.log(Levels.INFO, await this.toString());
@@ -4960,15 +4664,12 @@ class APIHTTPConnector {
     }
 
     async makeAPICall(requestDetails) {
-
         return new Promise(function (resolve, reject) {
-
             var body, xhr, i;
 
             xhr = new XMLHttpRequest(requestDetails.requestProxy);
 
-            if(!requestDetails.uri.includes(Constants.CONTENT_API) && !requestDetails.uri.includes(Constants.ZIP)) {
-
+            if (!requestDetails.uri.includes(Constants.CONTENT_API) && !requestDetails.uri.includes(Constants.ZIP)) {
                 xhr.withCredentials = true;
             }
 
@@ -4977,46 +4678,36 @@ class APIHTTPConnector {
             xhr.responseType = Constants.ARRAY_BUFFER;
 
             for (i in requestDetails.headers) {
-
                 xhr.setRequestHeader(i, requestDetails.headers[i]);
             }
 
             body = requestDetails.body || null;
 
-            xhr.timeout = Initializer.sdkConfig.timeout();
+            xhr.timeout = Initializer.sdkConfig.getTimeout();
 
             xhr.send(body);
 
-            xhr.onreadystatechange = function() {
-
-                if(xhr.readyState == 4) {
-
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
                     resolve(xhr);
                 }
             }
 
             xhr.ontimeout = function () {
-
                 SDKLogger.log(Levels.ERROR, Constants.TIME_OUT);
             }
         })
     }
 
     async setQueryParams(parameters) {
-
         var params;
 
-        parameters.forEach(function(value, key) {
-
+        parameters.forEach(function (value, key) {
             if (parameters.has(key)) {
-
                 if (params) {
-
                     params = params + key + '=' + encodeURI(value) + '&';
                 }
-
                 else {
-
                     params = key + '=' + encodeURI(value) + '&';
                 }
             }
@@ -5026,112 +4717,93 @@ class APIHTTPConnector {
     }
 
     async setContentTypeHeader() {
-
         let apiURL = this._url;
 
         let __contentType = this._contentType;
 
         for (let url of Constants.SET_TO_CONTENT_TYPE) {
-
-            if(apiURL.includes(url)) {
-
+            if (apiURL.includes(url)) {
                 this.addHeader(Constants.CONTENT_TYPE, __contentType);
 
-				return;
-			}
+                return;
+            }
         }
     }
 
     toString() {
+        let headers = new Map(this._headers);
 
-		let headers = new Map(this._headers);
+        headers.set(Constants.AUTHORIZATION, Constants.CANT_DISCLOSE);
 
-		headers.set(Constants.AUTHORIZATION, Constants.CANT_DISCLOSE);
+        let headerMapString = JSON.stringify(headers, (key, value) => (value instanceof Map ? [...value] : value));
 
-		let headerMapString = JSON.stringify(headers, (key, value) => (value instanceof Map ? [...value] : value));
+        let paramMapString = JSON.stringify(this._parameters, (key, value) => (value instanceof Map ? [...value] : value));
 
-		let paramMapString = JSON.stringify(this._parameters, (key, value) => (value instanceof Map ? [...value] : value));
-
-		return this._requestMethod + " - " + Constants.URL_NAME + " = " + this._url + " , " + Constants.HEADERS + " = " + headerMapString + " , " + Constants.PARAMS + " = " + paramMapString + ".";
+        return this._requestMethod + " - " + Constants.URL_NAME + " = " + this._url + " , " + Constants.HEADERS + " = " + headerMapString + " , " + Constants.PARAMS + " = " + paramMapString + ".";
     }
 
     async proxyLog(requestProxy) {
-
-		return Constants.PROXY_SETTINGS.concat(Constants.PROXY_HOST).concat(requestProxy.getHost()).concat(" , ").concat(Constants.PROXY_PORT).concat(requestProxy.getPort().toString());;
-	}
+        return Constants.PROXY_SETTINGS.concat(Constants.PROXY_HOST).concat(requestProxy.getHost()).concat(" , ").concat(Constants.PROXY_PORT).concat(requestProxy.getPort().toString());;
+    }
 }
 
 /**
  * This class converts JSON value to the expected data type.
  */
 class DataTypeConverter {
-
     /**
      * This method is to initialize the PreConverter and PostConverter lambda functions.
      */
     static init() {
-
-        if(DataTypeConverter.preConverterMap.size != 0 && DataTypeConverter.postConverterMap.size != 0) {
-
+        if (DataTypeConverter.preConverterMap.size != 0 && DataTypeConverter.postConverterMap.size != 0) {
             return;
         }
 
-        var string = (obj)=> {
-
+        var string = (obj) => {
             return obj.toString();
         }
 
-        var integer = (obj)=> {
-
+        var integer = (obj) => {
             return parseInt(obj);
         }
 
-        var long = (obj)=> {
-
+        var long = (obj) => {
             return obj.toString() != Constants.NULL_VALUE ? BigInt(obj) : null;
         }
 
-        var longToString = (obj) =>{
+        var longToString = (obj) => {
             return obj.toString()
         }
 
-        var bool = (obj)=> {
-
+        var bool = (obj) => {
             return Boolean(obj);
         }
 
-        var stringToDateTime = (obj)=> {
-
+        var stringToDateTime = (obj) => {
             return new Date(obj);
         }
 
-        var dateTimeToString = (obj)=> {
-
-            return obj.toISOString().split('.')[0]+"Z";
+        var dateTimeToString = (obj) => {
+            return obj.toISOString().split('.')[0] + "Z";
         }
 
-        var dateToString = (obj)=>{
-
+        var dateToString = (obj) => {
             return obj.toISOString().split('T')[0];
         }
 
-        var stringToDate = (obj)=>{
-
+        var stringToDate = (obj) => {
             return new Date(obj);
         }
 
-        var double = (obj)=> {
-
+        var double = (obj) => {
             return parseFloat(obj.toString());
         }
 
-        var preObject = (obj)=>{
-
+        var preObject = (obj) => {
             return this.preConvertObjectData(obj);
         }
 
-        var postObject = (obj)=>{
-
+        var postObject = (obj) => {
             return this.postConvertObjectData(obj);
         }
 
@@ -5155,66 +4827,51 @@ class DataTypeConverter {
     }
 
     static preConvertObjectData(obj) {
-
         return obj;
     }
 
     static postConvertObjectData(obj) {
-
-        if(Array.isArray(obj)) {
+        if (Array.isArray(obj)) {
 
             let list = [];
 
             for (let data of obj) {
-
-                if(data instanceof Date) {
-
-                    if(data.getHours() == 0 && data.getMinutes() == 0 && data.getSeconds() == 0) {
-
-                        list.push(this.postConvert(data, "Date"));
+                if (data instanceof Date) {
+                    if (data.getHours() == 0 && data.getMinutes() == 0 && data.getSeconds() == 0) {
+                        list.push(this.postConvert(data, Constants.DATE_NAMESPACE));
                     }
                     else {
-
-                        list.push(this.postConvert(data, "DateTime"));
+                        list.push(this.postConvert(data, Constants.DATETIME_NAMESPACE));
                     }
                 }
-                else if(data instanceof Map) {
-
+                else if (data instanceof Map) {
                     this.postConvertObjectData(data);
                 }
                 else {
-
                     list.push(data);
                 }
             }
 
             return list;
         }
-        else if(obj instanceof Map) {
-
+        else if (obj instanceof Map) {
             let requestObject = {};
 
-            for (let key of Array.from(obj.keys())){
-
+            for (let key of Array.from(obj.keys())) {
                 let value = obj.get(key);
 
-                if(Array.isArray(value)) {
-
+                if (Array.isArray(value)) {
                     requestObject[key] = this.postConvertObjectData(value);
                 }
-                else if(value instanceof Date) {
-
-                    if(value.getHours() == 0 && value.getMinutes() == 0 && value.getSeconds() == 0) {
-
-                        requestObject[key] = this.postConvert(value, "Date");
+                else if (value instanceof Date) {
+                    if (value.getHours() == 0 && value.getMinutes() == 0 && value.getSeconds() == 0) {
+                        requestObject[key] = this.postConvert(value, Constants.DATE_NAMESPACE);
                     }
                     else {
-
-                        requestObject[key] = this.postConvert(value, "DateTime");
+                        requestObject[key] = this.postConvert(value, Constants.DATETIME_NAMESPACE);
                     }
                 }
-                else if(value instanceof Map) {
-
+                else if (value instanceof Map) {
                     requestObject[key] = this.postConvertObjectData(value);
                 }
                 else {
@@ -5224,19 +4881,15 @@ class DataTypeConverter {
 
             return requestObject;
         }
-        else if(obj instanceof Date) {
-
-            if(obj.getHours() == 0 && obj.getMinutes() == 0 && obj.getSeconds() == 0) {
-
-                return this.postConvert(obj, "Date");
+        else if (obj instanceof Date) {
+            if (obj.getHours() == 0 && obj.getMinutes() == 0 && obj.getSeconds() == 0) {
+                return this.postConvert(obj, Constants.DATE_NAMESPACE);
             }
             else {
-
-                return this.postConvert(obj, "DateTime");
+                return this.postConvert(obj, Constants.DATETIME_NAMESPACE);
             }
         }
         else {
-
             return obj;
         }
     }
@@ -5248,7 +4901,6 @@ class DataTypeConverter {
      * @param {Map} postConverter A PostConverter Map.
      */
     static addToMap(name, preConverter, postConverter) {
-
         DataTypeConverter.preConverterMap.set(name, preConverter);
 
         DataTypeConverter.postConverterMap.set(name, postConverter);
@@ -5256,26 +4908,34 @@ class DataTypeConverter {
 
     /**
      * This method is to convert JSON value to expected data value.
-     * @param {object} obj A Object containing the JSON value.
-     * @param {string} type A String containing the expected method return type.
+     * @param {object} obj - An Object containing the JSON value.
+     * @param {string} type - A String containing the expected method return type.
+     * @throws {Error}
      */
     static preConvert(obj, type) {
-
         this.init();
 
-        return DataTypeConverter.preConverterMap.get(type)(obj);
+        if (DataTypeConverter.preConverterMap.has(type)) {
+            return DataTypeConverter.preConverterMap.get(type)(obj);
+        }
+
+        return obj;
     }
 
     /**
-     * This method to convert Java data to JSON data value.
-     * @param {object} obj A Object containing the Java data value.
-     * @param {string} type A String containing the expected method return type.
+     * This method to convert JavaScript data to JSON data value.
+     * @param {object} obj - An object containing the JavaScript data value.
+     * @param {string} type - A String containing the expected method return type.
+     * @throws {Error}
      */
     static postConvert(obj, type) {
-
         this.init();
 
-        return DataTypeConverter.postConverterMap.get(type)(obj);
+        if (DataTypeConverter.postConverterMap.has(type)) {
+            return DataTypeConverter.postConverterMap.get(type)(obj);
+        }
+
+        return obj;
     }
 }
 
@@ -5284,35 +4944,29 @@ DataTypeConverter.preConverterMap = new Map();
 DataTypeConverter.postConverterMap = new Map();
 
 var StreamWrapper = {
-
     Model: {
         /**
          * This class handles the file stream and name.
          */
-        StreamWrapper : class{
-
+        StreamWrapper: class {
             /**
              * Creates a StreamWrapper class instance with the specified parameters.
              * @param {string} name A String containing the file name.
              * @param {stream} Stream A object containing the file stream
              */
             constructor(name = null, stream = null) {
-
                 this._name = null;
 
                 this._stream = null;
 
                 try {
-
                     (async () => {
-
                         this._name = name !== null ? name : stream.name;
 
                         this._stream = stream;
                     })()
                 }
-                catch(e) {
-
+                catch (e) {
                     throw new SDKException(Constants.FILE_ERROR, Constants.FILE_DOES_NOT_EXISTS);
                 }
             }
@@ -5321,8 +4975,7 @@ var StreamWrapper = {
              * This is a getter method to get the file name.
              * @returns {string} A String representing the file name.
              */
-            getName(){
-
+            getName() {
                 return this._name;
             }
 
@@ -5330,24 +4983,21 @@ var StreamWrapper = {
              * This is a setter method to set the file name.
              * @returns {string} A String representing the file name.
              */
-            setName(name){
-
+            setName(name) {
                 this._name = name;
             }
 
             /**
              * This is a getter method to get the file input stream.
              */
-            getStream(){
-
+            getStream() {
                 return this._stream;
             }
 
             /**
              * This is a setter method to set the file input stream.
              */
-            setStream(stream){
-
+            setStream(stream) {
                 this._stream = stream;
             }
         }
@@ -5366,7 +5016,6 @@ class APIResponse {
      * @param {object} dataObject A Object containing the API response POJO class instance.
      */
     constructor(headers, statusCode, dataObject) {
-
         this._headers = headers;
 
         this._statusCode = statusCode;
@@ -5379,7 +5028,6 @@ class APIResponse {
      * @returns {Map} A Map representing the API response headers.
      */
     getHeaders() {
-
         return this._headers;
     }
 
@@ -5388,7 +5036,6 @@ class APIResponse {
      * @returns {String} A String representing the API response HTTP status code.
      */
     getStatusCode() {
-
         return this._statusCode;
     }
 
@@ -5397,7 +5044,6 @@ class APIResponse {
      * @returns {object} A POJO class instance.
      */
     getObject() {
-
         return this._dataObject;
     }
 }
@@ -5406,7 +5052,6 @@ class APIResponse {
  * The abstract class represents the properties of Zoho CRM Environment.
  */
 var Environment = class {
-
     /**
      * Creates an instance of Environment with the given parameters.
      * @param {*} url A String containing the Zoho CRM API URL.
@@ -5414,7 +5059,6 @@ var Environment = class {
      * @param {*} fileUploadUrl A String containing the file Upload URL.
     */
     constructor(url, accountsUrl, fileUploadUrl) {
-
         this.url = url;
 
         this.accountsUrl = accountsUrl;
@@ -5427,7 +5071,6 @@ var Environment = class {
      * @returns {String} A String representing the Zoho CRM API URL.
      */
     getUrl() {
-
         return this.url;
     }
 
@@ -5436,7 +5079,6 @@ var Environment = class {
      * @returns {String} A String representing the accounts URL.
      */
     getAccountsUrl() {
-
         return this.accountsUrl;
     }
 
@@ -5445,7 +5087,6 @@ var Environment = class {
      * @returns {String} A String representing the File Upload URL.
      */
     getFileUploadUrl() {
-
         return this.fileUploadUrl;
     }
 }
@@ -5454,33 +5095,28 @@ var Environment = class {
  * The abstract class represents the properties of Zoho CRM DataCenter.
  */
 var DataCenter = {
-
     /**
      * This class represents the properties of Zoho CRM in AU Domain.
      */
-    AU : {
-
+    AU: {
         /**
          * This Environment class instance represents the Zoho CRM Production Environment in AU Domain.
          */
-        PRODUCTION:function() {
-
+        PRODUCTION: function () {
             return new Environment("https://www.zohoapis.com.au", DataCenter.AU.getIAMUrl(), DataCenter.AU.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Sandbox Environment in AU Domain.
          */
-        SANDBOX: function() {
-
+        SANDBOX: function () {
             return new Environment("https://sandbox.zohoapis.com.au", DataCenter.AU.getIAMUrl(), DataCenter.AU.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Developer Environment in AU Domain.
          */
-        DEVELOPER: function() {
-
+        DEVELOPER: function () {
             return new Environment("https://developer.zohoapis.com.au", DataCenter.AU.getIAMUrl(), DataCenter.AU.getFileUploadUrl());
         },
 
@@ -5489,7 +5125,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getIAMUrl() {
-
             return "https://accounts.zoho.com.au/oauth/v2/auth";
         },
 
@@ -5498,7 +5133,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getFileUploadUrl() {
-
             return "https://content.zohoapis.com.au";
         }
     },
@@ -5506,29 +5140,25 @@ var DataCenter = {
     /**
      * This class represents the properties of Zoho CRM in CN Domain.
      */
-    CN : {
-
+    CN: {
         /**
          * This Environment class instance represents the Zoho CRM Production Environment in CN Domain.
          */
-        PRODUCTION : function() {
-
+        PRODUCTION: function () {
             return new Environment("https://www.zohoapis.com.cn", DataCenter.CN.getIAMUrl(), DataCenter.CN.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Sandbox Environment in CN Domain.
          */
-        SANDBOX : function() {
-
+        SANDBOX: function () {
             return new Environment("https://sandbox.zohoapis.com.cn", DataCenter.CN.getIAMUrl(), DataCenter.CN.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Developer Environment in CN Domain.
          */
-        DEVELOPER : function() {
-
+        DEVELOPER: function () {
             return new Environment("https://developer.zohoapis.com.cn", DataCenter.CN.getIAMUrl(), DataCenter.CN.getFileUploadUrl());
         },
 
@@ -5537,7 +5167,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getIAMUrl() {
-
             return "https://accounts.zoho.com.cn/oauth/v2/auth";
         },
 
@@ -5546,7 +5175,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getFileUploadUrl() {
-
             return "https://content.zohoapis.com.cn";
         }
     },
@@ -5554,29 +5182,25 @@ var DataCenter = {
     /**
      * This class represents the properties of Zoho CRM in EU Domain.
      */
-    EU : {
-
+    EU: {
         /**
          * This Environment class instance represents the Zoho CRM Production Environment in EU Domain.
          */
-        PRODUCTION : function() {
-
+        PRODUCTION: function () {
             return new Environment("https://www.zohoapis.eu", DataCenter.EU.getIAMUrl(), DataCenter.EU.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Sandbox Environment in EU Domain.
          */
-        SANDBOX : function() {
-
+        SANDBOX: function () {
             return new Environment("https://sandbox.zohoapis.eu", DataCenter.EU.getIAMUrl(), DataCenter.EU.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Developer Environment in EU Domain.
          */
-        DEVELOPER : function() {
-
+        DEVELOPER: function () {
             return new Environment("https://developer.zohoapis.eu", DataCenter.EU.getIAMUrl(), DataCenter.EU.getFileUploadUrl());
         },
 
@@ -5585,7 +5209,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getIAMUrl() {
-
             return "https://accounts.zoho.eu/oauth/v2/auth";
         },
 
@@ -5594,7 +5217,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getFileUploadUrl() {
-
             return "https://content.zohoapis.eu";
         }
     },
@@ -5602,29 +5224,25 @@ var DataCenter = {
     /**
      * This class represents the properties of Zoho CRM in IN Domain.
      */
-    IN : {
-
+    IN: {
         /**
          * This Environment class instance represents the Zoho CRM Production Environment in IN Domain.
          */
-        PRODUCTION : function() {
-
+        PRODUCTION: function () {
             return new Environment("https://www.zohoapis.in", DataCenter.IN.getIAMUrl(), DataCenter.IN.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Sandbox Environment in IN Domain.
          */
-        SANDBOX : function() {
-
+        SANDBOX: function () {
             return new Environment("https://sandbox.zohoapis.in", DataCenter.IN.getIAMUrl(), DataCenter.IN.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Developer Environment in IN Domain.
          */
-        DEVELOPER: function() {
-
+        DEVELOPER: function () {
             return new Environment("https://developer.zohoapis.in", DataCenter.IN.getIAMUrl(), DataCenter.IN.getFileUploadUrl());
         },
 
@@ -5633,7 +5251,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getIAMUrl() {
-
             return "https://accounts.zoho.in/oauth/v2/auth";
         },
 
@@ -5642,7 +5259,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getFileUploadUrl() {
-
             return "https://content.zohoapis.in";
         }
     },
@@ -5650,29 +5266,25 @@ var DataCenter = {
     /**
      * This class represents the properties of Zoho CRM in US Domain.
      */
-    US : {
-
+    US: {
         /**
          * This Environment class instance represents the Zoho CRM Production Environment in US Domain.
          */
-        PRODUCTION : function() {
-
+        PRODUCTION: function () {
             return new Environment("https://www.zohoapis.com", DataCenter.US.getIAMUrl(), DataCenter.US.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Sandbox Environment in US Domain.
          */
-        SANDBOX : function() {
-
+        SANDBOX: function () {
             return new Environment("https://sandbox.zohoapis.com", DataCenter.US.getIAMUrl(), DataCenter.US.getFileUploadUrl());
         },
 
         /**
          * This Environment class instance represents the Zoho CRM Developer Environment in US Domain.
          */
-        DEVELOPER : function() {
-
+        DEVELOPER: function () {
             return new Environment("https://developer.zohoapis.com", DataCenter.US.getIAMUrl(), DataCenter.US.getFileUploadUrl());
         },
 
@@ -5681,7 +5293,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getIAMUrl() {
-
             return "https://accounts.zoho.com/oauth/v2/auth";
         },
 
@@ -5690,7 +5301,6 @@ var DataCenter = {
          * @returns {String} A String representing the accounts URL.
          */
         getFileUploadUrl() {
-
             return "https://content.zohoapis.com";
         }
     }
@@ -11209,8 +10819,20 @@ ZCRM.Record = {
 
 		},
 
+		CreateRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.CreateRecordsHeader"),
+
+
+		},
+
 		UpsertRecordsHeader : {
 			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpsertRecordsHeader"),
+
+
+		},
+
+		DeleteRecordUsingExternalIDParam : {
+			WF_TRIGGER : 	new Param("wf_trigger", "Record.Model.DeleteRecordUsingExternalIDParam"),
 
 
 		},
@@ -11231,12 +10853,40 @@ ZCRM.Record = {
 
 		},
 
+		GetRecordUsingExternalIDParam : {
+			APPROVED : 	new Param("approved", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			CONVERTED : 	new Param("converted", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			CVID : 	new Param("cvid", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			UID : 	new Param("uid", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			FIELDS : 	new Param("fields", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			STARTDATETIME : 	new Param("startDateTime", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			ENDDATETIME : 	new Param("endDateTime", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			TERRITORY_ID : 	new Param("territory_id", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			INCLUDE_CHILD : 	new Param("include_child", "Record.Model.GetRecordUsingExternalIDParam"),
+
+
+		},
+
 		GetDeletedRecordsParam : {
 			TYPE : 	new Param("type", "Record.Model.GetDeletedRecordsParam"),
 
 			PAGE : 	new Param("page", "Record.Model.GetDeletedRecordsParam"),
 
 			PER_PAGE : 	new Param("per_page", "Record.Model.GetDeletedRecordsParam"),
+
+
+		},
+
+		UpdateRecordUsingExternalIDHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpdateRecordUsingExternalIDHeader"),
 
 
 		},
@@ -11302,6 +10952,8 @@ ZCRM.Record = {
 
 			PER_PAGE : 	new Param("per_page", "Record.Model.SearchRecordsParam"),
 
+			FIELDS : 	new Param("fields", "Record.Model.SearchRecordsParam"),
+
 
 		},
 
@@ -11347,6 +10999,20 @@ ZCRM.Record = {
 			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetDeletedRecordsHeader"),
 
 
+		},
+
+		DeleteRecordUsingExternalIDHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.DeleteRecordUsingExternalIDHeader"),
+
+
+		},
+
+		GetRecordUsingExternalIDHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordUsingExternalIDHeader"),
+
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.GetRecordUsingExternalIDHeader"),
+
+
 		}
 	},
 	Operations : class {
@@ -11387,8 +11053,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -11427,8 +11093,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11466,6 +11132,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11497,8 +11164,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -11507,15 +11174,19 @@ ZCRM.Record = {
 		 * The method to create records
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async createRecords(moduleAPIName, request){
+		async createRecords(moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -11526,9 +11197,9 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_CREATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields(moduleAPIName);
+			handlerInstance.setHeader(headerInstance);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11560,10 +11231,9 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setMandatoryChecker(true);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11595,6 +11265,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11628,8 +11299,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -11662,6 +11333,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.DeletedRecordsHandler", "application/json");
 
 		}
@@ -11694,8 +11366,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -11725,7 +11397,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields("Deals");
+			await Utility.getFields("Deals", handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ConvertActionHandler", "application/json");
 
 		}
@@ -11754,6 +11426,7 @@ ZCRM.Record = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.DownloadHandler", "application/x-download");
 
 		}
@@ -11789,6 +11462,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("multipart/form-data");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			await Utility.verifyPhotoSupport(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.FileHandler", "application/json");
 
@@ -11818,6 +11492,7 @@ ZCRM.Record = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.FileHandler", "application/json");
 
 		}
@@ -11847,8 +11522,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.MassUpdateActionHandler", "application/json");
 
 		}
@@ -11876,7 +11551,125 @@ ZCRM.Record = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.MassUpdateResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
+			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to update record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async updateRecordUsingExternalId(externalFieldValue, moduleAPIName, request, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			handlerInstance.setHeader(headerInstance);
+			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to delete record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async deleteRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
 	},
@@ -13204,6 +12997,107 @@ ZCRM.Record.Model.Field.Leads = {
 	FAX : new ZCRM.Record.Model.Field("Fax"),
 	ANNUAL_REVENUE : new ZCRM.Record.Model.Field("Annual_Revenue"),
 	SECONDARY_EMAIL : new ZCRM.Record.Model.Field("Secondary_Email"),
+}
+
+class InitializeBuilder {
+    constructor() {
+        this._environment = null;
+
+        this._token = null;
+
+        this._requestProxy = null;
+
+        this._sdkConfig = null;
+
+        this._logger = null;
+
+        this.errorMessage = null;
+
+        this.initializer = null;
+    }
+
+    initialize() {
+        Utility.assertNotNull(this._environment, this.errorMessage, Constants.ENVIRONMENT_ERROR_MESSAGE);
+
+        if (this._sdkConfig == null) {
+            this._sdkConfig = new SDKConfigBuilder().autoRefreshFields(true).pickListValidation(false).build();
+        }
+
+        if (this._logger == null) {
+            this._logger = Logger.getInstance(Levels.INFO);
+        }
+
+        initializeSDK(this._environment, this._sdkConfig, this._token, this._logger, this._requestProxy);
+    }
+
+    logger(logger) {
+        this._logger = logger;
+
+        return this;
+    }
+
+    token(token) {
+        Utility.assertNotNull(token, this.errorMessage, Constants.TOKEN_ERROR_MESSAGE);
+
+        if (!(token instanceof Token) && document.getElementById(Constants.ZES_CLIENT_SCOPE) === null) {
+
+            detailsJO.field = Constants.TOKEN;
+
+            detailsJO.expected_type = Token.name;
+
+            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
+        }
+
+        this._token = token;
+
+        return this;
+    }
+
+    SDKConfig(sdkConfig) {
+        Utility.assertNotNull(sdkConfig, this.errorMessage, Constants.SDK_CONFIG_ERROR_MESSAGE);
+
+        if (!(sdkConfig instanceof SDKConfig)) {
+            detailsJO.field = Constants.SDK_CONFIG;
+
+            detailsJO.expected_type = SDKConfig.name;
+
+            throw new SDKException(Constants.INITIALIZATION_ERROR, Constants.INITIALIZATION_EXCEPTION, error);
+        }
+
+        this._sdkConfig = sdkConfig;
+
+        return this;
+    }
+
+    requestProxy(requestProxy) {
+        if (proxy != null && !(proxy instanceof RequestProxy)) {
+            detailsJO.field = Constants.USER_PROXY;
+
+            detailsJO.expected_type = RequestProxy.name;
+
+            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
+        }
+
+        this._requestProxy = requestProxy;
+
+        return this;
+    }
+
+    environment(environment) {
+        Utility.assertNotNull(environment, this.errorMessage, Constants.ENVIRONMENT_ERROR_MESSAGE);
+
+        if (!(environment instanceof Environment)) {
+            detailsJO.field = Constants.ENVIRONMENT;
+
+            detailsJO.expected_type = Environment.name;
+
+            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
+        }
+
+        this._environment = environment;
+
+        return this;
+    }
 }
 
 ZCRM.File = {
@@ -18482,6 +18376,70 @@ ZCRM.RelatedRecord = {
 			}
 		},
 
+		BodyWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
 		ActionWrapper : class{
 			constructor(){
 
@@ -18697,85 +18655,17 @@ ZCRM.RelatedRecord = {
 			}
 		},
 
-		BodyWrapper : class{
-			constructor(){
-
-				this.data=null;
-				this.keyModified=new Map();
-			}
-
-
-
-			/**
-			 * The method to get the data
-			 * @returns {List} An Array representing the data
-			 */
-			getData()	{
-				return this.data;
-
-			}
-
-			/**
-			 * The method to set the value to data
-			 * @param {List} data An Array
-			 */
-			setData(data)	{
-				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
-				}
-				this.data = data;
-				this.keyModified.set("data", 1);
-
-			}
-
-			/**
-			 * The method to check if the user has modified the given key
-			 * @param {String} key A String
-			 * @returns {Integer} An Integer representing the modification
-			 */
-			isKeyModified(key)	{
-				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
-				}
-				if(this.keyModified.has(key)){
-					return this.keyModified.get(key);
-				}
-				return null;
-
-			}
-
-			/**
-			 * The method to mark the given key as modified
-			 * @param {String} key A String
-			 * @param {Integer} modification An Integer
-			 */
-			setKeyModified(key, modification)	{
-				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
-				}
-				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
-				}
-				this.keyModified.set(key, modification);
-
-			}
-		},
-
 		GetRelatedRecordHeader : {
 			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "RelatedRecord.Model.GetRelatedRecordHeader"),
 
 
 		},
 
-		DelinkRecordHeader : {
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordHeader"),
-
+		DelinkRecordsHeader : {
 
 		},
 
-		UpdateRelatedRecordHeader : {
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordHeader"),
-
+		DeleteRelatedRecordUsingExternalIDHeader : {
 
 		},
 
@@ -18787,11 +18677,59 @@ ZCRM.RelatedRecord = {
 
 		},
 
+		UpdateRelatedRecordUsingExternalIDHeader : {
+
+		},
+
+		GetRelatedRecordsUsingExternalIDParam : {
+			PAGE : 	new Param("page", "RelatedRecord.Model.GetRelatedRecordsUsingExternalIDParam"),
+
+			PER_PAGE : 	new Param("per_page", "RelatedRecord.Model.GetRelatedRecordsUsingExternalIDParam"),
+
+
+		},
+
+		DeleteRelatedRecordsUsingExternalIDHeader : {
+
+		},
+
+		GetRelatedRecordUsingExternalIDHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "RelatedRecord.Model.GetRelatedRecordUsingExternalIDHeader"),
+
+
+		},
+
+		UpdateRelatedRecordsUsingExternalIDHeader : {
+
+		},
+
+		GetRelatedRecordsUsingExternalIDHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "RelatedRecord.Model.GetRelatedRecordsUsingExternalIDHeader"),
+
+
+		},
+
+		DeleteRelatedRecordsUsingExternalIDParam : {
+			IDS : 	new Param("ids", "RelatedRecord.Model.DeleteRelatedRecordsUsingExternalIDParam"),
+
+
+		},
+
+		DelinkRecordHeader : {
+
+		},
+
+		UpdateRelatedRecordHeader : {
+
+		},
+
 		GetRelatedRecordsHeader : {
 			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "RelatedRecord.Model.GetRelatedRecordsHeader"),
 
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordsHeader"),
 
+		},
+
+		UpdateRelatedRecordsHeader : {
 
 		},
 
@@ -18807,33 +18745,37 @@ ZCRM.RelatedRecord = {
 		/**
 		 * Creates an instance of RelatedRecordsOperations with the given parameters
 		 * @param {String} relatedListAPIName A String
-		 * @param {Long} recordId A BigInt
 		 * @param {String} moduleAPIName A String
+		 * @param {String} xExternal A String
 		 */
-		constructor(relatedListAPIName, recordId, moduleAPIName){
+		constructor(relatedListAPIName, moduleAPIName, xExternal=null){
 			if((!(Object.prototype.toString.call(relatedListAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedListAPIName EXPECTED TYPE: String", null, null);
-			}
-			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
 			}
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
+			if((xExternal != null) && (!(Object.prototype.toString.call(xExternal) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: xExternal EXPECTED TYPE: String", null, null);
+			}
 						this.relatedListAPIName = relatedListAPIName;
-						this.recordId = recordId;
 						this.moduleAPIName = moduleAPIName;
+						this.xExternal = xExternal;
 
 		}
 
 		/**
 		 * The method to get related records
+		 * @param {Long} recordId A BigInt
 		 * @param {ParameterMap} paramInstance An instance of ParameterMap
 		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async getRelatedRecords(paramInstance=null, headerInstance=null){
+		async getRelatedRecords(recordId, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
 			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
 			}
@@ -18845,12 +18787,13 @@ ZCRM.RelatedRecord = {
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(recordId.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordsHeader"), this.xExternal);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
@@ -18860,11 +18803,15 @@ ZCRM.RelatedRecord = {
 
 		/**
 		 * The method to update related records
+		 * @param {Long} recordId A BigInt
 		 * @param {BodyWrapper} request An instance of BodyWrapper
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async updateRelatedRecords(request){
+		async updateRelatedRecords(recordId, request){
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
 			if((request != null) && (!(request instanceof ZCRM.RelatedRecord.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
 			}
@@ -18873,7 +18820,7 @@ ZCRM.RelatedRecord = {
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(recordId.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			handlerInstance.setAPIPath(apiPath);
@@ -18881,7 +18828,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setMandatoryChecker(true);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordsHeader"), this.xExternal);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
@@ -18889,11 +18836,15 @@ ZCRM.RelatedRecord = {
 
 		/**
 		 * The method to delink records
+		 * @param {Long} recordId A BigInt
 		 * @param {ParameterMap} paramInstance An instance of ParameterMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async delinkRecords(paramInstance=null){
+		async delinkRecords(recordId, paramInstance=null){
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
 			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
 			}
@@ -18902,27 +18853,33 @@ ZCRM.RelatedRecord = {
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(recordId.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordsHeader"), this.xExternal);
 			handlerInstance.setParam(paramInstance);
+			await Utility.getFields(this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
 		}
 
 		/**
-		 * The method to get related record
-		 * @param {Long} relatedRecordId A BigInt
+		 * The method to get related records using external id
+		 * @param {String} externalValue A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
 		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async getRelatedRecord(relatedRecordId, headerInstance=null){
-			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
+		async getRelatedRecordsUsingExternalId(externalValue, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
 			}
 			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
@@ -18932,7 +18889,109 @@ ZCRM.RelatedRecord = {
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(externalValue.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordsUsingExternalIDHeader"), this.xExternal);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to update related records using external id
+		 * @param {String} externalValue A String
+		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async updateRelatedRecordsUsingExternalId(externalValue, request){
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.RelatedRecord.Model.BodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalValue.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordsUsingExternalIDHeader"), this.xExternal);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to delete related records using external id
+		 * @param {String} externalValue A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async deleteRelatedRecordsUsingExternalId(externalValue, paramInstance=null){
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalValue.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DeleteRelatedRecordsUsingExternalIDHeader"), this.xExternal);
+			handlerInstance.setParam(paramInstance);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get related record
+		 * @param {Long} relatedRecordId A BigInt
+		 * @param {Long} recordId A BigInt
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getRelatedRecord(relatedRecordId, recordId, headerInstance=null){
+			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(recordId.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			apiPath = apiPath.concat("/");
@@ -18940,6 +18999,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordHeader"), this.xExternal);
 			handlerInstance.setHeader(headerInstance);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ResponseHandler", "application/json");
@@ -18949,27 +19009,27 @@ ZCRM.RelatedRecord = {
 		/**
 		 * The method to update related record
 		 * @param {Long} relatedRecordId A BigInt
+		 * @param {Long} recordId A BigInt
 		 * @param {BodyWrapper} request An instance of BodyWrapper
-		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async updateRelatedRecord(relatedRecordId, request, headerInstance=null){
+		async updateRelatedRecord(relatedRecordId, recordId, request){
 			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
 			}
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
 			if((request != null) && (!(request instanceof ZCRM.RelatedRecord.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
-			}
-			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(recordId.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			apiPath = apiPath.concat("/");
@@ -18979,7 +19039,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setHeader(headerInstance);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordHeader"), this.xExternal);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
@@ -18988,13 +19048,50 @@ ZCRM.RelatedRecord = {
 		/**
 		 * The method to delink record
 		 * @param {Long} relatedRecordId A BigInt
+		 * @param {Long} recordId A BigInt
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async delinkRecord(relatedRecordId, recordId){
+			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(recordId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: recordId EXPECTED TYPE: BigInt", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(recordId.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(relatedRecordId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordHeader"), this.xExternal);
+			await Utility.getFields(this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get related record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} externalValue A String
 		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async delinkRecord(relatedRecordId, headerInstance=null){
-			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
+		async getRelatedRecordUsingExternalId(externalFieldValue, externalValue, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
 			}
 			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
@@ -19004,21 +19101,127 @@ ZCRM.RelatedRecord = {
 			apiPath = apiPath.concat("/crm/v2/");
 			apiPath = apiPath.concat(this.moduleAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(this.recordId.toString());
+			apiPath = apiPath.concat(externalValue.toString());
 			apiPath = apiPath.concat("/");
 			apiPath = apiPath.concat(this.relatedListAPIName.toString());
 			apiPath = apiPath.concat("/");
-			apiPath = apiPath.concat(relatedRecordId.toString());
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordUsingExternalIDHeader"), this.xExternal);
+			handlerInstance.setHeader(headerInstance);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to update related record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} externalValue A String
+		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async updateRelatedRecordUsingExternalId(externalFieldValue, externalValue, request){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.RelatedRecord.Model.BodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalValue.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordUsingExternalIDHeader"), this.xExternal);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to delete related record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} externalValue A String
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async deleteRelatedRecordUsingExternalId(externalFieldValue, externalValue){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(externalValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalValue EXPECTED TYPE: String", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(this.moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalValue.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(this.relatedListAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
-			handlerInstance.setHeader(headerInstance);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DeleteRelatedRecordUsingExternalIDHeader"), this.xExternal);
+			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
 		}
 
 	},
 
+}
+
+class ProxyBuilder {
+    constructor() {
+        this._host = null;
+
+        this._port = null;
+    }
+
+    host(host) {
+        Utility.assertNotNull(host, Constants.USER_PROXY_ERROR, Constants.HOST_ERROR_MESSAGE);
+
+        this._host = host;
+
+        return this;
+    }
+
+    port(port) {
+        Utility.assertNotNull(port, Constants.USER_PROXY_ERROR, Constants.PORT_ERROR_MESSAGE);
+
+        this._port = port;
+
+        return this;
+    }
+
+    build() {
+        Utility.assertNotNull(this._host, Constants.REQUEST_PROXY_ERROR, Constants.HOST_ERROR_MESSAGE);
+
+        Utility.assertNotNull(this._port, Constants.REQUEST_PROXY_ERROR, Constants.PORT_ERROR_MESSAGE);
+
+        return new RequestProxy(this._host, this._port);
+    }
 }
 
 ZCRM.Role = {
@@ -23850,9 +24053,7 @@ ZCRM.BulkRead = {
  * The Builder class to build SDKConfig
  */
 class SDKConfigBuilder {
-
     constructor() {
-
         this._autoRefreshFields = false;
 
         this._pickListValidation = true;
@@ -23866,8 +24067,7 @@ class SDKConfigBuilder {
      * This is a setter method to set autoRefreshFields.
      * @param {Boolean} autoRefreshFields
      */
-    setAutoRefreshFields(autoRefreshFields) {
-
+    autoRefreshFields(autoRefreshFields) {
         this._autoRefreshFields = autoRefreshFields;
 
         return this;
@@ -23877,8 +24077,7 @@ class SDKConfigBuilder {
      * This is a setter method to set pickListValidation.
      * @param {Boolean} pickListValidation
      */
-    setPickListValidation(pickListValidation) {
-
+    pickListValidation(pickListValidation) {
         this._pickListValidation = pickListValidation;
 
         return this;
@@ -23888,8 +24087,7 @@ class SDKConfigBuilder {
      * This is a setter method to set cacheStore.
      * @param {Boolean} cacheStore
      */
-    setCacheStore(cacheStore) {
-
+    cacheStore(cacheStore) {
         this._cacheStore = cacheStore;
 
         return this;
@@ -23900,7 +24098,6 @@ class SDKConfigBuilder {
      * @param {Integer} timeout
      */
     timeout(timeout) {
-
         this._timeout = timeout > 0 ? timeout : 0;
 
         return this;
@@ -23911,7 +24108,6 @@ class SDKConfigBuilder {
      * @returns An instance of SDKConfig
      */
     build() {
-
         return new SDKConfig(this._autoRefreshFields, this._pickListValidation, this._cacheStore, this._timeout);
     }
 }
@@ -23920,7 +24116,6 @@ class SDKConfigBuilder {
  * The class to configure the SDK.
  */
 class SDKConfig {
-
     /**
      * Creates an instance of SDKConfig with the given parameters
      * @param {Boolean} autoRefreshFields A boolean representing autoRefreshFields
@@ -23929,7 +24124,6 @@ class SDKConfig {
      * @param {Integer} timeout A Integer representing timeout
      */
     constructor(autoRefreshFields, pickListValidation, cacheStore, timeout) {
-
         this._autoRefreshFields = autoRefreshFields;
 
         this._pickListValidation = pickListValidation;
@@ -23944,7 +24138,6 @@ class SDKConfig {
      * @returns A Boolean representing autoRefreshFields
      */
     getAutoRefreshFields() {
-
         return this._autoRefreshFields;
     }
 
@@ -23953,7 +24146,6 @@ class SDKConfig {
      * @returns A Boolean representing pickListValidation
      */
     getPickListValidation() {
-
         return this._pickListValidation;
     }
 
@@ -23962,7 +24154,6 @@ class SDKConfig {
      * @returns A Boolean representing cacheStore
      */
     getCacheStore() {
-
         return this._cacheStore;
     }
 
@@ -23970,8 +24161,7 @@ class SDKConfig {
      * This is a getter method to get timeout.
      * @returns A Integer representing API timeout
      */
-    timeout() {
-
+    getTimeout() {
         return this._timeout;
     }
 }
@@ -25678,6 +25868,14 @@ ZCRM.ContactRole = {
 
 		},
 
+		RecordResponseHandler : class{
+			constructor(){
+
+			}
+
+
+		},
+
 		ActionResponse : class{
 			constructor(){
 
@@ -25687,6 +25885,14 @@ ZCRM.ContactRole = {
 		},
 
 		ActionHandler : class{
+			constructor(){
+
+			}
+
+
+		},
+
+		RecordActionHandler : class{
 			constructor(){
 
 			}
@@ -25891,6 +26097,70 @@ ZCRM.ContactRole = {
 			}
 		},
 
+		RecordBodyWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
 		BodyWrapper : class{
 			constructor(){
 
@@ -25919,6 +26189,221 @@ ZCRM.ContactRole = {
 				}
 				this.contactRoles = contactRoles;
 				this.keyModified.set("contact_roles", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		RecordActionWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		ContactRoleWrapper : class{
+			constructor(){
+
+				this.contactRole=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the contactRole
+			 * @returns {String} A String representing the contactRole
+			 */
+			getContactRole()	{
+				return this.contactRole;
+
+			}
+
+			/**
+			 * The method to set the value to contactRole
+			 * @param {String} contactRole A String
+			 */
+			setContactRole(contactRole)	{
+				if((contactRole != null) && (!(Object.prototype.toString.call(contactRole) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactRole EXPECTED TYPE: String", null, null);
+				}
+				this.contactRole = contactRole;
+				this.keyModified.set("Contact_Role", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		RecordResponseWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.info=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to get the info
+			 * @returns {Info} An instance of Info
+			 */
+			getInfo()	{
+				return this.info;
+
+			}
+
+			/**
+			 * The method to set the value to info
+			 * @param {Info} info An instance of Info
+			 */
+			setInfo(info)	{
+				if((info != null) && (!(info instanceof ZCRM.Record.Model.Info))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: info EXPECTED TYPE: Info", null, null);
+				}
+				this.info = info;
+				this.keyModified.set("info", 1);
 
 			}
 
@@ -26266,6 +26751,12 @@ ZCRM.ContactRole = {
 			IDS : 	new Param("ids", "ContactRole.Model.DeleteContactRolesParam"),
 
 
+		},
+
+		GetAllContactRolesOfDealParam : {
+			IDS : 	new Param("ids", "ContactRole.Model.GetAllContactRolesOfDealParam"),
+
+
 		}
 	},
 	Operations : class {
@@ -26422,6 +26913,124 @@ ZCRM.ContactRole = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			return handlerInstance.apiCall("ContactRole.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get all contact roles of deal
+		 * @param {Long} dealId A BigInt
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getAllContactRolesOfDeal(dealId, paramInstance=null){
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles");
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setModuleAPIName("Contacts");
+			await Utility.getFields("Contacts", handlerInstance);
+			return handlerInstance.apiCall("ContactRole.Model.RecordResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get contact role of deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getContactRoleOfDeal(contactId, dealId){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setModuleAPIName("Contacts");
+			await Utility.getFields("Contacts", handlerInstance);
+			return handlerInstance.apiCall("ContactRole.Model.RecordResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to add contact role to deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @param {RecordBodyWrapper} request An instance of RecordBodyWrapper
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async addContactRoleToDeal(contactId, dealId, request){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.ContactRole.Model.RecordBodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: RecordBodyWrapper", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			return handlerInstance.apiCall("ContactRole.Model.RecordActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to remove contact role from deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async removeContactRoleFromDeal(contactId, dealId){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			return handlerInstance.apiCall("ContactRole.Model.RecordActionHandler", "application/json");
 
 		}
 	},
@@ -33308,7 +33917,6 @@ ZCRM.BulkWrite = {
 }
 
 class RequestProxy {
-
     /**
      * Creates a RequestProxy class instance with the specified parameters.
      * @param {String} host A String containing the hostname or address of the proxy server
@@ -33317,15 +33925,6 @@ class RequestProxy {
      * @param {String} password A String containing the password of the proxy server
      */
     constructor(host, port) {
-
-        if(host == null) {
-            throw new SDKException(Constants.USER_PROXY_ERROR, Constants.HOST_ERROR_MESSAGE);
-        }
-
-        if(port == null) {
-            throw new SDKException(Constants.USER_PROXY_ERROR, Constants.PORT_ERROR_MESSAGE);
-        }
-
         this._host = host;
 
         this._port = port;
@@ -41914,7 +42513,6 @@ ZCRM.Module = {
  * This class is the common SDKException object. This stands as a POJO for the SDKException thrown.
  */
 class SDKException extends Error {
-
     /**
      * Creates an SDKException class instance with the specified parameters.
      * @param {String} code A String containing the Exception error code.
@@ -41923,7 +42521,6 @@ class SDKException extends Error {
      * @param {object} cause A Exception class instance.
      */
     constructor(code, message, details = null, cause = null) {
-
         super();
 
         this.code = code;
@@ -41935,12 +42532,10 @@ class SDKException extends Error {
         this.cause = cause;
 
         if (this.details != null) {
-
             this.message = this.message + JSON.stringify(this.details);
         }
 
         if (this.cause != null) {
-
             this.message = this.message.concat(this.cause.toString());
         }
     }
@@ -41950,13 +42545,11 @@ class SDKException extends Error {
  * This class representing the Logger level.
  */
 class Logger {
-
     /**
      * This is a getter method to get logger level.
      * @returns {String} A String representing the logger level.
      */
     getLevel() {
-
         return this.level;
     }
 
@@ -41965,12 +42558,10 @@ class Logger {
      * @param {Logger} level A class containing the log level.
      */
     static getInstance(level) {
-
         return new Logger(level)
     }
 
     constructor(level) {
-
         this.level = level;
     }
 }
@@ -41979,42 +42570,36 @@ class Logger {
  * This class used to give logger levels.
  */
 var Levels = {
+    ALL: Constants.ALL,
 
-    ALL : Constants.ALL,
+    INFO: Constants.INFO,
 
-    INFO : Constants.INFO,
+    DEBUG: Constants.DEBUG,
 
-    DEBUG : Constants.DEBUG,
+    WARN: Constants.WARN,
 
-    WARN : Constants.WARN,
+    ERROR: Constants.ERROR,
 
-    ERROR : Constants.ERROR,
-
-	OFF : Constants.OFF
+    OFF: Constants.OFF
 }
 
 /**
  * This class to initialize the SDK logger.
  */
 class SDKLogger {
-
     /**
      * Creates an User SDKLogger instance with the specified Logger class instance.
      * @param {Logger} logger A Logger class instance.
      */
     static initialize(logger) {
-
         this.logger = logger;
     }
 
     static log(level, message) {
-
         let date = new Date();
 
-        if(this.logger.level != Levels.OFF && (level == this.logger.level || this.logger.level == Levels.ALL)) {
-
-            switch(level) {
-
+        if (this.logger.level != Levels.OFF && (level == this.logger.level || this.logger.level == Levels.ALL)) {
+            switch (level) {
                 case 'debug':
                     console.debug(this.logger.level.toUpperCase() + " - " + date.toString() + " : " + message);
                     break;

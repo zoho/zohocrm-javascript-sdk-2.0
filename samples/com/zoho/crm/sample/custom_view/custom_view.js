@@ -1,13 +1,11 @@
 class CustomView {
-
     /**
      * <h3> Get CustomViews </h3>
-	 * This method is used to get the custom views data of a particular module.
+     * This method is used to get the custom views data of a particular module.
      * Specify the module name in your API request whose custom view data you want to retrieve.
      * @param {String} moduleAPIName Specify the API name of the required module.
      */
-    static async getCustomViews(moduleAPIName){
-
+    static async getCustomViews(moduleAPIName) {
         //example
         //let moduleAPIName = "Leads";
 
@@ -25,13 +23,12 @@ class CustomView {
         //Call getCustomViews method that takes ParameterMap instance as parameter
         let response = await customViewsOperations.getCustomViews(paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -39,16 +36,13 @@ class CustomView {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.CustomView.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.CustomView.Model.ResponseWrapper) {
                     //Get the array of obtained CustomView instances
                     let customViews = responseObject.getCustomViews();
 
                     customViews.forEach(customView => {
-
                         //Get the ID of each CustomView
                         console.log("CustomView ID: " + customView.getId());
 
@@ -73,7 +67,7 @@ class CustomView {
                         //Get the Category of each CustomView
                         console.log("CustomView Category: " + customView.getCategory());
 
-                        if(customView.getFavorite() != null){
+                        if (customView.getFavorite() != null) {
                             //Get the Favorite of each CustomView
                             console.log("CustomView Favorite: " + customView.getFavorite().toString());
                         }
@@ -83,20 +77,20 @@ class CustomView {
                     let info = responseObject.getInfo();
 
                     //Check if info is not null
-                    if(info != null){
+                    if (info != null) {
                         console.log("CustomView Info");
 
-                        if(info.getPerPage() != null){
+                        if (info.getPerPage() != null) {
                             //Get the PerPage from Info
                             console.log("CustomView PerPage: " + info.getPerPage().toString());
                         }
 
-                        if(info.getDefault() != null){
+                        if (info.getDefault() != null) {
                             //Get the Default from Info
                             console.log("Default: " + info.getDefault());
                         }
 
-                        if(info.getCount() != null){
+                        if (info.getCount() != null) {
                             //Get the Count from Info
                             console.log("Count: " + info.getCount().toString());
                         }
@@ -104,7 +98,7 @@ class CustomView {
                         //Get the Translation instance from Info
                         let translation = info.getTranslation();
 
-                        if(translation != null){
+                        if (translation != null) {
                             console.log("Translation details");
 
                             //Get the PublicViews of the Translation
@@ -120,20 +114,19 @@ class CustomView {
                             console.log("CreatedByMe: " + translation.getCreatedByMe());
                         }
 
-                        if(info.getPage() != null){
+                        if (info.getPage() != null) {
                             //Get the Page from Info
                             console.log("Page: " + info.getPage().toString());
                         }
 
-                        if(info.getMoreRecords() != null){
+                        if (info.getMoreRecords() != null) {
                             //Get the MoreRecords from Info
                             console.log("MoreRecords: " + info.getMoreRecords().toString());
                         }
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.CustomView.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.CustomView.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -145,7 +138,7 @@ class CustomView {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -164,8 +157,7 @@ class CustomView {
      * @param {String} moduleAPIName Specify the API name of the required module.
      * @param {BigInt} customViewId ID of the CustomView to be obtained.
      */
-    static async getCustomView(moduleAPIName, customViewId){
-
+    static async getCustomView(moduleAPIName, customViewId) {
         //example
         // let moduleAPIName = "Leads"
         // let customViewId = 34096430087507n;
@@ -176,13 +168,12 @@ class CustomView {
         //Call getCustomView method that takes customViewId as parameter
         let response = await customViewsOperations.getCustomView(customViewId);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -190,16 +181,13 @@ class CustomView {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.CustomView.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.CustomView.Model.ResponseWrapper) {
                     //Get the array of obtained CustomView instances
                     let customViews = responseObject.getCustomViews();
 
                     for (let index = 0; index < customViews.length; index++) {
-
                         let customView = customViews[index];
 
                         //Get the ID of each CustomView
@@ -220,15 +208,14 @@ class CustomView {
                         //Get the Criteria instance of each CustomView
                         let criteria = customView.getCriteria();
 
-                        if(criteria != null){
+                        if (criteria != null) {
                             await this.printCriteria(criteria);
                         }
 
                         let sharedDetails = customView.getSharedDetails();
 
-                        if(sharedDetails != null){
+                        if (sharedDetails != null) {
                             sharedDetails.forEach(sharedDetail => {
-
                                 //Get the Name of the each SharedDetails
                                 console.log("SharedDetails Name: " + sharedDetail.getName());
 
@@ -261,7 +248,7 @@ class CustomView {
                         //Get the list of fields in each CustomView
                         let fields = customView.getFields();
 
-                        if(fields != null){
+                        if (fields != null) {
                             console.log("Fields");
 
                             fields.forEach(field => {
@@ -270,12 +257,12 @@ class CustomView {
                             });
                         }
 
-                        if(customView.getFavorite() != null){
+                        if (customView.getFavorite() != null) {
                             //Get the Favorite of each CustomView
                             console.log("CustomView Favorite: " + customView.getFavorite().toString());
                         }
 
-                        if(customView.getSortOrder() != null){
+                        if (customView.getSortOrder() != null) {
                             //Get the SortOrder of each CustomView
                             console.log("CustomView SortOrder: " + customView.getSortOrder().toString());
                         }
@@ -285,12 +272,11 @@ class CustomView {
                     //Get the Info instance from object
                     let info = responseObject.getInfo();
 
-                    if(info != null){
-
+                    if (info != null) {
                         //Get the Translation instance of CustomView
                         let translation = info.getTranslation();
 
-                        if(translation != null){
+                        if (translation != null) {
                             console.log("Translation details");
 
                             //Get the PublicViews of the Translation
@@ -308,8 +294,7 @@ class CustomView {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.CustomView.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.CustomView.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -321,7 +306,7 @@ class CustomView {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -335,18 +320,18 @@ class CustomView {
 
     }
 
-    static async printCriteria(criteria){
-        if(criteria.getComparator() != null){
+    static async printCriteria(criteria) {
+        if (criteria.getComparator() != null) {
             //Get the Comparator of the Criteria
             console.log("CustomView Criteria Comparator: " + criteria.getComparator().getValue());
         }
 
-        if(criteria.getField() != null){
+        if (criteria.getField() != null) {
             //Get the Field of the Criteria
             console.log("CustomView Criteria Field: " + criteria.getField());
         }
 
-        if(criteria.getValue() != null){
+        if (criteria.getValue() != null) {
             //Get the Value of the Criteria
             console.log("CustomView Criteria Value: " + criteria.getValue().toString());
         }
@@ -354,16 +339,15 @@ class CustomView {
         // Get the List of Criteria instance of each Criteria
         let criteriaGroup = criteria.getGroup();
 
-        if(criteriaGroup != null){
+        if (criteriaGroup != null) {
             criteriaGroup.forEach(eachCriteria => {
                 this.printCriteria(eachCriteria);
             });
         }
 
-        if(criteria.getGroupOperator() != null){
+        if (criteria.getGroupOperator() != null) {
             //Get the Group Operator of the Criteria
             console.log("CustomView Criteria Group Operator: " + criteria.getGroupOperator().getValue());
         }
     }
-
 }

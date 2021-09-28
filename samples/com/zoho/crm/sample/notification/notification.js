@@ -1,5 +1,4 @@
 class Notification {
-
     /**
      * <h3> Enable Notifications </h3>
      * This method is used to Enable Notifications and print the response.
@@ -26,11 +25,11 @@ class Notification {
         notification1.setEvents(events);
 
         //To set the expiry time for instant notifications.
-        notification1.setChannelExpiry(new Date(2020,10,10,10,20,0));
+        notification1.setChannelExpiry(new Date(2020, 10, 10, 10, 20, 0));
 
         //To ensure that the notification is sent from Zoho CRM, by sending back the given value in notification URL body.
         //By using this value, user can validate the notifications.
-        notification1.setToken("TOKEN_FOR_VERIFICATION_OF_10068002");
+        notification1.setToken("TOKEN_FOR_VERIFICATION_OF_1000000068002");
 
         //URL to be notified (POST request)
         notification1.setNotifyUrl("https://www.zohoapis.com");
@@ -42,7 +41,7 @@ class Notification {
         let notification2 = new ZCRM.Notification.Model.Notification();
 
         //Set channel Id of the Notification
-        notification2.setChannelId(1006800211n);
+        notification2.setChannelId(100000006800211n);
 
         let events2 = ["Accounts.all"];
 
@@ -50,11 +49,11 @@ class Notification {
         notification2.setEvents(events2);
 
         //To set the expiry time for instant notifications.
-        notification2.setChannelExpiry(new Date(2020,11,10,10,0,0));
+        notification2.setChannelExpiry(new Date(2020, 11, 10, 10, 0, 0));
 
         //To ensure that the notification is sent from Zoho CRM, by sending back the given value in notification URL body.
         //By using this value, user can validate the notifications.
-        notification2.setToken("TOKEN_FOR_VERIFICATION_OF_1006800211");
+        notification2.setToken("TOKEN_FOR_VERIFICATION_OF_100000006800211");
 
         //URL to be notified (POST request)
         notification2.setNotifyUrl("https://www.zohoapis.com");
@@ -68,24 +67,21 @@ class Notification {
         //Call enableNotifications method that takes BodyWrapper instance as parameter
         let response = await notificationOperations.enableNotifications(bodyWrapper);
 
-        if(response != null) {
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-                if(responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
-
+            if (responseObject != null) {
+                if (responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getWatch();
 
-                    for(let actionResponse of actionResponses) {
+                    for (let actionResponse of actionResponses) {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
-
+                        if (actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -97,27 +93,26 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            for(let key of Array.from(details.keys())) {
-
-                                if(Array.isArray(details.get(key))) {
+                            for (let key of Array.from(details.keys())) {
+                                if (Array.isArray(details.get(key))) {
                                     let dataList = details.get(key);
 
-                                    if(dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
-                                        for(let event of dataList) {
+                                    if (dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
+                                        for (let event of dataList) {
                                             //Get the ChannelExpiry of each Notification
-											console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
+                                            console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
 
-											//Get the ResourceUri each Notification
-											console.log("Notification ResourceUri: " + event.getResourceUri());
+                                            //Get the ResourceUri each Notification
+                                            console.log("Notification ResourceUri: " + event.getResourceUri());
 
-											//Get the ResourceId each Notification
-											console.log("Notification ResourceId: " + event.getResourceId());
+                                            //Get the ResourceId each Notification
+                                            console.log("Notification ResourceId: " + event.getResourceId());
 
-											//Get the ResourceName each Notification
-											console.log("Notification ResourceName: " + event.getResourceName());
+                                            //Get the ResourceName each Notification
+                                            console.log("Notification ResourceName: " + event.getResourceName());
 
-											//Get the ChannelId each Notification
-											console.log("Notification ChannelId: " + event.getChannelId());
+                                            //Get the ChannelId each Notification
+                                            console.log("Notification ChannelId: " + event.getChannelId());
                                         }
                                     }
                                 }
@@ -129,8 +124,7 @@ class Notification {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Notification.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Notification.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -142,7 +136,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -154,8 +148,7 @@ class Notification {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -167,7 +160,7 @@ class Notification {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -181,9 +174,9 @@ class Notification {
     }
 
     /**
-	 * <h3> Get Notification Details </h3>
-	 * This method is used to get all the Notification and print the response.
-	 */
+     * <h3> Get Notification Details </h3>
+     * This method is used to get all the Notification and print the response.
+     */
     static async getNotificationDetails() {
         //Get instance of NotificationOperations Class
         let notificationOperations = new ZCRM.Notification.Operations();
@@ -202,13 +195,12 @@ class Notification {
         //Call getNotificationDetails method
         let response = await notificationOperations.getNotificationDetails(paramInstance);
 
-        if(response != null) {
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -216,106 +208,104 @@ class Notification {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Notification.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.Notification.Model.ResponseWrapper) {
                     //Get the array of obtained Notification instances
                     let notificationsArray = responseObject.getWatch();
 
                     notificationsArray.forEach(notification => {
                         //Get the NotifyOnRelatedAction of each Notification
-						console.log("Notification NotifyOnRelatedAction: " + notification.getNotifyOnRelatedAction());
+                        console.log("Notification NotifyOnRelatedAction: " + notification.getNotifyOnRelatedAction());
 
-						//Get the ChannelExpiry of each Notification
-						console.log("Notification ChannelExpiry: " + notification.getChannelExpiry());
+                        //Get the ChannelExpiry of each Notification
+                        console.log("Notification ChannelExpiry: " + notification.getChannelExpiry());
 
-						//Get the ResourceUri each Notification
-						console.log("Notification ResourceUri: " + notification.getResourceUri());
+                        //Get the ResourceUri each Notification
+                        console.log("Notification ResourceUri: " + notification.getResourceUri());
 
-						//Get the ResourceId each Notification
-						console.log("Notification ResourceId: " + notification.getResourceId());
+                        //Get the ResourceId each Notification
+                        console.log("Notification ResourceId: " + notification.getResourceId());
 
-						//Get the NotifyUrl each Notification
-						console.log("Notification NotifyUrl: " + notification.getNotifyUrl());
+                        //Get the NotifyUrl each Notification
+                        console.log("Notification NotifyUrl: " + notification.getNotifyUrl());
 
-						//Get the ResourceName each Notification
-						console.log("Notification ResourceName: " + notification.getResourceName());
+                        //Get the ResourceName each Notification
+                        console.log("Notification ResourceName: " + notification.getResourceName());
 
-						//Get the ChannelId each Notification
+                        //Get the ChannelId each Notification
                         console.log("Notification ChannelId: " + notification.getChannelId());
 
                         //Get the events List of each Notification
                         let fields = notification.getEvents();
 
-                        if(fields != null) {
-                            for(let field of fields) {
+                        if (fields != null) {
+                            for (let field of fields) {
                                 //Get the Events
-								console.log("Notification Events: " + field);
+                                console.log("Notification Events: " + field);
                             }
                         }
 
                         //Get the Token each Notification
-						console.log("Notification Token: " + notification.getToken());
+                        console.log("Notification Token: " + notification.getToken());
                     });
 
                     //Get the Object obtained Info instance
                     let info = responseObject.getInfo();
 
                     //Check if info is not null
-                    if(info != null) {
-                        if(info.getPerPage() != null) {
-							//Get the PerPage of the Info
-							console.log("Notification Info PerPage: " + info.getPerPage().toString());
-						}
+                    if (info != null) {
+                        if (info.getPerPage() != null) {
+                            //Get the PerPage of the Info
+                            console.log("Notification Info PerPage: " + info.getPerPage().toString());
+                        }
 
-						if(info.getCount() != null) {
-							//Get the Count of the Info
-							console.log("Notification Info Count: " + info.getCount().toString());
-						}
+                        if (info.getCount() != null) {
+                            //Get the Count of the Info
+                            console.log("Notification Info Count: " + info.getCount().toString());
+                        }
 
-						if(info.getPage() != null) {
-							//Get the Page of the Info
-							console.log("Notification Info Page: " + info.getPage().toString());
-						}
+                        if (info.getPage() != null) {
+                            //Get the Page of the Info
+                            console.log("Notification Info Page: " + info.getPage().toString());
+                        }
 
-						if(info.getMoreRecords() != null) {
-							//Get the MoreRecords of the Info
-							console.log("Notification Info MoreRecords: " + info.getMoreRecords().toString());
-						}
+                        if (info.getMoreRecords() != null) {
+                            //Get the MoreRecords of the Info
+                            console.log("Notification Info MoreRecords: " + info.getMoreRecords().toString());
+                        }
                     }
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
-	 * <h3> Update Notifications </h3>
-	 * This method is used to update Notifications and print the response.
-	 */
+     * <h3> Update Notifications </h3>
+     * This method is used to update Notifications and print the response.
+     */
     static async updateNotifications() {
         //Get instance of NotificationOperations Class
         let notificationOperations = new ZCRM.Notification.Operations();
@@ -356,24 +346,21 @@ class Notification {
         //Call updateNotifications method that takes BodyWrapper instance as parameter
         let response = await notificationOperations.updateNotifications(bodyWrapper);
 
-        if(response != null) {
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-                if(responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
-
+            if (responseObject != null) {
+                if (responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getWatch();
 
-                    for(let actionResponse of actionResponses) {
+                    for (let actionResponse of actionResponses) {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
-
+                        if (actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -385,27 +372,26 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            for(let key of Array.from(details.keys())) {
-
-                                if(Array.isArray(details.get(key))) {
+                            for (let key of Array.from(details.keys())) {
+                                if (Array.isArray(details.get(key))) {
                                     let dataList = details.get(key);
 
-                                    if(dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
-                                        for(let event of dataList) {
+                                    if (dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
+                                        for (let event of dataList) {
                                             //Get the ChannelExpiry of each Notification
-											console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
+                                            console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
 
-											//Get the ResourceUri each Notification
-											console.log("Notification ResourceUri: " + event.getResourceUri());
+                                            //Get the ResourceUri each Notification
+                                            console.log("Notification ResourceUri: " + event.getResourceUri());
 
-											//Get the ResourceId each Notification
-											console.log("Notification ResourceId: " + event.getResourceId());
+                                            //Get the ResourceId each Notification
+                                            console.log("Notification ResourceId: " + event.getResourceId());
 
-											//Get the ResourceName each Notification
-											console.log("Notification ResourceName: " + event.getResourceName());
+                                            //Get the ResourceName each Notification
+                                            console.log("Notification ResourceName: " + event.getResourceName());
 
-											//Get the ChannelId each Notification
-											console.log("Notification ChannelId: " + event.getChannelId());
+                                            //Get the ChannelId each Notification
+                                            console.log("Notification ChannelId: " + event.getChannelId());
                                         }
                                     }
                                 }
@@ -417,8 +403,7 @@ class Notification {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Notification.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Notification.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -430,7 +415,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -442,8 +427,7 @@ class Notification {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -455,7 +439,7 @@ class Notification {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -470,9 +454,9 @@ class Notification {
     }
 
     /**
-	 * <h3> Update Specific Information of a Notification </h3>
-	 * This method is used to update single Notification and print the response.
-	 */
+     * <h3> Update Specific Information of a Notification </h3>
+     * This method is used to update single Notification and print the response.
+     */
     static async updateNotification() {
         //Get instance of NotificationOperations Class
         let notificationOperations = new ZCRM.Notification.Operations();
@@ -513,24 +497,21 @@ class Notification {
         //Call updateNotification method that takes BodyWrapper instance as parameters
         let response = await notificationOperations.updateNotification(bodyWrapper);
 
-        if(response != null) {
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-                if(responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
-
+            if (responseObject != null) {
+                if (responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getWatch();
 
-                    for(let actionResponse of actionResponses) {
+                    for (let actionResponse of actionResponses) {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
-
+                        if (actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -542,27 +523,26 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            for(let key of Array.from(details.keys())) {
-
-                                if(Array.isArray(details.get(key))) {
+                            for (let key of Array.from(details.keys())) {
+                                if (Array.isArray(details.get(key))) {
                                     let dataList = details.get(key);
 
-                                    if(dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
-                                        for(let event of dataList) {
+                                    if (dataList.length > 0 && dataList[0] instanceof ZCRM.Notification.Model.Notification) {
+                                        for (let event of dataList) {
                                             //Get the ChannelExpiry of each Notification
-											console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
+                                            console.log("Notification ChannelExpiry: " + event.getChannelExpiry());
 
-											//Get the ResourceUri each Notification
-											console.log("Notification ResourceUri: " + event.getResourceUri());
+                                            //Get the ResourceUri each Notification
+                                            console.log("Notification ResourceUri: " + event.getResourceUri());
 
-											//Get the ResourceId each Notification
-											console.log("Notification ResourceId: " + event.getResourceId());
+                                            //Get the ResourceId each Notification
+                                            console.log("Notification ResourceId: " + event.getResourceId());
 
-											//Get the ResourceName each Notification
-											console.log("Notification ResourceName: " + event.getResourceName());
+                                            //Get the ResourceName each Notification
+                                            console.log("Notification ResourceName: " + event.getResourceName());
 
-											//Get the ChannelId each Notification
-											console.log("Notification ChannelId: " + event.getChannelId());
+                                            //Get the ChannelId each Notification
+                                            console.log("Notification ChannelId: " + event.getChannelId());
                                         }
                                     }
                                 }
@@ -574,8 +554,7 @@ class Notification {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Notification.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Notification.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -587,7 +566,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -599,8 +578,7 @@ class Notification {
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -612,7 +590,7 @@ class Notification {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -622,17 +600,15 @@ class Notification {
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
             }
-
         }
     }
 
     /**
      * <h3> Disable Notifications </h3>
-	 * To stop all the instant notifications enabled by the user for a channel.
+     * To stop all the instant notifications enabled by the user for a channel.
      * @param {Array} channelIds Specify the unique IDs of the notification channels to be disabled.
      */
     static async disableNotifications(channelIds) {
-
         //example
         //channelIds = [10068002n, 10068020n, 10068101n]
 
@@ -643,34 +619,30 @@ class Notification {
         let paramInstance = new ParameterMap();
 
         //Possible parameters for disable Notifications operation
-        for(let channelId of channelIds) {
+        for (let channelId of channelIds) {
             await paramInstance.add(ZCRM.Notification.Model.DisableNotificationsParam.CHANNEL_IDS, channelId);
         }
 
         //Call disableNotifications method that takes paramInstance as parameter
         let response = await notificationOperations.disableNotifications(paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Notification.Model.ActionWrapper){
+                if (responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
 
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getWatch();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Notification.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -682,7 +654,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -691,8 +663,7 @@ class Notification {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Notification.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Notification.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -704,7 +675,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -716,8 +687,7 @@ class Notification {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -729,7 +699,7 @@ class Notification {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -778,27 +748,22 @@ class Notification {
         //Call disableNotification which takes BodyWrapper instance as parameter
         let response = await notificationOperations.disableNotification(bodyWrapper);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Notification.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Notification.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getWatch();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Notification.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Notification.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -810,7 +775,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -819,8 +784,7 @@ class Notification {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Notification.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Notification.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -832,7 +796,7 @@ class Notification {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -844,8 +808,7 @@ class Notification {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Notification.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Notification.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -857,7 +820,7 @@ class Notification {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });

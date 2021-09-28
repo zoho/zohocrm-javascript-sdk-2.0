@@ -13,53 +13,11 @@ var Initializer = {};
  * @param {Logger} logger A Logger class instance containing the log file path and Logger type.
  * @param {RequestProxy} proxy - A RequestProxy class instance containing the proxy properties of the user.
  */
-async function initializeSDK(environment, sdkConfig, token = null, logger = null, proxy=null) {
-
-    var detailsJO = {};
-
+async function initializeSDK(environment, sdkConfig, token = null, logger = null, proxy = null) {
     let store = new TokenStore();
 
     try {
-
-        if (!(environment instanceof Environment)) {
-
-            detailsJO.field = Constants.ENVIRONMENT;
-
-            detailsJO.expected_type = Environment.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
-        if(sdkConfig === null) {
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, Constants.SDK_CONFIG_ERROR_MESSAGE);
-        }
-
-        if (!(token instanceof Token) && document.getElementById(Constants.ZES_CLIENT_SCOPE) === null) {
-
-            detailsJO.field = Constants.TOKEN;
-
-            detailsJO.expected_type = Token.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
-        if (logger === null) {
-
-            logger = Logger.getInstance(Levels.INFO);
-        }
-
-        if(proxy != null && !(proxy instanceof RequestProxy)) {
-
-            detailsJO.field = Constants.USER_PROXY;
-
-            detailsJO.expected_type = RequestProxy.name;
-
-            throw new SDKException(Constants.INITIALIZATION_ERROR, null, detailsJO, null);
-        }
-
         if (token === null && document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
-
             let clientId = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_CLIENT_ID);
 
             let scope = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_SCOPE);
@@ -73,12 +31,10 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
             var length = pathSplit.length;
 
             if(length > 0) {
-
                 redirect_url += "/"
             }
 
             for (var i = 0; i < length - 2; i++) {
-
                 if(pathSplit[i] !== "" && pathSplit[i].trim().length > 0 && !pathSplit[i].endsWith(".html")) {
 
                     redirect_url += pathSplit[i] + "/";
@@ -86,16 +42,18 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
             }
 
             if(location.hostname === Constants.HOSTADDRESS || location.hostname === Constants.LOCALHOST || location.hostname === "" ) {
-
                 redirect_url += Constants.APP + "/";
             }
 
             if(!redirect_url.endsWith("/")){
-
                 redirect_url += "/";
             }
 
-            token = new OAuthToken(clientId, redirect_url + Constants.REDIRECT_FILE, scope);
+            token = new OAuthBuilder()
+            .clientId(clientId)
+            .scope(scope)
+            .redirectURL(redirect_url + Constants.REDIRECT_FILE)
+            .build();
         }
 
         SDKLogger.initialize(logger);
@@ -115,13 +73,10 @@ async function initializeSDK(environment, sdkConfig, token = null, logger = null
         SDKLogger.log(Levels.INFO, Constants.INITIALIZATION_SUCCESSFUL.concat(environment.url).concat("."));
     }
     catch (e) {
-
         if(e instanceof SDKException) {
-
             throw e;
         }
         else {
-
             throw new SDKException(Constants.INITIALIZATION_EXCEPTION, e.toString());
         }
     }
