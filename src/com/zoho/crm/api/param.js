@@ -2,14 +2,12 @@
  * This class represents the HTTP parameter.
  */
 class Param {
-
     /**
      * Creates an Param class instance with the specified parameter name.
      * @param {string} name A String containing the parameter name.
      * @param {string} className A String containing the parameter class name.
      */
     constructor(name, className = null) {
-
         this._name = name;
 
         this._className = className;
@@ -20,7 +18,6 @@ class Param {
      * @returns {string} A String representing the parameter name.
      */
     getName() {
-
         return this._name;
     }
 
@@ -29,7 +26,6 @@ class Param {
      * @returns {string} A String representing the parameter class name.
      */
     getClassName() {
-
         return this._className;
     }
 }

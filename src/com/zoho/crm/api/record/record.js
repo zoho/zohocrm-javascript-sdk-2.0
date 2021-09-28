@@ -3754,8 +3754,20 @@ ZCRM.Record = {
 
 		},
 
+		CreateRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.CreateRecordsHeader"),
+
+
+		},
+
 		UpsertRecordsHeader : {
 			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpsertRecordsHeader"),
+
+
+		},
+
+		DeleteRecordUsingExternalIDParam : {
+			WF_TRIGGER : 	new Param("wf_trigger", "Record.Model.DeleteRecordUsingExternalIDParam"),
 
 
 		},
@@ -3776,12 +3788,40 @@ ZCRM.Record = {
 
 		},
 
+		GetRecordUsingExternalIDParam : {
+			APPROVED : 	new Param("approved", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			CONVERTED : 	new Param("converted", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			CVID : 	new Param("cvid", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			UID : 	new Param("uid", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			FIELDS : 	new Param("fields", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			STARTDATETIME : 	new Param("startDateTime", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			ENDDATETIME : 	new Param("endDateTime", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			TERRITORY_ID : 	new Param("territory_id", "Record.Model.GetRecordUsingExternalIDParam"),
+
+			INCLUDE_CHILD : 	new Param("include_child", "Record.Model.GetRecordUsingExternalIDParam"),
+
+
+		},
+
 		GetDeletedRecordsParam : {
 			TYPE : 	new Param("type", "Record.Model.GetDeletedRecordsParam"),
 
 			PAGE : 	new Param("page", "Record.Model.GetDeletedRecordsParam"),
 
 			PER_PAGE : 	new Param("per_page", "Record.Model.GetDeletedRecordsParam"),
+
+
+		},
+
+		UpdateRecordUsingExternalIDHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpdateRecordUsingExternalIDHeader"),
 
 
 		},
@@ -3847,6 +3887,8 @@ ZCRM.Record = {
 
 			PER_PAGE : 	new Param("per_page", "Record.Model.SearchRecordsParam"),
 
+			FIELDS : 	new Param("fields", "Record.Model.SearchRecordsParam"),
+
 
 		},
 
@@ -3892,6 +3934,20 @@ ZCRM.Record = {
 			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetDeletedRecordsHeader"),
 
 
+		},
+
+		DeleteRecordUsingExternalIDHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.DeleteRecordUsingExternalIDHeader"),
+
+
+		},
+
+		GetRecordUsingExternalIDHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordUsingExternalIDHeader"),
+
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.GetRecordUsingExternalIDHeader"),
+
+
 		}
 	},
 	Operations : class {
@@ -3932,8 +3988,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -3972,8 +4028,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4011,6 +4067,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4042,8 +4099,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -4052,15 +4109,19 @@ ZCRM.Record = {
 		 * The method to create records
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async createRecords(moduleAPIName, request){
+		async createRecords(moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4071,9 +4132,9 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_CREATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields(moduleAPIName);
+			handlerInstance.setHeader(headerInstance);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4105,10 +4166,9 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setMandatoryChecker(true);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4140,6 +4200,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4173,8 +4234,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4207,6 +4268,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.DeletedRecordsHandler", "application/json");
 
 		}
@@ -4239,8 +4301,8 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
 
 		}
@@ -4270,7 +4332,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields("Deals");
+			await Utility.getFields("Deals", handlerInstance);
 			return handlerInstance.apiCall("Record.Model.ConvertActionHandler", "application/json");
 
 		}
@@ -4299,6 +4361,7 @@ ZCRM.Record = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.DownloadHandler", "application/x-download");
 
 		}
@@ -4334,6 +4397,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("multipart/form-data");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			await Utility.verifyPhotoSupport(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.FileHandler", "application/json");
 
@@ -4363,6 +4427,7 @@ ZCRM.Record = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.FileHandler", "application/json");
 
 		}
@@ -4392,8 +4457,8 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
-			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.MassUpdateActionHandler", "application/json");
 
 		}
@@ -4421,7 +4486,125 @@ ZCRM.Record = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("Record.Model.MassUpdateResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
+			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to update record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async updateRecordUsingExternalId(externalFieldValue, moduleAPIName, request, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			handlerInstance.setHeader(headerInstance);
+			handlerInstance.setModuleAPIName(moduleAPIName);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to delete record using external id
+		 * @param {String} externalFieldValue A String
+		 * @param {String} moduleAPIName A String
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async deleteRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance=null, headerInstance=null){
+			if((!(Object.prototype.toString.call(externalFieldValue) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: externalFieldValue EXPECTED TYPE: String", null, null);
+			}
+			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/");
+			apiPath = apiPath.concat(moduleAPIName.toString());
+			apiPath = apiPath.concat("/");
+			apiPath = apiPath.concat(externalFieldValue.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
+			await Utility.getFields(moduleAPIName, handlerInstance);
+			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
 	},

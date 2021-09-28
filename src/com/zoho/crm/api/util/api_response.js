@@ -9,7 +9,6 @@ class APIResponse {
      * @param {object} dataObject A Object containing the API response POJO class instance.
      */
     constructor(headers, statusCode, dataObject) {
-
         this._headers = headers;
 
         this._statusCode = statusCode;
@@ -22,7 +21,6 @@ class APIResponse {
      * @returns {Map} A Map representing the API response headers.
      */
     getHeaders() {
-
         return this._headers;
     }
 
@@ -31,7 +29,6 @@ class APIResponse {
      * @returns {String} A String representing the API response HTTP status code.
      */
     getStatusCode() {
-
         return this._statusCode;
     }
 
@@ -40,7 +37,6 @@ class APIResponse {
      * @returns {object} A POJO class instance.
      */
     getObject() {
-
         return this._dataObject;
     }
 }

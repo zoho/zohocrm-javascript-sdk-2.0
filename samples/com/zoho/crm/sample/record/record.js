@@ -1,13 +1,11 @@
-class Record{
-
+class Records {
     /**
      * <h3> Get Record</h3>
-	 * This method is used to get a single record of a module with ID and print the response.
+     * This method is used to get a single record of a module with ID and print the response.
      * @param {String} moduleAPIName The API Name of the record's module.
      * @param {BigInt} recordId The ID of the record to be obtained.
      */
-    static async getRecord(moduleAPIName, recordId){
-
+    static async getRecord(moduleAPIName, recordId) {
         //example
         //let moduleAPIName = "Contacts";
         //let recordId = 34770616603276n;
@@ -50,18 +48,19 @@ class Record{
         let headerInstance = new HeaderMap();
 
         /* Possible headers for Get Record operation*/
-        await headerInstance.add(ZCRM.Record.Model.GetRecordHeader.IF_MODIFIED_SINCE, new Date("2020-01-01T01:01:01+05:30"));
+        // await headerInstance.add(ZCRM.Record.Model.GetRecordHeader.IF_MODIFIED_SINCE, new Date("2020-01-01T01:01:01+05:30"));
+
+        await headerInstance.add(ZCRM.Record.Model.GetRecordHeader.X_EXTERNAL, "Leads.External");
 
         //Call getRecord method that takes paramInstance, headerInstance, moduleAPIName and recordID as parameter
         let response = await recordOperations.getRecord(recordId, moduleAPIName, paramInstance, headerInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -69,11 +68,9 @@ class Record{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ResponseWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.ResponseWrapper) {
                     //Get the array of obtained Record instances
                     let records = responseObject.getData();
 
@@ -81,64 +78,63 @@ class Record{
                         let record = records[index];
 
                         //Get the ID of each Record
-						console.log("Record ID: " + record.getId());
+                        console.log("Record ID: " + record.getId());
 
-						//Get the createdBy User instance of each Record
-						let createdBy = record.getCreatedBy();
+                        //Get the createdBy User instance of each Record
+                        let createdBy = record.getCreatedBy();
 
-						//Check if createdBy is not null
-						if(createdBy != null)
-						{
-							//Get the ID of the createdBy User
-							console.log("Record Created By User-ID: " + createdBy.getId());
+                        //Check if createdBy is not null
+                        if (createdBy != null) {
+                            //Get the ID of the createdBy User
+                            console.log("Record Created By User-ID: " + createdBy.getId());
 
-							//Get the name of the createdBy User
-							console.log("Record Created By User-Name: " + createdBy.getName());
+                            //Get the name of the createdBy User
+                            console.log("Record Created By User-Name: " + createdBy.getName());
 
-							//Get the Email of the createdBy User
-							console.log("Record Created By User-Email: " + createdBy.getEmail());
-						}
+                            //Get the Email of the createdBy User
+                            console.log("Record Created By User-Email: " + createdBy.getEmail());
+                        }
 
-						//Get the CreatedTime of each Record
-						console.log("Record CreatedTime: " + record.getCreatedTime());
+                        //Get the CreatedTime of each Record
+                        console.log("Record CreatedTime: " + record.getCreatedTime());
 
-						//Get the modifiedBy User instance of each Record
-						let modifiedBy = record.getModifiedBy();
+                        //Get the modifiedBy User instance of each Record
+                        let modifiedBy = record.getModifiedBy();
 
-						//Check if modifiedBy is not null
-						if(modifiedBy != null){
-							//Get the ID of the modifiedBy User
-							console.log("Record Modified By User-ID: " + modifiedBy.getId());
+                        //Check if modifiedBy is not null
+                        if (modifiedBy != null) {
+                            //Get the ID of the modifiedBy User
+                            console.log("Record Modified By User-ID: " + modifiedBy.getId());
 
-							//Get the name of the modifiedBy User
-							console.log("Record Modified By User-Name: " + modifiedBy.getName());
+                            //Get the name of the modifiedBy User
+                            console.log("Record Modified By User-Name: " + modifiedBy.getName());
 
-							//Get the Email of the modifiedBy User
-							console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
-						}
+                            //Get the Email of the modifiedBy User
+                            console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
+                        }
 
-						//Get the ModifiedTime of each Record
-						console.log("Record ModifiedTime: " + record.getModifiedTime());
+                        //Get the ModifiedTime of each Record
+                        console.log("Record ModifiedTime: " + record.getModifiedTime());
 
-						//Get the list of Tag instance each Record
-						let tags = record.getTag();
+                        //Get the list of Tag instance each Record
+                        let tags = record.getTag();
 
-						//Check if tags is not null
-						if(tags != null){
+                        //Check if tags is not null
+                        if (tags != null) {
                             tags.forEach(tag => {
                                 //Get the Name of each Tag
-								console.log("Record Tag Name: " + tag.getName());
+                                console.log("Record Tag Name: " + tag.getName());
 
-								//Get the Id of each Tag
-								console.log("Record Tag ID: " + tag.getId());
+                                //Get the Id of each Tag
+                                console.log("Record Tag ID: " + tag.getId());
 
                             });
-						}
+                        }
 
-						//To get particular field value
-						console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
+                        //To get particular field value
+                        console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
 
-                        console.log("Record KeyValues: " );
+                        console.log("Record KeyValues: ");
 
                         let keyValues = record.getKeyValues();
 
@@ -149,66 +145,65 @@ class Record{
 
                             let value = keyValues.get(keyName);
 
-                            if(Array.isArray(value)){
-
-                                if(value.length > 0){
-                                    if(value[0] instanceof ZCRM.Record.Model.FileDetails){
+                            if (Array.isArray(value)) {
+                                if (value.length > 0) {
+                                    if (value[0] instanceof ZCRM.Record.Model.FileDetails) {
                                         let fileDetails = value;
 
                                         fileDetails.forEach(fileDetail => {
-											//Get the Extn of each FileDetails
-											console.log("Record FileDetails Extn: " + fileDetail.getExtn());
+                                            //Get the Extn of each FileDetails
+                                            console.log("Record FileDetails Extn: " + fileDetail.getExtn());
 
-											//Get the IsPreviewAvailable of each FileDetails
-											console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
+                                            //Get the IsPreviewAvailable of each FileDetails
+                                            console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
 
-											//Get the DownloadUrl of each FileDetails
-											console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
+                                            //Get the DownloadUrl of each FileDetails
+                                            console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
 
-											//Get the DeleteUrl of each FileDetails
-											console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
+                                            //Get the DeleteUrl of each FileDetails
+                                            console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
 
-											//Get the EntityId of each FileDetails
-											console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
+                                            //Get the EntityId of each FileDetails
+                                            console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
 
-											//Get the Mode of each FileDetails
-											console.log("Record FileDetails Mode: " + fileDetail.getMode());
+                                            //Get the Mode of each FileDetails
+                                            console.log("Record FileDetails Mode: " + fileDetail.getMode());
 
-											//Get the OriginalSizeByte of each FileDetails
-											console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
+                                            //Get the OriginalSizeByte of each FileDetails
+                                            console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
 
-											//Get the PreviewUrl of each FileDetails
-											console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
+                                            //Get the PreviewUrl of each FileDetails
+                                            console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
 
-											//Get the FileName of each FileDetails
-											console.log("Record FileDetails FileName: " + fileDetail.getFileName());
+                                            //Get the FileName of each FileDetails
+                                            console.log("Record FileDetails FileName: " + fileDetail.getFileName());
 
-											//Get the FileId of each FileDetails
-											console.log("Record FileDetails FileId: " + fileDetail.getFileId());
+                                            //Get the FileId of each FileDetails
+                                            console.log("Record FileDetails FileId: " + fileDetail.getFileId());
 
-											//Get the AttachmentId of each FileDetails
-											console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
+                                            //Get the AttachmentId of each FileDetails
+                                            console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
 
-											//Get the FileSize of each FileDetails
-											console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
+                                            //Get the FileSize of each FileDetails
+                                            console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
 
-											//Get the CreatorId of each FileDetails
-											console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
+                                            //Get the CreatorId of each FileDetails
+                                            console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
 
-											//Get the LinkDocs of each FileDetails
-											console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
+                                            //Get the LinkDocs of each FileDetails
+                                            console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Reminder){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Reminder) {
                                         let reminders = value;
 
                                         reminders.forEach(reminder => {
-                                            console.log("Reminder Period: "+ reminder.getPeriod());
+                                            console.log("Reminder Period: " + reminder.getPeriod());
 
                                             console.log("Reminder Unit: " + reminder.getUnit());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Participants){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Participants) {
                                         let participants = value;
 
                                         participants.forEach(participant => {
@@ -225,7 +220,7 @@ class Record{
                                             console.log("Record Participants Status: " + participant.getStatus());
                                         });
                                     }
-                                    else if(value[0] instanceof Choice){
+                                    else if (value[0] instanceof Choice) {
                                         let choiceArray = value;
 
                                         console.log(keyName);
@@ -236,45 +231,45 @@ class Record{
                                             console.log(eachChoice.getValue());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.InventoryLineItems){
+                                    else if (value[0] instanceof ZCRM.Record.Model.InventoryLineItems) {
                                         let productDetails = value;
 
                                         productDetails.forEach(productDetail => {
                                             let lineItemProduct = productDetail.getProduct();;
 
-                                            if(lineItemProduct != null){
-												console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
+                                            if (lineItemProduct != null) {
+                                                console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
 
-												console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
+                                                console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
 
-												console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
+                                                console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
 
-												console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
+                                                console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
                                             }
 
                                             console.log("Record ProductDetails Quantity: " + productDetail.getQuantity());
 
-											console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
+                                            console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
 
-											console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
+                                            console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
 
-											console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
+                                            console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
 
-											if(productDetail.getBook() != null){
-												console.log("Record ProductDetails Book: " + productDetail.getBook());
-											}
+                                            if (productDetail.getBook() != null) {
+                                                console.log("Record ProductDetails Book: " + productDetail.getBook());
+                                            }
 
-											console.log("Record ProductDetails Tax: " + productDetail.getTax());
+                                            console.log("Record ProductDetails Tax: " + productDetail.getTax());
 
-											console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
+                                            console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
 
-											console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
+                                            console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
 
-											console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
+                                            console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
 
-											console.log("Record ProductDetails Total: " + productDetail.getTotal());
+                                            console.log("Record ProductDetails Total: " + productDetail.getTotal());
 
-											console.log("Record ProductDetails ID: " + productDetail.getId());
+                                            console.log("Record ProductDetails ID: " + productDetail.getId());
 
                                             console.log("Record ProductDetails ProductDescription: " + productDetail.getProductDescription());
 
@@ -283,40 +278,40 @@ class Record{
                                             lineTaxes.forEach(lineTax => {
                                                 console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-												console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+                                                console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-												console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+                                                console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-												console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                                console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                             });
 
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Tag.Model.Tag){
+                                    else if (value[0] instanceof ZCRM.Tag.Model.Tag) {
                                         let tags = value;
 
                                         tags.forEach(tag => {
                                             //Get the Name of each Tag
-											console.log("Record Tag Name: " + tag.getName());
+                                            console.log("Record Tag Name: " + tag.getName());
 
-											//Get the Id of each Tag
-											console.log("Record Tag ID: " + tag.getId());
+                                            //Get the Id of each Tag
+                                            console.log("Record Tag ID: " + tag.getId());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.PricingDetails){
+                                    else if (value[0] instanceof ZCRM.Record.Model.PricingDetails) {
                                         let pricingDetails = value;
 
                                         pricingDetails.forEach(pricingDetail => {
                                             console.log("Record PricingDetails ToRange: " + pricingDetail.getToRange());
 
-											console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
+                                            console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
 
-											console.log("Record PricingDetails ID: " + pricingDetail.getId());
+                                            console.log("Record PricingDetails ID: " + pricingDetail.getId());
 
-											console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
+                                            console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Record){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Record) {
                                         let recordArray = value;
 
                                         recordArray.forEach(record => {
@@ -325,33 +320,33 @@ class Record{
                                             });
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.LineTax){
+                                    else if (value[0] instanceof ZCRM.Record.Model.LineTax) {
                                         let lineTaxes = value;
 
                                         lineTaxes.forEach(lineTax => {
-											console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
+                                            console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-											console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+                                            console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-											console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+                                            console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-											console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                            console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Comment) {
+                                    else if (value[0] instanceof ZCRM.Record.Model.Comment) {
                                         let comments = value;
 
                                         comments.forEach(comment => {
                                             console.log("Record Comment CommentedBy: " + comment.getCommentedBy());
 
-											console.log("Record Comment CommentedTime: " + comment.getCommentedTime());
+                                            console.log("Record Comment CommentedTime: " + comment.getCommentedTime());
 
-											console.log("Record Comment CommentContent: " + comment.getCommentContent());
+                                            console.log("Record Comment CommentContent: " + comment.getCommentContent());
 
-											console.log("Record Comment Id: " + comment.getId());
+                                            console.log("Record Comment Id: " + comment.getId());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Attachment.Model.Attachment) {
+                                    else if (value[0] instanceof ZCRM.Attachment.Model.Attachment) {
                                         let attachments = value;
 
                                         attachments.forEach(attachment => {
@@ -362,7 +357,7 @@ class Record{
                                             let owner = attachment.getOwner();
 
                                             //Check if owner is not null
-                                            if(owner != null){
+                                            if (owner != null) {
                                                 //Get the Name of the Owner
                                                 console.log("Record Attachment Owner - Name: " + owner.getName());
 
@@ -389,7 +384,7 @@ class Record{
                                             let parentId = attachment.getParentId();
 
                                             //Check if parentId is not null
-                                            if(parentId != null){
+                                            if (parentId != null) {
                                                 //Get the parent record Name of each attachment
                                                 console.log("Record Attachment parent record Name: " + parentId.getKeyValue("name"));
 
@@ -413,7 +408,7 @@ class Record{
                                             let modifiedBy = attachment.getModifiedBy();
 
                                             //Check if modifiedBy is not null
-                                            if(modifiedBy != null){
+                                            if (modifiedBy != null) {
                                                 //Get the Name of the modifiedBy User
                                                 console.log("Record Attachment Modified By User-Name: " + modifiedBy.getName());
 
@@ -431,7 +426,7 @@ class Record{
                                             let createdBy = attachment.getCreatedBy();
 
                                             //Check if createdBy is not null
-                                            if(createdBy != null){
+                                            if (createdBy != null) {
                                                 //Get the name of the createdBy User
                                                 console.log("Record Attachment Created By User-Name: " + createdBy.getName());
 
@@ -446,13 +441,12 @@ class Record{
                                             console.log("Record Attachment LinkUrl: " + attachment.getLinkUrl());
                                         });
                                     }
-                                    else{
+                                    else {
                                         console.log(keyName + ": " + value);
                                     }
                                 }
-
                             }
-                            else if(value instanceof ZCRM.User.Model.User){
+                            else if (value instanceof ZCRM.User.Model.User) {
                                 console.log("Record " + keyName + " User-ID: " + value.getId());
 
                                 console.log("Record " + keyName + " User-Name: " + value.getName());
@@ -460,36 +454,35 @@ class Record{
                                 console.log("Record " + keyName + " User-Email: " + value.getEmail());
 
                             }
-                            else if(value instanceof ZCRM.Layout.Model.Layout){
+                            else if (value instanceof ZCRM.Layout.Model.Layout) {
                                 console.log(keyName + " ID: " + value.getId());
 
                                 console.log(keyName + " Name: " + value.getName());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Record){
+                            else if (value instanceof ZCRM.Record.Model.Record) {
                                 console.log(keyName + " Record ID: " + value.getId());
 
-								console.log(keyName + " Record Name: " + value.getKeyValue("name"));
+                                console.log(keyName + " Record Name: " + value.getKeyValue("name"));
                             }
-                            else if(value instanceof Choice){
+                            else if (value instanceof Choice) {
                                 console.log(keyName + ": " + value.getValue());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RemindAt){
+                            else if (value instanceof ZCRM.Record.Model.RemindAt) {
                                 console.log(keyName + ": " + value.getAlarm());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RecurringActivity){
+                            else if (value instanceof ZCRM.Record.Model.RecurringActivity) {
                                 console.log(keyName);
 
                                 console.log("RRULE: " + value.getRrule());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Consent) {
-
-								console.log("Record Consent ID: " + value.getId());
+                            else if (value instanceof ZCRM.Record.Model.Consent) {
+                                console.log("Record Consent ID: " + value.getId());
 
                                 //Get the Owner User instance of each attachment
                                 let owner = value.getOwner();
 
                                 //Check if owner is not null
-                                if(owner != null) {
+                                if (owner != null) {
                                     //Get the name of the owner User
                                     console.log("Record Consent Owner Name: " + owner.getName());
 
@@ -503,7 +496,7 @@ class Record{
                                 let consentCreatedBy = value.getCreatedBy();
 
                                 //Check if createdBy is not null
-                                if(consentCreatedBy != null) {
+                                if (consentCreatedBy != null) {
                                     //Get the name of the CreatedBy User
                                     console.log("Record Consent CreatedBy Name: " + consentCreatedBy.getName());
 
@@ -517,7 +510,7 @@ class Record{
                                 let consentModifiedBy = value.getModifiedBy();
 
                                 //Check if createdBy is not null
-                                if(consentModifiedBy != null) {
+                                if (consentModifiedBy != null) {
                                     //Get the name of the ModifiedBy User
                                     console.log("Record Consent ModifiedBy Name: " + consentModifiedBy.getName());
 
@@ -552,23 +545,22 @@ class Record{
 
                                 //To get custom values
                                 console.log("Record Consent Lawful Reason: " + value.getKeyValue("Lawful_Reason"));
-							}
-                            else if(value instanceof Map){
+                            }
+                            else if (value instanceof Map) {
                                 console.log(keyName);
 
                                 Array.from(value.keys()).forEach(key => {
                                     console.log(key + ": " + value.get(key));
                                 });
                             }
-                            else{
+                            else {
                                 console.log(keyName + ": " + value);
                             }
                         }
                     }
                 }
                 //Check if FileBodyWrapper instance is received
-                else if(responseObject instanceof ZCRM.Record.Model.FileBodyWrapper){
-
+                else if (responseObject instanceof ZCRM.Record.Model.FileBodyWrapper) {
                     //Get StreamWrapper instance from the returned FileBodyWrapper instance
                     let streamWrapper = responseObject.getFile();
 
@@ -589,40 +581,235 @@ class Record{
                     ttt.click();
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
-     * <h3> Get Records</h3>
-	 * This method is used to get all the records of a module and print the response.
-     * @param {String} moduleAPIName The API Name of the module to fetch records
+     * <h3> Update Record</h3>
+     * This method is used to update a single record of a module with ID and print the response.
+     * @param {String} moduleAPIName The API Name of the record's module.
+     * @param {BigInt} recordId The ID of the record to be updated
      */
-    static async getRecords(moduleAPIName){
-
+    static async updateRecord(moduleAPIName, recordId) {
         //example
-		//let moduleAPIName = "Leads";
+        //let moduleAPIName = "Leads";
+        //let recordId = 34770615177002n;
+
+        //Get instance of RecordOperations Class
+        let recordOperations = new ZCRM.Record.Operations();
+
+        //Get instance of BodyWrapper Class that will contain the request body
+        let request = new ZCRM.Record.Model.BodyWrapper();
+
+        //Array to hold Record instances
+        let recordsArray = [];
+
+        //Get instance of Record Class
+        let record1 = new ZCRM.Record.Model.Record();
+
+        /*
+         * Call addFieldValue method that takes two arguments
+         * Import the "zcrmsdk/core/com/zoho/crm/api/record/field" file
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
+
+        /*
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record1.addKeyValue("Custom_field", "Value");
+
+        record1.addKeyValue("Custom_field_2", "value");
+
+        record1.addKeyValue("Date_1", new Date(2017, 1, 13));
+
+        let fileDetails = [];
+
+        let fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32537b7c2400dadca8ff55f620c65357da");
+
+        fileDetails.push(fileDetail);
+
+        fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32e0063e7321b5b4ca878a934519e6cdb2");
+
+        fileDetails.push(fileDetail);
+
+        fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c323daf4780bfe0058133556f155795981f");
+
+        fileDetails.push(fileDetail);
+
+        record1.addKeyValue("File_Upload", fileDetails);
+
+        //Used when GDPR is enabled
+        let dataConsent = new ZCRM.Record.Model.Consent();
+
+        dataConsent.setConsentRemarks("Approved.");
+
+        dataConsent.setConsentThrough("Email");
+
+        dataConsent.setContactThroughEmail(true);
+
+        dataConsent.setContactThroughSocial(false);
+
+        // record1.addKeyValue("Data_Processing_Basis_Details", dataConsent);
+
+        //Add Record instance to the array
+        recordsArray.push(record1);
+
+        //Set the array to Records in BodyWrapper instance
+        request.setData(recordsArray);
+
+        let trigger = [];
+
+        trigger.push("approval");
+
+        trigger.push("workflow");
+
+        trigger.push("blueprint");
+
+        request.setTrigger(trigger);
+
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
+        await headerInstance.add(ZCRM.Record.Model.UpdateRecordHeader.X_EXTERNAL, "Leads.External");
+
+        //Call updateRecord method that takes BodyWrapper instance, ModuleAPIName and recordId as parameter.
+        let response = await recordOperations.updateRecord(recordId, moduleAPIName, request, headerInstance);
+
+        if (response != null) {
+            //Get the status code from response
+            console.log("Status Code: " + response.getStatusCode());
+
+            //Get object from response
+            let responseObject = response.getObject();
+
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
+                    //Get the array of obtained ActionResponse instances
+                    let actionResponses = responseObject.getData();
+
+                    actionResponses.forEach(actionResponse => {
+                        //Check if the request is successful
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                        //Check if the request returned an exception
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            //Get the Message
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                    });
+                }
+                //Check if the request returned an exception
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
+
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
+
+                    console.log("Details");
+
+                    //Get the details map
+                    let details = responseObject.getDetails();
+
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
+
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
+            }
+        }
+    }
+
+    /**
+     * <h3> Delete Record</h3>
+     * This method is used to delete a single record of a module with ID and print the response.
+     * @param {String} moduleAPIName The API Name of the record's module.
+     * @param {BigInt} recordId The ID of the record to be deleted
+     */
+    static async deleteRecord(moduleAPIName, recordId) {
+        //example
+        //let moduleAPIName = "Leads";
+        //let recordId = 34770615177002n;
 
         //Get instance of RecordOperations Class
         let recordOperations = new ZCRM.Record.Operations();
@@ -630,73 +817,174 @@ class Record{
         //Get instance of ParameterMap Class
         let paramInstance = new ParameterMap();
 
-        /* Possible parameters for Get Records operation*/
-        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.APPROVED, "both");
+        //Possible parameters for Delete Record operation
+        await paramInstance.add(ZCRM.Record.Model.DeleteRecordParam.WF_TRIGGER, true);
 
-		// await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.CONVERTED, "both");
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
-		// await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.CVID, "34770610087501");
+        await headerInstance.add(ZCRM.Record.Model.DeleteRecordHeader.X_EXTERNAL, "Leads.External");
 
-        // let ids = [34770615623115n, 34770614352001n];
+        //Call deleteRecord method that takes paramInstance, ModuleAPIName and recordId as parameter.
+        let response = await recordOperations.deleteRecord(recordId, moduleAPIName, paramInstance, headerInstance);
 
-        // for(let id of ids) {
-        //     await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.IDS, id);
-        // }
+        if (response != null) {
+            //Get the status code from response
+            console.log("Status Code: " + response.getStatusCode());
 
-		// await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.UID, "34770615181008");
+            //Get object from response
+            let responseObject = response.getObject();
 
-        let fieldNames = ["Company", "Email"];
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
+                    //Get the array of obtained ActionResponse instances
+                    let actionResponses = responseObject.getData();
 
-        await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.FIELDS, fieldNames.toString());
+                    actionResponses.forEach(actionResponse => {
+                        //Check if the request is successful
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
 
-		// await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.SORT_BY, "Email");
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
 
-		// await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.SORT_ORDER, "desc");
+                            console.log("Details");
 
-		await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.PAGE, 1);
+                            //Get the details map
+                            let details = actionResponse.getDetails();
 
-        await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.PER_PAGE, 2);
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
 
-        // let startDateTime = new Date(2020,1,10,10,10,10);
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                        //Check if the request returned an exception
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
 
-        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.STARTDATETIME, startDateTime);
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            //Get the Message
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                    });
+                }
+                //Check if the request returned an exception
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
+
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
+
+                    console.log("Details");
+
+                    //Get the details map
+                    let details = responseObject.getDetails();
+
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
+
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
+            }
+        }
+    }
+
+    /**
+    * <h3> Get Record Using External Id</h3>
+    * This method is used to get a single record of a module with ID and print the response.
+    * @param {String} moduleAPIName The API Name of the record's module.
+    * @param {String} externalFieldValue
+    */
+    static async getRecordUsingExternalId(moduleAPIName, externalFieldValue) {
+        //example
+        //let moduleAPIName = "Contacts";
+        //let externalFieldValue = "34770616603276";
+
+        //Get instance of RecordOperations Class
+        let recordOperations = new ZCRM.Record.Operations();
+
+        //Get instance of ParameterMap Class
+        let paramInstance = new ParameterMap();
+
+        /* Possible parameters for Get Record operation*/
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.APPROVED, "true");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.CONVERTED, "false");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.CVID, "34096430087501");
+
+        let fieldsArray = ["id", "Subform_1"];
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.FIELDS, fieldsArray.toString());
+
+        /* Month is zero-indexed.
+        0 -> January ..... 11 -> December
+        */
+        // let startDateTime = new Date(2020,7,10,10,10,10);
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.STARTDATETIME, startDateTime);
 
         // let endDateTime = new Date(2020,7,10,12,12,12);
 
-        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.ENDDATETIME, endDateTime);
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.ENDDATETIME, endDateTime);
 
-        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.TERRITORY_ID, "34096430505351");
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.TERRITORY_ID, "34096430505351");
 
-        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.INCLUDE_CHILD, "true");
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.INCLUDE_CHILD, "true");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.UID, "34096430500741");
 
         //Get instance of HeaderMap Class
         let headerInstance = new HeaderMap();
 
         /* Possible headers for Get Record operation*/
-        await headerInstance.add(ZCRM.Record.Model.GetRecordsHeader.IF_MODIFIED_SINCE, new Date("2020-01-01T00:00:00+05:30"));
+        // await headerInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.IF_MODIFIED_SINCE, new Date("2020-01-01T01:01:01+05:30"));
 
-        //Call getRecords method that takes paramInstance, headerInstance and moduleAPIName as parameters
-        let response = await recordOperations.getRecords(moduleAPIName, paramInstance, headerInstance);
+        await headerInstance.add(ZCRM.Record.Model.GetRecordUsingExternalIDHeader.X_EXTERNAL, "Leads.External");
 
-        if(response != null){
+        //Call getRecordUsingExternalId method that takes externalFieldValue, moduleAPIName, paramInstance and headerInstance as parameter
+        let response = await recordOperations.getRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance, headerInstance);
 
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
 
-            //Get the object from response
+            //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
-                //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ResponseWrapper){
-
+            if (responseObject != null) {
+                //Check if ResponseWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ResponseWrapper) {
                     //Get the array of obtained Record instances
                     let records = responseObject.getData();
 
@@ -704,132 +992,149 @@ class Record{
                         let record = records[index];
 
                         //Get the ID of each Record
-						console.log("Record ID: " + record.getId());
+                        console.log("Record ID: " + record.getId());
 
-						//Get the createdBy User instance of each Record
-						let createdBy = record.getCreatedBy();
+                        //Get the createdBy User instance of each Record
+                        let createdBy = record.getCreatedBy();
 
-						//Check if createdBy is not null
-						if(createdBy != null)
-						{
-							//Get the ID of the createdBy User
-							console.log("Record Created By User-ID: " + createdBy.getId());
+                        //Check if createdBy is not null
+                        if (createdBy != null) {
+                            //Get the ID of the createdBy User
+                            console.log("Record Created By User-ID: " + createdBy.getId());
 
-							//Get the name of the createdBy User
-							console.log("Record Created By User-Name: " + createdBy.getName());
+                            //Get the name of the createdBy User
+                            console.log("Record Created By User-Name: " + createdBy.getName());
 
-							//Get the Email of the createdBy User
-							console.log("Record Created By User-Email: " + createdBy.getEmail());
-						}
+                            //Get the Email of the createdBy User
+                            console.log("Record Created By User-Email: " + createdBy.getEmail());
+                        }
 
-						//Get the CreatedTime of each Record
-						console.log("Record CreatedTime: " + record.getCreatedTime());
+                        //Get the CreatedTime of each Record
+                        console.log("Record CreatedTime: " + record.getCreatedTime());
 
-						//Get the modifiedBy User instance of each Record
-						let modifiedBy = record.getModifiedBy();
+                        //Get the modifiedBy User instance of each Record
+                        let modifiedBy = record.getModifiedBy();
 
-						//Check if modifiedBy is not null
-						if(modifiedBy != null){
-							//Get the ID of the modifiedBy User
-							console.log("Record Modified By User-ID: " + modifiedBy.getId());
+                        //Check if modifiedBy is not null
+                        if (modifiedBy != null) {
+                            //Get the ID of the modifiedBy User
+                            console.log("Record Modified By User-ID: " + modifiedBy.getId());
 
-							//Get the name of the modifiedBy User
-							console.log("Record Modified By User-Name: " + modifiedBy.getName());
+                            //Get the name of the modifiedBy User
+                            console.log("Record Modified By User-Name: " + modifiedBy.getName());
 
-							//Get the Email of the modifiedBy User
-							console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
-						}
+                            //Get the Email of the modifiedBy User
+                            console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
+                        }
 
-						//Get the ModifiedTime of each Record
-						console.log("Record ModifiedTime: " + record.getModifiedTime());
+                        //Get the ModifiedTime of each Record
+                        console.log("Record ModifiedTime: " + record.getModifiedTime());
 
-						//Get the list of Tag instance each Record
-						let tags = record.getTag();
+                        //Get the list of Tag instance each Record
+                        let tags = record.getTag();
 
-						//Check if tags is not null
-						if(tags != null){
+                        //Check if tags is not null
+                        if (tags != null) {
                             tags.forEach(tag => {
                                 //Get the Name of each Tag
-								console.log("Record Tag Name: " + tag.getName());
+                                console.log("Record Tag Name: " + tag.getName());
 
-								//Get the Id of each Tag
-								console.log("Record Tag ID: " + tag.getId());
+                                //Get the Id of each Tag
+                                console.log("Record Tag ID: " + tag.getId());
 
                             });
-						}
+                        }
 
-						//To get particular field value
-						console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
+                        //To get particular field value
+                        console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
 
-                        console.log("Record KeyValues: " );
+                        console.log("Record KeyValues: ");
 
                         let keyValues = record.getKeyValues();
 
                         let keyArray = Array.from(keyValues.keys());
 
-                        for (let keyName of keyArray) {
+                        for (let keyIndex = 0; keyIndex < keyArray.length; keyIndex++) {
+                            const keyName = keyArray[keyIndex];
+
                             let value = keyValues.get(keyName);
 
-                            if(Array.isArray(value)){
-
-                                if(value.length > 0){
-                                    if(value[0] instanceof ZCRM.Record.Model.FileDetails){
+                            if (Array.isArray(value)) {
+                                if (value.length > 0) {
+                                    if (value[0] instanceof ZCRM.Record.Model.FileDetails) {
                                         let fileDetails = value;
 
                                         fileDetails.forEach(fileDetail => {
-											//Get the Extn of each FileDetails
-											console.log("Record FileDetails Extn: " + fileDetail.getExtn());
+                                            //Get the Extn of each FileDetails
+                                            console.log("Record FileDetails Extn: " + fileDetail.getExtn());
 
-											//Get the IsPreviewAvailable of each FileDetails
-											console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
+                                            //Get the IsPreviewAvailable of each FileDetails
+                                            console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
 
-											//Get the DownloadUrl of each FileDetails
-											console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
+                                            //Get the DownloadUrl of each FileDetails
+                                            console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
 
-											//Get the DeleteUrl of each FileDetails
-											console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
+                                            //Get the DeleteUrl of each FileDetails
+                                            console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
 
-											//Get the EntityId of each FileDetails
-											console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
+                                            //Get the EntityId of each FileDetails
+                                            console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
 
-											//Get the Mode of each FileDetails
-											console.log("Record FileDetails Mode: " + fileDetail.getMode());
+                                            //Get the Mode of each FileDetails
+                                            console.log("Record FileDetails Mode: " + fileDetail.getMode());
 
-											//Get the OriginalSizeByte of each FileDetails
-											console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
+                                            //Get the OriginalSizeByte of each FileDetails
+                                            console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
 
-											//Get the PreviewUrl of each FileDetails
-											console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
+                                            //Get the PreviewUrl of each FileDetails
+                                            console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
 
-											//Get the FileName of each FileDetails
-											console.log("Record FileDetails FileName: " + fileDetail.getFileName());
+                                            //Get the FileName of each FileDetails
+                                            console.log("Record FileDetails FileName: " + fileDetail.getFileName());
 
-											//Get the FileId of each FileDetails
-											console.log("Record FileDetails FileId: " + fileDetail.getFileId());
+                                            //Get the FileId of each FileDetails
+                                            console.log("Record FileDetails FileId: " + fileDetail.getFileId());
 
-											//Get the AttachmentId of each FileDetails
-											console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
+                                            //Get the AttachmentId of each FileDetails
+                                            console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
 
-											//Get the FileSize of each FileDetails
-											console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
+                                            //Get the FileSize of each FileDetails
+                                            console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
 
-											//Get the CreatorId of each FileDetails
-											console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
+                                            //Get the CreatorId of each FileDetails
+                                            console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
 
-											//Get the LinkDocs of each FileDetails
-											console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
+                                            //Get the LinkDocs of each FileDetails
+                                            console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Reminder){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Reminder) {
                                         let reminders = value;
 
                                         reminders.forEach(reminder => {
-                                            console.log("Reminder Period: "+ reminder.getPeriod());
+                                            console.log("Reminder Period: " + reminder.getPeriod());
 
                                             console.log("Reminder Unit: " + reminder.getUnit());
                                         });
                                     }
-                                    else if(value[0] instanceof Choice){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Participants) {
+                                        let participants = value;
+
+                                        participants.forEach(participant => {
+                                            console.log("Record Participants Name: " + participant.getName());
+
+                                            console.log("Record Participants Invited: " + participant.getInvited());
+
+                                            console.log("Record Participants ID: " + participant.getId());
+
+                                            console.log("Record Participants Type: " + participant.getType());
+
+                                            console.log("Record Participants Participant: " + participant.getParticipant());
+
+                                            console.log("Record Participants Status: " + participant.getStatus());
+                                        });
+                                    }
+                                    else if (value[0] instanceof Choice) {
                                         let choiceArray = value;
 
                                         console.log(keyName);
@@ -840,62 +1145,45 @@ class Record{
                                             console.log(eachChoice.getValue());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Participants){
-                                        let participants = value;
-
-                                        participants.forEach(participant => {
-                                            console.log("Record Participants Name: " + participant.getName());
-
-											console.log("Record Participants Invited: " + participant.getInvited());
-
-											console.log("Record Participants ID: " + participant.getId());
-
-											console.log("Record Participants Type: " + participant.getType());
-
-											console.log("Record Participants Participant: " + participant.getParticipant());
-
-											console.log("Record Participants Status: " + participant.getStatus());
-                                        });
-                                    }
-                                    else if(value[0] instanceof ZCRM.Record.Model.InventoryLineItems){
+                                    else if (value[0] instanceof ZCRM.Record.Model.InventoryLineItems) {
                                         let productDetails = value;
 
                                         productDetails.forEach(productDetail => {
                                             let lineItemProduct = productDetail.getProduct();;
 
-                                            if(lineItemProduct != null){
-												console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
+                                            if (lineItemProduct != null) {
+                                                console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
 
-												console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
+                                                console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
 
-												console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
+                                                console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
 
-												console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
+                                                console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
                                             }
 
                                             console.log("Record ProductDetails Quantity: " + productDetail.getQuantity());
 
-											console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
+                                            console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
 
-											console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
+                                            console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
 
-											console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
+                                            console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
 
-											if(productDetail.getBook() != null){
-												console.log("Record ProductDetails Book: " + productDetail.getBook());
-											}
+                                            if (productDetail.getBook() != null) {
+                                                console.log("Record ProductDetails Book: " + productDetail.getBook());
+                                            }
 
-											console.log("Record ProductDetails Tax: " + productDetail.getTax());
+                                            console.log("Record ProductDetails Tax: " + productDetail.getTax());
 
-											console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
+                                            console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
 
-											console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
+                                            console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
 
-											console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
+                                            console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
 
-											console.log("Record ProductDetails Total: " + productDetail.getTotal());
+                                            console.log("Record ProductDetails Total: " + productDetail.getTotal());
 
-											console.log("Record ProductDetails ID: " + productDetail.getId());
+                                            console.log("Record ProductDetails ID: " + productDetail.getId());
 
                                             console.log("Record ProductDetails ProductDescription: " + productDetail.getProductDescription());
 
@@ -904,41 +1192,40 @@ class Record{
                                             lineTaxes.forEach(lineTax => {
                                                 console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-												console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+                                                console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-												console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+                                                console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-												console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                                console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                             });
 
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Tag.Model.Tag){
-
+                                    else if (value[0] instanceof ZCRM.Tag.Model.Tag) {
                                         let tags = value;
 
                                         tags.forEach(tag => {
                                             //Get the Name of each Tag
-											console.log("Record Tag Name: " + tag.getName());
+                                            console.log("Record Tag Name: " + tag.getName());
 
-											//Get the Id of each Tag
-											console.log("Record Tag ID: " + tag.getId());
+                                            //Get the Id of each Tag
+                                            console.log("Record Tag ID: " + tag.getId());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.PricingDetails){
+                                    else if (value[0] instanceof ZCRM.Record.Model.PricingDetails) {
                                         let pricingDetails = value;
 
                                         pricingDetails.forEach(pricingDetail => {
                                             console.log("Record PricingDetails ToRange: " + pricingDetail.getToRange());
 
-											console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
+                                            console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
 
-											console.log("Record PricingDetails ID: " + pricingDetail.getId());
+                                            console.log("Record PricingDetails ID: " + pricingDetail.getId());
 
-											console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
+                                            console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Record){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Record) {
                                         let recordArray = value;
 
                                         recordArray.forEach(record => {
@@ -947,33 +1234,33 @@ class Record{
                                             });
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.LineTax){
+                                    else if (value[0] instanceof ZCRM.Record.Model.LineTax) {
                                         let lineTaxes = value;
 
                                         lineTaxes.forEach(lineTax => {
-											console.log("Record LineTax Percentage: " + lineTax.getPercentage());
+                                            console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-											console.log("Record LineTax Name: " + lineTax.getName());
+                                            console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-											console.log("Record LineTax Id: " + lineTax.getId());
+                                            console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-											console.log("Record LineTax Value: " + lineTax.getValue());
+                                            console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Comment) {
+                                    else if (value[0] instanceof ZCRM.Record.Model.Comment) {
                                         let comments = value;
 
                                         comments.forEach(comment => {
                                             console.log("Record Comment CommentedBy: " + comment.getCommentedBy());
 
-											console.log("Record Comment CommentedTime: " + comment.getCommentedTime());
+                                            console.log("Record Comment CommentedTime: " + comment.getCommentedTime());
 
-											console.log("Record Comment CommentContent: " + comment.getCommentContent());
+                                            console.log("Record Comment CommentContent: " + comment.getCommentContent());
 
-											console.log("Record Comment Id: " + comment.getId());
+                                            console.log("Record Comment Id: " + comment.getId());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Attachment.Model.Attachment) {
+                                    else if (value[0] instanceof ZCRM.Attachment.Model.Attachment) {
                                         let attachments = value;
 
                                         attachments.forEach(attachment => {
@@ -984,7 +1271,7 @@ class Record{
                                             let owner = attachment.getOwner();
 
                                             //Check if owner is not null
-                                            if(owner != null){
+                                            if (owner != null) {
                                                 //Get the Name of the Owner
                                                 console.log("Record Attachment Owner - Name: " + owner.getName());
 
@@ -1011,7 +1298,7 @@ class Record{
                                             let parentId = attachment.getParentId();
 
                                             //Check if parentId is not null
-                                            if(parentId != null){
+                                            if (parentId != null) {
                                                 //Get the parent record Name of each attachment
                                                 console.log("Record Attachment parent record Name: " + parentId.getKeyValue("name"));
 
@@ -1035,7 +1322,7 @@ class Record{
                                             let modifiedBy = attachment.getModifiedBy();
 
                                             //Check if modifiedBy is not null
-                                            if(modifiedBy != null){
+                                            if (modifiedBy != null) {
                                                 //Get the Name of the modifiedBy User
                                                 console.log("Record Attachment Modified By User-Name: " + modifiedBy.getName());
 
@@ -1053,7 +1340,7 @@ class Record{
                                             let createdBy = attachment.getCreatedBy();
 
                                             //Check if createdBy is not null
-                                            if(createdBy != null){
+                                            if (createdBy != null) {
                                                 //Get the name of the createdBy User
                                                 console.log("Record Attachment Created By User-Name: " + createdBy.getName());
 
@@ -1068,55 +1355,48 @@ class Record{
                                             console.log("Record Attachment LinkUrl: " + attachment.getLinkUrl());
                                         });
                                     }
-                                    else{
-                                        console.log(keyName);
-
-                                        for (let arrayIndex = 0; arrayIndex < value.length; arrayIndex++) {
-                                            const arrayValue = value[arrayIndex];
-
-                                            console.log(arrayValue);
-                                        }
+                                    else {
+                                        console.log(keyName + ": " + value);
                                     }
                                 }
-
                             }
-                            else if(value instanceof ZCRM.User.Model.User){
+                            else if (value instanceof ZCRM.User.Model.User) {
                                 console.log("Record " + keyName + " User-ID: " + value.getId());
 
                                 console.log("Record " + keyName + " User-Name: " + value.getName());
 
                                 console.log("Record " + keyName + " User-Email: " + value.getEmail());
+
                             }
-                            else if(value instanceof ZCRM.Layout.Model.Layout){
+                            else if (value instanceof ZCRM.Layout.Model.Layout) {
                                 console.log(keyName + " ID: " + value.getId());
 
                                 console.log(keyName + " Name: " + value.getName());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Record){
+                            else if (value instanceof ZCRM.Record.Model.Record) {
                                 console.log(keyName + " Record ID: " + value.getId());
 
-								console.log(keyName + " Record Name: " + value.getKeyValue("name"));
+                                console.log(keyName + " Record Name: " + value.getKeyValue("name"));
                             }
-                            else if(value instanceof Choice){
+                            else if (value instanceof Choice) {
                                 console.log(keyName + ": " + value.getValue());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RemindAt){
+                            else if (value instanceof ZCRM.Record.Model.RemindAt) {
                                 console.log(keyName + ": " + value.getAlarm());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RecurringActivity){
+                            else if (value instanceof ZCRM.Record.Model.RecurringActivity) {
                                 console.log(keyName);
 
                                 console.log("RRULE: " + value.getRrule());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Consent) {
-
-								console.log("Record Consent ID: " + value.getId());
+                            else if (value instanceof ZCRM.Record.Model.Consent) {
+                                console.log("Record Consent ID: " + value.getId());
 
                                 //Get the Owner User instance of each attachment
                                 let owner = value.getOwner();
 
                                 //Check if owner is not null
-                                if(owner != null) {
+                                if (owner != null) {
                                     //Get the name of the owner User
                                     console.log("Record Consent Owner Name: " + owner.getName());
 
@@ -1130,7 +1410,7 @@ class Record{
                                 let consentCreatedBy = value.getCreatedBy();
 
                                 //Check if createdBy is not null
-                                if(consentCreatedBy != null) {
+                                if (consentCreatedBy != null) {
                                     //Get the name of the CreatedBy User
                                     console.log("Record Consent CreatedBy Name: " + consentCreatedBy.getName());
 
@@ -1144,7 +1424,7 @@ class Record{
                                 let consentModifiedBy = value.getModifiedBy();
 
                                 //Check if createdBy is not null
-                                if(consentModifiedBy != null) {
+                                if (consentModifiedBy != null) {
                                     //Get the name of the ModifiedBy User
                                     console.log("Record Consent ModifiedBy Name: " + consentModifiedBy.getName());
 
@@ -1179,15 +1459,942 @@ class Record{
 
                                 //To get custom values
                                 console.log("Record Consent Lawful Reason: " + value.getKeyValue("Lawful_Reason"));
-							}
-                            else if(value instanceof Map){
+                            }
+                            else if (value instanceof Map) {
                                 console.log(keyName);
 
                                 Array.from(value.keys()).forEach(key => {
                                     console.log(key + ": " + value.get(key));
                                 });
                             }
-                            else{
+                            else {
+                                console.log(keyName + ": " + value);
+                            }
+                        }
+                    }
+                }
+                //Check if FileBodyWrapper instance is received
+                else if (responseObject instanceof ZCRM.Record.Model.FileBodyWrapper) {
+                    //Get StreamWrapper instance from the returned FileBodyWrapper instance
+                    let streamWrapper = responseObject.getFile();
+
+                    //Get name from StreamWrapper instance
+                    let fileName = streamWrapper.getName();
+
+                    //Get the stream from StreamWrapper instance
+                    let readStream = streamWrapper.getStream();
+
+                    var url = URL.createObjectURL(readStream);
+
+                    var ttt = document.createElement('a');
+
+                    ttt.href = url;
+
+                    ttt.download = fileName;
+
+                    ttt.click();
+                }
+                //Check if the request returned an exception
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
+
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
+
+                    console.log("Details");
+
+                    //Get the details map
+                    let details = responseObject.getDetails();
+
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
+
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
+            }
+        }
+    }
+
+    /**
+     * <h3>Update Record Using External Id</h3>
+     * This method is used to update a single record of a module with ID and print the response.
+     * @param {String} moduleAPIName The API Name of the record's module.
+     * @param {String} externalFieldValue
+     */
+    static async updateRecordUsingExternalId(moduleAPIName, externalFieldValue) {
+        //example
+        //let moduleAPIName = "Leads";
+        //let externalFieldValue = "34770615177002";
+
+        //Get instance of RecordOperations Class
+        let recordOperations = new ZCRM.Record.Operations();
+
+        //Get instance of BodyWrapper Class that will contain the request body
+        let request = new ZCRM.Record.Model.BodyWrapper();
+
+        //Array to hold Record instances
+        let recordsArray = [];
+
+        //Get instance of Record Class
+        let record1 = new ZCRM.Record.Model.Record();
+
+        /*
+         * Call addFieldValue method that takes two arguments
+         * Import the "zcrmsdk/core/com/zoho/crm/api/record/field" file
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
+
+        /*
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record1.addKeyValue("Custom_field", "Value");
+
+        record1.addKeyValue("Custom_field_2", "value");
+
+        record1.addKeyValue("Date_1", new Date(2017, 1, 13));
+
+        let fileDetails = [];
+
+        let fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32537b7c2400dadca8ff55f620c65357da");
+
+        fileDetails.push(fileDetail);
+
+        fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32e0063e7321b5b4ca878a934519e6cdb2");
+
+        fileDetails.push(fileDetail);
+
+        fileDetail = new ZCRM.Record.Model.FileDetails();
+
+        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c323daf4780bfe0058133556f155795981f");
+
+        fileDetails.push(fileDetail);
+
+        record1.addKeyValue("File_Upload", fileDetails);
+
+        //Used when GDPR is enabled
+        let dataConsent = new ZCRM.Record.Model.Consent();
+
+        dataConsent.setConsentRemarks("Approved.");
+
+        dataConsent.setConsentThrough("Email");
+
+        dataConsent.setContactThroughEmail(true);
+
+        dataConsent.setContactThroughSocial(false);
+
+        // record1.addKeyValue("Data_Processing_Basis_Details", dataConsent);
+
+        //Add Record instance to the array
+        recordsArray.push(record1);
+
+        //Set the array to Records in BodyWrapper instance
+        request.setData(recordsArray);
+
+        let trigger = [];
+
+        trigger.push("approval");
+
+        trigger.push("workflow");
+
+        trigger.push("blueprint");
+
+        request.setTrigger(trigger);
+
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
+        await headerInstance.add(ZCRM.Record.Model.UpdateRecordHeader.X_EXTERNAL, "Leads.External");
+
+        //Call updateRecordUsingExternalId method that takes externalFieldValue, moduleAPIName, BodyWrapper instance and headerInstance as parameter.
+        let response = await recordOperations.updateRecordUsingExternalId(externalFieldValue, moduleAPIName, request, headerInstance);
+
+        if (response != null) {
+            //Get the status code from response
+            console.log("Status Code: " + response.getStatusCode());
+
+            //Get object from response
+            let responseObject = response.getObject();
+
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
+                    //Get the array of obtained ActionResponse instances
+                    let actionResponses = responseObject.getData();
+
+                    actionResponses.forEach(actionResponse => {
+                        //Check if the request is successful
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                        //Check if the request returned an exception
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            //Get the Message
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                    });
+                }
+                //Check if the request returned an exception
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
+
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
+
+                    console.log("Details");
+
+                    //Get the details map
+                    let details = responseObject.getDetails();
+
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
+
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
+            }
+        }
+    }
+
+    /**
+     * <h3>Delete Record Using External Id</h3>
+     * This method is used to delete a single record of a module with ID and print the response.
+     * @param {String} moduleAPIName The API Name of the record's module.
+     * @param {Strings} externalFieldValue
+     */
+    static async deleteRecordUsingExternalId(moduleAPIName, externalFieldValue) {
+        //example
+        //let moduleAPIName = "Leads";
+        //let externalFieldValue = "34770615177002n";
+
+        //Get instance of RecordOperations Class
+        let recordOperations = new ZCRM.Record.Operations();
+
+        //Get instance of ParameterMap Class
+        let paramInstance = new ParameterMap();
+
+        //Possible parameters for Delete Record operation
+        await paramInstance.add(ZCRM.Record.Model.DeleteRecordUsingExternalIDParam.WF_TRIGGER, true);
+
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
+        await headerInstance.add(ZCRM.Record.Model.DeleteRecordHeader.X_EXTERNAL, "Leads.External");
+
+        //Call deleteRecordUsingExternalId method that takes externalFieldValue, ModuleAPIName, paramInstance and headerInstance as parameter.
+        let response = await recordOperations.deleteRecordUsingExternalId(externalFieldValue, moduleAPIName, paramInstance, headerInstance);
+
+        if (response != null) {
+            //Get the status code from response
+            console.log("Status Code: " + response.getStatusCode());
+
+            //Get object from response
+            let responseObject = response.getObject();
+
+            if (responseObject != null) {
+                //Check if expected ActionWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
+                    //Get the array of obtained ActionResponse instances
+                    let actionResponses = responseObject.getData();
+
+                    actionResponses.forEach(actionResponse => {
+                        //Check if the request is successful
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                        //Check if the request returned an exception
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
+                            //Get the Status
+                            console.log("Status: " + actionResponse.getStatus().getValue());
+
+                            //Get the Code
+                            console.log("Code: " + actionResponse.getCode().getValue());
+
+                            console.log("Details");
+
+                            //Get the details map
+                            let details = actionResponse.getDetails();
+
+                            if (details != null) {
+                                Array.from(details.keys()).forEach(key => {
+                                    console.log(key + ": " + details.get(key));
+                                });
+                            }
+
+                            //Get the Message
+                            console.log("Message: " + actionResponse.getMessage().getValue());
+                        }
+                    });
+                }
+                //Check if the request returned an exception
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
+
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
+
+                    console.log("Details");
+
+                    //Get the details map
+                    let details = responseObject.getDetails();
+
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
+
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
+            }
+        }
+    }
+
+    /**
+     * <h3> Get Records</h3>
+     * This method is used to get all the records of a module and print the response.
+     * @param {String} moduleAPIName The API Name of the module to fetch records
+     */
+    static async getRecords(moduleAPIName) {
+        //example
+        //let moduleAPIName = "Leads";
+
+        //Get instance of RecordOperations Class
+        let recordOperations = new ZCRM.Record.Operations();
+
+        //Get instance of ParameterMap Class
+        let paramInstance = new ParameterMap();
+
+        /* Possible parameters for Get Records operation*/
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.APPROVED, "both");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.CONVERTED, "both");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.CVID, "34770610087501");
+
+        // let ids = ["Last_Name2", "34770614352001"];
+
+        // for(let id of ids) {
+        //     await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.IDS, id);
+        // }
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.UID, "34770615181008");
+
+        // let fieldNames = ["Company", "Email"];
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.FIELDS, fieldNames.toString());
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.SORT_BY, "Email");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.SORT_ORDER, "desc");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.PAGE, 1);
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.PER_PAGE, 200);
+
+        // let startDateTime = new Date(2020,1,10,10,10,10);
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.STARTDATETIME, startDateTime);
+
+        // let endDateTime = new Date(2020,7,10,12,12,12);
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.ENDDATETIME, endDateTime);
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.TERRITORY_ID, "34096430505351");
+
+        // await paramInstance.add(ZCRM.Record.Model.GetRecordsParam.INCLUDE_CHILD, "true");
+
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
+        /* Possible headers for Get Record operation*/
+        // await headerInstance.add(ZCRM.Record.Model.GetRecordsHeader.IF_MODIFIED_SINCE, new Date("2020-01-01T00:00:00+05:30"));
+
+        // await headerInstance.add(ZCRM.Record.Model.GetRecordsHeader.X_EXTERNAL, "Leads.External");
+
+        //Call getRecords method that takes paramInstance, headerInstance and moduleAPIName as parameters
+        let response = await recordOperations.getRecords(moduleAPIName, paramInstance, headerInstance);
+
+        if (response != null) {
+            //Get the status code from response
+            console.log("Status Code: " + response.getStatusCode());
+
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
+
+                return;
+            }
+
+            //Get the object from response
+            let responseObject = response.getObject();
+
+            if (responseObject != null) {
+                //Check if expected ResponseWrapper instance is received
+                if (responseObject instanceof ZCRM.Record.Model.ResponseWrapper) {
+                    //Get the array of obtained Record instances
+                    let records = responseObject.getData();
+
+                    for (let index = 0; index < records.length; index++) {
+                        let record = records[index];
+
+                        //Get the ID of each Record
+                        console.log("Record ID: " + record.getId());
+
+                        //Get the createdBy User instance of each Record
+                        let createdBy = record.getCreatedBy();
+
+                        //Check if createdBy is not null
+                        if (createdBy != null) {
+                            //Get the ID of the createdBy User
+                            console.log("Record Created By User-ID: " + createdBy.getId());
+
+                            //Get the name of the createdBy User
+                            console.log("Record Created By User-Name: " + createdBy.getName());
+
+                            //Get the Email of the createdBy User
+                            console.log("Record Created By User-Email: " + createdBy.getEmail());
+                        }
+
+                        //Get the CreatedTime of each Record
+                        console.log("Record CreatedTime: " + record.getCreatedTime());
+
+                        //Get the modifiedBy User instance of each Record
+                        let modifiedBy = record.getModifiedBy();
+
+                        //Check if modifiedBy is not null
+                        if (modifiedBy != null) {
+                            //Get the ID of the modifiedBy User
+                            console.log("Record Modified By User-ID: " + modifiedBy.getId());
+
+                            //Get the name of the modifiedBy User
+                            console.log("Record Modified By User-Name: " + modifiedBy.getName());
+
+                            //Get the Email of the modifiedBy User
+                            console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
+                        }
+
+                        //Get the ModifiedTime of each Record
+                        console.log("Record ModifiedTime: " + record.getModifiedTime());
+
+                        //Get the list of Tag instance each Record
+                        let tags = record.getTag();
+
+                        //Check if tags is not null
+                        if (tags != null) {
+                            tags.forEach(tag => {
+                                //Get the Name of each Tag
+                                console.log("Record Tag Name: " + tag.getName());
+
+                                //Get the Id of each Tag
+                                console.log("Record Tag ID: " + tag.getId());
+
+                            });
+                        }
+
+                        //To get particular field value
+                        console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
+
+                        console.log("Record KeyValues: ");
+
+                        let keyValues = record.getKeyValues();
+
+                        let keyArray = Array.from(keyValues.keys());
+
+                        for (let keyName of keyArray) {
+                            let value = keyValues.get(keyName);
+
+                            if (Array.isArray(value)) {
+                                if (value.length > 0) {
+                                    if (value[0] instanceof ZCRM.Record.Model.FileDetails) {
+                                        let fileDetails = value;
+
+                                        fileDetails.forEach(fileDetail => {
+                                            //Get the Extn of each FileDetails
+                                            console.log("Record FileDetails Extn: " + fileDetail.getExtn());
+
+                                            //Get the IsPreviewAvailable of each FileDetails
+                                            console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
+
+                                            //Get the DownloadUrl of each FileDetails
+                                            console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
+
+                                            //Get the DeleteUrl of each FileDetails
+                                            console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
+
+                                            //Get the EntityId of each FileDetails
+                                            console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
+
+                                            //Get the Mode of each FileDetails
+                                            console.log("Record FileDetails Mode: " + fileDetail.getMode());
+
+                                            //Get the OriginalSizeByte of each FileDetails
+                                            console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
+
+                                            //Get the PreviewUrl of each FileDetails
+                                            console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
+
+                                            //Get the FileName of each FileDetails
+                                            console.log("Record FileDetails FileName: " + fileDetail.getFileName());
+
+                                            //Get the FileId of each FileDetails
+                                            console.log("Record FileDetails FileId: " + fileDetail.getFileId());
+
+                                            //Get the AttachmentId of each FileDetails
+                                            console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
+
+                                            //Get the FileSize of each FileDetails
+                                            console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
+
+                                            //Get the CreatorId of each FileDetails
+                                            console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
+
+                                            //Get the LinkDocs of each FileDetails
+                                            console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.Reminder) {
+                                        let reminders = value;
+
+                                        reminders.forEach(reminder => {
+                                            console.log("Reminder Period: " + reminder.getPeriod());
+
+                                            console.log("Reminder Unit: " + reminder.getUnit());
+                                        });
+                                    }
+                                    else if (value[0] instanceof Choice) {
+                                        let choiceArray = value;
+
+                                        console.log(keyName);
+
+                                        console.log("Values");
+
+                                        choiceArray.forEach(eachChoice => {
+                                            console.log(eachChoice.getValue());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.Participants) {
+                                        let participants = value;
+
+                                        participants.forEach(participant => {
+                                            console.log("Record Participants Name: " + participant.getName());
+
+                                            console.log("Record Participants Invited: " + participant.getInvited());
+
+                                            console.log("Record Participants ID: " + participant.getId());
+
+                                            console.log("Record Participants Type: " + participant.getType());
+
+                                            console.log("Record Participants Participant: " + participant.getParticipant());
+
+                                            console.log("Record Participants Status: " + participant.getStatus());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.InventoryLineItems) {
+                                        let productDetails = value;
+
+                                        productDetails.forEach(productDetail => {
+                                            let lineItemProduct = productDetail.getProduct();;
+
+                                            if (lineItemProduct != null) {
+                                                console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
+
+                                                console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
+
+                                                console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
+
+                                                console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
+                                            }
+
+                                            console.log("Record ProductDetails Quantity: " + productDetail.getQuantity());
+
+                                            console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
+
+                                            console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
+
+                                            console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
+
+                                            if (productDetail.getBook() != null) {
+                                                console.log("Record ProductDetails Book: " + productDetail.getBook());
+                                            }
+
+                                            console.log("Record ProductDetails Tax: " + productDetail.getTax());
+
+                                            console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
+
+                                            console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
+
+                                            console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
+
+                                            console.log("Record ProductDetails Total: " + productDetail.getTotal());
+
+                                            console.log("Record ProductDetails ID: " + productDetail.getId());
+
+                                            console.log("Record ProductDetails ProductDescription: " + productDetail.getProductDescription());
+
+                                            let lineTaxes = productDetail.getLineTax();
+
+                                            lineTaxes.forEach(lineTax => {
+                                                console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
+
+                                                console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+
+                                                console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+
+                                                console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                            });
+
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Tag.Model.Tag) {
+                                        let tags = value;
+
+                                        tags.forEach(tag => {
+                                            //Get the Name of each Tag
+                                            console.log("Record Tag Name: " + tag.getName());
+
+                                            //Get the Id of each Tag
+                                            console.log("Record Tag ID: " + tag.getId());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.PricingDetails) {
+                                        let pricingDetails = value;
+
+                                        pricingDetails.forEach(pricingDetail => {
+                                            console.log("Record PricingDetails ToRange: " + pricingDetail.getToRange());
+
+                                            console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
+
+                                            console.log("Record PricingDetails ID: " + pricingDetail.getId());
+
+                                            console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.Record) {
+                                        let recordArray = value;
+
+                                        recordArray.forEach(record => {
+                                            Array.from(record.getKeyValues().keys()).forEach(key => {
+                                                console.log(key + ": " + record.getKeyValues().get(key));
+                                            });
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.LineTax) {
+                                        let lineTaxes = value;
+
+                                        lineTaxes.forEach(lineTax => {
+                                            console.log("Record LineTax Percentage: " + lineTax.getPercentage());
+
+                                            console.log("Record LineTax Name: " + lineTax.getName());
+
+                                            console.log("Record LineTax Id: " + lineTax.getId());
+
+                                            console.log("Record LineTax Value: " + lineTax.getValue());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Record.Model.Comment) {
+                                        let comments = value;
+
+                                        comments.forEach(comment => {
+                                            console.log("Record Comment CommentedBy: " + comment.getCommentedBy());
+
+                                            console.log("Record Comment CommentedTime: " + comment.getCommentedTime());
+
+                                            console.log("Record Comment CommentContent: " + comment.getCommentContent());
+
+                                            console.log("Record Comment Id: " + comment.getId());
+                                        });
+                                    }
+                                    else if (value[0] instanceof ZCRM.Attachment.Model.Attachment) {
+                                        let attachments = value;
+
+                                        attachments.forEach(attachment => {
+                                            //Get the ID of each attachment
+                                            console.log("Record Attachment ID: " + attachment.getId());
+
+                                            //Get the owner User instance of each attachment
+                                            let owner = attachment.getOwner();
+
+                                            //Check if owner is not null
+                                            if (owner != null) {
+                                                //Get the Name of the Owner
+                                                console.log("Record Attachment Owner - Name: " + owner.getName());
+
+                                                //Get the ID of the Owner
+                                                console.log("Record Attachment Owner ID: " + owner.getId());
+
+                                                //Get the Email of the Owner
+                                                console.log("Record Attachment Owner Email: " + owner.getEmail());
+                                            }
+
+                                            //Get the modified time of each attachment
+                                            console.log("Record Attachment Modified Time: " + attachment.getModifiedTime());
+
+                                            //Get the name of the File
+                                            console.log("Record Attachment File Name: " + attachment.getFileName());
+
+                                            //Get the created time of each attachment
+                                            console.log("Record Attachment Created Time: " + attachment.getCreatedTime());
+
+                                            //Get the Attachment file size
+                                            console.log("Record Attachment File Size: " + attachment.getSize());
+
+                                            //Get the parentId Record instance of each attachment
+                                            let parentId = attachment.getParentId();
+
+                                            //Check if parentId is not null
+                                            if (parentId != null) {
+                                                //Get the parent record Name of each attachment
+                                                console.log("Record Attachment parent record Name: " + parentId.getKeyValue("name"));
+
+                                                //Get the parent record ID of each attachment
+                                                console.log("Record Attachment parent record ID: " + parentId.getId());
+                                            }
+
+                                            //Check if the attachment is Editable
+                                            console.log("Record Attachment is Editable: " + attachment.getEditable());
+
+                                            //Get the file ID of each attachment
+                                            console.log("Record Attachment File ID: " + attachment.getFileId());
+
+                                            //Get the type of each attachment
+                                            console.log("Record Attachment File Type: " + attachment.getType());
+
+                                            //Get the seModule of each attachment
+                                            console.log("Record Attachment seModule: " + attachment.getSeModule());
+
+                                            //Get the modifiedBy User instance of each attachment
+                                            let modifiedBy = attachment.getModifiedBy();
+
+                                            //Check if modifiedBy is not null
+                                            if (modifiedBy != null) {
+                                                //Get the Name of the modifiedBy User
+                                                console.log("Record Attachment Modified By User-Name: " + modifiedBy.getName());
+
+                                                //Get the ID of the modifiedBy User
+                                                console.log("Record Attachment Modified By User-ID: " + modifiedBy.getId());
+
+                                                //Get the Email of the modifiedBy User
+                                                console.log("Record Attachment Modified By User-Email: " + modifiedBy.getEmail());
+                                            }
+
+                                            //Get the state of each attachment
+                                            console.log("Record Attachment State: " + attachment.getState());
+
+                                            //Get the createdBy User instance of each attachment
+                                            let createdBy = attachment.getCreatedBy();
+
+                                            //Check if createdBy is not null
+                                            if (createdBy != null) {
+                                                //Get the name of the createdBy User
+                                                console.log("Record Attachment Created By User-Name: " + createdBy.getName());
+
+                                                //Get the ID of the createdBy User
+                                                console.log("Record Attachment Created By User-ID: " + createdBy.getId());
+
+                                                //Get the Email of the createdBy User
+                                                console.log("Record Attachment Created By User-Email: " + createdBy.getEmail());
+                                            }
+
+                                            //Get the linkUrl of each attachment
+                                            console.log("Record Attachment LinkUrl: " + attachment.getLinkUrl());
+                                        });
+                                    }
+                                    else {
+                                        console.log(keyName);
+
+                                        for (let arrayIndex = 0; arrayIndex < value.length; arrayIndex++) {
+                                            const arrayValue = value[arrayIndex];
+
+                                            console.log(arrayValue);
+                                        }
+                                    }
+                                }
+
+                            }
+                            else if (value instanceof ZCRM.User.Model.User) {
+                                console.log("Record " + keyName + " User-ID: " + value.getId());
+
+                                console.log("Record " + keyName + " User-Name: " + value.getName());
+
+                                console.log("Record " + keyName + " User-Email: " + value.getEmail());
+                            }
+                            else if (value instanceof ZCRM.Layout.Model.Layout) {
+                                console.log(keyName + " ID: " + value.getId());
+
+                                console.log(keyName + " Name: " + value.getName());
+                            }
+                            else if (value instanceof ZCRM.Record.Model.Record) {
+                                console.log(keyName + " Record ID: " + value.getId());
+
+                                console.log(keyName + " Record Name: " + value.getKeyValue("name"));
+                            }
+                            else if (value instanceof Choice) {
+                                console.log(keyName + ": " + value.getValue());
+                            }
+                            else if (value instanceof ZCRM.Record.Model.RemindAt) {
+                                console.log(keyName + ": " + value.getAlarm());
+                            }
+                            else if (value instanceof ZCRM.Record.Model.RecurringActivity) {
+                                console.log(keyName);
+
+                                console.log("RRULE: " + value.getRrule());
+                            }
+                            else if (value instanceof ZCRM.Record.Model.Consent) {
+                                console.log("Record Consent ID: " + value.getId());
+
+                                //Get the Owner User instance of each attachment
+                                let owner = value.getOwner();
+
+                                //Check if owner is not null
+                                if (owner != null) {
+                                    //Get the name of the owner User
+                                    console.log("Record Consent Owner Name: " + owner.getName());
+
+                                    //Get the ID of the owner User
+                                    console.log("Record Consent Owner ID: " + owner.getId());
+
+                                    //Get the Email of the owner User
+                                    console.log("Record Consent Owner Email: " + owner.getEmail());
+                                }
+
+                                let consentCreatedBy = value.getCreatedBy();
+
+                                //Check if createdBy is not null
+                                if (consentCreatedBy != null) {
+                                    //Get the name of the CreatedBy User
+                                    console.log("Record Consent CreatedBy Name: " + consentCreatedBy.getName());
+
+                                    //Get the ID of the CreatedBy User
+                                    console.log("Record Consent CreatedBy ID: " + consentCreatedBy.getId());
+
+                                    //Get the Email of the CreatedBy User
+                                    console.log("Record Consent CreatedBy Email: " + consentCreatedBy.getEmail());
+                                }
+
+                                let consentModifiedBy = value.getModifiedBy();
+
+                                //Check if createdBy is not null
+                                if (consentModifiedBy != null) {
+                                    //Get the name of the ModifiedBy User
+                                    console.log("Record Consent ModifiedBy Name: " + consentModifiedBy.getName());
+
+                                    //Get the ID of the ModifiedBy User
+                                    console.log("Record Consent ModifiedBy ID: " + consentModifiedBy.getId());
+
+                                    //Get the Email of the ModifiedBy User
+                                    console.log("Record Consent ModifiedBy Email: " + consentModifiedBy.getEmail());
+                                }
+
+                                console.log("Record Consent CreatedTime: " + value.getCreatedTime());
+
+                                console.log("Record Consent ModifiedTime: " + value.getModifiedTime());
+
+                                console.log("Record Consent ContactThroughEmail: " + value.getContactThroughEmail());
+
+                                console.log("Record Consent ContactThroughSocial: " + value.getContactThroughSocial());
+
+                                console.log("Record Consent ContactThroughSurvey: " + value.getContactThroughSurvey());
+
+                                console.log("Record Consent ContactThroughPhone: " + value.getContactThroughPhone());
+
+                                console.log("Record Consent MailSentTime: " + value.getMailSentTime());
+
+                                console.log("Record Consent ConsentDate: " + value.getConsentDate());
+
+                                console.log("Record Consent ConsentRemarks: " + value.getConsentRemarks());
+
+                                console.log("Record Consent ConsentThrough: " + value.getConsentThrough());
+
+                                console.log("Record Consent DataProcessingBasis: " + value.getDataProcessingBasis());
+
+                                //To get custom values
+                                console.log("Record Consent Lawful Reason: " + value.getKeyValue("Lawful_Reason"));
+                            }
+                            else if (value instanceof Map) {
+                                console.log(keyName);
+
+                                Array.from(value.keys()).forEach(key => {
+                                    console.log(key + ": " + value.get(key));
+                                });
+                            }
+                            else {
                                 console.log(keyName + ": " + value);
                             }
                         }
@@ -1196,62 +2403,60 @@ class Record{
                     //Get the obtained Info instance
                     let info = responseObject.getInfo();
 
-                    if(info != null){
+                    if (info != null) {
+                        if (info.getPerPage() != null) {
+                            //Get the PerPage of the Info
+                            console.log("Record Info PerPage: " + info.getPerPage());
+                        }
 
-						if(info.getPerPage() != null){
-							//Get the PerPage of the Info
-							console.log("Record Info PerPage: " + info.getPerPage());
-						}
+                        if (info.getCount() != null) {
+                            //Get the Count of the Info
+                            console.log("Record Info Count: " + info.getCount());
+                        }
 
-						if(info.getCount() != null){
-							//Get the Count of the Info
-							console.log("Record Info Count: " + info.getCount());
-						}
+                        if (info.getPage() != null) {
+                            //Get the Page of the Info
+                            console.log("Record Info Page: " + info.getPage());
+                        }
 
-						if(info.getPage() != null){
-							//Get the Page of the Info
-							console.log("Record Info Page: " + info.getPage());
-						}
-
-						if(info.getMoreRecords() != null){
-							//Get the MoreRecords of the Info
-							console.log("Record Info MoreRecords: " + info.getMoreRecords());
-						}
+                        if (info.getMoreRecords() != null) {
+                            //Get the MoreRecords of the Info
+                            console.log("Record Info MoreRecords: " + info.getMoreRecords());
+                        }
                     }
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
      * <h3> Create Records</h3>
-	 * This method is used to create records of a module and print the response.
+     * This method is used to create records of a module and print the response.
      * @param {String} moduleAPIName The API Name of the module to create records.
      */
-    static async createRecords(moduleAPIName){
-
+    static async createRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Leads";
 
@@ -1271,9 +2476,9 @@ class Record{
 
         /*
          * Call addFieldValue method that takes two arguments
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
         record.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "JS SDK");
 
         record.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "JS");
@@ -1283,17 +2488,23 @@ class Record{
         record.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
 
         /*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
         record.addKeyValue("Custom_field", "Value");
 
-		record.addKeyValue("Custom_field_2", "value");
+        record.addKeyValue("Custom_field_2", "value");
 
-		record.addKeyValue("Date_1", new Date(2020,10,20));
+        record.addKeyValue("Date_1", new Date(2020, 10, 20));
 
         record.addKeyValue("Subject", "AutomatedSDK");
+
+        let taxName = [new Choice("Vat"), new Choice("Sales Tax")];
+
+        record.addKeyValue("Tax", taxName);
+
+        record.addKeyValue("Product_Name", "AutomatedSDK");
 
         let fileDetails = [];
 
@@ -1320,33 +2531,33 @@ class Record{
         // Used when GDPR is enabled
         let dataConsent = new ZCRM.Record.Model.Consent();
 
-		dataConsent.setConsentRemarks("Approved.");
+        dataConsent.setConsentRemarks("Approved.");
 
-		dataConsent.setConsentThrough("Email");
+        dataConsent.setConsentThrough("Email");
 
-		dataConsent.setContactThroughEmail(true);
+        dataConsent.setContactThroughEmail(true);
 
-		dataConsent.setContactThroughSocial(false);
+        dataConsent.setContactThroughSocial(false);
 
-		record.addKeyValue("Data_Processing_Basis_Details", dataConsent);
+        record.addKeyValue("Data_Processing_Basis_Details", dataConsent);
 
         /** Following methods are being used only by Inventory modules */
 
         let dealName = new ZCRM.Record.Model.Record();
 
-        dealName.addFieldValue(ZCRM.Record.Model.Field.Deals.ID, 34770617850014n);
+        dealName.addFieldValue(ZCRM.Record.Model.Field.Deals.ID, 347706110553012n);
 
         record.addFieldValue(ZCRM.Record.Model.Field.Sales_Orders.DEAL_NAME, dealName);
 
         let contactName = new ZCRM.Record.Model.Record();
 
-        contactName.addFieldValue(ZCRM.Record.Model.Field.Contacts.ID, 34096431074007n);
+        contactName.addFieldValue(ZCRM.Record.Model.Field.Contacts.ID, 347706110352015n);
 
         contactName.addFieldValue(ZCRM.Record.Model.Field.Sales_Orders.CONTACT_NAME, contactName);
 
         let accountName = new ZCRM.Record.Model.Record();
 
-        accountName.addFieldValue(ZCRM.Record.Model.Field.Accounts.ID, 34770617969021n);
+        accountName.addFieldValue(ZCRM.Record.Model.Field.Accounts.ID, 347706110352011n);
 
         record.addFieldValue(ZCRM.Record.Model.Field.Sales_Orders.ACCOUNT_NAME, accountName);
 
@@ -1358,7 +2569,9 @@ class Record{
 
         let lineItemProduct = new ZCRM.Record.Model.LineItemProduct();
 
-        lineItemProduct.setId(34770617247012n);
+        lineItemProduct.setId(347706111082001n);
+
+        // lineItemProduct.addKeyValue("Products_External", "ProductExternal");
 
         inventoryLineItem.setProduct(lineItemProduct);
 
@@ -1374,7 +2587,7 @@ class Record{
 
         let productLineTax = new ZCRM.Record.Model.LineTax();
 
-        productLineTax.setName("MyTax11");
+        productLineTax.setName("MyTax1134");
 
         productLineTax.setPercentage(20.0);
 
@@ -1390,7 +2603,7 @@ class Record{
 
         let lineTax = new ZCRM.Record.Model.LineTax();
 
-        lineTax.setName("MyTax1122");
+        lineTax.setName("MyTax1134");
 
         lineTax.setPercentage(20.0);
 
@@ -1414,19 +2627,19 @@ class Record{
 
         let whoId = new ZCRM.Record.Model.Record();
 
-        whoId.setId(34770617955002n);
+        whoId.setId(347706110938005n);
 
         record.addFieldValue(ZCRM.Record.Model.Field.Tasks.WHO_ID, whoId);
 
         record.addFieldValue(ZCRM.Record.Model.Field.Tasks.STATUS, new Choice("Waiting for Input"));
 
-        record.addFieldValue(ZCRM.Record.Model.Field.Tasks.DUE_DATE, new Date(2020,10,10));
+        record.addFieldValue(ZCRM.Record.Model.Field.Tasks.DUE_DATE, new Date(2020, 10, 10));
 
         record.addFieldValue(ZCRM.Record.Model.Field.Tasks.PRIORITY, new Choice("High"));
 
         let whatId = new ZCRM.Record.Model.Record();
 
-        whatId.setId(34770617969021n);
+        whatId.setId(347706110938001n);
 
         record.addFieldValue(ZCRM.Record.Model.Field.Tasks.WHAT_ID, whatId);
 
@@ -1458,7 +2671,7 @@ class Record{
 
         participant = new ZCRM.Record.Model.Participants();
 
-        participant.setParticipant("34770617634005");
+        participant.setParticipant("347706110938005");
 
         participant.setType("contact");
 
@@ -1482,9 +2695,9 @@ class Record{
 
         whatId = new ZCRM.Record.Model.Record();
 
-        whatId.setId(34770619074373n);
+        whatId.setId(347706111074008n);
 
-        record.addFieldValue(ZCRM.Record.Model.Field.Tasks.WHAT_ID, whatId);
+        record.addFieldValue(ZCRM.Record.Model.Field.Events.WHAT_ID, whatId);
 
         record.addKeyValue("$se_module", "Leads");
 
@@ -1516,7 +2729,7 @@ class Record{
 
         record.addFieldValue(ZCRM.Record.Model.Field.Price_Books.PRICING_DETAILS, pricingDetailsArray);
 
-        record.addKeyValue("Email", "z2@zoho.com");
+        record.addKeyValue("Email", "abc@zoho.com");
 
         record.addFieldValue(ZCRM.Record.Model.Field.Price_Books.DESCRIPTION, "TEST");
 
@@ -1546,7 +2759,7 @@ class Record{
 
         trigger.push("approval");
 
-		trigger.push("workflow");
+        trigger.push("workflow");
 
         trigger.push("blueprint");
 
@@ -1563,30 +2776,30 @@ class Record{
         //Set the array containing the process to be run
         request.setProcess(process);
 
-        //Call createRecords method that takes BodyWrapper instance and moduleAPIName as parameters
-        let response = await recordOperations.createRecords(moduleAPIName, request);
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
-        if(response != null){
+        // await headerInstance.add(ZCRM.Record.Model.CreateRecordsHeader.X_EXTERNAL, "Quotes.Product_Details.product.Products_External");
 
+        //Call createRecords method that takes moduleAPIName, BodyWrapper instance and headerInstance as parameters
+        let response = await recordOperations.createRecords(moduleAPIName, request, headerInstance);
+
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -1598,7 +2811,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -1607,8 +2820,7 @@ class Record{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -1620,7 +2832,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -1632,8 +2844,7 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -1645,7 +2856,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -1660,11 +2871,10 @@ class Record{
 
     /**
      * <h3> Update Records</h3>
-	 * This method is used to update the records of a module with ID and print the response.
+     * This method is used to update the records of a module with ID and print the response.
      * @param {String} moduleAPIName The API Name of the module to update records.
      */
-    static async updateRecords(moduleAPIName){
-
+    static async updateRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Leads";
 
@@ -1680,42 +2890,42 @@ class Record{
         let record1 = new ZCRM.Record.Model.Record();
 
         //ID of the record to be updated
-        record1.setId(34770619074373n);
+        record1.setId(347706111074008n);
 
         /*
          * Call addFieldValue method that takes two arguments
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
 
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
 
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
 
         record1.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
 
         /*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		record1.addKeyValue("Custom_field", "Custom val");
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record1.addKeyValue("Custom_field", "Custom val");
 
         record1.addKeyValue("Custom_field_2", 10);
 
         //Used when GDPR is enabled
         let dataConsent = new ZCRM.Record.Model.Consent();
 
-		dataConsent.setConsentRemarks("Approved.");
+        dataConsent.setConsentRemarks("Approved.");
 
-		dataConsent.setConsentThrough("Email");
+        dataConsent.setConsentThrough("Email");
 
-		dataConsent.setContactThroughEmail(true);
+        dataConsent.setContactThroughEmail(true);
 
-		dataConsent.setContactThroughSocial(false);
+        dataConsent.setContactThroughSocial(false);
 
-		record1.addKeyValue("Data_Processing_Basis_Details", dataConsent);
+        record1.addKeyValue("Data_Processing_Basis_Details", dataConsent);
 
         recordsArray.push(record1);
 
@@ -1725,26 +2935,26 @@ class Record{
         record2.addFieldValue(ZCRM.Record.Model.Field.Leads.ID, 34096431881002n);
 
         /*
-		 * Call addFieldValue method that takes two arguments
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+         * Call addFieldValue method that takes two arguments
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
 
-		/*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		record2.addKeyValue("Custom_field", "Value");
+        /*
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record2.addKeyValue("Custom_field", "Value");
 
-		record2.addKeyValue("Custom_field_2", "value");
+        record2.addKeyValue("Custom_field_2", "value");
 
         //Add Record instance to the array
         recordsArray.push(record2);
@@ -1756,37 +2966,37 @@ class Record{
 
         trigger.push("approval");
 
-		trigger.push("workflow");
+        trigger.push("workflow");
 
-		trigger.push("blueprint");
+        trigger.push("blueprint");
 
         //Set the array containing the trigger operations to be run
         request.setTrigger(trigger);
 
-        //Call updateRecords method that takes BodyWrapper instance and moduleAPIName as parameter.
-        let response = await recordOperations.updateRecords(moduleAPIName, request);
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
-        if(response != null){
+        // await headerInstance.add(ZCRM.Record.Model.UpdateRecordsHeader.X_EXTERNAL, "Leads.External");
 
+        //Call updateRecords method that takes moduleAPIName, BodyWrapper instance and headerInstance as parameter.
+        let response = await recordOperations.updateRecords(moduleAPIName, request, headerInstance);
+
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -1798,7 +3008,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -1807,8 +3017,7 @@ class Record{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -1820,7 +3029,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -1832,8 +3041,7 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -1845,320 +3053,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
-                        Array.from(details.keys()).forEach(key => {
-                            console.log(key + ": " + details.get(key));
-                        });
-                    }
-
-                    //Get the Message
-                    console.log("Message: " + responseObject.getMessage().getValue());
-                }
-            }
-        }
-    }
-
-    /**
-     * <h3> Update Record</h3>
-	 * This method is used to update a single record of a module with ID and print the response.
-     * @param {String} moduleAPIName The API Name of the record's module.
-     * @param {BigInt} recordId The ID of the record to be updated
-     */
-    static async updateRecord(moduleAPIName, recordId){
-
-        //example
-		//let moduleAPIName = "Leads";
-        //let recordId = 34770615177002n;
-
-        //Get instance of RecordOperations Class
-        let recordOperations = new ZCRM.Record.Operations();
-
-        //Get instance of BodyWrapper Class that will contain the request body
-        let request = new ZCRM.Record.Model.BodyWrapper();
-
-        //Array to hold Record instances
-        let recordsArray = [];
-
-        //Get instance of Record Class
-        let record1 = new ZCRM.Record.Model.Record();
-
-        /*
-         * Call addFieldValue method that takes two arguments
-         * Import the "zcrmsdk/core/com/zoho/crm/api/record/field" file
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
-
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
-
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
-
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
-
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
-
-		/*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		record1.addKeyValue("Custom_field", "Value");
-
-		record1.addKeyValue("Custom_field_2", "value");
-
-        record1.addKeyValue("Date_1", new Date(2017, 1, 13));
-
-        let fileDetails = [];
-
-        let fileDetail = new ZCRM.Record.Model.FileDetails();
-
-        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32537b7c2400dadca8ff55f620c65357da");
-
-        fileDetails.push(fileDetail);
-
-        fileDetail = new ZCRM.Record.Model.FileDetails();
-
-        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c32e0063e7321b5b4ca878a934519e6cdb2");
-
-        fileDetails.push(fileDetail);
-
-        fileDetail = new ZCRM.Record.Model.FileDetails();
-
-        fileDetail.setFileId("ae9c7cefa418aec1d6a5cc2d9ab35c323daf4780bfe0058133556f155795981f");
-
-        fileDetails.push(fileDetail);
-
-        record1.addKeyValue("File_Upload", fileDetails);
-
-        //Used when GDPR is enabled
-        let dataConsent = new ZCRM.Record.Model.Consent();
-
-		dataConsent.setConsentRemarks("Approved.");
-
-		dataConsent.setConsentThrough("Email");
-
-		dataConsent.setContactThroughEmail(true);
-
-		dataConsent.setContactThroughSocial(false);
-
-		// record1.addKeyValue("Data_Processing_Basis_Details", dataConsent);
-
-        //Add Record instance to the array
-        recordsArray.push(record1);
-
-        //Set the array to Records in BodyWrapper instance
-        request.setData(recordsArray);
-
-        let trigger = [];
-
-        trigger.push("approval");
-
-		trigger.push("workflow");
-
-        trigger.push("blueprint");
-
-        request.setTrigger(trigger);
-
-        //Call updateRecord method that takes BodyWrapper instance, ModuleAPIName and recordId as parameter.
-        let response = await recordOperations.updateRecord(recordId, moduleAPIName, request);
-
-        if(response != null){
-
-            //Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
-
-            //Get object from response
-            let responseObject = response.getObject();
-
-            if(responseObject != null){
-
-                //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
-
-                    //Get the array of obtained ActionResponse instances
-                    let actionResponses = responseObject.getData();
-
-                    actionResponses.forEach(actionResponse => {
-
-                        //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
-
-                            //Get the Status
-                            console.log("Status: " + actionResponse.getStatus().getValue());
-
-                            //Get the Code
-                            console.log("Code: " + actionResponse.getCode().getValue());
-
-                            console.log("Details");
-
-                            //Get the details map
-                            let details = actionResponse.getDetails();
-
-                            if(details != null){
-                                Array.from(details.keys()).forEach(key => {
-                                    console.log(key + ": " + details.get(key));
-                                });
-                            }
-
-                            console.log("Message: " + actionResponse.getMessage().getValue());
-                        }
-                        //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
-                            //Get the Status
-                            console.log("Status: " + actionResponse.getStatus().getValue());
-
-                            //Get the Code
-                            console.log("Code: " + actionResponse.getCode().getValue());
-
-                            console.log("Details");
-
-                            //Get the details map
-                            let details = actionResponse.getDetails();
-
-                            if(details != null){
-                                Array.from(details.keys()).forEach(key => {
-                                    console.log(key + ": " + details.get(key));
-                                });
-                            }
-
-                            //Get the Message
-                            console.log("Message: " + actionResponse.getMessage().getValue());
-                        }
-                    });
-                }
-                //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
-                    //Get the Status
-                    console.log("Status: " + responseObject.getStatus().getValue());
-
-                    //Get the Code
-                    console.log("Code: " + responseObject.getCode().getValue());
-
-                    console.log("Details");
-
-                    //Get the details map
-                    let details = responseObject.getDetails();
-
-                    if(details != null){
-                        Array.from(details.keys()).forEach(key => {
-                            console.log(key + ": " + details.get(key));
-                        });
-                    }
-
-                    //Get the Message
-                    console.log("Message: " + responseObject.getMessage().getValue());
-                }
-            }
-        }
-    }
-
-    /**
-     * <h3> Delete Record</h3>
-	 * This method is used to delete a single record of a module with ID and print the response.
-     * @param {String} moduleAPIName The API Name of the record's module.
-     * @param {BigInt} recordId The ID of the record to be deleted
-     */
-    static async deleteRecord(moduleAPIName, recordId){
-
-        //example
-		//let moduleAPIName = "Leads";
-        //let recordId = 34770615177002n;
-
-        //Get instance of RecordOperations Class
-        let recordOperations = new ZCRM.Record.Operations();
-
-        //Get instance of ParameterMap Class
-        let paramInstance = new ParameterMap();
-
-        //Possible parameters for Delete Record operation
-        await paramInstance.add(ZCRM.Record.Model.DeleteRecordParam.WF_TRIGGER, "true");
-
-        //Call deleteRecord method that takes paramInstance, ModuleAPIName and recordId as parameter.
-        let response = await recordOperations.deleteRecord(recordId, moduleAPIName, paramInstance);
-
-        if(response != null){
-
-            //Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
-
-            //Get object from response
-            let responseObject = response.getObject();
-
-            if(responseObject != null){
-
-                //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
-
-                    //Get the array of obtained ActionResponse instances
-                    let actionResponses = responseObject.getData();
-
-                    actionResponses.forEach(actionResponse => {
-
-                        //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
-
-                            //Get the Status
-                            console.log("Status: " + actionResponse.getStatus().getValue());
-
-                            //Get the Code
-                            console.log("Code: " + actionResponse.getCode().getValue());
-
-                            console.log("Details");
-
-                            //Get the details map
-                            let details = actionResponse.getDetails();
-
-                            if(details != null){
-                                Array.from(details.keys()).forEach(key => {
-                                    console.log(key + ": " + details.get(key));
-                                });
-                            }
-
-                            console.log("Message: " + actionResponse.getMessage().getValue());
-                        }
-                        //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
-                            //Get the Status
-                            console.log("Status: " + actionResponse.getStatus().getValue());
-
-                            //Get the Code
-                            console.log("Code: " + actionResponse.getCode().getValue());
-
-                            console.log("Details");
-
-                            //Get the details map
-                            let details = actionResponse.getDetails();
-
-                            if(details != null){
-                                Array.from(details.keys()).forEach(key => {
-                                    console.log(key + ": " + details.get(key));
-                                });
-                            }
-
-                            //Get the Message
-                            console.log("Message: " + actionResponse.getMessage().getValue());
-                        }
-                    });
-                }
-                //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
-                    //Get the Status
-                    console.log("Status: " + responseObject.getStatus().getValue());
-
-                    //Get the Code
-                    console.log("Code: " + responseObject.getCode().getValue());
-
-                    console.log("Details");
-
-                    //Get the details map
-                    let details = responseObject.getDetails();
-
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -2173,12 +3068,11 @@ class Record{
 
     /**
      * <h3> Delete Records</h3>
-	 * This method is used to delete records of a module and print the response.
+     * This method is used to delete records of a module and print the response.
      * @param {String} moduleAPIName The API Name of the module to delete records.
      * @param {Array} recordIds The array of record IDs to be deleted
      */
-    static async deleteRecords(moduleAPIName, recordIds){
-
+    static async deleteRecords(moduleAPIName, recordIds) {
         //example
         //let moduleAPIName = "Contacts";
         // let recordIds = [34096430756050n, 34096430729017n, 34096430729009n];
@@ -2190,35 +3084,37 @@ class Record{
         let paramInstance = new ParameterMap();
 
         /* Possible parameters for Delete Records operation */
-        for(let recordId of recordIds) {
+        for (let recordId of recordIds) {
             await paramInstance.add(ZCRM.Record.Model.DeleteRecordsParam.IDS, recordId);
         }
 
-        await paramInstance.add(ZCRM.Record.Model.DeleteRecordsParam.WF_TRIGGER, "true");
+        await paramInstance.add(ZCRM.Record.Model.DeleteRecordsParam.WF_TRIGGER, true);
 
-        //Call deleteRecords method that takes paramInstance and moduleAPIName as parameter.
-        let response = await recordOperations.deleteRecords(moduleAPIName, paramInstance);
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
-        if(response != null){
+        // await headerInstance.add(ZCRM.Record.Model.DeleteRecordsHeader.X_EXTERNAL, "Leads.External");
 
+        //Call deleteRecords method that takes moduleAPIName, paramInstance and headerInstance as parameter.
+        let response = await recordOperations.deleteRecords(moduleAPIName, paramInstance, headerInstance);
+
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
 
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
 
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
@@ -2231,7 +3127,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -2240,8 +3136,7 @@ class Record{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -2253,7 +3148,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -2265,8 +3160,7 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -2278,7 +3172,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -2293,11 +3187,10 @@ class Record{
 
     /**
      * <h3> Upsert Records</h3>
-	 * This method is used to Upsert records of a module and print the response.
+     * This method is used to Upsert records of a module and print the response.
      * @param {String} moduleAPIName The API Name of the module to upsert records.
      */
-    static async upsertRecords(moduleAPIName){
-
+    static async upsertRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Leads";
 
@@ -2316,23 +3209,23 @@ class Record{
         /*
          * Call addFieldValue method that takes two arguments
          * Import the "zcrmsdk/core/com/zoho/crm/api/record/field" file
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
 
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
 
-		record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+        record1.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
 
         record1.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
 
         /*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		record1.addKeyValue("Custom_field", "Custom val");
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record1.addKeyValue("Custom_field", "Custom val");
 
         record1.addKeyValue("Custom_field_2", 10);
 
@@ -2342,26 +3235,26 @@ class Record{
         let record2 = new ZCRM.Record.Model.Record();
 
         /*
-		 * Call addFieldValue method that takes two arguments
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
+         * Call addFieldValue method that takes two arguments
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.CITY, "City");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.LAST_NAME, "Last Name");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.FIRST_NAME, "First Name");
 
-		record2.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
+        record2.addFieldValue(ZCRM.Record.Model.Field.Leads.COMPANY, "KKRNP");
 
-		/*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		record2.addKeyValue("Custom_field", "Value");
+        /*
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        record2.addKeyValue("Custom_field", "Value");
 
-		record2.addKeyValue("Custom_field_2", "value");
+        record2.addKeyValue("Custom_field_2", "value");
 
         //Add the record to array
         recordsArray.push(record2);
@@ -2374,30 +3267,30 @@ class Record{
         //Set the array containing duplicate check fiels to BodyWrapper instance
         request.setDuplicateCheckFields(duplicateCheckFields);
 
-        //Call upsertRecords method that takes BodyWrapper instance and moduleAPIName as parameter.
-        let response = await recordOperations.upsertRecords(moduleAPIName, request);
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
-        if(response != null){
+        // await headerInstance.add(ZCRM.Record.Model.UpsertRecordsHeader.X_EXTERNAL, "Leads.External");
 
+        //Call upsertRecords method that takes moduleAPIName, BodyWrapper instance and headerInstance as parameter.
+        let response = await recordOperations.upsertRecords(moduleAPIName, request, headerInstance);
+
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.ActionWrapper) {
                     //Get the array of obtained ActionResponse instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Record.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Record.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -2409,7 +3302,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -2418,8 +3311,7 @@ class Record{
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -2431,7 +3323,7 @@ class Record{
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -2443,8 +3335,7 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -2456,7 +3347,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -2471,11 +3362,10 @@ class Record{
 
     /**
      * <h3> Get Deleted Records</h3>
-	 * This method is used to get the deleted records of a module and print the response.
+     * This method is used to get the deleted records of a module and print the response.
      * @param {String} moduleAPIName The API Name of the module to get the deleted records.
      */
-    static async getDeletedRecords(moduleAPIName){
-
+    static async getDeletedRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Deals";
 
@@ -2497,19 +3387,18 @@ class Record{
         //Get instance of HeaderMap Class
         let headerInstance = new HeaderMap();
 
-         /* Possible headers for Get Deleted Records operation */
+        /* Possible headers for Get Deleted Records operation */
         await headerInstance.add(ZCRM.Record.Model.GetDeletedRecordsHeader.IF_MODIFIED_SINCE, new Date('January 15, 2020 10:35:32'));
 
         //Call getDeletedRecords method that takes paramInstance, headerInstance and moduleAPIName as parameter
-        let response =  await recordOperations.getDeletedRecords(moduleAPIName, paramInstance, headerInstance);
+        let response = await recordOperations.getDeletedRecords(moduleAPIName, paramInstance, headerInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -2517,112 +3406,107 @@ class Record{
             //Get the object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected DeletedRecordsWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.DeletedRecordsWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.DeletedRecordsWrapper) {
                     //Get the array of obtained DeletedRecord instances
                     let deletedRecords = responseObject.getData();
 
                     deletedRecords.forEach(deletedRecord => {
+                        //Get the deletedBy User instance of each DeletedRecord
+                        let deletedBy = deletedRecord.getDeletedBy();
 
-						//Get the deletedBy User instance of each DeletedRecord
-						let deletedBy = deletedRecord.getDeletedBy();
+                        //Check if deletedBy is not null
+                        if (deletedBy != null) {
+                            //Get the name of the deletedBy User
+                            console.log("DeletedRecord Deleted By User-Name: " + deletedBy.getName());
 
-						//Check if deletedBy is not null
-						if(deletedBy != null){
-							//Get the name of the deletedBy User
-							console.log("DeletedRecord Deleted By User-Name: " + deletedBy.getName());
+                            //Get the ID of the deletedBy User
+                            console.log("DeletedRecord Deleted By User-ID: " + deletedBy.getId());
+                        }
 
-							//Get the ID of the deletedBy User
-							console.log("DeletedRecord Deleted By User-ID: " + deletedBy.getId());
-						}
+                        //Get the ID of each DeletedRecord
+                        console.log("DeletedRecord ID: " + deletedRecord.getId());
 
-						//Get the ID of each DeletedRecord
-						console.log("DeletedRecord ID: " + deletedRecord.getId());
+                        //Get the DisplayName of each DeletedRecord
+                        console.log("DeletedRecord DisplayName: " + deletedRecord.getDisplayName());
 
-						//Get the DisplayName of each DeletedRecord
-						console.log("DeletedRecord DisplayName: " + deletedRecord.getDisplayName());
+                        //Get the Type of each DeletedRecord
+                        console.log("DeletedRecord Type: " + deletedRecord.getType());
 
-						//Get the Type of each DeletedRecord
-						console.log("DeletedRecord Type: " + deletedRecord.getType());
+                        //Get the createdBy User instance of each DeletedRecord
+                        let createdBy = deletedRecord.getCreatedBy();
 
-						//Get the createdBy User instance of each DeletedRecord
-						let createdBy = deletedRecord.getCreatedBy();
+                        //Check if createdBy is not null
+                        if (createdBy != null) {
+                            //Get the name of the createdBy User
+                            console.log("DeletedRecord Created By User-Name: " + createdBy.getName());
 
-						//Check if createdBy is not null
-						if(createdBy != null){
-							//Get the name of the createdBy User
-							console.log("DeletedRecord Created By User-Name: " + createdBy.getName());
+                            //Get the ID of the createdBy User
+                            console.log("DeletedRecord Created By User-ID: " + createdBy.getId());
+                        }
 
-							//Get the ID of the createdBy User
-							console.log("DeletedRecord Created By User-ID: " + createdBy.getId());
-						}
-
-						//Get the DeletedTime of each DeletedRecord
-						console.log("DeletedRecord DeletedTime: " + deletedRecord.getDeletedTime());
+                        //Get the DeletedTime of each DeletedRecord
+                        console.log("DeletedRecord DeletedTime: " + deletedRecord.getDeletedTime());
                     });
 
                     //Get the obtained Info object
                     let info = responseObject.getInfo();
 
-                    if(info != null){
+                    if (info != null) {
+                        if (info.getPerPage() != null) {
+                            //Get the PerPage of the Info
+                            console.log("Record Info PerPage: " + info.getPerPage());
+                        }
 
-						if(info.getPerPage() != null){
-							//Get the PerPage of the Info
-							console.log("Record Info PerPage: " + info.getPerPage());
-						}
+                        if (info.getCount() != null) {
+                            //Get the Count of the Info
+                            console.log("Record Info Count: " + info.getCount());
+                        }
 
-						if(info.getCount() != null){
-							//Get the Count of the Info
-							console.log("Record Info Count: " + info.getCount());
-						}
+                        if (info.getPage() != null) {
+                            //Get the Page of the Info
+                            console.log("Record Info Page: " + info.getPage());
+                        }
 
-						if(info.getPage() != null){
-							//Get the Page of the Info
-							console.log("Record Info Page: " + info.getPage());
-						}
-
-						if(info.getMoreRecords() != null){
-							//Get the MoreRecords of the Info
-							console.log("Record Info MoreRecords: " + info.getMoreRecords());
-						}
+                        if (info.getMoreRecords() != null) {
+                            //Get the MoreRecords of the Info
+                            console.log("Record Info MoreRecords: " + info.getMoreRecords());
+                        }
                     }
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
      * <h3> Search Records</h3>
-	 * This method is used to search records of a module and print the response.
+     * This method is used to search records of a module and print the response.
      * @param {String} moduleAPIName The API Name of the module to search records.
      */
-    static async searchRecords(moduleAPIName){
-
+    static async searchRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Price_Books";
 
@@ -2633,33 +3517,39 @@ class Record{
         let paramInstance = new ParameterMap();
 
         /* Possible parameters for Search Records operation */
-        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.EMAIL, "test@zoho.com");
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.EMAIL, "abc@zoho.com");
 
-		await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.PHONE, "234567890");
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.PHONE, "234567890");
 
-		await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.WORD, "First Name Last Name");
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.WORD, "First Name Last Name");
 
-		await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.CONVERTED, "both");
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.CONVERTED, "both");
 
-		await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.APPROVED, "both");
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.APPROVED, "both");
 
-		await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.PAGE, 1);
+        await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.PAGE, 1);
 
         await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.PER_PAGE, 2);
 
         //Encoding must be done for parentheses or comma
         await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.CRITERIA, "((Last_Name:starts_with:Last Name) or (Company:starts_with:fasf\\(123\\) K))");
 
-        //Call searchRecords method that takes ParameterMap Instance and moduleAPIName as parameter
-        let response = await recordOperations.searchRecords(moduleAPIName, paramInstance);
+        // await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.CRITERIA, "(External:equals:usercontact2)");
 
-        if(response != null){
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
 
+        // headerInstance.add(ZCRM.Record.Model.SearchRecordsHeader.X_EXTERNAL, "Leads.External");
+
+        //Call searchRecords method that takes moduleAPIName, ParameterMap Instance and headerInstance as parameter
+        let response = await recordOperations.searchRecords(moduleAPIName, paramInstance, headerInstance);
+
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -2667,9 +3557,8 @@ class Record{
             //Get the object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-                if(responseObject instanceof ZCRM.Record.Model.ResponseWrapper){
-
+            if (responseObject != null) {
+                if (responseObject instanceof ZCRM.Record.Model.ResponseWrapper) {
                     //Get the array of obtained Record instances
                     let records = responseObject.getData();
 
@@ -2677,64 +3566,63 @@ class Record{
                         let record = records[index];
 
                         //Get the ID of each Record
-						console.log("Record ID: " + record.getId());
+                        console.log("Record ID: " + record.getId());
 
-						//Get the createdBy User instance of each Record
-						let createdBy = record.getCreatedBy();
+                        //Get the createdBy User instance of each Record
+                        let createdBy = record.getCreatedBy();
 
-						//Check if createdBy is not null
-						if(createdBy != null)
-						{
-							//Get the ID of the createdBy User
-							console.log("Record Created By User-ID: " + createdBy.getId());
+                        //Check if createdBy is not null
+                        if (createdBy != null) {
+                            //Get the ID of the createdBy User
+                            console.log("Record Created By User-ID: " + createdBy.getId());
 
-							//Get the name of the createdBy User
-							console.log("Record Created By User-Name: " + createdBy.getName());
+                            //Get the name of the createdBy User
+                            console.log("Record Created By User-Name: " + createdBy.getName());
 
-							//Get the Email of the createdBy User
-							console.log("Record Created By User-Email: " + createdBy.getEmail());
-						}
+                            //Get the Email of the createdBy User
+                            console.log("Record Created By User-Email: " + createdBy.getEmail());
+                        }
 
-						//Get the CreatedTime of each Record
-						console.log("Record CreatedTime: " + record.getCreatedTime());
+                        //Get the CreatedTime of each Record
+                        console.log("Record CreatedTime: " + record.getCreatedTime());
 
-						//Get the modifiedBy User instance of each Record
-						let modifiedBy = record.getModifiedBy();
+                        //Get the modifiedBy User instance of each Record
+                        let modifiedBy = record.getModifiedBy();
 
-						//Check if modifiedBy is not null
-						if(modifiedBy != null){
-							//Get the ID of the modifiedBy User
-							console.log("Record Modified By User-ID: " + modifiedBy.getId());
+                        //Check if modifiedBy is not null
+                        if (modifiedBy != null) {
+                            //Get the ID of the modifiedBy User
+                            console.log("Record Modified By User-ID: " + modifiedBy.getId());
 
-							//Get the name of the modifiedBy User
-							console.log("Record Modified By User-Name: " + modifiedBy.getName());
+                            //Get the name of the modifiedBy User
+                            console.log("Record Modified By User-Name: " + modifiedBy.getName());
 
-							//Get the Email of the modifiedBy User
-							console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
-						}
+                            //Get the Email of the modifiedBy User
+                            console.log("Record Modified By User-Email: " + modifiedBy.getEmail());
+                        }
 
-						//Get the ModifiedTime of each Record
-						console.log("Record ModifiedTime: " + record.getModifiedTime());
+                        //Get the ModifiedTime of each Record
+                        console.log("Record ModifiedTime: " + record.getModifiedTime());
 
-						//Get the list of Tag instance each Record
-						let tags = record.getTag();
+                        //Get the list of Tag instance each Record
+                        let tags = record.getTag();
 
-						//Check if tags is not null
-						if(tags != null){
+                        //Check if tags is not null
+                        if (tags != null) {
                             tags.forEach(tag => {
                                 //Get the Name of each Tag
-								console.log("Record Tag Name: " + tag.getName());
+                                console.log("Record Tag Name: " + tag.getName());
 
-								//Get the Id of each Tag
-								console.log("Record Tag ID: " + tag.getId());
+                                //Get the Id of each Tag
+                                console.log("Record Tag ID: " + tag.getId());
 
                             });
-						}
+                        }
 
-						//To get particular field value
-						console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
+                        //To get particular field value
+                        console.log("Record Field Value: " + record.getKeyValue("Last_Name"));// FieldApiName
 
-                        console.log("Record KeyValues: " );
+                        console.log("Record KeyValues: ");
 
                         let keyValues = record.getKeyValues();
 
@@ -2745,66 +3633,66 @@ class Record{
 
                             let value = keyValues.get(keyName);
 
-                            if(Array.isArray(value)){
+                            if (Array.isArray(value)) {
 
-                                if(value.length > 0){
-                                    if(value[0] instanceof ZCRM.Record.Model.FileDetails){
+                                if (value.length > 0) {
+                                    if (value[0] instanceof ZCRM.Record.Model.FileDetails) {
                                         let fileDetails = value;
 
                                         fileDetails.forEach(fileDetail => {
-											//Get the Extn of each FileDetails
-											console.log("Record FileDetails Extn: " + fileDetail.getExtn());
+                                            //Get the Extn of each FileDetails
+                                            console.log("Record FileDetails Extn: " + fileDetail.getExtn());
 
-											//Get the IsPreviewAvailable of each FileDetails
-											console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
+                                            //Get the IsPreviewAvailable of each FileDetails
+                                            console.log("Record FileDetails IsPreviewAvailable: " + fileDetail.getIsPreviewAvailable());
 
-											//Get the DownloadUrl of each FileDetails
-											console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
+                                            //Get the DownloadUrl of each FileDetails
+                                            console.log("Record FileDetails DownloadUrl: " + fileDetail.getDownloadUrl());
 
-											//Get the DeleteUrl of each FileDetails
-											console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
+                                            //Get the DeleteUrl of each FileDetails
+                                            console.log("Record FileDetails DeleteUrl: " + fileDetail.getDeleteUrl());
 
-											//Get the EntityId of each FileDetails
-											console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
+                                            //Get the EntityId of each FileDetails
+                                            console.log("Record FileDetails EntityId: " + fileDetail.getEntityId());
 
-											//Get the Mode of each FileDetails
-											console.log("Record FileDetails Mode: " + fileDetail.getMode());
+                                            //Get the Mode of each FileDetails
+                                            console.log("Record FileDetails Mode: " + fileDetail.getMode());
 
-											//Get the OriginalSizeByte of each FileDetails
-											console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
+                                            //Get the OriginalSizeByte of each FileDetails
+                                            console.log("Record FileDetails OriginalSizeByte: " + fileDetail.getOriginalSizeByte());
 
-											//Get the PreviewUrl of each FileDetails
-											console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
+                                            //Get the PreviewUrl of each FileDetails
+                                            console.log("Record FileDetails PreviewUrl: " + fileDetail.getPreviewUrl());
 
-											//Get the FileName of each FileDetails
-											console.log("Record FileDetails FileName: " + fileDetail.getFileName());
+                                            //Get the FileName of each FileDetails
+                                            console.log("Record FileDetails FileName: " + fileDetail.getFileName());
 
-											//Get the FileId of each FileDetails
-											console.log("Record FileDetails FileId: " + fileDetail.getFileId());
+                                            //Get the FileId of each FileDetails
+                                            console.log("Record FileDetails FileId: " + fileDetail.getFileId());
 
-											//Get the AttachmentId of each FileDetails
-											console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
+                                            //Get the AttachmentId of each FileDetails
+                                            console.log("Record FileDetails AttachmentId: " + fileDetail.getAttachmentId());
 
-											//Get the FileSize of each FileDetails
-											console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
+                                            //Get the FileSize of each FileDetails
+                                            console.log("Record FileDetails FileSize: " + fileDetail.getFileSize());
 
-											//Get the CreatorId of each FileDetails
-											console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
+                                            //Get the CreatorId of each FileDetails
+                                            console.log("Record FileDetails CreatorId: " + fileDetail.getCreatorId());
 
-											//Get the LinkDocs of each FileDetails
-											console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
+                                            //Get the LinkDocs of each FileDetails
+                                            console.log("Record FileDetails LinkDocs: " + fileDetail.getLinkDocs());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Reminder){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Reminder) {
                                         let reminders = value;
 
                                         reminders.forEach(reminder => {
-                                            console.log("Reminder Period: "+ reminder.getPeriod());
+                                            console.log("Reminder Period: " + reminder.getPeriod());
 
                                             console.log("Reminder Unit: " + reminder.getUnit());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Participants){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Participants) {
                                         let participants = value;
 
                                         participants.forEach(participant => {
@@ -2821,7 +3709,7 @@ class Record{
                                             console.log("Record Participants Status: " + participant.getStatus());
                                         });
                                     }
-                                    else if(value[0] instanceof Choice){
+                                    else if (value[0] instanceof Choice) {
                                         let choiceArray = value;
 
                                         console.log(keyName);
@@ -2832,45 +3720,45 @@ class Record{
                                             console.log(eachChoice.getValue());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.InventoryLineItems){
+                                    else if (value[0] instanceof ZCRM.Record.Model.InventoryLineItems) {
                                         let productDetails = value;
 
                                         productDetails.forEach(productDetail => {
                                             let lineItemProduct = productDetail.getProduct();;
 
-                                            if(lineItemProduct != null){
-												console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
+                                            if (lineItemProduct != null) {
+                                                console.log("Record ProductDetails LineItemProduct ProductCode: " + lineItemProduct.getProductCode());
 
-												console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
+                                                console.log("Record ProductDetails LineItemProduct Currency: " + lineItemProduct.getCurrency());
 
-												console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
+                                                console.log("Record ProductDetails LineItemProduct Name: " + lineItemProduct.getName());
 
-												console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
+                                                console.log("Record ProductDetails LineItemProduct Id: " + lineItemProduct.getId());
                                             }
 
                                             console.log("Record ProductDetails Quantity: " + productDetail.getQuantity());
 
-											console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
+                                            console.log("Record ProductDetails Discount: " + productDetail.getDiscount());
 
-											console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
+                                            console.log("Record ProductDetails TotalAfterDiscount: " + productDetail.getTotalAfterDiscount());
 
-											console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
+                                            console.log("Record ProductDetails NetTotal: " + productDetail.getNetTotal());
 
-											if(productDetail.getBook() != null){
-												console.log("Record ProductDetails Book: " + productDetail.getBook());
-											}
+                                            if (productDetail.getBook() != null) {
+                                                console.log("Record ProductDetails Book: " + productDetail.getBook());
+                                            }
 
-											console.log("Record ProductDetails Tax: " + productDetail.getTax());
+                                            console.log("Record ProductDetails Tax: " + productDetail.getTax());
 
-											console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
+                                            console.log("Record ProductDetails ListPrice: " + productDetail.getListPrice());
 
-											console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
+                                            console.log("Record ProductDetails UnitPrice: " + productDetail.getUnitPrice());
 
-											console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
+                                            console.log("Record ProductDetails QuantityInStock: " + productDetail.getQuantityInStock());
 
-											console.log("Record ProductDetails Total: " + productDetail.getTotal());
+                                            console.log("Record ProductDetails Total: " + productDetail.getTotal());
 
-											console.log("Record ProductDetails ID: " + productDetail.getId());
+                                            console.log("Record ProductDetails ID: " + productDetail.getId());
 
                                             console.log("Record ProductDetails ProductDescription: " + productDetail.getProductDescription());
 
@@ -2879,40 +3767,40 @@ class Record{
                                             lineTaxes.forEach(lineTax => {
                                                 console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-												console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+                                                console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-												console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+                                                console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-												console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                                console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                             });
 
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Tag.Model.Tag){
+                                    else if (value[0] instanceof ZCRM.Tag.Model.Tag) {
                                         let tags = value;
 
                                         tags.forEach(tag => {
                                             //Get the Name of each Tag
-											console.log("Record Tag Name: " + tag.getName());
+                                            console.log("Record Tag Name: " + tag.getName());
 
-											//Get the Id of each Tag
-											console.log("Record Tag ID: " + tag.getId());
+                                            //Get the Id of each Tag
+                                            console.log("Record Tag ID: " + tag.getId());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.PricingDetails){
+                                    else if (value[0] instanceof ZCRM.Record.Model.PricingDetails) {
                                         let pricingDetails = value;
 
                                         pricingDetails.forEach(pricingDetail => {
                                             console.log("Record PricingDetails ToRange: " + pricingDetail.getToRange());
 
-											console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
+                                            console.log("Record PricingDetails Discount: " + pricingDetail.getDiscount());
 
-											console.log("Record PricingDetails ID: " + pricingDetail.getId());
+                                            console.log("Record PricingDetails ID: " + pricingDetail.getId());
 
-											console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
+                                            console.log("Record PricingDetails FromRange: " + pricingDetail.getFromRange());
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.Record){
+                                    else if (value[0] instanceof ZCRM.Record.Model.Record) {
                                         let recordArray = value;
 
                                         recordArray.forEach(record => {
@@ -2921,62 +3809,62 @@ class Record{
                                             });
                                         });
                                     }
-                                    else if(value[0] instanceof ZCRM.Record.Model.LineTax){
+                                    else if (value[0] instanceof ZCRM.Record.Model.LineTax) {
                                         let lineTaxes = value;
 
                                         lineTaxes.forEach(lineTax => {
-											console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
+                                            console.log("Record ProductDetails LineTax Percentage: " + lineTax.getPercentage());
 
-											console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
+                                            console.log("Record ProductDetails LineTax Name: " + lineTax.getName());
 
-											console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
+                                            console.log("Record ProductDetails LineTax Id: " + lineTax.getId());
 
-											console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
+                                            console.log("Record ProductDetails LineTax Value: " + lineTax.getValue());
                                         });
                                     }
-                                    else{
+                                    else {
                                         console.log(keyName + ": " + value);
                                     }
                                 }
 
                             }
-                            else if(value instanceof ZCRM.Layout.Model.Layout){
+                            else if (value instanceof ZCRM.Layout.Model.Layout) {
                                 console.log(keyName + " ID: " + value.getId());
 
-								console.log(keyName + " Name: " + value.getName());
+                                console.log(keyName + " Name: " + value.getName());
                             }
-                            else if(value instanceof ZCRM.User.Model.User){
+                            else if (value instanceof ZCRM.User.Model.User) {
                                 console.log("Record " + keyName + " User-ID: " + value.getId());
 
                                 console.log("Record " + keyName + " User-Name: " + value.getName());
 
                                 console.log("Record " + keyName + " User-Email: " + value.getEmail());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Record){
+                            else if (value instanceof ZCRM.Record.Model.Record) {
                                 console.log(keyName + " Record ID: " + value.getId());
 
-								console.log(keyName + " Record Name: " + value.getKeyValue("name"));
+                                console.log(keyName + " Record Name: " + value.getKeyValue("name"));
                             }
-                            else if(value instanceof Choice){
+                            else if (value instanceof Choice) {
                                 console.log(keyName + ": " + value.getValue());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RemindAt){
+                            else if (value instanceof ZCRM.Record.Model.RemindAt) {
                                 console.log(keyName + ": " + value.getAlarm());
                             }
-                            else if(value instanceof ZCRM.Record.Model.RecurringActivity){
+                            else if (value instanceof ZCRM.Record.Model.RecurringActivity) {
                                 console.log(keyName);
 
                                 console.log("RRULE: " + value.getRrule());
                             }
-                            else if(value instanceof ZCRM.Record.Model.Consent) {
+                            else if (value instanceof ZCRM.Record.Model.Consent) {
 
-								console.log("Record Consent ID: " + value.getId());
+                                console.log("Record Consent ID: " + value.getId());
 
                                 //Get the Owner User instance of the Consent
                                 let owner = value.getOwner();
 
                                 //Check if owner is not null
-                                if(owner != null) {
+                                if (owner != null) {
                                     //Get the name of the owner User
                                     console.log("Record Consent Owner Name: " + owner.getName());
 
@@ -2990,7 +3878,7 @@ class Record{
                                 let consentCreatedBy = value.getCreatedBy();
 
                                 //Check if createdBy is not null
-                                if(consentCreatedBy != null) {
+                                if (consentCreatedBy != null) {
                                     //Get the name of the CreatedBy User
                                     console.log("Record Consent CreatedBy Name: " + consentCreatedBy.getName());
 
@@ -3004,7 +3892,7 @@ class Record{
                                 let consentModifiedBy = value.getModifiedBy();
 
                                 //Check if createdBy is not null
-                                if(consentModifiedBy != null) {
+                                if (consentModifiedBy != null) {
                                     //Get the name of the ModifiedBy User
                                     console.log("Record Consent ModifiedBy Name: " + consentModifiedBy.getName());
 
@@ -3039,15 +3927,15 @@ class Record{
 
                                 //To get custom values
                                 console.log("Record Consent Lawful Reason: " + value.getKeyValue("Lawful_Reason"));
-							}
-                            else if(value instanceof Map){
+                            }
+                            else if (value instanceof Map) {
                                 console.log(keyName);
 
                                 Array.from(value.keys()).forEach(key => {
                                     console.log(key + ": " + value.get(key));
                                 });
                             }
-                            else{
+                            else {
                                 console.log(keyName + ": " + value);
                             }
                         }
@@ -3056,62 +3944,60 @@ class Record{
                     //Get the obtained Info object
                     let info = responseObject.getInfo();
 
-                    if(info != null){
+                    if (info != null) {
+                        if (info.getPerPage() != null) {
+                            //Get the PerPage of the Info
+                            console.log("Record Info PerPage: " + info.getPerPage());
+                        }
 
-						if(info.getPerPage() != null){
-							//Get the PerPage of the Info
-							console.log("Record Info PerPage: " + info.getPerPage());
-						}
+                        if (info.getCount() != null) {
+                            //Get the Count of the Info
+                            console.log("Record Info Count: " + info.getCount());
+                        }
 
-						if(info.getCount() != null){
-							//Get the Count of the Info
-							console.log("Record Info Count: " + info.getCount());
-						}
+                        if (info.getPage() != null) {
+                            //Get the Page of the Info
+                            console.log("Record Info Page: " + info.getPage());
+                        }
 
-						if(info.getPage() != null){
-							//Get the Page of the Info
-							console.log("Record Info Page: " + info.getPage());
-						}
-
-						if(info.getMoreRecords() != null){
-							//Get the MoreRecords of the Info
-							console.log("Record Info MoreRecords: " + info.getMoreRecords());
-						}
+                        if (info.getMoreRecords() != null) {
+                            //Get the MoreRecords of the Info
+                            console.log("Record Info MoreRecords: " + info.getMoreRecords());
+                        }
                     }
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
 
     /**
      * <h3> Convert Lead</h3>
-	 * This method is used to Convert a Lead record and print the response.
+     * This method is used to Convert a Lead record and print the response.
      * @param {BigInt} leadId The ID of the Lead to be converted.
      */
-    static async convertLead(leadId){
-
+    static async convertLead(leadId) {
         //example
         //let leadId = 34096432034003n;
 
@@ -3144,35 +4030,35 @@ class Record{
         /*
          * Call addFieldValue method that takes two arguments
          * Import the "zcrmsdk/core/com/zoho/crm/api/record/field" file
-		 * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
-		 * 2 -> Value
-		 */
-		deals.addFieldValue(ZCRM.Record.Model.Field.Deals.DEAL_NAME, "deal_name");
+         * 1 -> Call Field "." and choose the module from the displayed list and press "." and choose the field name from the displayed list.
+         * 2 -> Value
+         */
+        deals.addFieldValue(ZCRM.Record.Model.Field.Deals.DEAL_NAME, "deal_name");
 
-		deals.addFieldValue(ZCRM.Record.Model.Field.Deals.DESCRIPTION, "deals description");
+        deals.addFieldValue(ZCRM.Record.Model.Field.Deals.DESCRIPTION, "deals description");
 
-		deals.addFieldValue(ZCRM.Record.Model.Field.Deals.CLOSING_DATE, new Date(2021, 2, 13));
+        deals.addFieldValue(ZCRM.Record.Model.Field.Deals.CLOSING_DATE, new Date(2021, 2, 13));
 
-		deals.addFieldValue(ZCRM.Record.Model.Field.Deals.STAGE, new Choice("Closed Won"));
+        deals.addFieldValue(ZCRM.Record.Model.Field.Deals.STAGE, new Choice("Closed Won"));
 
         deals.addFieldValue(ZCRM.Record.Model.Field.Deals.AMOUNT, 50.7);
 
         /*
-		 * Call addKeyValue method that takes two arguments
-		 * 1 -> A string that is the Field's API Name
-		 * 2 -> Value
-		 */
-		deals.addKeyValue("Custom_field", "Value");
+         * Call addKeyValue method that takes two arguments
+         * 1 -> A string that is the Field's API Name
+         * 2 -> Value
+         */
+        deals.addKeyValue("Custom_field", "Value");
 
-		deals.addKeyValue("Custom_field_2", "value");
+        deals.addKeyValue("Custom_field_2", "value");
 
-		let tagArray = [];
+        let tagArray = [];
 
-		let tag = new ZCRM.Tag.Model.Tag();
+        let tag = new ZCRM.Tag.Model.Tag();
 
-		tag.setName("Converted");
+        tag.setName("Converted");
 
-		tagArray.push(tag);
+        tagArray.push(tag);
 
         deals.setTag(tagArray);
 
@@ -3188,38 +4074,34 @@ class Record{
         //Call convertLead method that takes ConvertBodyWrapper instance and leadId as parameter
         let response = await recordOperations.convertLead(leadId, request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.ConvertActionWrapper){
+                if (responseObject instanceof ZCRM.Record.Model.ConvertActionWrapper) {
 
                     //Get the array of ConvertActionResponses from object
                     let convertActionResponses = responseObject.getData();
 
                     convertActionResponses.forEach(convertActionResponse => {
-
                         //Check if the request is successful
-                        if(convertActionResponse instanceof ZCRM.Record.Model.SuccessfulConvert){
+                        if (convertActionResponse instanceof ZCRM.Record.Model.SuccessfulConvert) {
                             //Get the Accounts ID of  Record
-							console.log("LeadConvert Accounts ID: " + convertActionResponse.getAccounts());
+                            console.log("LeadConvert Accounts ID: " + convertActionResponse.getAccounts());
 
-							//Get the Contacts ID of  Record
-							console.log("LeadConvert Contacts ID: " + convertActionResponse.getContacts());
+                            //Get the Contacts ID of  Record
+                            console.log("LeadConvert Contacts ID: " + convertActionResponse.getContacts());
 
-							//Get the Deals ID of  Record
-							console.log("LeadConvert Deals ID: " + convertActionResponse.getDeals());
+                            //Get the Deals ID of  Record
+                            console.log("LeadConvert Deals ID: " + convertActionResponse.getDeals());
                         }
                         //Check if the request returned an exception
-                        else if(convertActionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (convertActionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + convertActionResponse.getStatus().getValue());
 
@@ -3231,7 +4113,7 @@ class Record{
                             //Get the details map
                             let details = convertActionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -3243,8 +4125,7 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-                else if(actionResponse instanceof ZCRM.Record.Model.APIException){
-
+                else if (actionResponse instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -3256,7 +4137,7 @@ class Record{
                     //Get the details map
                     let details = actionResponse.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3274,8 +4155,7 @@ class Record{
      * @param {String} moduleAPIName The API Name of the record's module
      * @param {BigInt} recordId The ID of the record
      */
-    static async getPhoto(moduleAPIName, recordId){
-
+    static async getPhoto(moduleAPIName, recordId) {
         //example
         // let moduleAPIName = "Contacts";
         // let recordId = 34096432034003n;
@@ -3287,13 +4167,12 @@ class Record{
         //Call getPhoto method that takes moduleAPIName and recordId as parameters
         let response = await recordOperations.getPhoto(recordId, moduleAPIName);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -3301,11 +4180,9 @@ class Record{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected FileBodyWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.FileBodyWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.FileBodyWrapper) {
                     //Get StreamWrapper instance from the returned FileBodyWrapper instance
                     let streamWrapper = responseObject.getFile();
 
@@ -3326,8 +4203,7 @@ class Record{
                     ttt.click();
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -3339,7 +4215,7 @@ class Record{
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3357,11 +4233,10 @@ class Record{
      * @param {String} moduleAPIName The API Name of the record's module
      * @param {BigInt} recordId The ID of the record
      */
-    static async uploadPhoto(moduleAPIName, recordId){
-
+    static async uploadPhoto(moduleAPIName, recordId) {
         //example
-		//let moduleAPIName = "Leads";
-		//let recordId = 34770615177002n;
+        //let moduleAPIName = "Leads";
+        //let recordId = 34770615177002n;
 
         //Get instance of RecordOperations Class
         let recordOperations = new ZCRM.Record.Operations();
@@ -3371,7 +4246,7 @@ class Record{
 
         /** StreamWrapper can be initialized in any of the following ways */
 
-        var filesToLoad  = document.getElementById("uploadphoto").files;
+        var filesToLoad = document.getElementById("uploadphoto").files;
 
         var file = filesToLoad[0];
 
@@ -3394,18 +4269,16 @@ class Record{
         //Call uploadPhoto method that takes FileBodyWrapper instance, moduleAPIName and recordId as parameter
         let response = await recordOperations.uploadPhoto(recordId, moduleAPIName, request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if the request is successful
-                if(responseObject instanceof ZCRM.Record.Model.SuccessResponse){
+                if (responseObject instanceof ZCRM.Record.Model.SuccessResponse) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -3417,7 +4290,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3426,8 +4299,7 @@ class Record{
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -3439,7 +4311,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3457,10 +4329,9 @@ class Record{
      * @param {String} moduleAPIName The API Name of the record's module
      * @param {BigInt} recordId The ID of the record to delete photo
      */
-    static async deletePhoto(moduleAPIName, recordId){
-
+    static async deletePhoto(moduleAPIName, recordId) {
         //example
-		//let moduleAPIName = "Leads";
+        //let moduleAPIName = "Leads";
         //let recordId = 34770615177002n;
 
         //Get instance of RecordOperations Class
@@ -3469,18 +4340,16 @@ class Record{
         //Call deletePhoto method that takes moduleAPIName and recordId as parameter
         let response = await recordOperations.deletePhoto(recordId, moduleAPIName);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if the request is successful
-                if(responseObject instanceof ZCRM.Record.Model.SuccessResponse){
+                if (responseObject instanceof ZCRM.Record.Model.SuccessResponse) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -3492,7 +4361,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3501,8 +4370,7 @@ class Record{
                     console.log("Message: " + responseObject.getMessage().getValue());
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Record.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -3514,7 +4382,7 @@ class Record{
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -3531,8 +4399,7 @@ class Record{
      * This method is used to update the values of specific fields for multiple records and print the response.
      * @param {String} moduleAPIName The API Name of the module to mass update records.
      */
-    static async massUpdateRecords(moduleAPIName){
-
+    static async massUpdateRecords(moduleAPIName) {
         //example
         //let moduleAPIName = "Leads";
 
@@ -3559,7 +4426,7 @@ class Record{
         //Set the cvid to MassUpdateBodyWrapper instance
         // request.setCvid("34096430087501");
 
-        let ids = ["34770616916059"];
+        let ids = ["347706111073003"];
 
         //Set the array of IDs to MassUpdateBodyWrapper instance
         request.setIds(ids);
@@ -3580,27 +4447,22 @@ class Record{
         //Call massUpdateRecords method that takes MassUpdateBodyWrapper instance, ModuleAPIName as parameter.
         let response = await recordOperations.massUpdateRecords(moduleAPIName, request);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected MassUpdateActionWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.MassUpdateActionWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.MassUpdateActionWrapper) {
                     //Get the array of MassUpdate ActionResponses
                     let massUpdateActionResponses = responseObject.getData();
 
                     massUpdateActionResponses.forEach(massUpdateActionResponse => {
-
                         //Check if the request is successful
-                        if(massUpdateActionResponse instanceof ZCRM.Record.Model.MassUpdateSuccessResponse){
-
+                        if (massUpdateActionResponse instanceof ZCRM.Record.Model.MassUpdateSuccessResponse) {
                             //Get the Status
                             console.log("Status: " + massUpdateActionResponse.getStatus().getValue());
 
@@ -3612,7 +4474,7 @@ class Record{
                             //Get the details map
                             let details = massUpdateActionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -3622,8 +4484,7 @@ class Record{
                             console.log("Message: " + massUpdateActionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(massUpdateActionResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (massUpdateActionResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + massUpdateActionResponse.getStatus().getValue());
 
@@ -3635,7 +4496,7 @@ class Record{
                             //Get the details map
                             let details = massUpdateActionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -3648,27 +4509,27 @@ class Record{
                 }
 
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }
@@ -3678,10 +4539,9 @@ class Record{
      * @param {String} moduleAPIName  The API Name of the module to obtain status of Mass Update.
      * @param {String} jobId The ID of the job obtained from the response of Mass Update Records.
      */
-    static async getMassUpdateStatus(moduleAPIName, jobId){
-
+    static async getMassUpdateStatus(moduleAPIName, jobId) {
         //example
-		//let moduleAPIName = "Leads";
+        //let moduleAPIName = "Leads";
         //let jobId = "34770615177002";
 
         //Get instance of RecordOperations Class
@@ -3696,13 +4556,12 @@ class Record{
         //Call getMassUpdateStatus method that takes ParameterMap instance and moduleAPIName as parameter
         let response = await recordOperations.getMassUpdateStatus(moduleAPIName, paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -3710,36 +4569,32 @@ class Record{
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+            if (responseObject != null) {
                 //Check if expected MassUpdateResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Record.Model.MassUpdateResponseWrapper){
-
+                if (responseObject instanceof ZCRM.Record.Model.MassUpdateResponseWrapper) {
                     //Get the array of MassUpdate ActionResponse data
                     let massUpdateResponses = responseObject.getData();
 
                     massUpdateResponses.forEach(massUpdateResponse => {
-
                         //Check if the request is successful
-                        if(massUpdateResponse instanceof ZCRM.Record.Model.MassUpdate){
+                        if (massUpdateResponse instanceof ZCRM.Record.Model.MassUpdate) {
                             //Get the Status of each MassUpdate
-							console.log("MassUpdate Status: " + massUpdateResponse.getStatus().getValue());
+                            console.log("MassUpdate Status: " + massUpdateResponse.getStatus().getValue());
 
-							//Get the FailedCount of each MassUpdate
-							console.log("MassUpdate FailedCount: " + massUpdateResponse.getFailedCount());
+                            //Get the FailedCount of each MassUpdate
+                            console.log("MassUpdate FailedCount: " + massUpdateResponse.getFailedCount());
 
-							//Get the UpdatedCount of each MassUpdate
-							console.log("MassUpdate UpdatedCount: " + massUpdateResponse.getUpdatedCount());
+                            //Get the UpdatedCount of each MassUpdate
+                            console.log("MassUpdate UpdatedCount: " + massUpdateResponse.getUpdatedCount());
 
-							//Get the NotUpdatedCount of each MassUpdate
-							console.log("MassUpdate NotUpdatedCount: " + massUpdateResponse.getNotUpdatedCount());
+                            //Get the NotUpdatedCount of each MassUpdate
+                            console.log("MassUpdate NotUpdatedCount: " + massUpdateResponse.getNotUpdatedCount());
 
-							//Get the TotalCount of each MassUpdate
-							console.log("MassUpdate TotalCount: " + massUpdateResponse.getTotalCount());
+                            //Get the TotalCount of each MassUpdate
+                            console.log("MassUpdate TotalCount: " + massUpdateResponse.getTotalCount());
                         }
                         //Check if the request returned an exception
-                        else if(massUpdateResponse instanceof ZCRM.Record.Model.APIException){
-
+                        else if (massUpdateResponse instanceof ZCRM.Record.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + massUpdateResponse.getStatus().getValue());
 
@@ -3751,7 +4606,7 @@ class Record{
                             //Get the details map
                             let details = massUpdateResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -3763,27 +4618,27 @@ class Record{
                     });
                 }
                 //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Record.Model.APIException){
-					//Get the Status
-					console.log("Status: " + responseObject.getStatus().getValue());
+                else if (responseObject instanceof ZCRM.Record.Model.APIException) {
+                    //Get the Status
+                    console.log("Status: " + responseObject.getStatus().getValue());
 
-					//Get the Code
-					console.log("Code: " + responseObject.getCode().getValue());
+                    //Get the Code
+                    console.log("Code: " + responseObject.getCode().getValue());
 
-					console.log("Details");
+                    console.log("Details");
 
-					//Get the details map
-					let details = responseObject.getDetails();
+                    //Get the details map
+                    let details = responseObject.getDetails();
 
-					if(details != null){
-						Array.from(details.keys()).forEach(key => {
-							console.log(key + ": " + details.get(key));
-						});
-					}
+                    if (details != null) {
+                        Array.from(details.keys()).forEach(key => {
+                            console.log(key + ": " + details.get(key));
+                        });
+                    }
 
-					//Get the Message
-					console.log("Message: " + responseObject.getMessage().getValue());
-				}
+                    //Get the Message
+                    console.log("Message: " + responseObject.getMessage().getValue());
+                }
             }
         }
     }

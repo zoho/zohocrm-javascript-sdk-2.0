@@ -1,5 +1,4 @@
 class Attachment {
-
     /**
      * <h3> Get Attachments</h3>
      * This method is used to get a single record's attachments' details with ID and print the response.
@@ -27,12 +26,12 @@ class Attachment {
         //Call getAttachments method that takes ParameterMap instance as parameter
         let response = await attachmentsOperations.getAttachments(paramInstance);
 
-        if(response != null){
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+            if ([204, 304].includes(response.getStatusCode())) {
+                console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
                 return;
             }
@@ -40,9 +39,9 @@ class Attachment {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ResponseWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.ResponseWrapper){
+                if (responseObject instanceof ZCRM.Attachment.Model.ResponseWrapper) {
                     //Get the array of obtained Attachment instances
                     let attachments = responseObject.getData();
 
@@ -54,7 +53,7 @@ class Attachment {
                         let owner = attachment.getOwner();
 
                         //Check if owner is not null
-                        if(owner != null){
+                        if (owner != null) {
                             //Get the Name of the Owner
                             console.log("Attachment Owner - Name: " + owner.getName());
 
@@ -64,7 +63,7 @@ class Attachment {
                             //Get the Email of the Owner
                             console.log("Attachment Owner Email: " + owner.getEmail());
                         }
-                        if(attachment.getModifiedTime() != null) {
+                        if (attachment.getModifiedTime() != null) {
                             //Get the modified time of each attachment
                             console.log("Attachment Modified Time: " + attachment.getModifiedTime().toString());
                         }
@@ -82,7 +81,7 @@ class Attachment {
                         let parentId = attachment.getParentId();
 
                         //Check if parentId is not null
-                        if(parentId != null){
+                        if (parentId != null) {
                             //Get the parent record Name of each attachment
                             console.log("Attachment parent record Name: " + parentId.getKeyValue("name"));
 
@@ -90,7 +89,7 @@ class Attachment {
                             console.log("Attachment parent record ID: " + parentId.getId());
                         }
 
-                        if(attachment.getEditable() != null) {
+                        if (attachment.getEditable() != null) {
                             //Check if the attachment is Editable
                             console.log("Attachment is Editable: " + attachment.getEditable().toString());
                         }
@@ -108,7 +107,7 @@ class Attachment {
                         let modifiedBy = attachment.getModifiedBy();
 
                         //Check if modifiedBy is not null
-                        if(modifiedBy != null){
+                        if (modifiedBy != null) {
                             //Get the Name of the modifiedBy User
                             console.log("Attachment Modified By User-Name: " + modifiedBy.getName());
 
@@ -126,7 +125,7 @@ class Attachment {
                         let createdBy = attachment.getCreatedBy();
 
                         //Check if createdBy is not null
-                        if(createdBy != null){
+                        if (createdBy != null) {
                             //Get the name of the createdBy User
                             console.log("Attachment Created By User-Name: " + createdBy.getName());
 
@@ -144,31 +143,30 @@ class Attachment {
                     //Get the obtained Info object
                     let info = responseObject.getInfo();
 
-                    if(info != null){
+                    if (info != null) {
+                        if (info.getPerPage() != null) {
+                            //Get the PerPage of the Info
+                            console.log("Attachment Info PerPage: " + info.getPerPage().toString());
+                        }
 
-						if(info.getPerPage() != null){
-							//Get the PerPage of the Info
-							console.log("Attachment Info PerPage: " + info.getPerPage().toString());
-						}
+                        if (info.getCount() != null) {
+                            //Get the Count of the Info
+                            console.log("Attachment Info Count: " + info.getCount().toString());
+                        }
 
-						if(info.getCount() != null){
-							//Get the Count of the Info
-							console.log("Attachment Info Count: " + info.getCount().toString());
-						}
+                        if (info.getPage() != null) {
+                            //Get the Page of the Info
+                            console.log("Attachment Info Page: " + info.getPage().toString());
+                        }
 
-						if(info.getPage() != null){
-							//Get the Page of the Info
-							console.log("Attachment Info Page: " + info.getPage().toString());
-						}
-
-						if(info.getMoreRecords() != null){
-							//Get the MoreRecords of the Info
-							console.log("Attachment Info MoreRecords: " + info.getMoreRecords().toString());
-						}
+                        if (info.getMoreRecords() != null) {
+                            //Get the MoreRecords of the Info
+                            console.log("Attachment Info MoreRecords: " + info.getMoreRecords().toString());
+                        }
                     }
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException) {
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -197,10 +195,9 @@ class Attachment {
      * @param {BigInt} recordId The ID of the record to upload attachment
      */
     static async uploadAttachments(moduleAPIName, recordId) {
-
         //example
         // let moduleAPIName = "Leads";
-        // let recordId = 34096432267003n;
+        // let recordId = 3409643000002267003n;
         // let absoluteFilePath = "/Users/user-name/Documents/image.jpg";
 
         //Get instance of AttachmentsOperations Class that takes recordId and moduleAPIName as parameter
@@ -211,7 +208,7 @@ class Attachment {
 
         /** StreamWrapper can be initialized in any of the following ways */
 
-        var filesToLoad  = document.getElementById("attachment").files;
+        var filesToLoad = document.getElementById("attachment").files;
 
         var file = filesToLoad[0];
 
@@ -227,23 +224,23 @@ class Attachment {
         //Call uploadAttachment method that takes FileBodyWrapper instance as parameter
         let response = await attachmentsOperations.uploadAttachment(fileBodyWrapper);
 
-        if(response != null) {
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null) {
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.ActionWrapper) {
+                if (responseObject instanceof ZCRM.Attachment.Model.ActionWrapper) {
 
                     //Get the array of obtained action responses
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse){
+                        if (actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -255,7 +252,7 @@ class Attachment {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -265,7 +262,7 @@ class Attachment {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Attachment.Model.APIException) {
+                        else if (actionResponse instanceof ZCRM.Attachment.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -277,7 +274,7 @@ class Attachment {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -289,7 +286,7 @@ class Attachment {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException) {
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -301,7 +298,7 @@ class Attachment {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -321,12 +318,11 @@ class Attachment {
      * @param {BigInt} recordId  The ID of the record to delete attachments
      * @param {String} attachmentIds The array of attachment IDs to be deleted
      */
-    static async deleteAttachments(moduleAPIName, recordId, attachmentIds){
-
+    static async deleteAttachments(moduleAPIName, recordId, attachmentIds) {
         //example
         // let moduleAPIName = "Leads";
-        // let recordId = 34096432267003n;
-        // let attachmentIds = [34096432267024n, 34096432267034n, 34096432267198n]
+        // let recordId = 3409643000002267003n;
+        // let attachmentIds = [3409643000002267024n, 3409643000002267034n, 3409643000002267198n]
 
         //Get instance of AttachmentsOperations Class that takes recordId and moduleAPIName as parameter
         let attachmentsOperations = new ZCRM.Attachment.Operations(moduleAPIName, recordId);
@@ -334,7 +330,7 @@ class Attachment {
         //Get instance of ParameterMap Class
         let paramInstance = new ParameterMap();
 
-        for(let attachmentId of attachmentIds) {
+        for (let attachmentId of attachmentIds) {
             //Add the ids to parameter map instance
             await paramInstance.add(ZCRM.Attachment.Model.DeleteAttachmentsParam.IDS, attachmentId);
         }
@@ -342,24 +338,23 @@ class Attachment {
         //Call deleteAttachments method that takes paramInstance as parameter
         let response = await attachmentsOperations.deleteAttachments(paramInstance);
 
-        if(response != null){
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.ActionWrapper){
+                if (responseObject instanceof ZCRM.Attachment.Model.ActionWrapper) {
 
                     //Get the array of obtained Action Responses.
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse){
-
+                        if (actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -371,7 +366,7 @@ class Attachment {
                             let details = actionResponse.getDetails();
 
                             //Get the details map
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -381,8 +376,7 @@ class Attachment {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Attachment.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Attachment.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -394,7 +388,7 @@ class Attachment {
                             let details = actionResponse.getDetails();
 
                             //Get the details map
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -406,8 +400,7 @@ class Attachment {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -419,7 +412,7 @@ class Attachment {
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -441,11 +434,10 @@ class Attachment {
      * @param {String} destinationFolder The absolute path of the destination folder to store the attachment
      */
     static async downloadAttachment(moduleAPIName, recordId, attachmentId) {
-
         //example
         // let moduleAPIName = "Leads";
-        // let recordId = 34096432267003n;
-        // let attachmentId = 34096432267024n;
+        // let recordId = 3409643000002267003n;
+        // let attachmentId = 3409643000002267024n;
         // let destinationFolder = "/Users/user-name/Desktop";
 
         //Get instance of AttachmentsOperations Class that takes recordId and moduleAPIName as parameter
@@ -454,11 +446,11 @@ class Attachment {
         //Call downloadAttachment method that takes attachmentId as parameters
         let response = await attachmentsOperations.downloadAttachment(attachmentId);
 
-        if(response != null){
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
-            if(response.getStatusCode() ==  204){
+            if (response.getStatusCode() == 204) {
                 console.log("No Content");
 
                 return;
@@ -467,10 +459,9 @@ class Attachment {
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected FileBodyWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.FileBodyWrapper){
-
+                if (responseObject instanceof ZCRM.Attachment.Model.FileBodyWrapper) {
                     //Get StreamWrapper instance from the returned FileBodyWrapper instance
                     let streamWrapper = responseObject.getFile();
 
@@ -491,8 +482,7 @@ class Attachment {
                     ttt.click();
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -504,7 +494,7 @@ class Attachment {
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -524,8 +514,7 @@ class Attachment {
      * @param {BigInt} recordId The ID of the record to delete attachment
      * @param {BigInt} attachmentId The ID of the attachment to be deleted
      */
-    static async deleteAttachment(moduleAPIName, recordId, attachmentId){
-
+    static async deleteAttachment(moduleAPIName, recordId, attachmentId) {
         //example
         // let moduleAPIName = "Leads";
         // let recordId = 34096432267003n;
@@ -537,23 +526,23 @@ class Attachment {
         //Call deleteAttachment method that takes attachmentId as parameter
         let response = await attachmentsOperations.deleteAttachment(attachmentId);
 
-        if(response != null){
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.ActionWrapper){
+                if (responseObject instanceof ZCRM.Attachment.Model.ActionWrapper) {
 
                     //Get the list of obtained Action Response instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse){
+                        if (actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse) {
 
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
@@ -566,7 +555,7 @@ class Attachment {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -576,8 +565,7 @@ class Attachment {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Attachment.Model.APIException) {
-
+                        else if (actionResponse instanceof ZCRM.Attachment.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -589,7 +577,7 @@ class Attachment {
                             let details = actionResponse.getDetails();
 
                             //Get the details map
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -601,8 +589,7 @@ class Attachment {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -614,7 +601,7 @@ class Attachment {
                     let details = responseObject.getDetails();
 
                     //Get the details map
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });
@@ -634,8 +621,7 @@ class Attachment {
      * @param {BigInt} recordId The ID of the record to upload Link attachment
      * @param {String} attachmentURL The attachmentURL of the doc or image link to be attached
      */
-    static async uploadLinkAttachment(moduleAPIName, recordId, attachmentURL){
-
+    static async uploadLinkAttachment(moduleAPIName, recordId, attachmentURL) {
         //example
         // let moduleAPIName = "Leads";
         // let recordId = 34096432267003n;
@@ -653,25 +639,22 @@ class Attachment {
         //Call uploadLinkAttachments method that takes paramInstance as parameter
         let response = await attachmentsOperations.uploadLinkAttachment(paramInstance);
 
-        if(response != null){
-
+        if (response != null) {
             //Get the status code from response
             console.log("Status Code: " + response.getStatusCode());
 
             //Get object from response
             let responseObject = response.getObject();
 
-            if(responseObject != null){
+            if (responseObject != null) {
                 //Check if expected ActionWrapper instance is received.
-                if(responseObject instanceof ZCRM.Attachment.Model.ActionWrapper){
-
+                if (responseObject instanceof ZCRM.Attachment.Model.ActionWrapper) {
                     //Get the array of obtained Action Response instances
                     let actionResponses = responseObject.getData();
 
                     actionResponses.forEach(actionResponse => {
-
                         //Check if the request is successful
-                        if(actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse){
+                        if (actionResponse instanceof ZCRM.Attachment.Model.SuccessResponse) {
 
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
@@ -684,7 +667,7 @@ class Attachment {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -694,8 +677,7 @@ class Attachment {
                             console.log("Message: " + actionResponse.getMessage().getValue());
                         }
                         //Check if the request returned an exception
-                        else if(actionResponse instanceof ZCRM.Attachment.Model.APIException){
-
+                        else if (actionResponse instanceof ZCRM.Attachment.Model.APIException) {
                             //Get the Status
                             console.log("Status: " + actionResponse.getStatus().getValue());
 
@@ -707,7 +689,7 @@ class Attachment {
                             //Get the details map
                             let details = actionResponse.getDetails();
 
-                            if(details != null){
+                            if (details != null) {
                                 Array.from(details.keys()).forEach(key => {
                                     console.log(key + ": " + details.get(key));
                                 });
@@ -719,8 +701,7 @@ class Attachment {
                     });
                 }
                 //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Attachment.Model.APIException){
-
+                else if (responseObject instanceof ZCRM.Attachment.Model.APIException) {
                     //Get the Status
                     console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -732,7 +713,7 @@ class Attachment {
                     //Get the details map
                     let details = responseObject.getDetails();
 
-                    if(details != null){
+                    if (details != null) {
                         Array.from(details.keys()).forEach(key => {
                             console.log(key + ": " + details.get(key));
                         });

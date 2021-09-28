@@ -8,6 +8,14 @@ ZCRM.ContactRole = {
 
 		},
 
+		RecordResponseHandler : class{
+			constructor(){
+
+			}
+
+
+		},
+
 		ActionResponse : class{
 			constructor(){
 
@@ -17,6 +25,14 @@ ZCRM.ContactRole = {
 		},
 
 		ActionHandler : class{
+			constructor(){
+
+			}
+
+
+		},
+
+		RecordActionHandler : class{
 			constructor(){
 
 			}
@@ -221,6 +237,70 @@ ZCRM.ContactRole = {
 			}
 		},
 
+		RecordBodyWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
 		BodyWrapper : class{
 			constructor(){
 
@@ -249,6 +329,221 @@ ZCRM.ContactRole = {
 				}
 				this.contactRoles = contactRoles;
 				this.keyModified.set("contact_roles", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		RecordActionWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		ContactRoleWrapper : class{
+			constructor(){
+
+				this.contactRole=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the contactRole
+			 * @returns {String} A String representing the contactRole
+			 */
+			getContactRole()	{
+				return this.contactRole;
+
+			}
+
+			/**
+			 * The method to set the value to contactRole
+			 * @param {String} contactRole A String
+			 */
+			setContactRole(contactRole)	{
+				if((contactRole != null) && (!(Object.prototype.toString.call(contactRole) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactRole EXPECTED TYPE: String", null, null);
+				}
+				this.contactRole = contactRole;
+				this.keyModified.set("Contact_Role", 1);
+
+			}
+
+			/**
+			 * The method to check if the user has modified the given key
+			 * @param {String} key A String
+			 * @returns {Integer} An Integer representing the modification
+			 */
+			isKeyModified(key)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if(this.keyModified.has(key)){
+					return this.keyModified.get(key);
+				}
+				return null;
+
+			}
+
+			/**
+			 * The method to mark the given key as modified
+			 * @param {String} key A String
+			 * @param {Integer} modification An Integer
+			 */
+			setKeyModified(key, modification)	{
+				if((key != null) && (!(Object.prototype.toString.call(key) == "[object String]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: key EXPECTED TYPE: String", null, null);
+				}
+				if((modification != null) && (!(Object.prototype.toString.call(modification) == "[object Number]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: modification EXPECTED TYPE: Integer", null, null);
+				}
+				this.keyModified.set(key, modification);
+
+			}
+		},
+
+		RecordResponseWrapper : class{
+			constructor(){
+
+				this.data=null;
+				this.info=null;
+				this.keyModified=new Map();
+			}
+
+
+
+			/**
+			 * The method to get the data
+			 * @returns {List} An Array representing the data
+			 */
+			getData()	{
+				return this.data;
+
+			}
+
+			/**
+			 * The method to set the value to data
+			 * @param {List} data An Array
+			 */
+			setData(data)	{
+				if((data != null) && (!(Object.prototype.toString.call(data) == "[object Array]"))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: data EXPECTED TYPE: Array", null, null);
+				}
+				this.data = data;
+				this.keyModified.set("data", 1);
+
+			}
+
+			/**
+			 * The method to get the info
+			 * @returns {Info} An instance of Info
+			 */
+			getInfo()	{
+				return this.info;
+
+			}
+
+			/**
+			 * The method to set the value to info
+			 * @param {Info} info An instance of Info
+			 */
+			setInfo(info)	{
+				if((info != null) && (!(info instanceof ZCRM.Record.Model.Info))){
+					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: info EXPECTED TYPE: Info", null, null);
+				}
+				this.info = info;
+				this.keyModified.set("info", 1);
 
 			}
 
@@ -596,6 +891,12 @@ ZCRM.ContactRole = {
 			IDS : 	new Param("ids", "ContactRole.Model.DeleteContactRolesParam"),
 
 
+		},
+
+		GetAllContactRolesOfDealParam : {
+			IDS : 	new Param("ids", "ContactRole.Model.GetAllContactRolesOfDealParam"),
+
+
 		}
 	},
 	Operations : class {
@@ -752,6 +1053,124 @@ ZCRM.ContactRole = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			return handlerInstance.apiCall("ContactRole.Model.ActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get all contact roles of deal
+		 * @param {Long} dealId A BigInt
+		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getAllContactRolesOfDeal(dealId, paramInstance=null){
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles");
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setParam(paramInstance);
+			handlerInstance.setModuleAPIName("Contacts");
+			await Utility.getFields("Contacts", handlerInstance);
+			return handlerInstance.apiCall("ContactRole.Model.RecordResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to get contact role of deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async getContactRoleOfDeal(contactId, dealId){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			handlerInstance.setModuleAPIName("Contacts");
+			await Utility.getFields("Contacts", handlerInstance);
+			return handlerInstance.apiCall("ContactRole.Model.RecordResponseHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to add contact role to deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @param {RecordBodyWrapper} request An instance of RecordBodyWrapper
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async addContactRoleToDeal(contactId, dealId, request){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((request != null) && (!(request instanceof ZCRM.ContactRole.Model.RecordBodyWrapper))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: RecordBodyWrapper", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_PUT);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
+			handlerInstance.setContentType("application/json");
+			handlerInstance.setRequest(request);
+			return handlerInstance.apiCall("ContactRole.Model.RecordActionHandler", "application/json");
+
+		}
+
+		/**
+		 * The method to remove contact role from deal
+		 * @param {Long} contactId A BigInt
+		 * @param {Long} dealId A BigInt
+		 * @returns {APIResponse} An instance of APIResponse
+		 * @throws {SDKException}
+		 */
+		async removeContactRoleFromDeal(contactId, dealId){
+			if((!(Object.prototype.toString.call(contactId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: contactId EXPECTED TYPE: BigInt", null, null);
+			}
+			if((!(Object.prototype.toString.call(dealId) == "[object BigInt]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: dealId EXPECTED TYPE: BigInt", null, null);
+			}
+			var handlerInstance = new CommonAPIHandler();
+			var apiPath = '';
+			apiPath = apiPath.concat("/crm/v2/Deals/");
+			apiPath = apiPath.concat(dealId.toString());
+			apiPath = apiPath.concat("/Contact_Roles/");
+			apiPath = apiPath.concat(contactId.toString());
+			handlerInstance.setAPIPath(apiPath);
+			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
+			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			return handlerInstance.apiCall("ContactRole.Model.RecordActionHandler", "application/json");
 
 		}
 	},

@@ -2,9 +2,7 @@
  * This class represents the HTTP header name and value.
  */
 class HeaderMap {
-
     constructor() {
-
         this._headerMap = new Map();
     }
 
@@ -13,7 +11,6 @@ class HeaderMap {
      * @return A Map representing the API request headers.
      */
     getHeaderMap() {
-
         return this._headerMap;
     }
 
@@ -22,7 +19,6 @@ class HeaderMap {
      * @param {Map} headerMap  An Map representing the API request headers.
      */
     setHeaderMap(headerMap) {
-
         this._headerMap = headerMap;
     }
 
@@ -32,49 +28,41 @@ class HeaderMap {
      * @param {object} value A object containing the header value.
      */
     async add(header, value) {
-
-        if(header === null) {
-
-			throw new SDKException(Constants.HEADER_NULL_ERROR, Constants.HEADER_INSTANCE_NULL_ERROR);
-		}
+        if (header === null) {
+            throw new SDKException(Constants.HEADER_NULL_ERROR, Constants.HEADER_INSTANCE_NULL_ERROR);
+        }
 
         let headerName = header.getName();
 
-        if(headerName === null) {
-
-			throw new SDKException(Constants.HEADER_NAME_NULL_ERROR, Constants.HEADER_NAME_NULL_ERROR_MESSAGE);
+        if (headerName === null) {
+            throw new SDKException(Constants.HEADER_NAME_NULL_ERROR, Constants.HEADER_NAME_NULL_ERROR_MESSAGE);
         }
 
-        if(value === null) {
-
-			throw new SDKException(Constants.HEADER_NULL_ERROR, headerName + Constants.NULL_VALUE_ERROR_MESSAGE);
+        if (value === null) {
+            throw new SDKException(Constants.HEADER_NULL_ERROR, headerName + Constants.NULL_VALUE_ERROR_MESSAGE);
         }
 
         let headerClassName = header.getClassName();
 
         let parsedHeaderValue = null;
 
-        if(headerClassName !== null) {
-
+        if (headerClassName !== null) {
             let headerParamValidator = new HeaderParamValidator();
 
             parsedHeaderValue = await headerParamValidator.validate(header, value);
         }
         else {
-
             try {
-
                 parsedHeaderValue = await DataTypeConverter.postConvert(value, value.constructor.name);
             }
-            catch(ex) {
+            catch (ex) {
 
                 parsedHeaderValue = value;
             }
 
         }
 
-        if(this._headerMap.has(headerName) && this._headerMap.get(headerName) !== null) {
-
+        if (this._headerMap.has(headerName) && this._headerMap.get(headerName) !== null) {
             let headerValue = this._headerMap.get(headerName);
 
             headerValue = headerValue.concat(",", parsedHeaderValue.toString());

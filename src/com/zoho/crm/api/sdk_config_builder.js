@@ -2,9 +2,7 @@
  * The Builder class to build SDKConfig
  */
 class SDKConfigBuilder {
-
     constructor() {
-
         this._autoRefreshFields = false;
 
         this._pickListValidation = true;
@@ -18,8 +16,7 @@ class SDKConfigBuilder {
      * This is a setter method to set autoRefreshFields.
      * @param {Boolean} autoRefreshFields
      */
-    setAutoRefreshFields(autoRefreshFields) {
-
+    autoRefreshFields(autoRefreshFields) {
         this._autoRefreshFields = autoRefreshFields;
 
         return this;
@@ -29,8 +26,7 @@ class SDKConfigBuilder {
      * This is a setter method to set pickListValidation.
      * @param {Boolean} pickListValidation
      */
-    setPickListValidation(pickListValidation) {
-
+    pickListValidation(pickListValidation) {
         this._pickListValidation = pickListValidation;
 
         return this;
@@ -40,8 +36,7 @@ class SDKConfigBuilder {
      * This is a setter method to set cacheStore.
      * @param {Boolean} cacheStore
      */
-    setCacheStore(cacheStore) {
-
+    cacheStore(cacheStore) {
         this._cacheStore = cacheStore;
 
         return this;
@@ -52,7 +47,6 @@ class SDKConfigBuilder {
      * @param {Integer} timeout
      */
     timeout(timeout) {
-
         this._timeout = timeout > 0 ? timeout : 0;
 
         return this;
@@ -63,7 +57,6 @@ class SDKConfigBuilder {
      * @returns An instance of SDKConfig
      */
     build() {
-
         return new SDKConfig(this._autoRefreshFields, this._pickListValidation, this._cacheStore, this._timeout);
     }
 }
@@ -72,7 +65,6 @@ class SDKConfigBuilder {
  * The class to configure the SDK.
  */
 class SDKConfig {
-
     /**
      * Creates an instance of SDKConfig with the given parameters
      * @param {Boolean} autoRefreshFields A boolean representing autoRefreshFields
@@ -81,7 +73,6 @@ class SDKConfig {
      * @param {Integer} timeout A Integer representing timeout
      */
     constructor(autoRefreshFields, pickListValidation, cacheStore, timeout) {
-
         this._autoRefreshFields = autoRefreshFields;
 
         this._pickListValidation = pickListValidation;
@@ -96,7 +87,6 @@ class SDKConfig {
      * @returns A Boolean representing autoRefreshFields
      */
     getAutoRefreshFields() {
-
         return this._autoRefreshFields;
     }
 
@@ -105,7 +95,6 @@ class SDKConfig {
      * @returns A Boolean representing pickListValidation
      */
     getPickListValidation() {
-
         return this._pickListValidation;
     }
 
@@ -114,7 +103,6 @@ class SDKConfig {
      * @returns A Boolean representing cacheStore
      */
     getCacheStore() {
-
         return this._cacheStore;
     }
 
@@ -122,8 +110,7 @@ class SDKConfig {
      * This is a getter method to get timeout.
      * @returns A Integer representing API timeout
      */
-    timeout() {
-
+    getTimeout() {
         return this._timeout;
     }
 }

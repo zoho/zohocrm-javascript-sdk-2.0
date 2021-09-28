@@ -2,57 +2,63 @@
  * This abstract class is to construct API request and response.
  */
 var Converter = class {
-
-	/**
-	 * This abstract method is to process the API response.
-	 * @param {object} response A Object containing the API response contents or response.
-	 * @param {string} pack A String containing the expected method return type.
-	 * @returns A Object representing the POJO class instance.
-	 */
-	getResponse(response, pack) {}
-
-	/**
-	 * This abstract method is to construct the API request.
-	 * @param {object} requestObject A Object containing the POJO class instance.
-	 * @param {string} pack A String containing the expected method return type.
-	 * @param {number} instanceNumber An Integer containing the POJO class instance list number.
-	 * @param {Map} memberDetail An Map containing the member properties
-	 */
-	formRequest(requestObject, pack, instanceNumber, memberDetail) {}
-
-	/**
-	 * This abstract method is to construct the API request body.
-	 * @param {APIHTTPConnector} requestBase A APIHTTPConnector class instance.
-	 */
-	appendToRequest(requestBase) {}
-
-	/**
-	 * This abstract method is to process the API response.
-	 * @param {object} response A Object containing the HttpResponse class instance.
-	 * @param {string} pack A String containing the expected method return type.
-	 */
-	getWrappedResponse(response, pack) {}
-
 	/**
 	 * Creates a Converter class instance with the CommonAPIHandler class instance.
-	 * @param {CommonAPIHandler} commonAPIHandler A CommonAPIHandler class instance.
+	 * @param {CommonAPIHandler} commonAPIHandler - A CommonAPIHandler class instance.
 	 */
 	constructor(commonAPIHandler) {
-
 		this.commonAPIHandler = commonAPIHandler;
 	}
 
 	/**
+	 * This abstract method is to process the API response.
+	 * @param {object} response - An Object containing the API response contents or response.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @returns An Object representing the class instance.
+	 * @throws {Error}
+	 */
+	getResponse(response, pack) { }
+
+	/**
+	 * This method is to construct the API request.
+	 * @param {object} requestObject - An Object containing the class instance.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @param {int} instanceNumber - An Integer containing the class instance list number.
+	 * @param {object} memberDetail - An object containing the member properties
+	 * @returns An Object representing the API request body object.
+	 * @throws {Error}
+	 */
+	formRequest(requestObject, pack, instanceNumber, memberDetail) { }
+
+	/**
+	 * This abstract method is to construct the API request body.
+	 * @param {object} requestBase
+	 * @param {object} requestObject - A Object containing the API request body object.
+	 * @throws {Error}
+	 */
+	appendToRequest(requestBase) { }
+
+	/**
+	 * This abstract method is to process the API response.
+	 * @param {object} response - An Object containing the HttpResponse class instance.
+	 * @param {string} pack - A String containing the expected method return type.
+	 * @returns An Object representing the class instance.
+	 * @throws {Error}
+	 */
+	getWrappedResponse(response, pack) { }
+
+	/**
 	 * This method is to validate if the input values satisfy the constraints for the respective fields.
-	 * @param {string} className A String containing the class name.
-	 * @param {string} memberName A String containing the member name.
-	 * @param {JSON} keyDetails A JSON containing the key JSON details.
-	 * @param {object} value A Object containing the key value.
-	 * @param {Map} uniqueValuesMap A Map containing the construct objects.
-	 * @param {Number} instanceNumber An Integer containing the POJO class instance list number.
+	 * @param {string} className - A String containing the class name.
+	 * @param {string} memberName - A String containing the member name.
+	 * @param {object} keyDetails - A JSONObject containing the key JSON details.
+	 * @param {object} value - A Object containing the key value.
+	 * @param {Map} uniqueValuesMap - A Map containing the value of constructed object's unique fields.
+	 * @param {int} instanceNumber - An Integer containing the class instance list number.
+	 * @returns A Boolean representing the key value is expected pattern, unique, length, and values.
+	 * @throws {SDKException}
 	 */
 	valueChecker(className, memberName, keyDetails, value, uniqueValuesMap, instanceNumber) {
-
 		var detailsJO = {};
 
 		var name = keyDetails[Constants.NAME];
@@ -65,31 +71,25 @@ var Converter = class {
 
 		let givenType = null;
 
-		if(Constants.TYPE_VS_DATATYPE.has(type.toLowerCase())) {
-
-			if(Array.isArray(value) && value.length > 0 && keyDetails.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+		if (Constants.TYPE_VS_DATATYPE.has(type.toLowerCase())) {
+			if (Array.isArray(value) && value.length > 0 && keyDetails.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				let expectedStructure = keyDetails[Constants.STRUCTURE_NAME];
 
 				let index = 0;
 
-				for(let data of value) {
-
+				for (let data of value) {
 					className = Object.prototype.toString.call(data);
 
-					if(className == Constants.OBJECT_TYPE)
-					{
+					if (className == Constants.OBJECT_TYPE) {
 						className = data.constructor.name;
 
 						check = expectedStructure.includes(className);
 					}
 					else {
-
 						check = className === expectedStructure ? true : false;
 					}
 
-					if(!check) {
-
+					if (!check) {
 						instanceNumber = index;
 
 						type = Constants.ARRAY_NAME + "(" + expectedStructure + ")";
@@ -102,45 +102,38 @@ var Converter = class {
 					index = index + 1;
 				}
 			}
-			else if(value != null) {
-
+			else if (value != null) {
 				check = (valueType != Constants.TYPE_VS_DATATYPE.get(type.toLowerCase()) ? false : true);
 
-				if(check && type == Constants.INTEGER_NAMESPACE){
-
+				if (check && type == Constants.INTEGER_NAMESPACE) {
 					check = Utility.checkInteger(value);
 				}
 
 				givenType = Object.getPrototypeOf(value).constructor.name;
 			}
 		}
-		else if(value != null && type.toLowerCase() !== Constants.OBJECT_KEY) {
-
+		else if (value != null && type.toLowerCase() !== Constants.OBJECT_KEY) {
 			let expectedStructure = keyDetails[Constants.TYPE];
 
 			className = Object.prototype.toString.call(value);
 
-			if(className == Constants.OBJECT_TYPE)
-			{
+			if (className == Constants.OBJECT_TYPE) {
 				className = value.constructor.name;
 
 				check = expectedStructure.includes(className);
 			}
 			else {
-
 				check = className === expectedStructure ? true : false;
 			}
 
-			if(!check) {
-
+			if (!check) {
 				type = expectedStructure;
 
 				givenType = value.constructor.name;
 			}
 		}
 
-		if(!check && value !== null) {
-
+		if (!check && value !== null) {
 			detailsJO.field = memberName;
 
 			detailsJO.class = className;
@@ -149,35 +142,30 @@ var Converter = class {
 
 			detailsJO.given_type = givenType;
 
-			if(instanceNumber != null) {
-
+			if (instanceNumber != null) {
 				detailsJO.index = instanceNumber;
 			}
 
 			throw new SDKException(Constants.TYPE_ERROR, null, detailsJO);
 		}
 
-		if (keyDetails.hasOwnProperty(Constants.VALUES) && (!keyDetails.hasOwnProperty(Constants.PICKLIST)) || (keyDetails[Constants.PICKLIST] && Initializer.sdkConfig.getPickListValidation() == true)) {
-
+		if (keyDetails.hasOwnProperty(Constants.VALUES) && (!keyDetails.hasOwnProperty(Constants.PICKLIST) || (keyDetails[Constants.PICKLIST] && Initializer.sdkConfig.getPickListValidation() == true))) {
 			let valuesJA = keyDetails[Constants.VALUES];
 
-			if(value instanceof Choice) {
-
+			if (value instanceof Choice) {
 				value = value.getValue();
 			}
 
 			if (!valuesJA.includes(value)) {
-
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					detailsJO.index = instanceNumber;
 				}
 
-				detailsJO.given_value =  value;
+				detailsJO.given_value = value;
 
 				detailsJO.accepted_values = valuesJA;
 
@@ -186,11 +174,9 @@ var Converter = class {
 		}
 
 		if (keyDetails.hasOwnProperty(Constants.UNIQUE)) {
-
 			let valuesArray = uniqueValuesMap[name];
 
 			if (valuesArray != null && valuesArray.includes(value)) {
-
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
@@ -202,9 +188,7 @@ var Converter = class {
 				throw new SDKException(Constants.UNIQUE_KEY_ERROR, null, detailsJO);
 			}
 			else {
-
-				if(valuesArray == null) {
-
+				if (valuesArray == null) {
 					valuesArray = [];
 				}
 
@@ -215,16 +199,13 @@ var Converter = class {
 		}
 
 		if (keyDetails.hasOwnProperty(Constants.MIN_LENGTH) || keyDetails.hasOwnProperty(Constants.MAX_LENGTH)) {
-
 			let count = value.toString().length;
 
-			if(Array.isArray(value)) {
-
+			if (Array.isArray(value)) {
 				count = value.length;
 			}
 
-			if (keyDetails.hasOwnProperty(Constants.MAX_LENGTH) &&  count > keyDetails[Constants.MAX_LENGTH]) {
-
+			if (keyDetails.hasOwnProperty(Constants.MAX_LENGTH) && count > keyDetails[Constants.MAX_LENGTH]) {
 				detailsJO.field = memberName;
 
 				detailsJO.class = className;
@@ -246,43 +227,35 @@ var Converter = class {
 
 				detailsJO.minimum_length = keyDetails[Constants.MIN_LENGTH];
 
-				throw new SDKException(Constants.MINIMUM_LENGTH_ERROR, null,  detailsJO);
+				throw new SDKException(Constants.MINIMUM_LENGTH_ERROR, null, detailsJO);
 			}
 		}
 
-		if (keyDetails.hasOwnProperty(Constants.REGEX)) {
+		if (keyDetails.hasOwnProperty(Constants.REGEX) && !keyDetails[Constants.REGEX].match(value)) {
+			detailsJO.field = memberName;
 
-			if (!keyDetails[Constants.REGEX].match(value)) {
+			detailsJO.class = className;
 
-				detailsJO.field = memberName;
-
-				detailsJO.class = className;
-
-				if(instanceNumber != null) {
-
-					detailsJO.index = instanceNumber;
-				}
-
-				throw new SDKException(Constants.REGEX_MISMATCH_ERROR, null,  detailsJO);
+			if (instanceNumber != null) {
+				detailsJO.index = instanceNumber;
 			}
+
+			throw new SDKException(Constants.REGEX_MISMATCH_ERROR, null, detailsJO);
 		}
 
 		return true;
 	}
 
 	getEncodedFileName() {
-
 		let clientId = "";
 
 		let url = Initializer.environment.getUrl();
 
-		if(Initializer.token !== null && Initializer.token.getClientId().length > 0) {
-
+		if (Initializer.token !== null && Initializer.token.getClientId().length > 0) {
 			clientId = Initializer.token.getClientId();
 		}
 
-		if(document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
-
+		if (document.getElementById(Constants.ZES_CLIENT_SCOPE) !== null) {
 			clientId = document.getElementById(Constants.ZES_CLIENT_SCOPE).getAttribute(Constants.DATA_CLIENT_ID);
 		}
 
@@ -294,16 +267,13 @@ var Converter = class {
  * This class processes the API response object to the POJO object and POJO object to a JSON object.
  */
 class JSONConverter extends Converter {
-
 	constructor(commonAPIHandler) {
-
 		super(commonAPIHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 
 		return JSON.stringify(request.getRequestBody()) || null;
@@ -311,13 +281,11 @@ class JSONConverter extends Converter {
 	}
 
 	async formRequest(requestInstance, pack, instanceNumber, classMemberDetail) { // if structure
-
 		super.formRequest(requestInstance, pack, instanceNumber, classMemberDetail);
 
 		var classDetail = classDetailMap[pack];
 
-		if(classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // useless
-
+		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // useless
 			var classes = classDetail[Constants.CLASSES];
 
 			var baseName = pack.split('/').slice(0, -1);
@@ -328,10 +296,8 @@ class JSONConverter extends Converter {
 
 			let requestObjectClassName = baseName.join('/');
 
-			for (let className of classes) {
-
-				if(className.toLowerCase() === requestObjectClassName.toLowerCase()){
-
+			for (let className1 of classes) {
+				if (className1.toLowerCase() == requestObjectClassName.toLowerCase()) {
 					classDetail = classDetailMap[requestObjectClassName];
 
 					break;
@@ -340,7 +306,6 @@ class JSONConverter extends Converter {
 		}
 
 		if (requestInstance instanceof ZCRM.Record.Model.Record) {
-
 			let moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
 			let returnJSON = await this.isRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail);
@@ -350,13 +315,11 @@ class JSONConverter extends Converter {
 			return returnJSON;
 		}
 		else {
-
 			return await this.isNotRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail);
 		}
 	}
 
 	async isNotRecordRequest(requestInstance, classDetail, instanceNumber, classMemberDetail) {
-
 		let requestJSON = {};
 
 		let requiredKeys = new Map();
@@ -371,8 +334,7 @@ class JSONConverter extends Converter {
 
 		let classMemberName = null;
 
-		if (classMemberDetail != null){
-
+		if (classMemberDetail != null) {
 			lookUp = (classMemberDetail.hasOwnProperty(Constants.LOOKUP) ? classMemberDetail[Constants.LOOKUP] : false);
 
 			skipMandatory = (classMemberDetail.hasOwnProperty(Constants.SKIP_MANDATORY) ? classMemberDetail[Constants.SKIP_MANDATORY] : false);
@@ -380,53 +342,43 @@ class JSONConverter extends Converter {
 			classMemberName = this.buildName(classMemberDetail[Constants.NAME]);
 		}
 
-		for(let memberName in classDetail) {
-
+		for (let memberName in classDetail) {
 			var modification = null;
 
 			var memberDetail = classDetail[memberName];
 
 			if ((memberDetail.hasOwnProperty(Constants.READ_ONLY) && memberDetail[Constants.READ_ONLY] === 'true') || !memberDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
-
 				continue;
 			}
 
 			var keyName = memberDetail[Constants.NAME];
 
 			try {
-
-				modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
+				modification = requestInstance.isKeyModified(keyName);
 			}
-			catch(ex) {
-
+			catch (ex) {
 				throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, ex);
 			}
 
 			if (memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == true) {
-
 				requiredKeys.set(keyName, true);
 			}
 
-			if (memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) && memberDetail[Constants.REQUIRED_IN_UPDATE] == true) {
-
-				requiredInUpdateKeys.set(keyName, true);
+			if (memberDetail.hasOwnProperty(Constants.PRIMARY) && memberDetail[Constants.PRIMARY] == true && (!memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) || memberDetail[Constants.REQUIRED_IN_UPDATE] == true)) {
+				primaryKeys.set(keyName, true);
 			}
 
-			if (memberDetail.hasOwnProperty(Constants.PRIMARY) && memberDetail[Constants.PRIMARY] == true && (!memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) || memberDetail[Constants.REQUIRED_IN_UPDATE] == true)) {
-
-				primaryKeys.set(keyName, true);
+			if (memberDetail.hasOwnProperty(Constants.REQUIRED_IN_UPDATE) && memberDetail[Constants.REQUIRED_IN_UPDATE] == true) {
+				requiredInUpdateKeys.set(keyName, true);
 			}
 
 			var fieldValue = null;
 
 			if (modification != null && parseInt(modification) != 0) {
-
 				fieldValue = Reflect.get(requestInstance, memberName);
 
-			 	if (await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber)) {
-
-					if(fieldValue != null) {
-
+				if (await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber)) {
+					if (fieldValue != null) {
 						requiredKeys.delete(keyName);
 
 						primaryKeys.delete(keyName);
@@ -435,11 +387,14 @@ class JSONConverter extends Converter {
 					}
 
 					if (requestInstance instanceof ZCRM.Record.Model.FileDetails) {
-
-						requestJSON[keyName.toLowerCase()] =  fieldValue;
+						if (fieldValue == null || fieldValue == "null") {
+							requestJSON[keyName.toLowerCase()] = null;
+						}
+						else {
+							requestJSON[keyName.toLowerCase()] = fieldValue;
+						}
 					}
 					else {
-
 						requestJSON[keyName] = await this.setData(memberDetail, fieldValue);
 					}
 				}
@@ -447,39 +402,31 @@ class JSONConverter extends Converter {
 		}
 
 		if (skipMandatory || await this.checkException(classMemberName, requestInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, requiredInUpdateKeys)) {
-
 			return requestJSON;
 		}
 	}
 
 	async checkException(memberName, requestInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, requiredInUpdateKeys) {
-
-		if(requiredInUpdateKeys.size > 0 && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
-
+		if (requiredInUpdateKeys.size > 0 && this.commonAPIHandler.getCategoryMethod() != null && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
 			let error = {};
 
 			error.field = memberName;
 
-			error.type =  requestInstance.constructor.name;
+			error.type = requestInstance.constructor.name;
 
 			error.keys = Array.from(requiredInUpdateKeys.keys()).toString();
 
-			if(instanceNumber != null) {
-
+			if (instanceNumber != null) {
 				error.instance_number = instanceNumber;
 			}
 
 			throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.MANDATORY_KEY_ERROR, error, null);
 		}
 
-		if(this.commonAPIHandler.getMandatoryChecker() != null && this.commonAPIHandler.getMandatoryChecker()) {
-
-			if(this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_CREATE.toLowerCase()) {
-
-				if(lookUp) {
-
-					if(primaryKeys.size > 0) {
-
+		if (this.commonAPIHandler.isMandatoryChecker() != null && this.commonAPIHandler.isMandatoryChecker()) {
+			if (this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_CREATE.toLowerCase()) {
+				if (lookUp) {
+					if (primaryKeys.size > 0) {
 						let error = {};
 
 						error.field = memberName;
@@ -488,16 +435,14 @@ class JSONConverter extends Converter {
 
 						error.keys = Array.from(primaryKeys.keys()).toString();
 
-						if(instanceNumber != null) {
-
+						if (instanceNumber != null) {
 							error.instance_number = instanceNumber;
 						}
 
 						throw new SDKException(Constants.MANDATORY_VALUE_ERROR, Constants.PRIMARY_KEY_ERROR, error, null);
 					}
 				}
-				else if(requiredKeys.size > 0) {
-
+				else if (requiredKeys.size > 0) {
 					let error = {};
 
 					error.field = memberName;
@@ -506,8 +451,7 @@ class JSONConverter extends Converter {
 
 					error.keys = Array.from(requiredKeys.keys()).toString();
 
-					if(instanceNumber != null) {
-
+					if (instanceNumber != null) {
 						error.instance_number = instanceNumber;
 					}
 
@@ -515,8 +459,7 @@ class JSONConverter extends Converter {
 				}
 			}
 
-			if(this.commonAPIHandler.getCategoryMethod().toUpperCase() == Constants.REQUEST_CATEGORY_UPDATE && primaryKeys.size > 0) {
-
+			if (this.commonAPIHandler.getCategoryMethod().toUpperCase() == Constants.REQUEST_CATEGORY_UPDATE && primaryKeys.size > 0) {
 				let error = {};
 
 				error.field = memberName;
@@ -525,8 +468,7 @@ class JSONConverter extends Converter {
 
 				error.keys = Array.from(primaryKeys.keys()).toString();
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					error.instance_number = instanceNumber;
 				}
 
@@ -535,9 +477,7 @@ class JSONConverter extends Converter {
 		}
 
 		else if (lookUp && this.commonAPIHandler.getCategoryMethod().toLowerCase() == Constants.REQUEST_CATEGORY_UPDATE.toLowerCase()) {
-
 			if (primaryKeys.size > 0) {
-
 				let error = {};
 
 				error.field = memberName;
@@ -546,8 +486,7 @@ class JSONConverter extends Converter {
 
 				error.keys = Array.from(primaryKeys.keys()).toString();
 
-				if(instanceNumber != null) {
-
+				if (instanceNumber != null) {
 					error.instance_number = instanceNumber;
 				}
 
@@ -559,7 +498,6 @@ class JSONConverter extends Converter {
 	}
 
 	async isRecordRequest(recordInstance, classDetail, instanceNumber, classMemberDetail) {
-
 		var requestJSON = {};
 
 		var moduleDetail = {};
@@ -571,46 +509,39 @@ class JSONConverter extends Converter {
 		var classMemberName = null;
 
 		if (classMemberDetail != null) {
-
 			lookUp = (classMemberDetail.hasOwnProperty(Constants.LOOKUP) ? classMemberDetail[Constants.LOOKUP] : false);
 
 			skipMandatory = (classMemberDetail.hasOwnProperty(Constants.SKIP_MANDATORY) ? classMemberDetail[Constants.SKIP_MANDATORY] : false);
 
-			classMemberName = classMemberDetail[Constants.NAME];
+			classMemberName = this.buildName(classMemberDetail[Constants.NAME]);
 		}
 
 		var moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
-		if(moduleAPIName != null) { // entry
-
+		if (moduleAPIName != null) { // entry
 			this.commonAPIHandler.setModuleAPIName(null);
 
 			let fullDetail = await Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
 
-			if(fullDetail != null) { // from Jsondetails
-
+			if (fullDetail != null) { // from Jsondetails
 				moduleDetail = fullDetail[Constants.MODULEDETAILS];
 			}
 			else { // from user spec
-
 				moduleDetail = await this.getModuleDetailFromUserSpecJSON(moduleAPIName);
 			}
 		}
 		else {
-
 			moduleDetail = classDetail;
 
 			classDetail = classDetailMap[Constants.RECORD_NAMESPACE];
 		} // class detail must contain record structure at this point
 
 		//Super Class
-		if(Object.getPrototypeOf(Object.getPrototypeOf(recordInstance)).constructor.name === "Record") {
-
+		if (Object.getPrototypeOf(Object.getPrototypeOf(recordInstance)).constructor.name === "Record") {
 			Object.setPrototypeOf(recordInstance, ZCRM.Record.Model.Record.prototype);
 		}
 
-		if(moduleDetail == null) {
-
+		if (moduleDetail == null) {
 			moduleDetail = {};
 		}
 
@@ -627,46 +558,37 @@ class JSONConverter extends Converter {
 		var primaryKeys = new Map();
 
 		if (!skipMandatory) {
-
-			for(let keyName of Object.keys(moduleDetail)) {
-
+			for (let keyName of Object.keys(moduleDetail)) {
 				let keyDetail = moduleDetail[keyName];
 
 				let name = keyDetail[Constants.NAME];
 
-				if (keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
 					requiredKeys.set(name, true);
 				}
 
-				if (keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
 					primaryKeys.set(name, true);
 				}
 			}
 
 			for (let keyName of Object.keys(classDetail)) {
-
 				let keyDetail = classDetail[keyName];
 
 				let name = keyDetail[Constants.NAME];
 
-				if (keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.REQUIRED) && keyDetail[Constants.REQUIRED] == true) {
 					requiredKeys.set(name, true);
 				}
 
-				if (keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
-
+				if (keyDetail != null && keyDetail.hasOwnProperty(Constants.PRIMARY) && keyDetail[Constants.PRIMARY] == true) {
 					primaryKeys.set(name, true);
 				}
 			}
 		}
 
 		for (let keyName of Array.from(keyModified.keys())) {
-
-			if(keyModified.get(keyName) != 1) {
-
+			if (keyModified.get(keyName) != 1) {
 				continue;
 			}
 
@@ -676,84 +598,67 @@ class JSONConverter extends Converter {
 
 			let jsonValue = null;
 
+			if (keyValue != null) {
+				requiredKeys.delete(keyName);
+
+				primaryKeys.delete(keyName);
+			}
+
 			let memberName = this.buildName(keyName);
 
-			if(Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
-
-				if(moduleDetail.hasOwnProperty(keyName)) {
-
+			if (moduleDetail != null && Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
+				if (moduleDetail.hasOwnProperty(keyName)) {
 					keyDetail = moduleDetail[keyName]; // incase of user spec json
 				}
 				else {
-
 					keyDetail = moduleDetail[memberName]; // json details
 				}
 			}
-			else if(classDetail.hasOwnProperty(memberName)) {
-
+			else if (classDetail.hasOwnProperty(memberName)) {
 				keyDetail = classDetail[memberName];
 			}
 
-			if(Object.keys(keyDetail).length > 0) {
-
-				if ((keyDetail.hasOwnProperty(Constants.READ_ONLY) && keyDetail[Constants.READ_ONLY] === 'true') || !keyDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
-
+			if (Object.keys(keyDetail).length > 0) {
+				if ((keyDetail.hasOwnProperty(Constants.READ_ONLY) && (keyDetail[Constants.READ_ONLY] == true || keyDetail[Constants.READ_ONLY] == 'true')) || !keyDetail.hasOwnProperty(Constants.NAME)) { // read only or no keyName
 					continue;
 				}
-				if (await this.valueChecker(recordInstance.constructor.name, keyName, keyDetail, keyValue, this.uniqueValuesMap, instanceNumber)) {
 
+				if (await this.valueChecker(recordInstance.constructor.name, keyName, keyDetail, keyValue, this.uniqueValuesMap, instanceNumber)) {
 					jsonValue = await this.setData(keyDetail, keyValue);
 				}
 			}
 			else {
-
 				jsonValue = await this.redirectorForObjectToJSON(keyValue);
-			}
-
-			if(keyValue != null) {
-
-				requiredKeys.delete(keyName);
-
-				primaryKeys.delete(keyName);
 			}
 
 			requestJSON[keyName] = jsonValue;
 		}
 
 		if (skipMandatory || await this.checkException(classMemberName, recordInstance, instanceNumber, lookUp, requiredKeys, primaryKeys, new Map())) {
-
 			return requestJSON;
 		}
 	}
 
 	async setData(memberDetail, fieldValue) {
-
-		if(fieldValue != null) {
-
+		if (fieldValue != null) {
 			let type = memberDetail[Constants.TYPE].toString();
 
-			if(type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
-
+			if (type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
 				return await this.setJSONArray(fieldValue, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
-
+			else if (type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
 				return await this.setJSONObject(fieldValue, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase() || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase())) {
-
+			else if (type.toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase() || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase())) {
 				return fieldValue.getValue();
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase())) {
-
-				return await this.isRecordRequest(fieldValue, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), null, memberDetail);
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE)) {
+				return await this.isRecordRequest(fieldValue, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), null, memberDetail);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				return await this.formRequest(fieldValue, memberDetail[Constants.STRUCTURE_NAME], null, memberDetail);
 			}
 			else {
-
 				return await DataTypeConverter.postConvert(fieldValue, type);
 			}
 		}
@@ -762,26 +667,20 @@ class JSONConverter extends Converter {
 	}
 
 	async setJSONObject(fieldValue, memberDetail) {
-
 		var jsonObject = {};
 
 		var requestObject = fieldValue;
 
-		if(Array.from(requestObject.keys()).length > 0) {
-
+		if (Array.from(requestObject.keys()).length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.KEYS))) {
-
-				for (let key of Array.from(requestObject.keys())){
-
+				for (let key of Array.from(requestObject.keys())) {
 					jsonObject[key] = await this.redirectorForObjectToJSON(requestObject.get(key));
 				}
 			}
-			else if(memberDetail.hasOwnProperty(Constants.KEYS)) {
-
+			else if (memberDetail !== null && memberDetail.hasOwnProperty(Constants.KEYS)) {
 				var keysDetail = memberDetail[Constants.KEYS];
 
 				for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 					let keyDetail = keysDetail[keyIndex];
 
 					let keyName = keyDetail[Constants.NAME];
@@ -789,7 +688,6 @@ class JSONConverter extends Converter {
 					let keyValue = null;
 
 					if (requestObject.has(keyName) && requestObject.get(keyName) != null) {
-
 						keyValue = await this.setData(keyDetail, requestObject.get(keyName));
 
 						jsonObject[keyName] = keyValue;
@@ -802,48 +700,37 @@ class JSONConverter extends Converter {
 	}
 
 	async setJSONArray(fieldValue, memberDetail) {
-
 		var jsonArray = [];
 
 		var requestObjects = fieldValue;
 
-		if(requestObjects.length > 0) {
-
+		if (requestObjects.length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME))) {
-
 				for (let request of requestObjects) {
-
 					jsonArray.push(await this.redirectorForObjectToJSON(request));
 				}
 			}
 			else {
-
 				let pack = memberDetail[Constants.STRUCTURE_NAME].toString();
 
-				if(pack == Constants.CHOICE_NAMESPACE) {
-
-					for(let request of requestObjects) {
-
+				if (pack == Constants.CHOICE_NAMESPACE) {
+					for (let request of requestObjects) {
 						jsonArray.push(request.getValue());
 					}
 				}
-				else if(memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase()) && memberDetail[Constants.MODULE.toLowerCase()] != null) {
-
+				else if (memberDetail.hasOwnProperty(Constants.MODULE) && memberDetail[Constants.MODULE] != null) {
 					let instanceCount = 0;
 
-					for(let request of requestObjects) {
-
-						jsonArray.push(await this.isRecordRequest(request, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), instanceCount, memberDetail));
+					for (let request of requestObjects) {
+						jsonArray.push(await this.isRecordRequest(request, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), instanceCount, memberDetail));
 
 						instanceCount++;
 					}
 				}
 				else {
-
 					let instanceCount = 0;
 
 					for (let request of requestObjects) {
-
 						jsonArray.push(await this.formRequest(request, pack, instanceCount, memberDetail));
 
 						instanceCount++;
@@ -856,47 +743,39 @@ class JSONConverter extends Converter {
 	}
 
 	async redirectorForObjectToJSON(request) {
-
 		if (Array.isArray(request)) {
-
 			return await this.setJSONArray(request, null);
 		}
 		else if (request instanceof Map) {
-
 			return await this.setJSONObject(request, null);
 		}
-		else{
-
+		else {
 			return request;
 		}
 	}
 
 	async getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 
-		if(response.response != null) {
-
+		if (response.response != null) {
 			let responseObject = response.response;
 
-			if(responseObject.valueOf() instanceof ArrayBuffer) {
-
+			if (responseObject.valueOf() instanceof ArrayBuffer) {
 				let binary = '';
 
-				let bytes = new Uint8Array( responseObject );
+				let bytes = new Uint8Array(responseObject);
 
 				let len = bytes.byteLength;
 
 				for (var i = 0; i < len; i++) {
 
-					binary += await String.fromCharCode(bytes[ i ] );
+					binary += await String.fromCharCode(bytes[i]);
 				}
 
 				responseObject = binary;
 			}
 
 			if (responseObject != null && responseObject.toString() != "" && Object.keys(responseObject).length > 0) {
-
 				return await this.getResponse(JSON.parse(responseObject), pack);
 			}
 		}
@@ -904,43 +783,37 @@ class JSONConverter extends Converter {
 		return null;
 	}
 
-	async getResponse(response, pack) {
+	async getResponse(response, packageName) {
+		super.getResponse(response, packageName);
 
-		super.getResponse(response, pack);
+		var instance = null;
 
 		if (response == null || response == "" || Object.keys(response).length === 0) {
-
-			return null;
+			return instance;
 		}
 
 		var responseJson = response;
 
-		var classDetail = classDetailMap[pack];
-
-		var instance = null;
+		var classDetail = classDetailMap[packageName];
 
 		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // if interface
-
 			let classes = classDetail[Constants.CLASSES];
 
-			instance = await this.findMatch(classes, responseJson);
+			instance = await this.findMatch(classes, responseJson);// findmatch returns instance(calls getresponse() recursively)
 		}
 		else {
-
-			var ClassName = this.stringToFunction(pack);
+			var ClassName = this.stringToFunction(packageName);
 
 			instance = new ClassName();
 
-			if(instance instanceof ZCRM.Record.Model.Record) { // if record -> based on response json data will be assigned to field Values
-
+			if (instance instanceof ZCRM.Record.Model.Record) { // if record -> based on response json data will be assigned to field Values
 				let moduleAPIName = this.commonAPIHandler.getModuleAPIName();
 
-				instance = await this.isRecordResponse(responseJson, classDetail, pack);
+				instance = await this.isRecordResponse(responseJson, classDetail, packageName);
 
 				this.commonAPIHandler.setModuleAPIName(moduleAPIName);
 			}
 			else {
-
 				instance = await this.notRecordResponse(instance, responseJson, classDetail);// based on json details data will be assigned
 			}
 		}
@@ -949,15 +822,12 @@ class JSONConverter extends Converter {
 	}
 
 	async notRecordResponse(instance, responseJson, classDetail) {
-
-		for(let memberName in classDetail) {
-
+		for (let memberName in classDetail) {
 			let keyDetail = classDetail[memberName];
 
-			let keyName = keyDetail.hasOwnProperty(Constants.NAME) ? keyDetail[Constants.NAME] : null;
+			let keyName = keyDetail.hasOwnProperty(Constants.NAME) ? keyDetail[Constants.NAME] : null;// api-name of the member
 
-			if(keyName != null && responseJson.hasOwnProperty(keyName)) {
-
+			if (keyName != null && responseJson.hasOwnProperty(keyName) && responseJson[keyName] !== null) {
 				let keyData = responseJson[keyName];
 
 				let memberValue = await this.getData(keyData, keyDetail);
@@ -970,7 +840,6 @@ class JSONConverter extends Converter {
 	}
 
 	async isRecordResponse(responseJson, classDetail, pack) {
-
 		let className = this.stringToFunction(pack);
 
 		let recordInstance = new className();
@@ -979,14 +848,12 @@ class JSONConverter extends Converter {
 
 		let moduleDetail = {};
 
-		if(moduleAPIName != null) { // entry
-
+		if (moduleAPIName != null) { // entry
 			this.commonAPIHandler.setModuleAPIName(null);
 
 			let fullDetail = await Utility.searchJSONDetails(moduleAPIName);// to get correct moduleapiname in proper format
 
-			if(fullDetail != null) { // from Jsondetails
-
+			if (fullDetail != null) { // from Jsondetails
 				moduleDetail = fullDetail[Constants.MODULEDETAILS];
 
 				let moduleClassName = this.stringToFunction(fullDetail[Constants.MODULEPACKAGENAME]);
@@ -994,18 +861,15 @@ class JSONConverter extends Converter {
 				recordInstance = new moduleClassName();
 			}
 			else { // from user spec
-
 				moduleDetail = await this.getModuleDetailFromUserSpecJSON(moduleAPIName);
 			}
 		}
 
-		if(moduleDetail == null) {
-
+		if (moduleDetail == null) {
 			moduleDetail = {};
 		}
 
-		for(let key in classDetail) {
-
+		for (let key in classDetail) {
 			moduleDetail[key] = classDetail[key];
 		}
 
@@ -1015,25 +879,20 @@ class JSONConverter extends Converter {
 
 		var keyValues = new Map();
 
-		for(let keyName in responseJson) {
-
+		for (let keyName in responseJson) {
 			let memberName = this.buildName(keyName);
 
 			let keyDetail = {};
 
-			if(Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
-
-				if(moduleDetail.hasOwnProperty(keyName)) {
-
+			if (moduleDetail != null && Object.keys(moduleDetail).length > 0 && (moduleDetail.hasOwnProperty(keyName) || moduleDetail.hasOwnProperty(memberName))) {
+				if (moduleDetail.hasOwnProperty(keyName)) {
 					keyDetail = moduleDetail[keyName];// incase of user spec json
 				}
 				else {
-
 					keyDetail = moduleDetail[memberName];// json details
 				}
 			}
-			else if(recordDetail.hasOwnProperty(memberName)) {
-
+			else if (recordDetail.hasOwnProperty(memberName)) {
 				keyDetail = recordDetail[memberName];
 			}
 
@@ -1041,14 +900,12 @@ class JSONConverter extends Converter {
 
 			let keyData = responseJson[keyName];
 
-			if(Object.keys(keyDetail).length > 0) {
-
+			if (keyDetail != null && Object.keys(keyDetail).length > 0) {
 				keyName = keyDetail[Constants.NAME];
 
 				keyValue = await this.getData(keyData, keyDetail);
 			}
 			else {// if not key detail
-
 				keyValue = await this.redirectorForJSONToObject(keyData);
 			}
 
@@ -1061,35 +918,27 @@ class JSONConverter extends Converter {
 	}
 
 	async getData(keyData, memberDetail) {
-
 		let memberValue = null;
 
-		if(keyData != null) {
-
+		if (keyData != null) {
 			let type = memberDetail[Constants.TYPE].toString();
 
-			if(type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
-
+			if (type.toLowerCase() === Constants.LIST_NAMESPACE.toLowerCase()) {
 				memberValue = await this.getCollectionsData(keyData, memberDetail);
 			}
-			else if(type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
-
+			else if (type.toLowerCase() === Constants.MAP_NAMESPACE.toLowerCase()) {
 				memberValue = await this.getMapData(keyData, memberDetail);
 			}
-			else if(type === Constants.CHOICE_NAMESPACE || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase())) {
-
+			else if (type === Constants.CHOICE_NAMESPACE || (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail[Constants.STRUCTURE_NAME].toLowerCase() === Constants.CHOICE_NAMESPACE.toLowerCase())) {
 				memberValue = new Choice(keyData);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase())) {
-
-				memberValue = await this.isRecordResponse(keyData, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), memberDetail[Constants.STRUCTURE_NAME]);
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) && memberDetail.hasOwnProperty(Constants.MODULE)) {
+				memberValue = await this.isRecordResponse(keyData, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), memberDetail[Constants.STRUCTURE_NAME]);
 			}
-			else if(memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
+			else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
 				memberValue = await this.getResponse(keyData, memberDetail[Constants.STRUCTURE_NAME]);
 			}
 			else {
-
 				memberValue = await DataTypeConverter.preConvert(keyData, type);
 			}
 		}
@@ -1098,24 +947,18 @@ class JSONConverter extends Converter {
 	}
 
 	async getMapData(response, memberDetail) {
-
 		var mapInstance = new Map();
 
-		if(Object.keys(response).length > 0) {
-
+		if (Object.keys(response).length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.KEYS))) {
-
 				for (let key in response) {
-
 					mapInstance.set(key, await this.redirectorForJSONToObject(response[key]));
 				}
 			}
-			else if(memberDetail.hasOwnProperty(Constants.KEYS)) { // member must have keys
-
+			else if (memberDetail.hasOwnProperty(Constants.KEYS)) { // member must have keys
 				var keysDetail = memberDetail[Constants.KEYS];
 
 				for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 					var keyDetail = keysDetail[keyIndex];
 
 					var keyName = keyDetail[Constants.NAME];
@@ -1123,7 +966,6 @@ class JSONConverter extends Converter {
 					var keyValue = null;
 
 					if (response.hasOwnProperty(keyName) && response[keyName] != null) {
-
 						keyValue = await this.getData(response[keyName], keyDetail);
 
 						mapInstance.set(keyName, keyValue);
@@ -1136,40 +978,29 @@ class JSONConverter extends Converter {
 	}
 
 	async getCollectionsData(responses, memberDetail) {
-
 		var values = new Array();
 
-		if(responses.length > 0) {
-
+		if (responses.length > 0) {
 			if (memberDetail == null || (memberDetail != null && !memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME))) {
-
 				for (let response of responses) {
-
 					values.push(await this.redirectorForJSONToObject(response));
 				}
 			}
 			else { // need to have structure Name in memberDetail
-
 				let pack = memberDetail[Constants.STRUCTURE_NAME];
 
-				if(pack == Constants.CHOICE_NAMESPACE) {
-
+				if (pack == Constants.CHOICE_NAMESPACE) {
 					for (let response of responses) {
-
 						values.push(new Choice(response));
 					}
 				}
-				else if(memberDetail.hasOwnProperty(Constants.MODULE.toLowerCase()) && memberDetail[Constants.MODULE.toLowerCase()] != null){
-
-					for(let response of responses) {
-
-						values.push(await this.isRecordResponse(response, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE.toLowerCase()]), pack));
+				else if (memberDetail.hasOwnProperty(Constants.MODULE) && memberDetail[Constants.MODULE] != null) {
+					for (let response of responses) {
+						values.push(await this.isRecordResponse(response, await this.getModuleDetailFromUserSpecJSON(memberDetail[Constants.MODULE]), pack));
 					}
 				}
 				else {
-
-					for(let response of responses) {
-
+					for (let response of responses) {
 						values.push(await this.getResponse(response, pack));
 					}
 				}
@@ -1180,27 +1011,22 @@ class JSONConverter extends Converter {
 	}
 
 	async getModuleDetailFromUserSpecJSON(module) {
-
 		let moduleDetail = {};
 
-		if(Initializer.sdkConfig.getCacheStore()) {
-
+		if (Initializer.sdkConfig.getCacheStore()) {
 			var converterInstance = new Converter();
 
 			var encodedName = await converterInstance.getEncodedFileName();
 
 			if (await LocalCache.exist()) {
-
 				let recordFieldDetailsJson = await LocalCache.get(encodedName);
 
-				if(recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
-
+				if (recordFieldDetailsJson.hasOwnProperty(module.toLowerCase())) {
 					moduleDetail = recordFieldDetailsJson[module.toLowerCase()];
 				}
 			}
 		}
 		else {
-
 			let json = CommonAPIHandler.recordFieldDetails;
 
 			moduleDetail = await Utility.getJSONObject(json, module.toLowerCase());
@@ -1209,44 +1035,36 @@ class JSONConverter extends Converter {
 		return moduleDetail;
 	}
 
-	async redirectorForJSONToObject(keyData){
-
+	async redirectorForJSONToObject(keyData) {
 		let type = Object.prototype.toString.call(keyData);
 
 		if (type === Constants.OBJECT_TYPE) {
-
 			return await this.getMapData(keyData, null);
 		}
 		else if (type === Constants.ARRAY_KEY) {
-
 			return await this.getCollectionsData(keyData, null);
 		}
 		else {
-
 			return keyData;
 		}
 	}
 
-	async findMatch(classes, responseJson){
-
+	async findMatch(classes, responseJson) {
 		let pack = "";
 
 		let ratio = 0;
 
-		for(let className of classes) {
-
+		for (let className of classes) {
 			var matchRatio = await this.findRatio(className, responseJson);
 
-			if(matchRatio === 1.0) {
-
+			if (matchRatio === 1.0) {
 				pack = className;
 
 				ratio = 1;
 
 				break;
 			}
-			else if(matchRatio > ratio) {
-
+			else if (matchRatio > ratio) {
 				pack = className;
 
 				ratio = matchRatio;
@@ -1257,7 +1075,6 @@ class JSONConverter extends Converter {
 	}
 
 	findRatio(className, responseJson) {
-
 		var classDetail = classDetailMap[className];
 
 		var totalPoints = Array.from(Object.keys(classDetail)).length;
@@ -1265,19 +1082,15 @@ class JSONConverter extends Converter {
 		var matches = 0;
 
 		if (totalPoints == 0) {
-
 			return 0;
 		}
 		else {
-
 			for (let memberName in classDetail) {
-
 				var memberDetail = classDetail[memberName];
 
 				var keyName = memberDetail.hasOwnProperty(Constants.NAME) ? memberDetail[Constants.NAME] : null;
 
 				if (keyName != null && responseJson.hasOwnProperty(keyName) && responseJson[keyName] != null) {// key not empty
-
 					var keyData = responseJson[keyName];
 
 					let type = Object.prototype.toString.call(keyData);
@@ -1285,22 +1098,17 @@ class JSONConverter extends Converter {
 					let structureName = memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME) ? memberDetail[Constants.STRUCTURE_NAME] : null;
 
 					if (type.toLowerCase() == Constants.OBJECT_TYPE.toLowerCase()) {
-
 						type = Constants.MAP_KEY;
 					}
 
-					if(Constants.TYPE_VS_DATATYPE.has(memberDetail[Constants.TYPE].toLowerCase()) && Constants.TYPE_VS_DATATYPE.get(memberDetail[Constants.TYPE].toLowerCase()) == type){
-
+					if (Constants.TYPE_VS_DATATYPE.has(memberDetail[Constants.TYPE].toLowerCase()) && Constants.TYPE_VS_DATATYPE.get(memberDetail[Constants.TYPE].toLowerCase()) == type) {
 						matches++;
 					}
-					else if(memberDetail[Constants.TYPE].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase()) {
-
+					else if (memberDetail[Constants.TYPE].toLowerCase() == Constants.CHOICE_NAMESPACE.toLowerCase()) {
 						let values = memberDetail[Constants.VALUES];
 
-						for(let value of values) {
-
-							if(keyData == value) {
-
+						for (let value of values) {
+							if (keyData == value) {
 								matches++;
 
 								break;
@@ -1308,16 +1116,12 @@ class JSONConverter extends Converter {
 						}
 					}
 
-					if(structureName != null && structureName == memberDetail[Constants.TYPE]) {
-
-						if(memberDetail.hasOwnProperty(Constants.VALUES)) {
-
+					if (structureName != null && structureName == memberDetail[Constants.TYPE]) {
+						if (memberDetail.hasOwnProperty(Constants.VALUES)) {
 							let values = memberDetail[Constants.VALUES];
 
-							for(let value of values) {
-
-								if(keyData == value) {
-
+							for (let value of values) {
+								if (keyData == value) {
 									matches++;
 
 									break;
@@ -1325,7 +1129,6 @@ class JSONConverter extends Converter {
 							}
 						}
 						else {
-
 							matches++;
 						}
 					}
@@ -1336,32 +1139,28 @@ class JSONConverter extends Converter {
 		return matches / totalPoints;
 	}
 
-	buildName(memberName){
-
-		let name = memberName.split("_");
+	buildName(memberName) {
+		let name = memberName.toLowerCase().split("_");
 
 		var index = 0;
 
-		if (name.length == 0)
-		{
+		if (name.length == 0) {
 			index = 1;
 		}
 
 		var sdkName = name[0];
 
-		sdkName = sdkName[0].toLowerCase() +  sdkName.slice(1);
+		sdkName = sdkName[0].toLowerCase() + sdkName.slice(1);
 
 		index = 1;
 
 		for (var nameIndex = index; nameIndex < name.length; nameIndex++) {
-
 			var fieldName = name[nameIndex];
 
 			var firstLetterUppercase = "";
 
-			if(fieldName.length > 0)
-			{
-				firstLetterUppercase = fieldName[0].toUpperCase() +  fieldName.slice(1);
+			if (fieldName.length > 0) {
+				firstLetterUppercase = fieldName[0].toUpperCase() + fieldName.slice(1);
 			}
 
 			sdkName = sdkName.concat(firstLetterUppercase);
@@ -1371,7 +1170,6 @@ class JSONConverter extends Converter {
 	}
 
 	stringToFunction(str) {
-
 		str = "ZCRM." + str;
 
 		var arr = str.split(".");
@@ -1379,28 +1177,24 @@ class JSONConverter extends Converter {
 		var fn = (window || this);
 
 		for (var i = 0, len = arr.length; i < len; i++) {
-
 			fn = fn[arr[i]];
 		}
 
 		if (typeof fn !== Constants.FUNCTION) {
-
 			throw new SDKException(Constants.CLASS_NOT_FOUND, null, null, null);
 		}
 
-		return  fn;
+		return fn;
 	}
 
 	getFileName(name) {
-
 		let fileName = [];
 
-		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function(e){return e});
+		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) { return e });
 
 		fileName.push(nameParts[0].toLowerCase());
 
-		for(let i = 1; i < nameParts.length; i++) {
-
+		for (let i = 1; i < nameParts.length; i++) {
 			fileName.push(nameParts[i].toLowerCase());
 		}
 
@@ -1412,139 +1206,114 @@ class JSONConverter extends Converter {
  * This class processes the API response object to the POJO object and POJO object to an XML object.
  */
 class XMLConverter extends Converter {
-
 	constructor(commonAPIHandler) {
-
 		super(commonAPIHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	formRequest(requestObject, pack, instanceNumber) {
-
 		super.formRequest(requestObject, pack, instanceNumber);
 	}
 
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 	}
 
 	getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 	}
 
 	getResponse(response, pack) {
-
 		super.getResponse(response, pack);
 	}
-
 }
 
 /**
  * This class is to process the download file and stream response.
  */
 class Downloader extends Converter {
-
 	constructor(commonApiHandler) {
-
 		super(commonApiHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
-	formRequest(requestObject, pack, instanceNumber) {
-
-		super.formRequest(requestObject, pack, instanceNumber);
-	}
-
 	appendToRequest(request) {
-
 		super.appendToRequest(request);
 	}
 
-	async getWrappedResponse(response, pack) {
+	formRequest(requestObject, pack, instanceNumber) {
+		super.formRequest(requestObject, pack, instanceNumber);
+	}
 
-		super.getWrappedResponse(response,pack);
+	async getWrappedResponse(response, pack) {
+		super.getWrappedResponse(response, pack);
 
 		return await this.getResponse(response, pack);
 	}
 
 	async getResponse(response, pack) {
-
 		super.getResponse(response, pack);
 
 		var instance = null;
 
-		var classDetail = classDetailMap[pack];
+		var recordJsonDetails = classDetailMap[pack];
 
-		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) { // if interface
-
-			let classes = classDetail[Constants.CLASSES];
+		if (recordJsonDetails.hasOwnProperty(Constants.INTERFACE) && recordJsonDetails[Constants.INTERFACE]) { // if interface
+			let classes = recordJsonDetails[Constants.CLASSES];
 
 			for (let index = 0; index < classes.length; index++) {
+				let className = classes[index];
 
-				let eachClass = classes[index];
-
-                if(eachClass.toString().toLowerCase().includes(Constants.FILE_BODY_WRAPPER.toLowerCase())){
-
-					return await this.getResponse(response, eachClass);
-                }
-            }
+				if (className.toString().toLowerCase().includes(Constants.FILE_BODY_WRAPPER.toLowerCase())) {
+					return await this.getResponse(response, className);
+				}
+			}
 		}
 		else {
-
 			let className = await this.stringToFunction(pack);
 
 			instance = new className();
 
-			for (let memberName in classDetail) {
-
-				var memberDetail = classDetail[memberName];
+			for (let memberName in recordJsonDetails) {
+				var memberDetail = recordJsonDetails[memberName];
 
 				var type = memberDetail[Constants.TYPE];
 
 				var instanceValue = null;
 
-				if(type === Constants.STREAM_WRAPPER_CLASS) {
-
+				if (type === Constants.STREAM_WRAPPER_CLASS) {
 					var filename;
 
 					if (response.getAllResponseHeaders().indexOf(Constants.CONTENT_DISPOSITION) >= 0) {
+						var disposition = response.getResponseHeader(Constants.CONTENT_DISPOSITION);//No I18N
 
-                        var disposition = response.getResponseHeader(Constants.CONTENT_DISPOSITION);//No I18N
+						if (disposition && disposition.indexOf('attachment') !== -1) {
+							var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
 
-                        if (disposition && disposition.indexOf('attachment') !== -1) {
+							var matches = filenameRegex.exec(disposition);
 
-                            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							if (matches != null && matches[1]) {
+								filename = matches[1].replace(/['"]/g, '');
 
-                            var matches = filenameRegex.exec(disposition);
-
-                            if (matches != null && matches[1]) {
-
-                                filename = matches[1].replace(/['"]/g, '');
-
-                                filename = filename.replace('UTF-8','');
-                            }
-                        }
+								filename = filename.replace('UTF-8', '');
+							}
+						}
 					}
 
 					var mimeType = response.getResponseHeader(Constants.CONTENT_TYPE_HEADER.toLowerCase());//No I18N
 
-                    if(mimeType != undefined && mimeType != null) {
+					if (mimeType != undefined && mimeType != null) {
+						if (mimeType.includes(";")) {
+							mimeType = mimeType.split(";")[0];
+						}
+					}
+					else {
+						mimeType = "text/plain";
+					}
 
-                        if(mimeType.includes(";")) {
-
-                            mimeType = mimeType.split(";")[0];
-                        }
-                    }
-                    else {
-
-                        mimeType = "text/plain";
-                    }
-
-                    let blob = new Blob([response.response], {type: mimeType.toString()});
+					let blob = new Blob([response.response], { type: mimeType.toString() });
 
 					var fileInstance = new StreamWrapper.Model.StreamWrapper(filename, blob);
 
@@ -1559,7 +1328,6 @@ class Downloader extends Converter {
 	}
 
 	stringToFunction(str) {
-
 		str = "ZCRM." + str;
 
 		var arr = str.split(".");
@@ -1567,16 +1335,14 @@ class Downloader extends Converter {
 		var fn = (window || this);
 
 		for (var i = 0, len = arr.length; i < len; i++) {
-
 			fn = fn[arr[i]];
 		}
 
 		if (typeof fn !== Constants.FUNCTION) {
-
 			throw new SDKException(Constants.CLASS_NOT_FOUND, null, null, null);
 		}
 
-		return  fn;
+		return fn;
 	};
 }
 
@@ -1584,138 +1350,113 @@ class Downloader extends Converter {
  * This class is to process the upload file and stream.
  */
 class FormDataConverter extends Converter {
-
 	constructor(commonApiHandler) {
-
 		super(commonApiHandler);
 
 		this.uniqueValuesMap = {};
 	}
 
 	async appendToRequest(requestBase) {
-
 		super.appendToRequest(requestBase);
 
 		var formDataRequestBody = new FormData();
 
-        await this.addFileBody(requestBase.getRequestBody(), formDataRequestBody);
+		await this.addFileBody(requestBase.getRequestBody(), formDataRequestBody);
 
-        return formDataRequestBody;
+		return formDataRequestBody;
 	}
 
 	async addFileBody(requestObject, formData) {
-
 		let requestKeys = Object.keys(requestObject);
 
-        for(let key of requestKeys) {
-
+		for (let key of requestKeys) {
 			let value = requestObject[key];
 
-            if (Array.isArray(value)) {
-
-                for(let fileObject of value) {
-
-					if(fileObject instanceof StreamWrapper.Model.StreamWrapper) {
-
-                        formData.append(key, new Blob([fileObject.getStream()]), fileObject.getName());
-                    }
-                    else {
-
-                        formData.append(key, fileObject);
-                    }
-                }
-            }
-            else if(value instanceof StreamWrapper.Model.StreamWrapper) {
-
+			if (Array.isArray(value)) {
+				for (let fileObject of value) {
+					if (fileObject instanceof StreamWrapper.Model.StreamWrapper) {
+						formData.append(key, new Blob([fileObject.getStream()]), fileObject.getName());
+					}
+					else {
+						formData.append(key, fileObject);
+					}
+				}
+			}
+			else if (value instanceof StreamWrapper.Model.StreamWrapper) {
 				formData.append(key, new Blob([value.getStream()]), value.getName());
-            }
-            else {
-
+			}
+			else {
 				formData.append(key, value);
-            }
-        }
-    }
+			}
+		}
+	}
 
 	async formRequest(requestInstance, pack, instanceNumber, classMemberDetail) {
-
 		super.formRequest(requestInstance, pack, instanceNumber);
 
 		var classDetail = classDetailMap[pack];
 
 		var request = {};
 
-		if(classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) {
-
+		if (classDetail.hasOwnProperty(Constants.INTERFACE) && classDetail[Constants.INTERFACE]) {
 			var classes = classDetail[Constants.CLASSES];
 
-            var baseName = pack.split('/').slice(0, -1);
+			var baseName = pack.split('/').slice(0, -1);
 
-            let className = await this.getFileName(requestInstance.constructor.name);
+			let className = await this.getFileName(requestInstance.constructor.name);
 
-            baseName.push(className);
+			baseName.push(className);
 
-            let requestObjectClassName = baseName.join('/');
+			let requestObjectClassName = baseName.join('/');
 
-            for (let classname of classes) {
-
-				if(classname.toLowerCase() == requestObjectClassName.toLowerCase()) {
-
+			for (let classname of classes) {
+				if (classname.toLowerCase() == requestObjectClassName.toLowerCase()) {
 					classDetail = classDetailMap[requestObjectClassName];
 
-                    break;
-                }
-            }
+					break;
+				}
+			}
 		}
 
 		for (let memberName in classDetail) {
-
 			var modification = null;
 
 			var memberDetail = classDetail[memberName];
 
 			// check and neglect read_only
 			if ((memberDetail.hasOwnProperty(Constants.READ_ONLY) && memberDetail[Constants.READ_ONLY] == Constants.TRUE) || !memberDetail.hasOwnProperty(Constants.NAME)) {
-
 				continue;
-            }
+			}
 
-            try {
-
-                modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
-            }
-            catch(e) {
-
-                throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, e);
-            }
+			try {
+				modification = requestInstance.isKeyModified(memberDetail[Constants.NAME]);
+			}
+			catch (e) {
+				throw new SDKException(Constants.EXCEPTION_IS_KEY_MODIFIED, null, null, e);
+			}
 
 			// check required
-			if (modification == null || modification === 0 && memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == Constants.TRUE) {
-
+			if ((modification == null || modification === 0) && memberDetail.hasOwnProperty(Constants.REQUIRED) && memberDetail[Constants.REQUIRED] == Constants.TRUE) {
 				throw new SDKException(Constants.MANDATORY_VALUE_MISSING_ERROR, Constants.MANDATORY_KEY_MISSING_ERROR + memberName);
 			}
 
 			var fieldValue = Reflect.get(requestInstance, memberName);
 
 			if (modification != null && modification !== 0 && await this.valueChecker(requestInstance.constructor.name, memberName, memberDetail, fieldValue, this.uniqueValuesMap, instanceNumber) === true) {
-
 				var keyName = memberDetail[Constants.NAME];
 
 				var type = memberDetail[Constants.TYPE];
 
 				if (type.toLowerCase() == Constants.LIST_NAMESPACE.toLowerCase()) {
-
 					request[keyName] = await this.setJSONArray(fieldValue, memberDetail);
 				}
 				else if (type.toLowerCase() == Constants.MAP_NAMESPACE.toLowerCase()) {
-
 					request[keyName] = await this.setJSONObject(fieldValue, memberDetail);
 				}
 				else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 					request[keyName] = await this.formRequest(fieldValue, memberDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
 				}
 				else {
-
 					request[keyName] = fieldValue;
 				}
 			}
@@ -1724,25 +1465,34 @@ class FormDataConverter extends Converter {
 		return request;
 	}
 
-	async setJSONObject(fieldValue, memberDetail) {
+	getFileName(name) {
+		let fileName = [];
 
+		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) { return e; });
+
+		fileName.push(nameParts[0].toLowerCase());
+
+		for (let i = 1; i < nameParts.length; i++) {
+			fileName.push(nameParts[i].toLowerCase());
+		}
+
+		return fileName.join("_");
+	}
+
+	async setJSONObject(fieldValue, memberDetail) {
 		var jsonObject = {};
 
 		var requestObject = fieldValue;
 
 		if (memberDetail == null) {
-
 			for (let key of Array.from(requestObject.keys())) {
-
 				jsonObject[key] = await this.redirectorForObjectToJSON(requestObject.get(key));
-            }
+			}
 		}
 		else {
-
 			var keysDetail = memberDetail[Constants.KEYS];
 
 			for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-
 				let keyDetail = keysDetail[keyIndex];
 
 				let keyName = keyDetail[Constants.NAME];
@@ -1750,18 +1500,13 @@ class FormDataConverter extends Converter {
 				let keyValue = null;
 
 				if (requestObject.hasOwnProperty(keyName) && requestObject[keyName] != null) {
-
 					if (keyDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 						keyValue = await this.formRequest(requestObject[keyName], keyDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
 
 						jsonObject[keyName] = keyValue;
 					}
 					else {
-
-						keyValue = requestObject[keyName];
-
-						jsonObject[keyName] = await this.redirectorForObjectToJSON(keyValue);
+						jsonObject[keyName] = await this.redirectorForObjectToJSON(requestObject[keyName]);
 					}
 				}
 			}
@@ -1771,33 +1516,26 @@ class FormDataConverter extends Converter {
 	}
 
 	async setJSONArray(fieldValue, memberDetail) {
-
 		var jsonArray = [];
 
 		var requestObjects = fieldValue;
 
 		if (memberDetail == null) {
-
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.redirectorForObjectToJSON(request));
 			}
 		}
 		else if (memberDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-
 			let instanceCount = 0;
 
 			let pack = memberDetail[Constants.STRUCTURE_NAME];
 
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.formRequest(request, pack, instanceCount++, memberDetail));
 			}
 		}
 		else {
-
 			for (let request of requestObjects) {
-
 				jsonArray.push(await this.redirectorForObjectToJSON(request));
 			}
 		}
@@ -1806,49 +1544,24 @@ class FormDataConverter extends Converter {
 	}
 
 	redirectorForObjectToJSON(request) {
-
 		let type = Object.prototype.toString.call(request)
 
 		if (type.toLowerCase() == Constants.ARRAY_KEY.toLowerCase()) {
-
 			return this.setJSONArray(request, null);
 		}
 		else if (type.toLowerCase() == Constants.MAP_KEY.toLowerCase()) {
-
 			return this.setJSONObject(request, null);
 		}
 		else {
-
 			return request;
 		}
 	}
 
 	getWrappedResponse(response, pack) {
-
 		super.getWrappedResponse(response, pack);
 	}
 
 	getResponse(responseJson, pack) {
-
 		super.getResponse(responseJson, pack);
-	}
-
-	getFileName(name) {
-
-		let fileName = [];
-
-		let nameParts = name.split(/([A-Z][a-z]+)/).filter(function (e) {
-
-			return e;
-		});
-
-		fileName.push(nameParts[0].toLowerCase());
-
-		for (let i = 1; i < nameParts.length; i++) {
-
-			fileName.push(nameParts[i].toLowerCase());
-		}
-
-		return fileName.join("_");
 	}
 }

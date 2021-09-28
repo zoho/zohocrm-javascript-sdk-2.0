@@ -1,41 +1,35 @@
-class Organization{
-
+class Organization {
 	/**
 	 * <h3> Get Organization </h3>
 	 * This method is used to get the organization data and print the response.
 	 */
-    static async getOrganization(){
-
+	static async getOrganization() {
 		//Get instance of OrgOperations Class
-        let orgOperations = new ZCRM.Org.Operations();
+		let orgOperations = new ZCRM.Org.Operations();
 
 		//Call getOrganization method
-        let response = await orgOperations.getOrganization();
+		let response = await orgOperations.getOrganization();
 
-        if(response != null){
-
+		if (response != null) {
 			//Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			console.log("Status Code: " + response.getStatusCode());
 
-            if([204, 304].includes(response.getStatusCode())){
-                console.log(response.getStatusCode() ==  204? "No Content" : "Not Modified");
+			if ([204, 304].includes(response.getStatusCode())) {
+				console.log(response.getStatusCode() == 204 ? "No Content" : "Not Modified");
 
-                return;
-            }
+				return;
+			}
 
 			//Get object from response
-            let responseObject = response.getObject();
+			let responseObject = response.getObject();
 
-            if(responseObject != null){
-
+			if (responseObject != null) {
 				//Check if expected ResponseWrapper instance is received
-                if(responseObject instanceof ZCRM.Org.Model.ResponseWrapper){
-
+				if (responseObject instanceof ZCRM.Org.Model.ResponseWrapper) {
 					//Get the list of obtained Org instances
-                    let orgs = responseObject.getOrg();
+					let orgs = responseObject.getOrg();
 
-                    orgs.forEach(org => {
-
+					orgs.forEach(org => {
 						//Get the Country of each Organization
 						console.log("Organization Country: " + org.getCountry());
 
@@ -115,7 +109,7 @@ class Organization{
 						let licenseDetails = org.getLicenseDetails();
 
 						//Check if licenseDetails is not null
-						if(licenseDetails != null){
+						if (licenseDetails != null) {
 							//Get the PaidExpiry of each LicenseDetails
 							console.log("Organization LicenseDetails PaidExpiry: " + licenseDetails.getPaidExpiry());
 
@@ -149,10 +143,10 @@ class Organization{
 
 						//Get the IsoCode of each Organization
 						console.log("Organization IsoCode: " + org.getIsoCode());
-                    });
-                }
-                //Check if the request returned an exception
-				else if(responseObject instanceof ZCRM.Org.Model.APIException){
+					});
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Org.Model.APIException) {
 					//Get the Status
 					console.log("Status: " + responseObject.getStatus().getValue());
 
@@ -164,7 +158,7 @@ class Organization{
 					//Get the details map
 					let details = responseObject.getDetails();
 
-					if(details != null){
+					if (details != null) {
 						Array.from(details.keys()).forEach(key => {
 							console.log(key + ": " + details.get(key));
 						});
@@ -173,107 +167,102 @@ class Organization{
 					//Get the Message
 					console.log("Message: " + responseObject.getMessage().getValue());
 				}
-            }
-        }
-    }
+			}
+		}
+	}
 
 	/**
 	 * <h3> Upload Organization Photo</h3>
 	 * This method is used to upload the brand logo or image of the organization and print the response.
 	 */
-    static async uploadOrganizationPhoto(){
-
+	static async uploadOrganizationPhoto() {
 		//example
 		//let absoluteFilePath = "/Users/user_name/Desktop/logo.png";
 
 		//Get instance of OrgOperations Class
-        let orgOperations = new ZCRM.Org.Operations();
+		let orgOperations = new ZCRM.Org.Operations();
 
 		//Get instance of FileBodyWrapper class that will contain the request file
 		let fileBodyWrapper = new ZCRM.Org.Model.FileBodyWrapper();
 
-        /** StreamWrapper can be initialized in any of the following ways */
+		/** StreamWrapper can be initialized in any of the following ways */
 
-        var filesToLoad  = document.getElementById("org").files;
+		var filesToLoad = document.getElementById("org").files;
 
-        var file = filesToLoad[0];
+		var file = filesToLoad[0];
 
-        /**
-         * param 1 -> fileName
-         * param 2 -> Read Stream.
-         */
-        let streamWrapper = new StreamWrapper.Model.StreamWrapper(null, file);
+		/**
+		 * param 1 -> fileName
+		 * param 2 -> Read Stream.
+		 */
+		let streamWrapper = new StreamWrapper.Model.StreamWrapper(null, file);
 
-        /**
-         * param 1 -> fileName
-         * param 2 -> Read Stream
-         * param 3 -> Absolute File Path of the file to be attached
-         */
-        // let streamWrapper = new StreamWrapper(null, null, absoluteFilePath);
+		/**
+		 * param 1 -> fileName
+		 * param 2 -> Read Stream
+		 * param 3 -> Absolute File Path of the file to be attached
+		 */
+		// let streamWrapper = new StreamWrapper(null, null, absoluteFilePath);
 
 		//Set file to the FileBodyWrapper instance
-        fileBodyWrapper.setFile(streamWrapper);
+		fileBodyWrapper.setFile(streamWrapper);
 
 		//Call uploadOrganizationPhoto method that takes FileBodyWrapper instance as parameter
-        let response = await orgOperations.uploadOrganizationPhoto(fileBodyWrapper);
+		let response = await orgOperations.uploadOrganizationPhoto(fileBodyWrapper);
 
-        if(response != null){
+		if (response != null) {
+			//Get the status code from response
+			console.log("Status Code: " + response.getStatusCode());
 
-            //Get the status code from response
-            console.log("Status Code: " + response.getStatusCode());
+			//Get object from response
+			let responseObject = response.getObject();
 
-            //Get object from response
-            let responseObject = response.getObject();
+			if (responseObject != null) {
+				//Check if the request is successful
+				if (responseObject instanceof ZCRM.Org.Model.SuccessResponse) {
+					//Get the Status
+					console.log("Status: " + responseObject.getStatus().getValue());
 
-            if(responseObject != null){
+					//Get the Code
+					console.log("Code: " + responseObject.getCode().getValue());
 
-                //Check if the request is successful
-                if(responseObject instanceof ZCRM.Org.Model.SuccessResponse){
+					console.log("Details");
 
-                    //Get the Status
-                    console.log("Status: " + responseObject.getStatus().getValue());
+					let details = responseObject.getDetails();
 
-                    //Get the Code
-                    console.log("Code: " + responseObject.getCode().getValue());
+					//Get the details map
+					if (details != null) {
+						Array.from(details.keys()).forEach(key => {
+							console.log(key + ": " + details.get(key));
+						});
+					}
 
-                    console.log("Details");
+					//Get the Message
+					console.log("Message: " + responseObject.getMessage().getValue());
+				}
+				//Check if the request returned an exception
+				else if (responseObject instanceof ZCRM.Org.Model.APIException) {
+					//Get the Status
+					console.log("Status: " + responseObject.getStatus().getValue());
 
-                    let details = responseObject.getDetails();
+					//Get the Code
+					console.log("Code: " + responseObject.getCode().getValue());
 
-                    //Get the details map
-                    if(details != null){
-                        Array.from(details.keys()).forEach(key => {
-                            console.log(key + ": " + details.get(key));
-                        });
-                    }
+					console.log("Details");
 
-                    //Get the Message
-                    console.log("Message: " + responseObject.getMessage().getValue());
-                }
-                //Check if the request returned an exception
-                else if(responseObject instanceof ZCRM.Org.Model.APIException){
+					//Get the details map
+					let details = responseObject.getDetails();
 
-                    //Get the Status
-                    console.log("Status: " + responseObject.getStatus().getValue());
+					if (details != null) {
+						Array.from(details.keys()).forEach(key => {
+							console.log(key + ": " + details.get(key));
+						});
+					}
 
-                    //Get the Code
-                    console.log("Code: " + responseObject.getCode().getValue());
-
-                    console.log("Details");
-
-                    //Get the details map
-                    let details = responseObject.getDetails();
-
-                    if(details != null){
-                        Array.from(details.keys()).forEach(key => {
-                            console.log(key + ": " + details.get(key));
-                        });
-                    }
-
-                    //Get the Message
-                    console.log("Message: " + responseObject.getMessage().getValue());
-                }
-            }
-        }
-    }
+					//Get the Message
+					console.log("Message: " + responseObject.getMessage().getValue());
+				}
+			}
+		}
+	}
 }
