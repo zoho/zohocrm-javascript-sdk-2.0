@@ -60,6 +60,12 @@ class ParameterMap {
             }
         }
 
+        if (parsedParamValue instanceof Map || Array.isArray(parsedParamValue)) {
+            let coverterInstance = new JSONConverter(null);
+
+            parsedParamValue = JSON.stringify(await coverterInstance.redirectorForObjectToJSON(parsedParamValue));
+        }
+
         if (this._parameterMap.has(paramName) && this._parameterMap.get(paramName) != null) {
             let paramValue = this._parameterMap.get(paramName);
 

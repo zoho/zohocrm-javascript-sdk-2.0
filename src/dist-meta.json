@@ -1,0 +1,11 @@
+{
+    "_cache": {
+        "_commons": {
+            "no_store": "false",
+            "revalidate": "false",
+            "max_age": 2592000,
+            "revalidate_browser_cache": "false",
+            "immutable": "true"
+        }
+    }
+}

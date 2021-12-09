@@ -48,11 +48,11 @@ You can install any browser as per your preference. JavaScript works on any web 
 
 ### CDN URL
 
-- https://static.zohocdn.com/zohocrm/v2.0/sdk/2.0.0/sdk.js
+- https://static.zohocdn.com/zohocrm/v2.0/sdk/3.0.0/sdk.js
 
 ### Download SDK Zip File
 
-- [Download SDK](https://www.zoho.com/sites/default/files/crm/v2.0/zohocrmsdk_2_0_0.zip)
+- [Download SDK](https://www.zoho.com/sites/default/files/crm/v2.0/zohocrmsdk_3_0_0.zip)
 
 JavaScript SDK can be incorporated in two ways:
 

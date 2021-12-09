@@ -24,6 +24,8 @@ class Test {
 
         this.file();
 
+        this.functions();
+
         this.layout();
 
         this.module();
@@ -238,6 +240,17 @@ class Test {
 
         console.log("-----Calling getFile()-----");
         await File.getFile(fileId);
+    }
+
+    static async functions(){
+        console.log("-----Calling executeFunctionUsingParameters()-----")
+        await Functions.executeFunctionUsingParameters();
+
+        console.log("-----Calling executeFunctionUsingRequestBody()-----")
+        await Functions.executeFunctionUsingRequestBody();
+
+        console.log("-----Calling executeFunctionUsingFile()-----")
+        await Functions.executeFunctionUsingFile();
     }
 
     static async layout() {

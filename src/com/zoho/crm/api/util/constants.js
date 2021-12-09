@@ -54,7 +54,7 @@
   
    ZOHO_SDK : "X-ZOHO-SDK",
   
-   SDK_VERSION : "2.0.0",
+   SDK_VERSION : "3.0.0",
   
    GRANT_TYPE : "grant_type",
   
@@ -376,7 +376,7 @@
   
    COMMENT_NAMESPACE : "Record.Model.Comment",
   
-   SKIP_MANDATORY : "skip_mandatory",
+   SKIP_MANDATORY : "skip-mandatory",
   
    CANT_DISCLOSE : " ## can't disclose ## ",
   
@@ -398,7 +398,7 @@
   
    SDK_UNINITIALIZATION_ERROR : "SDK UNINITIALIZED ERROR",
   
-   REQUIRED_IN_UPDATE : "required_in_update",
+   REQUIRED_IN_UPDATE : "required-in-update",
   
    PRIMARY : "primary",
   
@@ -562,5 +562,11 @@
 
    REQUEST_PROXY_ERROR : "REQUEST_PROXY ERROR",
 
-   DATA_TYPE_ERROR : "DATA_TYPE_ERROR"
+   DATA_TYPE_ERROR : "DATA_TYPE_ERROR",
+
+   BODY : "body",
+
+   FUNCTIONS : "functions",
+
+   FUNCTIONS_PATH : "/actions/execute"
   };
