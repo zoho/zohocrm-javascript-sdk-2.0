@@ -835,7 +835,7 @@ class Utility {
         }
 
         if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP) {
-            fieldDetail.skip_mandatory = true;
+            fieldDetail[Constants.SKIP_MANDATORY] = true;
         }
 
         if (Utility.apiTypeVsStructureName.has(apiType)) {
@@ -873,7 +873,7 @@ class Utility {
                     fieldDetail.module = module;
 
                     if (module.toLowerCase() === Constants.ACCOUNTS.toLowerCase() && !field.getCustomField()) {
-                        fieldDetail.skip_mandatory = true;
+                        fieldDetail[Constants.SKIP_MANDATORY] = true;
                     }
                 }
                 else {

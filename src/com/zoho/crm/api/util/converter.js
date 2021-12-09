@@ -395,7 +395,12 @@ class JSONConverter extends Converter {
 						}
 					}
 					else {
-						requestJSON[keyName] = await this.setData(memberDetail, fieldValue);
+						if(keyName.toLowerCase() == Constants.BODY && this.commonAPIHandler.getAPIPath().includes(Constants.FUNCTIONS_PATH) && this.commonAPIHandler.getAPIPath().includes(Constants.FUNCTIONS)) {
+							return await this.setData(memberDetail, fieldValue);;
+						}
+						else{
+							requestJSON[keyName] = await this.setData(memberDetail, fieldValue);
+						}
 					}
 				}
 			}
@@ -1372,6 +1377,8 @@ class FormDataConverter extends Converter {
 		for (let key of requestKeys) {
 			let value = requestObject[key];
 
+			let type = Object.prototype.toString.call(value);
+
 			if (Array.isArray(value)) {
 				for (let fileObject of value) {
 					if (fileObject instanceof StreamWrapper.Model.StreamWrapper) {
@@ -1384,6 +1391,9 @@ class FormDataConverter extends Converter {
 			}
 			else if (value instanceof StreamWrapper.Model.StreamWrapper) {
 				formData.append(key, new Blob([value.getStream()]), value.getName());
+			}
+			else if(value != null && type == Constants.OBJECT_TYPE && Object.keys(value).length > 0){
+				await this.addFileBody(value, formData);
 			}
 			else {
 				formData.append(key, value);
@@ -1490,24 +1500,30 @@ class FormDataConverter extends Converter {
 			}
 		}
 		else {
-			var keysDetail = memberDetail[Constants.KEYS];
+			if(memberDetail.hasOwnProperty(Constants.KEYS)){
+				var keysDetail = memberDetail[Constants.KEYS];
+				for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
+					let keyDetail = keysDetail[keyIndex];
 
-			for (let keyIndex = 0; keyIndex < keysDetail.length; keyIndex++) {
-				let keyDetail = keysDetail[keyIndex];
+					let keyName = keyDetail[Constants.NAME];
 
-				let keyName = keyDetail[Constants.NAME];
+					let keyValue = null;
 
-				let keyValue = null;
+					if (requestObject.hasOwnProperty(keyName) && requestObject[keyName] != null) {
+						if (keyDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
+							keyValue = await this.formRequest(requestObject[keyName], keyDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
 
-				if (requestObject.hasOwnProperty(keyName) && requestObject[keyName] != null) {
-					if (keyDetail.hasOwnProperty(Constants.STRUCTURE_NAME)) {
-						keyValue = await this.formRequest(requestObject[keyName], keyDetail[Constants.STRUCTURE_NAME], 0, memberDetail);
-
-						jsonObject[keyName] = keyValue;
+							jsonObject[keyName] = keyValue;
+						}
+						else {
+							jsonObject[keyName] = await this.redirectorForObjectToJSON(requestObject[keyName]);
+						}
 					}
-					else {
-						jsonObject[keyName] = await this.redirectorForObjectToJSON(requestObject[keyName]);
-					}
+				}
+			}
+			else {
+				for (let key of Array.from(requestObject.keys())) {
+					jsonObject[key] = await this.redirectorForObjectToJSON(requestObject.get(key));
 				}
 			}
 		}

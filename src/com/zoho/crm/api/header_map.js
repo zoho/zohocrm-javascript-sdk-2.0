@@ -59,7 +59,12 @@ class HeaderMap {
 
                 parsedHeaderValue = value;
             }
+        }
 
+        if (parsedHeaderValue instanceof Map || Array.isArray(parsedHeaderValue)) {
+            let coverterInstance = new JSONConverter(null);
+
+            parsedHeaderValue = JSON.stringify(await coverterInstance.redirectorForObjectToJSON(parsedHeaderValue));
         }
 
         if (this._headerMap.has(headerName) && this._headerMap.get(headerName) !== null) {
