@@ -136,7 +136,7 @@ class BulkWrite {
     static async createBulkWriteJob(moduleAPIName, fileId) {
         //example
         //let moduleAPIName = "Leads";
-        //let fileId  = "3477061000006121001";
+        //let fileId  = "34770616121001";
 
         //Get instance of BulkWriteOperations Class
         let bulkWriteOperations = new ZCRM.BulkWrite.Operations();

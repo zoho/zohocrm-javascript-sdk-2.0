@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<script src="https://static.zohocdn.com/zohocrm/v2.0/sdk/3.0.0/sdk.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="index.js"></script>
+	<script src="initializer.js"></script>
+	<script src="lead_record.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript">
+		ZCRMSample.init();
+		function getRecords() {
+			createListView();
+		}
+		function viewRecords() {
+			createListViewafterBClick();
+		}
+		async function createListView() {
+			document.getElementById("createView").style.display = 'none';
+			document.getElementById("listview").style.display = 'none';
+			var html = "<table><tr><th></th><th>Name</th><th>School/College Name</th><th>Course Name</th><th>Email</th><th>Mobile</th></tr>"
+			html += await ZCRMSample.Lead.get("Leads");
+			html += "</table>";
+			document.getElementById('listview').innerHTML = html;
+		}
+		async function createListViewafterBClick() {
+			document.getElementById("createView").style.display = 'none';
+			document.getElementById("listview").style.display = 'block';
+			var html = "<table><tr><th></th><th>Name</th><th>School/College Name</th><th>Course Name</th><th>Email</th><th>Mobile</th></tr>"
+			html += await ZCRMSample.Lead.get("Leads");
+			html += "</table>";
+			document.getElementById('listview').innerHTML = html;
+		}
+		async function edit(id) {
+			alert("This will update Last Name with 1")
+			var input = { "Last_Name": $("tr[data-id='" + id + "'] td")[1].innerHTML + "1" };
+			await ZCRMSample.Lead.update("Leads", id, input);
+			viewRecords();
+		}
+		async function deleteR(id) {
+			await ZCRMSample.Lead.delete_0("Leads", id);
+			viewRecords();
+		}
+
+
+		async function createLead() {
+			document.getElementById("listview").style.display = 'none';
+			document.getElementById("createView").style.display = 'block';
+
+		}
+		async function createLeadForm() {
+			var formObj = {};
+			var inputs = $('#leadForm').serializeArray();
+			$.each(inputs, function (i, input) {
+				formObj[input.name] = input.value;
+			});
+			await ZCRMSample.Lead.create("Leads", formObj);
+			viewRecords();
+			return false;
+		}
+	</script>
+</head>
+
+<body onload="getRecords();" bgcolor="#1994b3">
+	<div class="div-1">
+		<h1> Micra Web Desgin Courses </h1>
+		<h4><em>We help you learn better</em></h4>
+
+
+	</div>
+	</div>
+	<p style>Welcome to the salesperson portal</p>
+	<button onclick="createLead()">Add student details</button>
+	<br>
+
+
+	<div class="full">
+
+		<div class="center">
+
+
+
+			<div id="listview">
+
+			</div>
+		</div>
+		<div id='createView'>
+			<form id='leadForm' onsubmit="createLeadForm(); return false;" class="contact-us">
+				<div id='formelement'><br>
+					<b>Name : </b><input type="text" name="Last_Name" />
+				</div><br>
+				<div id='formelement'>
+					<b>School/College Name : </b><input type="text" name="Company" />
+				</div><br>
+				<div id='formelement'>
+					<b>Course Name : </b><input type="text" name="Designation" />
+				</div><br>
+				<div id='formelement'>
+					<b>Email : </b><input type="text" name="Email" />
+				</div><br>
+				<div id='formelement'>
+					<b>Mobile : </b> : <input type="text" name="Mobile" />
+				</div> <br>
+				<div class="center">
+					<input type="submit" name="Save" style="					
+					align-self: center;
+					line-height: 24pt;
+					padding: 0 20px;
+					border: white;
+					background: #f45702;
+					color: white;
+					letter-spacing: 2px;
+					transition: 0.2s all ease-in-out;
+					border-bottom: 2px solid transparent;
+					outline: none;">
+				</div>
+			</form>
+
+		</div>
+	</div>
+	</div>
+	<style>
+		h1 {
+			text-align: center;
+		}
+
+		h4 {
+			text-align: center;
+		}
+
+		p {
+			text-align: center;
+		}
+
+		button {
+			text-align: center;
+		}
+	</style>
+</body>
+
+</html>
