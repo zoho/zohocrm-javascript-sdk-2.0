@@ -54,7 +54,7 @@
   
    ZOHO_SDK : "X-ZOHO-SDK",
   
-   SDK_VERSION : "3.0.0",
+   SDK_VERSION : "4.0.0",
   
    GRANT_TYPE : "grant_type",
   
@@ -568,5 +568,7 @@
 
    FUNCTIONS : "functions",
 
-   FUNCTIONS_PATH : "/actions/execute"
+   FUNCTIONS_PATH : "/actions/execute",
+
+   OWNER_LOOKUP : "ownerlookup"
   };

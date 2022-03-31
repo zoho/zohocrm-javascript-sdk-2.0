@@ -253,5 +253,47 @@ var DataCenter = {
         getFileUploadUrl() {
             return "https://content.zohoapis.com";
         }
+    },
+
+    /**
+     * This class represents the properties of Zoho CRM in Japan Domain.
+     */
+    JP: {
+        /**
+         * This Environment class instance represents the Zoho CRM Production Environment in Japan Domain.
+         */
+        PRODUCTION: function () {
+            return new Environment("https://www.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This Environment class instance represents the Zoho CRM Sandbox Environment in Japan Domain.
+         */
+        SANDBOX: function () {
+            return new Environment("https://sandbox.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This Environment class instance represents the Zoho CRM Developer Environment in Japan Domain.
+         */
+        DEVELOPER: function () {
+            return new Environment("https://developer.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This method to get accounts URL. URL to be used when calling an OAuth accounts.
+         * @returns {String} A String representing the accounts URL.
+         */
+        getIAMUrl() {
+            return "https://accounts.zoho.jp/oauth/v2/auth";
+        },
+
+        /**
+         * The method to get File Upload URL.
+         * @returns {String} A String representing the accounts URL.
+         */
+        getFileUploadUrl() {
+            return "https://content.zohoapis.jp";
+        }
     }
 }

@@ -296,7 +296,11 @@ class Utility {
 
         for (let keyName of Object.keys(fieldsJSON)) {
             if (fieldsJSON[keyName].hasOwnProperty(Constants.SUBFORM) && fieldsJSON[keyName][Constants.SUBFORM] == true && recordFieldDetailsJson.hasOwnProperty((fieldsJSON[keyName][Constants.MODULE]).toLowerCase())) {
-                subformModules.push(fieldsJSON[keyName][Constants.MODULE]);
+                let subformModuleName = fieldsJSON[keyName][Constants.MODULE];
+                
+                if(!subformModules.includes(subformModuleName)) {
+                    subformModules.push(subformModuleName);
+                }
             }
         }
 
@@ -834,7 +838,7 @@ class Utility {
             fieldDetail[Constants.LOOKUP] = true;
         }
 
-        if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP) {
+        if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP || apiType.toLowerCase() == Constants.OWNER_LOOKUP) {
             fieldDetail[Constants.SKIP_MANDATORY] = true;
         }
 

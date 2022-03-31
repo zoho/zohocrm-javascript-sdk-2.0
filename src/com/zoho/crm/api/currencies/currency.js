@@ -1027,9 +1027,6 @@ ZCRM.Currency = {
 			 * @param {ActionResponse} baseCurrency An instance of ActionResponse
 			 */
 			setBaseCurrency(baseCurrency)	{
-				if((baseCurrency != null) && (!(baseCurrency instanceof ZCRM.Currency.Model.ActionResponse))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: baseCurrency EXPECTED TYPE: ActionResponse", null, null);
-				}
 				this.baseCurrency = baseCurrency;
 				this.keyModified.set("base_currency", 1);
 

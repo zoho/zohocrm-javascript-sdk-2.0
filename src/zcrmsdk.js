@@ -56,7 +56,7 @@ var classDetailMap = {"BluePrint.Model.BluePrint":{"processInfo":{"lookup":true,
   
    ZOHO_SDK : "X-ZOHO-SDK",
   
-   SDK_VERSION : "3.0.0",
+   SDK_VERSION : "4.0.0",
   
    GRANT_TYPE : "grant_type",
   
@@ -570,8 +570,27 @@ var classDetailMap = {"BluePrint.Model.BluePrint":{"processInfo":{"lookup":true,
 
    FUNCTIONS : "functions",
 
-   FUNCTIONS_PATH : "/actions/execute"
+   FUNCTIONS_PATH : "/actions/execute",
+
+   OWNER_LOOKUP : "ownerlookup"
   };
+
+/**
+Copyright (c) 2021, ZOHO CORPORATION PRIVATE LIMITED 
+All rights reserved. 
+ 
+   Licensed under the Apache License, Version 2.0 (the "License"); 
+   you may not use this file except in compliance with the License. 
+   You may obtain a copy of the License at 
+ 
+       http://www.apache.org/licenses/LICENSE-2.0 
+ 
+   Unless required by applicable law or agreed to in writing, software 
+   distributed under the License is distributed on an "AS IS" BASIS, 
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+   See the License for the specific language governing permissions and 
+   limitations under the License.
+*/
 
 var ZCRM = {};
 
@@ -1534,7 +1553,11 @@ class Utility {
 
         for (let keyName of Object.keys(fieldsJSON)) {
             if (fieldsJSON[keyName].hasOwnProperty(Constants.SUBFORM) && fieldsJSON[keyName][Constants.SUBFORM] == true && recordFieldDetailsJson.hasOwnProperty((fieldsJSON[keyName][Constants.MODULE]).toLowerCase())) {
-                subformModules.push(fieldsJSON[keyName][Constants.MODULE]);
+                let subformModuleName = fieldsJSON[keyName][Constants.MODULE];
+                
+                if(!subformModules.includes(subformModuleName)) {
+                    subformModules.push(subformModuleName);
+                }
             }
         }
 
@@ -2072,7 +2095,7 @@ class Utility {
             fieldDetail[Constants.LOOKUP] = true;
         }
 
-        if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP) {
+        if (apiType.toLowerCase() === Constants.CONSENT_LOOKUP || apiType.toLowerCase() == Constants.OWNER_LOOKUP) {
             fieldDetail[Constants.SKIP_MANDATORY] = true;
         }
 
@@ -5336,6 +5359,48 @@ var DataCenter = {
         getFileUploadUrl() {
             return "https://content.zohoapis.com";
         }
+    },
+
+    /**
+     * This class represents the properties of Zoho CRM in Japan Domain.
+     */
+    JP: {
+        /**
+         * This Environment class instance represents the Zoho CRM Production Environment in Japan Domain.
+         */
+        PRODUCTION: function () {
+            return new Environment("https://www.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This Environment class instance represents the Zoho CRM Sandbox Environment in Japan Domain.
+         */
+        SANDBOX: function () {
+            return new Environment("https://sandbox.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This Environment class instance represents the Zoho CRM Developer Environment in Japan Domain.
+         */
+        DEVELOPER: function () {
+            return new Environment("https://developer.zohoapis.jp", DataCenter.JP.getIAMUrl(), DataCenter.JP.getFileUploadUrl());
+        },
+
+        /**
+         * This method to get accounts URL. URL to be used when calling an OAuth accounts.
+         * @returns {String} A String representing the accounts URL.
+         */
+        getIAMUrl() {
+            return "https://accounts.zoho.jp/oauth/v2/auth";
+        },
+
+        /**
+         * The method to get File Upload URL.
+         * @returns {String} A String representing the accounts URL.
+         */
+        getFileUploadUrl() {
+            return "https://content.zohoapis.jp";
+        }
     }
 }
 
@@ -6368,9 +6433,6 @@ ZCRM.Currency = {
 			 * @param {ActionResponse} baseCurrency An instance of ActionResponse
 			 */
 			setBaseCurrency(baseCurrency)	{
-				if((baseCurrency != null) && (!(baseCurrency instanceof ZCRM.Currency.Model.ActionResponse))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: baseCurrency EXPECTED TYPE: ActionResponse", null, null);
-				}
 				this.baseCurrency = baseCurrency;
 				this.keyModified.set("base_currency", 1);
 
@@ -39375,9 +39437,6 @@ ZCRM.ShareRecord = {
 			 * @param {DeleteActionResponse} share An instance of DeleteActionResponse
 			 */
 			setShare(share)	{
-				if((share != null) && (!(share instanceof ZCRM.ShareRecord.Model.DeleteActionResponse))){
-					throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: share EXPECTED TYPE: DeleteActionResponse", null, null);
-				}
 				this.share = share;
 				this.keyModified.set("share", 1);
 
